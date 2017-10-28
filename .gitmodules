@@ -1,0 +1,3 @@
+[submodule "sketches/monitor/SoilMoistureSensorCalibratedSerial"]
+	path = sketches/monitor/SoilMoistureSensorCalibratedSerial
+	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git
