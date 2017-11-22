@@ -4,3 +4,6 @@
 [submodule "sketches/irrigator/SoilMoistureSensorPump1602LCD"]
 	path = sketches/irrigator/SoilMoistureSensorPump1602LCD
 	url = https://github.com/GreenSense/SoilMoistureSensorPump1602LCD.git
+[submodule "apps/BridgeArduinoSerialToMqttSplitCsv"]
+	path = apps/BridgeArduinoSerialToMqttSplitCsv
+	url = https://github.com/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.git
