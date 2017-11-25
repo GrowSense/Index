@@ -1,3 +1,6 @@
+# Credit and more info:
+# https://hub.docker.com/r/hwegge2/rpi-cloud9-ide/
+
 HOST_PORT="8181"
 WORKSPACE_PATH="/home/$USER/workspace/GreenSense/Index"
 
