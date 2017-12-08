@@ -7,3 +7,6 @@
 [submodule "apps/BridgeArduinoSerialToMqttSplitCsv"]
 	path = apps/BridgeArduinoSerialToMqttSplitCsv
 	url = https://github.com/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.git
+[submodule "sketches/irrigator/SoilMoistureSensorCalibratedPump"]
+	path = sketches/irrigator/SoilMoistureSensorCalibratedPump
+	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedPump
