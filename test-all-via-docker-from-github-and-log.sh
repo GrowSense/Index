@@ -1,5 +1,7 @@
 #!/bin/bash
 
+USER=j
+
 # SoilMoistureSensorCalibratedSerial
 TIMESTAMP=$(date +"%Y_%m_%d_%I_%M_%p")
 SOIL_MOISTURE_SENSOR_CALIBRATED_SERIAL_PATH="/home/$USER/workspace/GreenSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial"
