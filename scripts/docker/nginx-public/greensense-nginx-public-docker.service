@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense nginx Public Docker Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sh -c "cd /home/$USER/workspace/GreenSense/Index/scripts/docker/nginx-public && sudo sh start-nginx-arm-public.sh"
+
+ [Install]
+ WantedBy=multi-user.target
