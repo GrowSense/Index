@@ -21,7 +21,8 @@ SOIL_MOISTURE_SENSOR_CALIBRATED_PUMP_LOGS_PATH="$SOIL_MOISTURE_SENSOR_CALIBRATED
 SOIL_MOISTURE_SENSOR_CALIBRATED_PUMP_LOG_PATH="$SOIL_MOISTURE_SENSOR_CALIBRATED_PUMP_LOGS_PATH/$TIMESTAMP.log"
 mkdir -p $SOIL_MOISTURE_SENSOR_CALIBRATED_PUMP_LOGS_PATH
 echo "Logging to: $SOIL_MOISTURE_SENSOR_CALIBRATED_PUMP_LOG_PATH"
-curl -s https://raw.githubusercontent.com/GreenSense/SoilMoistureSensorCalibratedPump/master/test-via-docker-from-github-as-second-pair.sh | bash > $SO$
+curl -s https://raw.githubusercontent.com/GreenSense/SoilMoistureSensorCalibratedPump/master/test-via-docker-from-github-as-second-pair.sh | bash > $SOIL_MOISTURE_SENSOR_CALIBRATED_PUMP_LOG_PATH
+
 
 
 
