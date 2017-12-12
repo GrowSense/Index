@@ -23,13 +23,15 @@ echo $OUTPUT
 echo "------------------------------"
 echo ""
 
+TIME=$(date +"%Y/%m/%d %I-%M-%p")
+
 if (echo "$OUTPUT" | grep -q "$SUCCESS_KEY")
 then
   echo $SUCCESS_MESSAGE
-  echo $SUCCESS_MESSAGE > $PROJECT_STATUS_PATH
-  echo $SUCCESS_MESSAGE >> $PROJECT_SUMMARY_PATH
+  echo "$SUCCESS_MESSAGE\n$TIME" > $PROJECT_STATUS_PATH
+  echo "$SUCCESS_MESSAGE - $TIME" >> $PROJECT_SUMMARY_PATH
 else
   echo $FAIL_MESSAGE
-  echo $FAIL_MESSAGE > $PROJECT_STATUS_PATH
-  echo $FAIL_MESSAGE >> $PROJECT_SUMMARY_PATH
+  echo "$FAIL_MESSAGE\n$TIME" > $PROJECT_STATUS_PATH
+  echo "$FAIL_MESSAGE - $TIME" >> $PROJECT_SUMMARY_PATH
 fi
