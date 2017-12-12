@@ -31,8 +31,9 @@ echo "Getting project test script from git..."
 echo ""
 
 # Get the script and run it
-#curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH
-curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
+curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH
+# The following alternative is used for testing purposes
+#curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/analyse-test-log.sh"
