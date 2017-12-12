@@ -31,7 +31,7 @@ echo "Getting project test script from git..."
 echo ""
 
 # Get the script and run it
-curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH #2>&1
+curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH 2>&1
 # The following alternative is used for testing purposes
 #curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
 
