@@ -31,8 +31,8 @@ echo "Getting project test script from git..."
 echo ""
 
 # Get the script and run it
-#curl -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH
-curl -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
+#curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH
+curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/analyse-test-log.sh"
@@ -41,7 +41,7 @@ echo ""
 echo "Getting analysis script from git..."
 echo ""
 
-curl $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_PATH
+curl -H 'Cache-Control: no-cache' -s $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_PATH
 
 # Publish results
 PROJECT_LOGS_PUBLISH_PATH="$GREENSENSE_INDEX_PATH/public/test-results/$PROJECT_NAME/"
