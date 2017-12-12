@@ -21,8 +21,6 @@ PROJECT_LOG_PATH="$PROJECT_LOGS_PATH/$TIMESTAMP.log"
 PROJECT_GIT_URL="https://raw.githubusercontent.com/GreenSense/$PROJECT_NAME"
 mkdir -p $PROJECT_LOGS_PATH
 echo "Logging to: $PROJECT_LOG_PATH"
-echo "Status file: $PROJECT_STATUS_PATH"
-echo "Summary file: $PROJECT_SUMMARY_PATH"
 echo "Git URL: $PROJECT_GIT_URL"
 
 # Get the script and run it
