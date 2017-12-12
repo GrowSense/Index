@@ -24,7 +24,7 @@ echo "Logging to: $PROJECT_LOG_PATH"
 echo "Git URL: $PROJECT_GIT_URL"
 
 # Get the script and run it
-curl -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH 2>&1
+curl -s $PROJECT_GIT_URL/master/test-via-docker-from-github.sh | bash > $PROJECT_LOG_PATH
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/test-project-via-docker-from-github-and-log.sh"
