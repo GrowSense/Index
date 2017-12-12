@@ -14,6 +14,6 @@ sudo make install
 sudo cp $DIR/service/noip /etc/init.d/noip
 sudo chmod a+x /etc/init.d/noip
 sudo update-rc.d noip defaults
-sudo service noip configure
+#sudo service noip configure # Gets configured during install so this shouldnt be needed
 sudo service noip start
 sudo service noip status
