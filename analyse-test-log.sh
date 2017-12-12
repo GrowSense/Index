@@ -1,6 +1,13 @@
 #!/bin/bash
 
+echo ""
+echo "Analysing test log"
+echo ""
+
 PROJECT_LOG_PATH=$1
+
+echo "Project log path:"
+echo "  $PROJECT_LOG_PATH"
 
 PROJECT_LOGS_PATH=$(dirname "$PROJECT_LOG_PATH")
 
@@ -35,3 +42,8 @@ else
   echo "$FAIL_MESSAGE\n$TIME" > $PROJECT_STATUS_PATH
   echo "$FAIL_MESSAGE - $TIME" >> $PROJECT_SUMMARY_PATH
 fi
+
+
+echo ""
+echo "Finished analysing test log"
+echo ""
