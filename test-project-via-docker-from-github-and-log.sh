@@ -31,9 +31,9 @@ echo "Git URL: $PROJECT_GIT_URL"
 curl -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
 
 # Check the output
-#ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/test-project-via-docker-from-github-and-log.sh"
+ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/test-project-via-docker-from-github-and-log.sh"
 
-#curl $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_PATH 2>&1
+curl $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_PATH
 
 # Publish results
 #PROJECT_LOGS_PUBLISH_PATH="$GREENSENSE_INDEX_PATH/public/test-results/$PROJECT_NAME/"
