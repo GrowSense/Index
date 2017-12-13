@@ -19,7 +19,9 @@ TIMESTAMP=$(date +"%Y_%m_%d_%I_%M_%p")
 
 PROJECT_NUMBER="$1"
 PROJECT_NAME=$(basename $2)
+PROJECT_BRANCH="$3"
 echo "Project name: $PROJECT_NAME"
+echo "Git branch: $PROJECT_BRANCH"
 PROJECT_PATH="$GREENSENSE_INDEX_PATH/$1"
 PROJECT_LOGS_PATH="$PROJECT_PATH/logs"
 PROJECT_LOG_PATH="$PROJECT_LOGS_PATH/$TIMESTAMP.log"
@@ -45,7 +47,7 @@ fi
 echo "Script name:"
 echo "  $SCRIPT_NAME"
 
-SCRIPT_URL="$PROJECT_GIT_URL/master/$SCRIPT_NAME"
+SCRIPT_URL="$PROJECT_GIT_URL/$PROJECT_BRANCH/$SCRIPT_NAME"
 echo "Script URL:"
 echo "  $SCRIPT_URL"
 
@@ -55,7 +57,7 @@ curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash > $PROJECT_LOG_PATH
 #curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
 
 # Check the output
-ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/analyse-test-log.sh"
+ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
 
 echo ""
 echo "Getting analysis script from git..."
@@ -64,7 +66,7 @@ echo ""
 curl -H 'Cache-Control: no-cache' -s $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_PATH
 
 # Publish results
-PROJECT_LOGS_PUBLISH_PATH="$GREENSENSE_INDEX_PATH/public/test-results/$PROJECT_NAME/"
+PROJECT_LOGS_PUBLISH_PATH="$GREENSENSE_INDEX_PATH/public/test-results/$PROJECT_NAME/$PROJECT_BRANCH"
 mkdir -p $PROJECT_LOGS_PUBLISH_PATH
 echo "Publishing results to: $PROJECT_LOGS_PUBLISH_PATH"
 cp $PROJECT_LOGS_PATH/status.txt $PROJECT_LOGS_PUBLISH_PATH
