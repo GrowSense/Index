@@ -6,6 +6,7 @@ echo ""
 
 echo "Project number: $1"
 echo "Project path: $2"
+echo "Branch: $3"
 
 # The username is hard coded to work with cron. This can be commented out to auto-detect the user.
 USER=j
@@ -22,7 +23,7 @@ PROJECT_NAME=$(basename $2)
 PROJECT_BRANCH="$3"
 echo "Project name: $PROJECT_NAME"
 echo "Git branch: $PROJECT_BRANCH"
-PROJECT_PATH="$GREENSENSE_INDEX_PATH/$1"
+PROJECT_PATH="$GREENSENSE_INDEX_PATH/$PROJECT_NAME"
 PROJECT_LOGS_PATH="$PROJECT_PATH/logs"
 PROJECT_LOG_PATH="$PROJECT_LOGS_PATH/$TIMESTAMP.log"
 PROJECT_GIT_URL="https://raw.githubusercontent.com/GreenSense/$PROJECT_NAME"
