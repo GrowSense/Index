@@ -44,6 +44,9 @@ then
   SCRIPT_NAME="test-via-docker-from-github-as-second-pair.sh"
 fi
 
+# The following alternative is used for testing purposes but disabled by default
+#SCRIPT_NAME="test-via-docker-from-github-mock-success.sh"
+
 echo "Script name:"
 echo "  $SCRIPT_NAME"
 
@@ -53,8 +56,6 @@ echo "  $SCRIPT_URL"
 
 # Get the script and run it
 curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash > $PROJECT_LOG_PATH
-# The following alternative is used for testing purposes
-#curl -H 'Cache-Control: no-cache' -s $PROJECT_GIT_URL/master/test-via-docker-from-github-mock-success.sh | bash > $PROJECT_LOG_PATH
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
