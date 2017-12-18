@@ -35,15 +35,17 @@ echo ""
 echo "Getting project test script from git..."
 echo ""
 
-echo "Choosing test script based on project number: $PROJECT_NUMBER"
+# TODO: Remove or reimplement. This should be obsolete because the test script can auto-detect what ports to use
+#echo "Choosing test script based on project number: $PROJECT_NUMBER"
 
 SCRIPT_NAME="test-from-github.sh"
 
-if [ "$PROJECT_NUMBER" -eq "2" ];
-then
-  echo "This project is the second pair. Choosing second pair script so it uses the right ports."
-  SCRIPT_NAME="test-from-github-as-second-pair.sh"
-fi
+# TODO: Remove or reimplement. This should be obsolete because the test script can auto-detect what ports to use
+#if [ "$PROJECT_NUMBER" -eq "2" ];
+#then
+#  echo "This project is the second pair. Choosing second pair script so it uses the right ports."
+#  SCRIPT_NAME="test-from-github-as-second-pair.sh"
+#fi
 
 # The following alternative is used for testing purposes but disabled by default
 #SCRIPT_NAME="test-via-docker-from-github-mock-success.sh"
