@@ -58,7 +58,7 @@ echo "Script URL:"
 echo "  $SCRIPT_URL"
 
 # Get the script and run it
-curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $BRANCH > $PROJECT_LOG_PATH
+curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $PROJECT_LOG_PATH
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
