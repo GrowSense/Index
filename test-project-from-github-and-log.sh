@@ -60,6 +60,9 @@ echo "  $SCRIPT_URL"
 # Get the script and run it
 curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $PROJECT_LOG_PATH
 
+# Output the latest script to the public directory as well
+tail -f $PROJECT_LOG_PATH > $PROJECT_LOGS_PUBLISH_PATH/latest.log &
+
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
 
