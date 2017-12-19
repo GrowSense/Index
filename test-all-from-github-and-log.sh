@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 echo ""
 echo "Starting test of entire GreenSense project suite"
 echo ""
