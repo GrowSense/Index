@@ -71,7 +71,7 @@ echo "  $LATEST_LOG_PATH"
 tail -f $PROJECT_LOG_PATH > $LATEST_LOG_PATH &
 
 # Get the script and run it
-curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $PROJECT_LOG_PATH
+curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $PROJECT_LOG_PATH 2>&1
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
