@@ -33,6 +33,7 @@ echo "Logging to: $PROJECT_LOG_PATH"
 echo ""
 PROJECT_LOGS_PUBLISH_PATH="$GREENSENSE_INDEX_PATH/public/test-results/$PROJECT_NAME/$PROJECT_BRANCH"
 echo "Publishing results to: $PROJECT_LOGS_PUBLISH_PATH"
+mkdir -p $PROJECT_LOGS_PUBLISH_PATH
 
 echo ""
 echo "Git URL: $PROJECT_GIT_URL"
@@ -63,11 +64,14 @@ SCRIPT_URL="$PROJECT_GIT_URL/$PROJECT_BRANCH/$SCRIPT_NAME"
 echo "Script URL:"
 echo "  $SCRIPT_URL"
 
+# Tail -f the latest log to the public directory as it's produced
+LATEST_LOG_PATH="$PROJECT_LOGS_PUBLISH_PATH/latest.log"
+echo "Outputting log live to:"
+echo "  $LATEST_LOG_PATH"
+tail -f $PROJECT_LOG_PATH > $LATEST_LOG_PATH &
+
 # Get the script and run it
 curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $PROJECT_LOG_PATH
-
-# Output the latest script to the public directory as well
-tail -f $PROJECT_LOG_PATH > $PROJECT_LOGS_PUBLISH_PATH/latest.log &
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
@@ -79,7 +83,6 @@ echo ""
 curl -H 'Cache-Control: no-cache' -s $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_PATH
 
 # Publish results
-mkdir -p $PROJECT_LOGS_PUBLISH_PATH
 echo "Publishing results to: $PROJECT_LOGS_PUBLISH_PATH"
 cp $PROJECT_LOGS_PATH/status.txt $PROJECT_LOGS_PUBLISH_PATH
 cp $PROJECT_LOGS_PATH/summary.log $PROJECT_LOGS_PUBLISH_PATH
