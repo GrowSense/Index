@@ -23,7 +23,7 @@ echo "  $PROJECT_STATUS_PATH"
 echo "Summary file:"
 echo "  $PROJECT_SUMMARY_PATH"
 
-OUTPUT=$(tail -n 10 $PROJECT_LOG_PATH)
+OUTPUT=$(tail -n 20 $PROJECT_LOG_PATH)
 
 echo ""
 echo "Last section of output:"
