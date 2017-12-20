@@ -66,12 +66,11 @@ echo "  $SCRIPT_URL"
 
 # Tail -f the latest log to the public directory as it's produced
 LATEST_LOG_PATH="$PROJECT_LOGS_PUBLISH_PATH/latest.log"
-echo "Outputting log live to:"
+echo "Latest log file:"
 echo "  $LATEST_LOG_PATH"
-tail -f $PROJECT_LOG_PATH > $LATEST_LOG_PATH &
 
 # Get the script and run it
-curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $PROJECT_LOG_PATH 2>&1
+curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $LATEST_LOG_PATH 2>&1
 
 # Check the output
 ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
@@ -86,6 +85,7 @@ curl -H 'Cache-Control: no-cache' -s $ANALYSE_SCRIPT_URL | bash -s $PROJECT_LOG_
 echo "Publishing results to: $PROJECT_LOGS_PUBLISH_PATH"
 cp $PROJECT_LOGS_PATH/status.txt $PROJECT_LOGS_PUBLISH_PATH
 cp $PROJECT_LOGS_PATH/summary.log $PROJECT_LOGS_PUBLISH_PATH
+cp $LATEST_LOG_PATH $PROJECT_LOG_PATH
 cp $PROJECT_LOG_PATH $PROJECT_LOGS_PUBLISH_PATH
 
 
