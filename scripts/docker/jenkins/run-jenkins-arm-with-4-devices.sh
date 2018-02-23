@@ -1,1 +1,1 @@
-sudo docker run -it --restart always -p 8080:8080 -p 50000:50000 --device /dev/ttyUSB0 --device /dev/ttyUSB1 --device /dev/ttyUSB2 --device /dev/ttyUSB3 -v /home/$USER/jenkins:/var/jenkins_home compulsivecoder/jenkins-arm-iot-mono
+docker run -it --restart always -p 8080:8080 -p 50000:50000 --device /dev/ttyUSB0 --device /dev/ttyUSB1 --device /dev/ttyUSB2 --device /dev/ttyUSB3 -v /usr/local/jenkins:/usr/local/jenkins compulsivecoder/jenkins-arm-iot-mono
