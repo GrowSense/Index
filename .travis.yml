@@ -1,0 +1,6 @@
+sudo: required
+
+language: python
+
+script:
+  - sudo sh prepare.sh
