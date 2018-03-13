@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense Mosquitto Docker Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sh -c "cd /home/$USER/workspace/GreenSense/Index/scripts/docker/mosquitto && sudo sh mosquitto-arm.sh"
+
+ [Install]
+ WantedBy=multi-user.target
