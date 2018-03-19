@@ -7,3 +7,6 @@
 [submodule "sketches/irrigator/SoilMoistureSensorCalibratedPump"]
 	path = sketches/irrigator/SoilMoistureSensorCalibratedPump
 	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedPump
+[submodule "apps/GitDeployer"]
+	path = apps/GitDeployer
+	url = https://github.com/CompulsiveCoder/GitDeployer.git
