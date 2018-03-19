@@ -1,10 +1,10 @@
  [Unit]
- Description=GreenSense MQTT Bridge Service
+ Description=GreenSense Irrigator Update Service
  After=multi-user.target
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/GitDeployer/ && (sh start-git-deployer.sh 10 https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git tmp/SoilMoistureSensorCalibratedSerial pull-build-and-upload.sh > svc/Monitor1Log.txt)"
+ ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/GitDeployer/ && (sh start-git-deployer.sh 10 https://github.com/GreenSense/SoilMoistureSensorCalibratedPump.git tmp/SoilMoistureSensorCalibratedPump pull-build-and-upload.sh > svc/Irrigator1Log.txt)"
 
  [Install]
  WantedBy=multi-user.target
