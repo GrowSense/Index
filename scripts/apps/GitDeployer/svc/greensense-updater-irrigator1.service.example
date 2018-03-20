@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/GitDeployer/ && (sh start-git-deployer.sh 10 https://github.com/GreenSense/SoilMoistureSensorCalibratedPump.git tmp/SoilMoistureSensorCalibratedPump pull-build-and-upload.sh > svc/Irrigator1Log.txt)"
+ ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/GitDeployer/ && sh start-git-deployer.sh 10 https://github.com/GreenSense/SoilMoistureSensorCalibratedPump.git tmp/SoilMoistureSensorCalibratedPump pull-build-and-upload.sh > svc/Irrigator1Log.txt"
 
  [Install]
  WantedBy=multi-user.target
