@@ -16,7 +16,7 @@ do
   sudo chmod 644 /lib/systemd/system/$filename
   sudo systemctl daemon-reload
   sudo systemctl enable $filename
-  sudo systemctl start $filename
+  sudo systemctl restart $filename
 
   echo "Finished installing service"
   echo ""
