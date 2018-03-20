@@ -9,12 +9,10 @@ mono nuget.exe update -self
 
 echo "Installing libraries..."
 
-VERSION="1.0.0.8"
+rm GitDeployer -r
 
-if [ ! -d "GitDeployer.$VERSION" ]; then
-mono nuget.exe install GitDeployer -version $VERSION
-fi
+mono nuget.exe install GitDeployer -ExcludeVersion
 
 echo "Installation complete. Launching deployer."
 
-mono GitDeployer.$VERSION/lib/net40/GitDeployer.exe $1 $2 $3 $4 $5
+mono GitDeployer/lib/net40/GitDeployer.exe $1 $2 $3 $4 $5
