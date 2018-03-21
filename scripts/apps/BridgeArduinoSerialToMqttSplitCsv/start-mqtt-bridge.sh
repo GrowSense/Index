@@ -9,7 +9,7 @@ mono nuget.exe update -self
 
 echo "Installing libraries..."
 
-rm BridgeArduinoSerialToMqttSplitCsv -r
+#rm BridgeArduinoSerialToMqttSplitCsv/Brid -r
 
 mono nuget.exe install BridgeArduinoSerialToMqttSplitCsv -ExcludeVersion
 

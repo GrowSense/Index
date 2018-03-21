@@ -1,9 +1,6 @@
-mkdir -p data
 
-sudo chmod 777 data
-
-sudo docker run -d \
-  --restart always \
+docker run -d \
+  --rm \
   --name=mosquitto \
 	--volume $PWD/data:/mosquitto_data \
 	-e MQTT_HOST=localhost \
