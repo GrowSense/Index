@@ -22,6 +22,7 @@ fi
 #rm BridgeArduinoSerialToMqttSplitCsv -r
 
 mono nuget.exe install BridgeArduinoSerialToMqttSplitCsv -ExcludeVersion
+mono nuget.exe update BridgeArduinoSerialToMqttSplitCsv
 
 echo "Installation complete. Launching deployer."
 
