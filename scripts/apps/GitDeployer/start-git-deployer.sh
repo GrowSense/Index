@@ -9,7 +9,7 @@ mono nuget.exe update -self
 
 echo "Installing libraries..."
 
-rm GitDeployer -r
+#rm GitDeployer -r
 
 mono nuget.exe install GitDeployer -ExcludeVersion
 
