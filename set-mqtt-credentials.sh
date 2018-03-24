@@ -20,8 +20,8 @@ if [ "$PASSWORD" ]; then
 
 
   echo "Setting mqtt bridge config file:"
-  echo "  $CREDENTIALS_FILE"
   BRIDGE_SERVICE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  echo "  $BRIDGE_SERVICE_CONFIG_FILE"
   sed -i "s/user/$USERNAME/g" $BRIDGE_SERVICE_CONFIG_FILE && \
   sed -i "s/123456/$PASSWORD/g" $BRIDGE_SERVICE_CONFIG_FILE
 
