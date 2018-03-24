@@ -6,10 +6,10 @@ DIR=$PWD
 
 cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && \
 sh init.sh && \
-cd $DIR
+cd $DIR && \
 
 cd scripts/apps/GitDeployer/ && \
-sh init.sh
-cd $DIR
+sh init.sh && \
+cd $DIR && \
 
 echo "Initialization completed."
