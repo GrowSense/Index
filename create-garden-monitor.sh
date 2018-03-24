@@ -38,6 +38,6 @@ cd sketches/monitor/SoilMoistureSensorCalibratedSerial
 sh prepare.sh && \
 sh init.sh && \
 sh build.sh && \
-sh upload.sh $DEVICE_PORT
+sh upload.sh "/dev/$DEVICE_PORT"
 
 echo "Garden monitor created with device name '$DEVICE_NAME'"
