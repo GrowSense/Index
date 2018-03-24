@@ -13,10 +13,17 @@ if [ "$PASSWORD" ]; then
 
   CREDENTIALS_FILE="scripts/docker/mosquitto/data/mosquitto.userfile"
 
-  echo "$USERNAME:$PASSWORD" > CREDENTIALS_FILE
+  echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
 
-  echo "Credentials file:"
+  echo "Setting credentials file:"
   echo "  $CREDENTIALS_FILE"
+
+
+  echo "Setting mqtt bridge config file:"
+  echo "  $CREDENTIALS_FILE"
+  BRIDGE_SERVICE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  sed -i "s/user/$USERNAME/g" $BRIDGE_SERVICE_CONFIG_FILE && \
+  sed -i "s/123456/$PASSWORD/g" $BRIDGE_SERVICE_CONFIG_FILE
 
   echo ""
   echo "Finished setting username and password"

@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && sh start-mqtt-bridge.sh --DeviceName=Monitor1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,V > svc/Monitor1Log.txt"
+ ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && sh start-mqtt-bridge.sh --DeviceName=monitor1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,V > svc/monitor1log.txt"
 
  [Install]
  WantedBy=multi-user.target
