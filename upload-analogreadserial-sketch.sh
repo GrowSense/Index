@@ -20,7 +20,7 @@ echo "Uploading AnalogReadSerial sketch"
 echo "Input pin: $INPUT_PIN"
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/util/AnalogReadSerial/"
+BASE_PATH="sketches/util/AnalogReadSerial"
 
 cd $BASE_PATH
 
@@ -39,5 +39,5 @@ git checkout $SKETCH_PATH
 
 cd $DIR
 
-sh $BASE_PATH/monitor-serial.sh
+sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT"
 
