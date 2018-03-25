@@ -1,4 +1,7 @@
 
+# Example:
+# sh upload-blink-sketch.sh 12 ttyUSB0
+
 DIR=$PWD
 
 LED_PIN=$1
