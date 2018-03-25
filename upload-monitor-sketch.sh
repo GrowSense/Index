@@ -20,6 +20,9 @@ cd $BASE_PATH
 
 SKETCH_PATH="src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino"
 
+# Inject version into the sketch
+sh inject-version.sh && \
+
 # Build the sketch
 sh build.sh && \
 
