@@ -12,10 +12,10 @@ else
 
   echo "Device name: $DEVICE_NAME"
 
-  echo "Disabling MQTT bridge service" && \
+  echo "Restart MQTT bridge service" && \
   systemctl restart greensense-mqtt-bridge-$DEVICE_NAME.service && \
 
-  echo "Disabling Updater bridge service" && \
+  echo "Restart Updater bridge service" && \
   systemctl restart greensense-updater-$DEVICE_NAME.service && \
 
   echo "Garden device services restarted for '$DEVICE_NAME'"
