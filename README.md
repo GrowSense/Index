@@ -42,7 +42,7 @@ sudo sh prepare.sh
 sh init.sh
 ```
 
-# Set MQTT credentials
+## Set MQTT credentials
 ```
 sh set-mqtt-credentials.sh [Username] [Password]
 
