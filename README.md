@@ -90,16 +90,18 @@ sh view-updater-log.sh monitor1
 
 sh view-updater-log.sh irrigator1
 ```
+Note: Press CTRL+C to exit back to terminal.
 
 ## View MQTT bridge service log
 Display the log from the MQTT bridge service for a device.
 ```
-sh view-updater-log.sh [DeviceName]
+sh view-mqtt-bridge-log.sh [DeviceName]
 
-sh view-updater-log.sh monitor1
+sh view-mqtt-bridge-log.sh monitor1
 
-sh view-updater-log.sh irrigator1
+sh view-mqtt-bridge-log.sh irrigator1
 ```
+Note: Press CTRL+C to exit back to terminal.
 
 ## Disable device
 Disable the MQTT bridge and automatic updater for a device.
