@@ -13,12 +13,12 @@ else
   echo "Device name: $DEVICE_NAME"
 
   echo "Disabling MQTT bridge service" && \
-  systemctl stop greensense-mqtt-bridge-$DEVICE_NAME.service && \
-  systemctl disable greensense-mqtt-bridge-$DEVICE_NAME.service && \
+  sudo systemctl stop greensense-mqtt-bridge-$DEVICE_NAME.service && \
+  sudo systemctl disable greensense-mqtt-bridge-$DEVICE_NAME.service && \
 
   echo "Disabling Updater bridge service" && \
-  systemctl stop greensense-updater-$DEVICE_NAME.service && \
-  systemctl disable greensense-updater-$DEVICE_NAME.service && \
+  sudo systemctl stop greensense-updater-$DEVICE_NAME.service && \
+  sudo systemctl disable greensense-updater-$DEVICE_NAME.service && \
 
   echo "Garden device services disabled for '$DEVICE_NAME'"
 
