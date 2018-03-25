@@ -63,7 +63,7 @@ sh disable-garden.sh
 ```
 
 
-# Create monitor device
+## Create monitor device
 Set up a GreenSense monitor device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
 ```
@@ -72,7 +72,7 @@ sh create-garden-monitor.sh [DeviceName] [Port]
 sh create-garden-monitor.sh monitor1 ttyUSB0
 ```
 
-# Create irrigator device
+## Create irrigator device
 Set up a GreenSense irrigator device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
 ```
@@ -81,7 +81,27 @@ sh create-garden-irrigator.sh [DeviceName] [Port]
 sh create-garden-irrigator.sh irrigator1 ttyUSB1
 ```
 
-# Disable device
+## View device updater service log
+Display the log from the automatic updater service for a device.
+```
+sh view-updater-log.sh [DeviceName]
+
+sh view-updater-log.sh monitor1
+
+sh view-updater-log.sh irrigator1
+```
+
+## View MQTT bridge service log
+Display the log from the MQTT bridge service for a device.
+```
+sh view-updater-log.sh [DeviceName]
+
+sh view-updater-log.sh monitor1
+
+sh view-updater-log.sh irrigator1
+```
+
+## Disable device
 Disable the MQTT bridge and automatic updater for a device.
 ```
 sh disable-garden-device.sh [DeviceName]
