@@ -1,5 +1,5 @@
 echo ""
-echo "Disabling garden device services"
+echo "Restarting garden device services"
 echo ""
 
 DIR=$PWD
@@ -13,11 +13,11 @@ else
   echo "Device name: $DEVICE_NAME"
 
   echo "Disabling MQTT bridge service" && \
-  systemctl disable greensense-mqtt-bridge-$DEVICE_NAME.service && \
+  systemctl restart greensense-mqtt-bridge-$DEVICE_NAME.service && \
 
   echo "Disabling Updater bridge service" && \
-  systemctl disable greensense-updater-$DEVICE_NAME.service && \
+  systemctl restart greensense-updater-$DEVICE_NAME.service && \
 
-  echo "Garden device services disabled for '$DEVICE_NAME'"
+  echo "Garden device services restarted for '$DEVICE_NAME'"
 
 fi
