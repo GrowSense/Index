@@ -34,9 +34,10 @@ sh install-services.sh && \
 cd $DIR && \
 
 # Upload sketch
-cd sketches/monitor/SoilMoistureSensorCalibratedSerial
-sh init.sh && \
-sh build.sh && \
-sh upload.sh "/dev/$DEVICE_PORT"
+# Note: This is disabled because the updater should take care of upload
+#cd sketches/monitor/SoilMoistureSensorCalibratedSerial
+#sh init.sh && \
+#sh build.sh && \
+#sh upload.sh "/dev/$DEVICE_PORT"
 
 echo "Garden monitor created with device name '$DEVICE_NAME'"
