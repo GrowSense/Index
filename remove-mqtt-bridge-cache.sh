@@ -1,0 +1,1 @@
+sudo rm scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv -rf
