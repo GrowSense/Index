@@ -22,8 +22,7 @@ then
 
   echo "The 'dev' branch has been graduated to the 'master' branch"  || \
 
-  echo "Error"
+  (echo "Error" && exit 1)
 else
   echo "You must be in the 'dev' branch to graduate to the 'master' branch."
 fi
-date
