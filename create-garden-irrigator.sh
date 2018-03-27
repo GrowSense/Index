@@ -13,11 +13,11 @@ DEVICE_NAME=$2
 DEVICE_PORT=$3
 
 if [ ! $DEVICE_LABEL ]; then
-  DEVICE_LABEL="Monitor1"
+  DEVICE_LABEL="Irrigator1"
 fi
 
 if [ ! $DEVICE_NAME ]; then
-  DEVICE_NAME="monitor1"
+  DEVICE_NAME="irrigator1"
 fi
 
 if [ ! $DEVICE_PORT ]; then
@@ -46,6 +46,6 @@ cd $DIR && \
 # Set up mobile UI
 cd mobile/linearmqtt/ && \
 sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
-cd $DIR
+cd $DIR && \
 
 echo "Garden irrigator created with device name '$DEVICE_NAME'"

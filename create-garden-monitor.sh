@@ -46,13 +46,6 @@ cd $DIR && \
 # Set up mobile UI
 cd mobile/linearmqtt/ && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
-cd $DIR
-
-# Upload sketch
-# Note: This is disabled because the updater should take care of upload
-#cd sketches/monitor/SoilMoistureSensorCalibratedSerial
-#sh init.sh && \
-#sh build.sh && \
-#sh upload.sh "/dev/$DEVICE_PORT"
+cd $DIR && \
 
 echo "Garden monitor created with device name '$DEVICE_NAME'"
