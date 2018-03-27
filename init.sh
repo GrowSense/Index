@@ -12,8 +12,8 @@ cd scripts/apps/GitDeployer/ && \
 sh init.sh && \
 cd $DIR && \
 
-cd mobile/linearmqtt/
-sh init.sh
+cd mobile/linearmqtt/ && \
+sh init.sh && \
 cd $DIR && \
 
 echo "Initialization completed."
