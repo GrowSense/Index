@@ -16,7 +16,8 @@ for filename in *.service; do
   echo "" && \
   sudo systemctl stop "$filename" && \
   sudo systemctl disable "$filename" && \
-  rm $filename
+  echo "" && \
+  rm $filename || exit 1
 done
 cd $DIR
 
@@ -31,8 +32,8 @@ for filename in *.service; do
   echo "" && \
   sudo systemctl stop "$filename" && \
   sudo systemctl disable "$filename" && \
-  rm $filename && \
-  echo ""
+  echo "" && \
+  rm $filename || exit 1
 done
 cd $DIR
 
