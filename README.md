@@ -31,8 +31,9 @@ Connect GreenSense projects to a host computer, clone this index onto it, and th
 # Prepare the workspace
 mkdir ~/workspace
 cd ~/workspace
+
 # Clone and Setup
-curl https://raw.githubusercontent.com/GreenSense/Index/dev/setup-from-github.sh | sh -s
+curl https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh -s
 ```
 Note: The above script will automatically run the prepare.sh and init.sh scripts so they don't need to be run again.
 After it completes, skip past the "Manual Clone and Initialize" section down to the "Set Up Garden" section below.
