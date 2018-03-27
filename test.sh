@@ -2,6 +2,8 @@ echo "Testing the GreenSense index"
 
 sh remove-garden-devices.sh && \
 
+sh set-mqtt-credentials.sh myusername mypassword && \
+
 sh create-garden.sh && \
 sh create-garden-monitor.sh Monitor1 monitor1 ttyUSB0 && \
 sh create-garden-irrigator.sh Irrigator1 irrigator1 ttyUSB1 && \
