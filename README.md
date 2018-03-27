@@ -24,46 +24,58 @@ Connect GreenSense projects to a host computer, clone this index onto it, and th
 |               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/GitDeployer.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/GitDeployer)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/GitDeployer.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/GitDeployer)  |
 
 
-# Commands
-## Clone index with submodules
+# Clone and Setup
+
+## Automatic Clone and Initialize
+```
+# Prepare the workspace
+mkdir ~/workspace
+cd ~/workspace
+# Clone and Setup
+curl https://raw.githubusercontent.com/GreenSense/Index/dev/setup-from-github.sh | sh -s
+```
+
+## Manual Clone and Initialze
+### Clone index with submodules
 ```
 git clone --recursive git://github.com/GreenSense/Index.git GreenSense/Index
 
 cd GreenSense/Index
 ```
 
-## Prepare host computer
+### Prepare host computer
 ```
 sudo sh prepare.sh
 ```
 
-## Initialize libraries
+### Initialize libraries
 ```
 sh init.sh
 ```
-
-## Set MQTT credentials
+## Create a Garden
+### Set MQTT credentials
 ```
 sh set-mqtt-credentials.sh [Username] [Password]
 
 sh set-mqtt-credentials.sh myuser mypass
 ```
 
-## Set up garden
+### Set up garden services
 Set up the mosquitto MQTT broker.
 Note: Set the MQTT credentials above first.
 ```
 sh create-garden.sh
 ```
 
-## Disable garden
-Disable the mosquitto MQTT broker
+### Disable garden services
+Disable the mosquitto MQTT broker if it needs to be stopped.
 ```
 sh disable-garden.sh
 ```
 
+## Create Garden Devices
 
-## Create monitor device
+### Create monitor device
 Set up a GreenSense monitor device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
 ```
@@ -72,7 +84,7 @@ sh create-garden-monitor.sh [DeviceName] [Port]
 sh create-garden-monitor.sh monitor1 ttyUSB0
 ```
 
-## Create irrigator device
+### Create irrigator device
 Set up a GreenSense irrigator device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
 ```
@@ -81,7 +93,8 @@ sh create-garden-irrigator.sh [DeviceName] [Port]
 sh create-garden-irrigator.sh irrigator1 ttyUSB1
 ```
 
-## View device updater service log
+## View Garden Device Info
+### View device updater service log
 Display the log from the automatic updater service for a device.
 ```
 sh view-updater-log.sh [DeviceName]
@@ -92,7 +105,7 @@ sh view-updater-log.sh irrigator1
 ```
 Note: Press CTRL+C to exit back to terminal.
 
-## View MQTT bridge service log
+### View MQTT bridge service log
 Display the log from the MQTT bridge service for a device.
 ```
 sh view-mqtt-bridge-log.sh [DeviceName]
@@ -103,8 +116,10 @@ sh view-mqtt-bridge-log.sh irrigator1
 ```
 Note: Press CTRL+C to exit back to terminal.
 
-## Disable device
+## Disable/Remove Garden Device
+### Disable device
 Disable the MQTT bridge and automatic updater for a device.
+Note: This doesn't remove the device only temporarily disables it.
 ```
 sh disable-garden-device.sh [DeviceName]
 
@@ -113,9 +128,9 @@ sh disable-garden-device.sh monitor1
 sh disable-garden-device.sh irrigator1
 ```
 
-# Remove device
+### Remove device
 Remove the MQTT bridge and automatic updater service files for a device.
-Note: This removes the service file from the GreenSense index but does not disable the service. Run the disable script first to disable the service.
+Note: This disables and completely removes the device service files.
 ```
 sh disable-garden-device.sh [DeviceName]
 
