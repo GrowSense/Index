@@ -2,10 +2,19 @@ echo ""
 echo "Creating garden monitor configuration"
 echo ""
 
+# Example:
+# sh create-garden-monitor.sh [Label] [DeviceName] [Port]
+# sh create-garden-monitor.sh "Monitor1" monitor1 ttyUSB0 
+
 DIR=$PWD
 
-DEVICE_NAME=$1
-DEVICE_PORT=$2
+DEVICE_LABEL=$1
+DEVICE_NAME=$2
+DEVICE_PORT=$3
+
+if [ ! $DEVICE_LABEL ]; then
+  DEVICE_LABEL="Monitor1"
+fi
 
 if [ ! $DEVICE_NAME ]; then
   DEVICE_NAME="monitor1"
@@ -15,6 +24,7 @@ if [ ! $DEVICE_PORT ]; then
   DEVICE_PORT="ttyUSB0"
 fi
 
+echo "Device label: $DEVICE_LABEL"
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
@@ -32,6 +42,11 @@ cp svc/greensense-updater-monitor1.service.example svc/greensense-updater-$DEVIC
 sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-updater-$DEVICE_NAME.service && \
 sh install-services.sh && \
 cd $DIR && \
+
+# Set up mobile UI
+cd mobile/linearmqtt/ && \
+sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+cd $DIR
 
 # Upload sketch
 # Note: This is disabled because the updater should take care of upload
