@@ -52,7 +52,8 @@ sudo sh prepare.sh
 ```
 sh init.sh
 ```
-## Create a Garden
+
+## Set Up Garden
 ### Set MQTT credentials
 ```
 sh set-mqtt-credentials.sh [Username] [Password]
@@ -60,21 +61,27 @@ sh set-mqtt-credentials.sh [Username] [Password]
 sh set-mqtt-credentials.sh myuser mypass
 ```
 
-### Set up garden services
+### Set Up Garden Services
 Set up the mosquitto MQTT broker.
 Note: Set the MQTT credentials above first.
 ```
 sh create-garden.sh
 ```
 
-### Disable garden services
+### Disable Garden Services
 Disable the mosquitto MQTT broker if it needs to be stopped.
 ```
 sh disable-garden.sh
 ```
 
-## Create Garden Devices
+### Reset Garden Cache
+Removes the MQTT bridge and updater service cache and temporary files. This is useful if a service isn't running properly.
+Note: This will force the updater to re-update the connected devices.
+```
+sh remove-cache.sh
+```
 
+## Create and Manage Garden Devices
 ### Create monitor device
 Set up a GreenSense monitor device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
@@ -93,7 +100,6 @@ sh create-garden-irrigator.sh [DeviceName] [Port]
 sh create-garden-irrigator.sh irrigator1 ttyUSB1
 ```
 
-## View Garden Device Info
 ### View device updater service log
 Display the log from the automatic updater service for a device.
 ```
@@ -116,8 +122,17 @@ sh view-mqtt-bridge-log.sh irrigator1
 ```
 Note: Press CTRL+C to exit back to terminal.
 
-## Disable/Remove Garden Device
-### Disable device
+### Restart Garden Device
+Restart MQTT bridge and updater services for a device.
+```
+sh restart-garden-device.sh [DeviceName]
+
+sh restart-garden-device.sh monitor1
+
+sh restart-garden-device.sh irrigator1
+```
+
+### Disable Garden Device
 Disable the MQTT bridge and automatic updater for a device.
 Note: This doesn't remove the device only temporarily disables it.
 ```
@@ -128,12 +143,19 @@ sh disable-garden-device.sh monitor1
 sh disable-garden-device.sh irrigator1
 ```
 
-### Remove device
+### Remove Garden Device
 Remove the MQTT bridge and automatic updater service files for a device.
 Note: This disables and completely removes the device service files.
 ```
-sh disable-garden-device.sh [DeviceName]
+sh remove-garden-device.sh [DeviceName]
 
-sh disable-garden-device.sh monitor1
+sh remove-garden-device.sh monitor1
 
-sh disable-garden-device.sh irrigator1
+sh remove-garden-device.sh irrigator1
+```
+
+### Remove All Garden Devices
+Remove all services for all garden devices found.
+```
+sh remove-garden-devices.sh
+```
