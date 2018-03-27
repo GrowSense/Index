@@ -1,5 +1,5 @@
 echo ""
-echo "Listing garden device services"
+echo "Removing garden device services"
 echo ""
 
 DIR=$PWD
