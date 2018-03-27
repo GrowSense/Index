@@ -19,6 +19,7 @@ if [ "$PASSWORD" ]; then
   echo "  $CREDENTIALS_FILE"
 
 
+  echo ""
   echo "Setting mqtt bridge config file:"
   BRIDGE_SERVICE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   echo "  $BRIDGE_SERVICE_CONFIG_FILE"

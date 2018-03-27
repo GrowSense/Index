@@ -1,12 +1,22 @@
-mkdir -p data
+echo ""
+echo "Setting up mosquitto MQTT broker docker service"
+echo ""
 
-sudo chmod 777 data
+echo "Creating /data/" && \
+mkdir -p data && \
 
-sudo cp -f greensense-mosquitto-docker.service /lib/systemd/system/greensense-mosquitto-docker.service
-sudo chmod 644 /lib/systemd/system/greensense-mosquitto-docker.service
+echo "Setting /data/ permissions" && \
+sudo chmod 777 data && \
 
-sudo systemctl daemon-reload
-sudo systemctl enable greensense-mosquitto-docker.service
-sudo systemctl restart greensense-mosquitto-docker.service
+echo "Copying service file into systemd" && \
+sudo cp -f greensense-mosquitto-docker.service /lib/systemd/system/greensense-mosquitto-docker.service && \
+echo "Setting service permissions" && \
+sudo chmod 644 /lib/systemd/system/greensense-mosquitto-docker.service && \
+
+#sudo systemctl daemon-reload && \
+echo "Enabling service" && \
+sudo systemctl enable greensense-mosquitto-docker.service && \
+echo "Starting/restarting service" && \
+sudo systemctl restart greensense-mosquitto-docker.service && \
 
 echo "Install complete"
