@@ -37,26 +37,27 @@ curl https://raw.githubusercontent.com/GreenSense/Index/dev/setup-from-github.sh
 Note: The above script will automatically run the prepare.sh and init.sh scripts so they don't need to be run again.
 After it completes, skip past the "Manual Clone and Initialize" section down to the "Set Up Garden" section below.
 
-## Manual Clone and Initialze
-### Clone index with submodules
+## Manual Clone and Initialize
+### Clone Index with Submodules
 ```
 git clone --recursive git://github.com/GreenSense/Index.git GreenSense/Index
 
 cd GreenSense/Index
 ```
 
-### Prepare host computer
+### Prepare Host Computer
 ```
 sudo sh prepare.sh
 ```
 
-### Initialize libraries
+### Initialize Libraries
 ```
 sh init.sh
 ```
 
 ## Set Up Garden
-### Set MQTT credentials
+### Set MQTT Credentials
+Set the username and password used by the MQTT broker and MQTT bridge.
 ```
 sh set-mqtt-credentials.sh [Username] [Password]
 
