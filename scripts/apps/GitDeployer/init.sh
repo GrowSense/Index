@@ -9,7 +9,6 @@ mono nuget.exe update -self || exit 1
 
 echo "Installing libraries..."
 
-mono nuget.exe install GitDeployer -ExcludeVersion && \
-mono nuget.exe update GitDeployer || exit 1
+mono nuget.exe install GitDeployer -ExcludeVersion || exit 1
 
 echo "Installation complete"

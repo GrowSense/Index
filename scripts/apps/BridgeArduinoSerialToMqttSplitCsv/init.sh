@@ -19,7 +19,7 @@ if [ -f $CONFIG_FILE ]; then
   cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
 fi
 
-mono nuget.exe install BridgeArduinoSerialToMqttSplitCsv -ExcludeVersion
+mono nuget.exe install BridgeArduinoSerialToMqttSplitCsv -ExcludeVersion || exit 1
 
 echo "Installation complete. Launching deployer."
 
