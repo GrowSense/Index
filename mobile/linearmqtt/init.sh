@@ -28,6 +28,8 @@ echo $IRRIGATOR_TAB > parts/irrigatortab.json && \
 IRRIGATOR_DASHBOARD=$(jq -r '.dashboards[2]' settings.json) && \
 echo $IRRIGATOR_DASHBOARD > parts/irrigatordashboard.json && \
 
+# Create the blank template file
+
 cp settings.json template.json && \
 
 JSON_VALUE=$(jq -r 'del(.dashboards[0].dashboard[1])' template.json) && \
@@ -48,6 +50,7 @@ echo $JSON_VALUE > template.json && \
 JSON_VALUE=$(jq -r 'del(.dashboards[1])' template.json) && \
 echo $JSON_VALUE > template.json && \
 
+# Copy the template file to the new settings file as a starting point
 cp template.json newsettings.json && \
 
 echo "Extraction complete"
