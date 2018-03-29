@@ -2,11 +2,23 @@ echo ""
 echo "Setting up GreenSense index from GitHub"
 echo ""
 
+BRANCH=$1
+
+if [ "$BRANCH" = "" ]; then
+  if [ -d ".git" ]; then
+    BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+  else
+    BRANCH="master"
+  fi
+fi
+
+echo "Branch: $BRANCH"
+
 if ! type "git" > /dev/null; then
   sudo apt-get update && sudo apt-get -y git
 fi
 
-git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index && \
+git clone --recursive -b $BRANCH https://github.com/GreenSense/Index.git GreenSense/Index && \
 
 echo "Current directory:"
 echo "  $PWD"
