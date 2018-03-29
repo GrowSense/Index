@@ -23,3 +23,6 @@ cd $INDEX_DIR && \
 
 echo "" && \
 echo "The GreenSense index is initialized and ready to use."
+
+
+

@@ -196,6 +196,10 @@ else
   exit 1
 fi
 
+echo $(cat $NEW_SETTINGS_FILE)
+
+exit 1
+
 #
 # Garden Irrigator Services
 #

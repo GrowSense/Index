@@ -2,6 +2,11 @@ echo ""
 echo "Creating garden monitor configuration"
 echo ""
 
+
+# Example:
+# sh create-garden-monitor-ui.sh [Label] [DeviceName]
+# sh create-garden-monitor-ui.sh MyMonitor mymonitor
+
 DIR=$PWD
 
 DEVICE_LABEL=$1
@@ -44,7 +49,7 @@ MONITOR_SUMMARY=$(cat parts/monitorsummary.json) && \
 MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/monitor1/$DEVICE_NAME/g") && \
 
-MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | jq .id=$DEVICE_ID) && \
+#MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | jq .id="$DEVICE_ID") && \
 
 NEW_SETTINGS=$(jq ".dashboards[0].dashboard[$(($DEVICE_COUNT-1))] |= . + $MONITOR_SUMMARY" newsettings.json) && \
 
@@ -57,9 +62,13 @@ MONITOR_DASHBOARD=$(cat parts/monitordashboard.json) && \
 MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | sed "s/monitor1/$DEVICE_NAME/g") && \
 
-MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | jq .id=$DEVICE_ID) && \
+#MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | jq .id="$DEVICE_ID") && \
 
 NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT] |= . + $MONITOR_DASHBOARD" newsettings.json) && \
+
+echo $NEW_SETTINGS > newsettings.json && \
+
+NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT].id=\"$DEVICE_ID\"" newsettings.json) && \
 
 echo $NEW_SETTINGS > newsettings.json && \
 

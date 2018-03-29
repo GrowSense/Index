@@ -2,6 +2,10 @@ echo ""
 echo "Creating garden irrigator configuration"
 echo ""
 
+# Example:
+# sh create-garden-irrigator-ui.sh [Label] [DeviceName]
+# sh create-garden-irrigator-ui.sh MyIrrigator myirrigator
+
 DIR=$PWD
 
 DEVICE_LABEL=$1
@@ -44,7 +48,7 @@ IRRIGATOR_SUMMARY=$(cat parts/irrigatorsummary.json) && \
 IRRIGATOR_SUMMARY=$(echo $IRRIGATOR_SUMMARY | sed "s/Irrigator1/$DEVICE_LABEL/g") && \
 IRRIGATOR_SUMMARY=$(echo $IRRIGATOR_SUMMARY | sed "s/irrigator1/$DEVICE_NAME/g") && \
 
-IRRIGATOR_SUMMARY=$(echo $IRRIGATOR_SUMMARY | jq .id=$DEVICE_ID) && \
+#IRRIGATOR_SUMMARY=$(echo $IRRIGATOR_SUMMARY | jq .id=$DEVICE_ID) && \
 
 NEW_SETTINGS=$(jq ".dashboards[0].dashboard[$(($DEVICE_COUNT-1))] |= . + $IRRIGATOR_SUMMARY" newsettings.json) && \
 
@@ -58,9 +62,13 @@ IRRIGATOR_DASHBOARD=$(cat parts/irrigatordashboard.json) && \
 IRRIGATOR_DASHBOARD=$(echo $IRRIGATOR_DASHBOARD | sed "s/Irrigator1/$DEVICE_LABEL/g") && \
 IRRIGATOR_DASHBOARD=$(echo $IRRIGATOR_DASHBOARD | sed "s/irrigator1/$DEVICE_NAME/g") && \
 
-IRRIGATOR_DASHBOARD=$(echo $IRRIGATOR_DASHBOARD | jq .id=$DEVICE_ID) && \
+#IRRIGATOR_DASHBOARD=$(echo $IRRIGATOR_DASHBOARD | jq .id=$DEVICE_ID) && \
 
 NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT] |= . + $IRRIGATOR_DASHBOARD" newsettings.json) && \
+
+echo $NEW_SETTINGS > newsettings.json && \
+
+NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT].id=\"$DEVICE_ID\"" newsettings.json) && \
 
 echo $NEW_SETTINGS > newsettings.json && \
 
