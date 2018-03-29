@@ -9,7 +9,7 @@ Connect GreenSense projects to a host computer, clone this index onto it, and th
 | ------------- | ------------- | ------------- | ------------- |
 | **Sanity Tests**  |               |               |               |
 |               | Travis CI Test  | [![Build Status](https://travis-ci.org/GreenSense/SanityTests.svg?branch=master)](https://travis-ci.org/GreenSense/Index) |  |
-|               | Jenkins Test  | [![Build Status](http://greensense.hopto.org:8090/job/GreenSense/job/SanityTests/job/master/badge/icon)](http:/greensense.hopto.org:8090/job/GreenSense/job/SanityTests/job/master/)  |   |
+|               | Jenkins Test  | [![Build Status](http://greensense.hopto.org:8090/job/GardenSanity/badge/icon)](http://greensense.hopto.org:8090/job/GardenSanity/)  |   |
 | **Index**  |               |               |               |
 |               | Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=master)](https://travis-ci.org/GreenSense/Index) | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=dev)](https://travis-ci.org/GreenSense/Index) |
 | **Monitor**  |               |               |               |
