@@ -41,6 +41,15 @@ else
 fi
 
 echo "" && \
+echo "Removing existing docker services" && \
+echo "" && \
+
+sudo systemctl stop greensense-mosquitto-docker.service
+sudo systemctl disable greensense-mosquitto-docker.service
+docker stop mosquitto
+docker rm mosquitto
+
+echo "" && \
 echo "Creating garden services" && \
 echo "" && \
 
@@ -153,6 +162,22 @@ fi
 #echo "----------"
 
 echo "" && \
+echo "Checking linear MQTT monitor dashboard id" && \
+echo "" && \
+
+MONITOR_DASHBOARD_ID=$(jq -r '.dashboards[1].id' $NEW_SETTINGS_FILE) && \
+if [ "$MONITOR_DASHBOARD_ID" = "2" ]; then
+  echo "  Monitor dashboard ID is valid."
+else
+  echo "  Monitor dashboard ID is invalid. Expected '2' but was '$MONITOR_DASHBOARD_ID'."
+  exit 1
+fi
+
+#echo "---------- MONITOR_DASHBOARD_ID"
+#echo "$MONITOR_DASHBOARD_ID"
+#echo "----------"
+
+echo "" && \
 echo "Checking linear MQTT monitor dashboard calibrated entry" && \
 echo "" && \
 
@@ -195,10 +220,6 @@ else
   echo "  Monitor dashboard calibrated entry topic is incorrect. Expected '$MONITOR_CALIBRATED_TOPIC' but was '$MONITOR_DASHBOARD_CALIBRATED_ENTRY_TOPIC'."
   exit 1
 fi
-
-echo $(cat $NEW_SETTINGS_FILE)
-
-exit 1
 
 #
 # Garden Irrigator Services
@@ -304,6 +325,23 @@ fi
 
 #echo "---------- IRRIGATOR_DASHBOARD"
 #echo "$IRRIGATOR_DASHBOARD"
+#echo "----------"
+
+
+echo "" && \
+echo "Checking linear MQTT monitor dashboard id" && \
+echo "" && \
+
+MONITOR_DASHBOARD_ID=$(jq -r '.dashboards[2].id' $NEW_SETTINGS_FILE) && \
+if [ "$MONITOR_DASHBOARD_ID" = "3" ]; then
+  echo "  Monitor dashboard ID is valid."
+else
+  echo "  Monitor dashboard ID is invalid. Expected '3' but was '$MONITOR_DASHBOARD_ID'."
+  exit 1
+fi
+
+#echo "---------- MONITOR_DASHBOARD_ID"
+#echo "$MONITOR_DASHBOARD_ID"
 #echo "----------"
 
 echo "" && \

@@ -2,6 +2,9 @@ echo ""
 echo "Setting up mosquitto MQTT broker docker service"
 echo ""
 
+echo "Pulling the mosquitto docker image"
+docker pull compulsivecoder/mosquitto-arm && \
+
 echo "Creating /data/" && \
 mkdir -p data && \
 
@@ -13,7 +16,6 @@ sudo cp -f greensense-mosquitto-docker.service /lib/systemd/system/greensense-mo
 echo "Setting service permissions" && \
 sudo chmod 644 /lib/systemd/system/greensense-mosquitto-docker.service && \
 
-#sudo systemctl daemon-reload && \
 echo "Enabling service" && \
 sudo systemctl enable greensense-mosquitto-docker.service && \
 echo "Starting/restarting service" && \

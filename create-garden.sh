@@ -10,7 +10,7 @@ USER_FILE="data/mosquitto.userfile"
 
 if [ -f $USER_FILE ]; then
   cp data/mosquitto.userfile.example data/mosquitto.userfile && \
-  sh install-mosquitto-docker-service.sh || exit 0
+  sh install-mosquitto-docker-service.sh || exit 1
 else
   echo ""
   echo "Error: No mosquitto.userfile found. Run the following command to create it:"
@@ -18,7 +18,8 @@ else
   echo ""
   exit 1
 fi
-cd $DIR && \
+
+cd $DIR
 
 echo ""
 echo "Setup complete"

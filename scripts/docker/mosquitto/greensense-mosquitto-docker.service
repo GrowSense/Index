@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/docker/mosquitto && sh run-mosquitto-arm.sh"
+ ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/docker/mosquitto && sh run-mosquitto-arm.sh > service-log.txt"
 
  [Install]
  WantedBy=multi-user.target

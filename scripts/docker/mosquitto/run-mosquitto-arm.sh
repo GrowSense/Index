@@ -1,6 +1,5 @@
-
 docker run -d \
-  --rm \
+  --restart=always \
   --name=mosquitto \
 	--volume $PWD/data:/mosquitto_data \
 	-e MQTT_HOST=localhost \
