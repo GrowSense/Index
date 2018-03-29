@@ -164,3 +164,38 @@ Remove all services for all garden devices found.
 ```
 sh remove-garden-devices.sh
 ```
+
+## Mobile UI
+
+### Install Linear MQTT Dashboard 
+The Linear MQTT Dashboard application will be the user interface for the GreenSense projects.
+- Go to the play store
+- Search for "linear mqtt"
+- Install the "Linear MQTT Dashboard" application.
+
+### Install Termux
+Termux is linux style terminal for mobile applications, and will be used to import the Linear MQTT Dashboard config file.
+- Go to the play store
+- Search for "termux"
+- Install the "Termux" application.
+
+### Import config.linear file
+- Open Termux
+- Install OpenSSH
+```
+pkg install -y openssh
+```
+- Import the config.linear file (automatically generated when creating garden devices using the steps above).
+```
+# Format:
+scp [user]@[host]:~/workspace/GreenSense/Index/mobile/linearmqtt/output/config.linear config.linear
+# Example:
+scp j@garden:~/workspace/GreenSense/Index/mobile/linearmqtt/output/config.linear config.linear
+```
+- Open the config.linear file
+```
+termux-open config.linear
+```
+- The Linear MQTT Dashboard should open and ask if you want to import the configuration.
+- Select YES
+- The GreenSense user interface should now be displayed.
