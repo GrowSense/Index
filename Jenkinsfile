@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'curl https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh -s'
+                sh 'curl https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/setup-from-github.sh | sh -s $BRANCH_NAME'
             }
         }
         stage('Test') {
