@@ -31,7 +31,7 @@ echo "Device port: $DEVICE_PORT"
 # Set up MQTT bridge service
 cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && \
 cp svc/greensense-mqtt-bridge-irrigator1.service.example svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sed -i "s/monitor1/$DEVICE_NAME/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
+sed -i "s/irrigator1/$DEVICE_NAME/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
 sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
 sh install-services.sh && \
 cd $DIR && \
