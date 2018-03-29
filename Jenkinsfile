@@ -9,7 +9,7 @@ pipeline {
                 sh 'curl https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh -s'
             }
         }
-        stage('Setup') {
+        stage('Test') {
             steps {
                 sh 'cd GreenSense/Index'
                 sh 'sh test.sh'
