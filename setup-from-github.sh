@@ -2,9 +2,9 @@ echo ""
 echo "Setting up GreenSense index from GitHub"
 echo ""
 
-if ! type "git" > /dev/null; then
-  sudo apt-get update -qq && sudo apt-get -y git
-fi
+#if ! type "git" > /dev/null; then
+  sudo apt-get update && sudo apt-get -y git
+#fi
 
 git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index && \
 
