@@ -44,10 +44,12 @@ echo "" && \
 echo "Removing existing docker services" && \
 echo "" && \
 
-sudo systemctl stop greensense-mosquitto-docker.service
-sudo systemctl disable greensense-mosquitto-docker.service
-docker stop mosquitto
-docker rm mosquitto
+sudo systemctl is-active --quiet service \
+  && sudo systemctl stop greensense-mosquitto-docker.service \
+  && sudo systemctl disable greensense-mosquitto-docker.service \
+
+docker stop mosquitto || echo "No mosquitto container running. Skipped."
+docker rm mosquitto || echo "No mosquitto container found. Skipped."
 
 echo "" && \
 echo "Creating garden services" && \
