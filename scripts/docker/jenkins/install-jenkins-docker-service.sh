@@ -3,6 +3,6 @@ sudo chmod 644 /lib/systemd/system/greensense-jenkins-docker.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable greensense-jenkins-docker.service
-sudo systemctl start greensense-jenkins-docker.service
+sudo systemctl restart greensense-jenkins-docker.service
 
 echo "Finished installing service"
