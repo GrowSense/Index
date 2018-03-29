@@ -4,6 +4,7 @@ language: c#
 
 services:
   - docker
+  - systemd
 
 install:
   - git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master
