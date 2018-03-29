@@ -1,7 +1,7 @@
-mkdir -p tmp
-cd tmp
-curl -fsSL get.docker.com -o get-docker.sh
-sh get-docker.sh
-
-sudo usermod -aG docker $USER
+if ! type "docker" > /dev/null; then
+  curl https://get.docker.com/ | sh -s
+  sudo usermod -aG docker $USER
+else
+  echo "Docker is already installed. Skipping."
+fi
 
