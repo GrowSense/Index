@@ -1,3 +1,6 @@
+docker stop mosquitto || echo "Skipping stop"
+docker rm mosquitto || echo "Skipping remove" 
+
 docker run -d \
   --restart=always \
   --name=mosquitto \
