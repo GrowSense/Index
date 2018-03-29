@@ -87,7 +87,7 @@ echo "" && \
 
 MONITOR_SUMMARY_NAME=$(jq -r '.dashboards[0].dashboard[0].name' $NEW_SETTINGS_FILE) && \
 if [ ! "$MONITOR_SUMMARY_NAME" = "$MONITOR_LABEL" ]; then
-  echo "  Monitor summary element name is incorrect."
+  echo "  Monitor summary element name is incorrect. Expected '$MONITOR_LABEL' but was '$MONITOR_SUMMARY_NAME'."
   exit 1
 else
   echo "  Monitor summary element name is correct"
