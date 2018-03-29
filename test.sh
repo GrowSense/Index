@@ -66,6 +66,13 @@ echo "" && \
 sh create-garden-monitor.sh $MONITOR_LABEL $MONITOR_DEVICE_NAME $MONITOR_PORT && \
 
 echo "" && \
+echo "New settings file content:" && \
+echo "--------------------" && \
+jq . $NEW_SETTINGS_FILE && \
+echo "--------------------" && \
+echo "" && \
+
+echo "" && \
 echo "Checking linear MQTT monitor summary element" && \
 echo "" && \
 
@@ -230,6 +237,14 @@ echo "Creating garden irrigator services" && \
 echo "" && \
 
 sh create-garden-irrigator.sh $IRRIGATOR_LABEL $IRRIGATOR_DEVICE_NAME $IRRIGATOR_PORT && \
+
+
+echo "" && \
+echo "New settings file content:" && \
+echo "--------------------" && \
+jq . $NEW_SETTINGS_FILE && \
+echo "--------------------" && \
+echo "" && \
 
 echo "" && \
 echo "Checking linear MQTT irrigator summary element" && \
