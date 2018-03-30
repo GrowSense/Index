@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense Jenkins Docker Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/docker/jenkins && (sh run-jenkins-arm-with-4-devices.sh > service-log.txt)"
+
+ [Install]
+ WantedBy=multi-user.target

@@ -1,4 +1,4 @@
-sudo cp -f greensense-jenkins-docker.service /lib/systemd/system/greensense-jenkins-docker.service
+sudo cp -f greensense-jenkins-docker-4.service /lib/systemd/system/greensense-jenkins-docker.service
 sudo chmod 644 /lib/systemd/system/greensense-jenkins-docker.service
 
 #sudo systemctl daemon-reload
