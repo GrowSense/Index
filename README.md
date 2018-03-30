@@ -1,9 +1,13 @@
 # GreenSense Project Index
-This is an index of GreenSense related projects and utilities.
+An index for the GreenSense projects including helper scripts for setting up and maintaining GreenSense systems.
 
 Connect GreenSense projects to a host computer, clone this index onto it, and then you're ready to build and upload sketches.
 
+## Hardware/Software Setup Guides
+Complete hardware and software setup guides for the GreenSense projects are available here:
+- [https://sites.google.com/view/greensensenetwork](https://sites.google.com/view/greensensenetwork)
 
+## Automated Tests
 
 |               |               | master | dev |
 | ------------- | ------------- | ------------- | ------------- |
