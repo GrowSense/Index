@@ -1,7 +1,5 @@
 # GreenSense Project Index
-An index for the GreenSense projects including helper scripts for setting up and maintaining GreenSense systems.
-
-Connect GreenSense projects to a host computer, clone this index onto it, and then you're ready to build and upload sketches.
+GreenSense makes it possible to monitor gardens and automate irrigation.
 
 ## Hardware/Software Setup Guides
 Complete hardware and software setup guides for the GreenSense projects are available here:
