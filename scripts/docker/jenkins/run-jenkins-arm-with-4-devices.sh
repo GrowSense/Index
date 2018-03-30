@@ -1,4 +1,4 @@
 docker stop jenkins || echo "Jenkins not found. Skipping stop"
 docker rm jenkins || echo "Jenkins not found. Skipping remove"
 
-docker run -d --name=jenkins --restart always -p 8080:8080 -p 50000:50000 --device /dev/ttyUSB0 --device /dev/ttyUSB1 --device /dev/ttyUSB2 --device /dev/ttyUSB3 -v /usr/local/jenkins:/usr/local/jenkins ~/.ssh:/home/jenkins/.ssh compulsivecoder/jenkins-arm-iot-mono
+docker run -d --name=jenkins --restart=always -p 8080:8080 -p 50000:50000 --device /dev/ttyUSB0 --device /dev/ttyUSB1 --device /dev/ttyUSB2 --device /dev/ttyUSB3 -v /usr/local/jenkins:/usr/local/jenkins compulsivecoder/jenkins-arm-iot-mono
