@@ -15,7 +15,7 @@ fi
 echo "Branch: $BRANCH"
 
 if ! type "git" > /dev/null; then
-  sudo apt-get update && sudo apt-get -y git
+  sudo apt-get update && sudo apt-get install -y git
 fi
 
 git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index -b $BRANCH && \
