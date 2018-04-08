@@ -35,12 +35,13 @@ mkdir ~/workspace
 cd ~/workspace
 
 # Clone and Setup
+# Use either wget or curl to download and launch the setup process...
 
-# using 'wget'
+# wget
 wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh
 cd GreenSense/Index
 
-# using 'curl'
+# curl
 curl https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh
 cd GreenSense/Index
 
