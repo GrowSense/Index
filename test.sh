@@ -199,22 +199,6 @@ else
   exit 1
 fi
 
-#echo "---------- MONITOR_DASHBOARD_CALIBRATED_ENTRY"
-#echo "$MONITOR_DASHBOARD_CALIBRATED_ENTRY"
-#echo "----------"
-
-echo "" && \
-echo "Checking linear MQTT monitor dashboard calibrated entry name" && \
-echo "" && \
-
-MONITOR_DASHBOARD_CALIBRATED_ENTRY_NAME=$(jq -r '.dashboards[1].dashboard[0].name' $NEW_SETTINGS_FILE) && \
-if [ "$MONITOR_DASHBOARD_CALIBRATED_ENTRY_NAME" = "$MONITOR_LABEL" ]; then
-  echo "  Monitor dashboard calibrated entry name is correct"
-else
-  echo "  Monitor dashboard calibrated entry name is incorrect. Expected '$MONITOR_LABEL' but was '$MONITOR_DASHBOARD_CALIBRATED_ENTRY_NAME'."
-  exit 1
-fi
-
 #echo "---------- MONITOR_DASHBOARD_CALIBRATED_ENTRY_NAME"
 #echo "$MONITOR_DASHBOARD_CALIBRATED_ENTRY_NAME"
 #echo "----------"
@@ -412,7 +396,7 @@ sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
 sh create-garden-monitor.sh $MONITOR_LABEL $MONITOR_DEVICE_NAME $MONITOR_PORT && \
 sh create-garden-irrigator.sh $IRRIGATOR_LABEL $IRRIGATOR_DEVICE_NAME $IRRIGATOR_PORT && \
 
-sh remove-garden-devices.sh && \
+sh remove-garden-devices.sh || (echo "Fail" && exit 1)
 
 # Disabled
 #sh disable-garden.sh
