@@ -331,20 +331,16 @@ fi
 
 
 echo "" && \
-echo "Checking linear MQTT monitor dashboard id" && \
+echo "Checking linear MQTT irrigator dashboard id" && \
 echo "" && \
 
-MONITOR_DASHBOARD_ID=$(jq -r '.dashboards[2].id' $NEW_SETTINGS_FILE) && \
-if [ "$MONITOR_DASHBOARD_ID" = "3" ]; then
-  echo "  Monitor dashboard ID is valid."
+IRRIGATOR_DASHBOARD_ID=$(jq -r '.dashboards[2].id' $NEW_SETTINGS_FILE) && \
+if [ "$IRRIGATOR_DASHBOARD_ID" = "3" ]; then
+  echo "  Irrigator dashboard ID is valid."
 else
-  echo "  Monitor dashboard ID is invalid. Expected '3' but was '$MONITOR_DASHBOARD_ID'."
+  echo "  Irrigator dashboard ID is invalid. Expected '3' but was '$IRRIGATOR_DASHBOARD_ID'."
   exit 1
 fi
-
-#echo "---------- MONITOR_DASHBOARD_ID"
-#echo "$MONITOR_DASHBOARD_ID"
-#echo "----------"
 
 echo "" && \
 echo "Checking linear MQTT irrigator dashboard calibrated entry" && \
@@ -357,26 +353,6 @@ else
   echo "  Irrigator dashboard calibrated entry not found."
   exit 1
 fi
-
-#echo "---------- IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY"
-#echo "$IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY"
-#echo "----------"
-
-echo "" && \
-echo "Checking linear MQTT irrigator dashboard calibrated entry name" && \
-echo "" && \
-
-IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY_NAME=$(jq -r '.dashboards[2].dashboard[1].name' $NEW_SETTINGS_FILE) && \
-if [ "$IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY_NAME" = "$IRRIGATOR_LABEL" ]; then
-  echo "  Irrigator dashboard calibrated entry name is correct"
-else
-  echo "  Irrigator dashboard calibrated entry name is incorrect. Expected '$IRRIGATOR_LABEL' but was '$IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY_NAME'"
-  exit 1
-fi
-
-#echo "---------- IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY_NAME"
-#echo "$IRRIGATOR_DASHBOARD_CALIBRATED_ENTRY_NAME"
-#echo "----------"
 
 echo "" && \
 echo "Checking linear MQTT irrigator dashboard calibrated entry topic" && \
