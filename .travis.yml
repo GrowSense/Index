@@ -19,6 +19,7 @@ install:
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
 script:
+  - sh update-submodules.sh
   - sh build.sh
   - sh test.sh
   - git checkout mobile/linearmqtt/devicecount.txt
