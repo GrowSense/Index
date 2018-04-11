@@ -24,6 +24,9 @@ Complete hardware and software setup guides for the GreenSense projects are avai
 | **Updater**  |               |               |               |
 |               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/GitDeployer.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/GitDeployer)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/GitDeployer.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/GitDeployer)  |
 
+## Uptime Monitor
+Monitors the GreenSense infrastructure and live test systems.
+- [Uptime Robot](https://stats.uptimerobot.com/OPj6DfM61)
 
 # Clone and Setup
 
