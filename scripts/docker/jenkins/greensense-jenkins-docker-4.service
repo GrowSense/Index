@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/docker/jenkins && (sh run-jenkins-arm-with-4-devices.sh > service-log.txt)"
+ ExecStart=/bin/sh -c "wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/run-jenkins-arm-with-4-devices.sh | sh -s"
 
  [Install]
  WantedBy=multi-user.target
