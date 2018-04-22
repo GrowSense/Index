@@ -1,5 +1,5 @@
-docker stop jenkins || echo "Skipping stop"
-docker rm jenkins || echo "Skipping remove" 
+docker stop jenkins || echo "Jenkins not found. Skipping stop"
+docker rm jenkins || echo "Jenkins not found. Skipping remove"
 
 docker pull compulsivecoder/jenkins-arm-iot-mono && \
 
