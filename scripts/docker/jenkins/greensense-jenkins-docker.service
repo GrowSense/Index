@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/run-jenkins-arm.sh | sh -s"
+ ExecStart=/bin/sh -c "wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/run-jenkins-arm.sh | sh -s"
 
  [Install]
  WantedBy=multi-user.target
