@@ -182,7 +182,7 @@ Set up jenkins continous integration server for GreenSense projects:
 
 ### No Attached USB Devices
 For use when no USB devices are attached.
-Use this for running sanity tests or other non-hardware builds/tests.
+This is used for running GreenSense tests that aren't hardware related, or don't need hardware to be attached to the same machine, such as sanity tests.
 ```
 wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-from-github.sh | sh -s
 ```
@@ -190,8 +190,8 @@ wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/dock
 ### 4 Attached USB Devices
 For use when 4 USB devices are attached.
 This is used on the GreenSense test server with the following attached:
-- A monitor device and corresponding test simulation device
-- An irrigator device and corresponding test simulation device.
+- A test monitor device and corresponding test simulation device
+- A test irrigator device and corresponding test simulation device
 ```
 wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-4-from-github.sh | sh -s
 ```
