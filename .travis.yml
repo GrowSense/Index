@@ -22,5 +22,5 @@ script:
   - sh update-submodules.sh
   - sh build.sh
   - sh test.sh
-  - git checkout mobile/linearmqtt/devicecount.txt
+  - sh clean.sh
   - sh graduate.sh
