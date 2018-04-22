@@ -177,6 +177,25 @@ Remove all services for all garden devices found.
 sh remove-garden-devices.sh
 ```
 
+## Jenkins Continuous Integration
+Set up jenkins continous integration server for GreenSense projects:
+
+### No Attached USB Devices
+For use when no USB devices are attached.
+Use this for running sanity tests or other non-hardware builds/tests.
+```
+wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-from-github.sh | sh -s
+```
+
+### 4 Attached USB Devices
+For use when 4 USB devices are attached.
+This is used on the GreenSense test server with the following attached:
+- A monitor device and corresponding test simulation device
+- An irrigator device and corresponding test simulation device.
+```
+wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-4-from-github.sh | sh -s
+```
+
 ## Mobile UI
 
 ### Install Linear MQTT Dashboard 
