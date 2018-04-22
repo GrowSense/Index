@@ -1,3 +1,10 @@
+
+if ! type "docker" > /dev/null; then
+  DOCKER_INSTALL_SCRIPT="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/install/install-docker.sh"
+  sudo wget -O - $DOCKER_INSTALL_SCRIPT | sh -s
+fi
+
+
 SERVICE_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/greensense-jenkins-docker-4.service"
 
 sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/greensense-jenkins-docker.service
