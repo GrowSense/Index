@@ -6,7 +6,7 @@ DEVICE_NAME=$1
 
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
-if [ ! "$DEVICE_NAME" ]; then
+if [ ! $DEVICE_NAME ]; then
   echo "Error: Specify a device name as an argument."
 else
   echo "Device name: $DEVICE_NAME"

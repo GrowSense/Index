@@ -1,5 +1,6 @@
 echo "Installing services"
 FILES=svc/*.service
+SYSTEMCTL_SCRIPT="../../../../systemctl.sh"
 for f in $FILES
 do
   filename=$(basename "$f")
@@ -14,9 +15,9 @@ do
 
   sudo cp -fv $f /lib/systemd/system/$filename
   sudo chmod 644 /lib/systemd/system/$filename
-  sudo systemctl daemon-reload
-  sudo systemctl enable $filename
-  sudo systemctl restart $filename
+  sudo sh $SYSTEMCTL_SCRIPT daemon-reload
+  sudo sh $SYSTEMCTL_SCRIPT enable $filename
+  sudo sh $SYSTEMCTL_SCRIPT restart $filename
 
   echo "Finished installing service"
   echo ""

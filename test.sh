@@ -17,11 +17,19 @@ IRRIGATOR_DEVICE_NAME="myirrigator"
 IRRIGATOR_PORT="ttyUSB1"
 IRRIGATOR_CALIBRATED_TOPIC="/$IRRIGATOR_DEVICE_NAME/C"
 
+echo "----------"
+echo "Preparing to test"
+echo "----------"
+
 echo ""
 echo "Removing garden devices"
 echo ""
 
 sh remove-garden-devices.sh && \
+
+echo "----------"
+echo "Executing test"
+echo "----------"
 
 echo "" && \
 echo "Setting MQTT credentials" && \
