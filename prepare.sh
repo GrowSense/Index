@@ -2,7 +2,7 @@
 
 DIR=$PWD
 
-apt-get update && apt-get -y install git jq zip unzip curl && \
+apt-get update && apt-get -y install wget git jq zip unzip curl apt-transport-https && \
 
 cd scripts/install/ && \
 
