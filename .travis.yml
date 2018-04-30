@@ -13,7 +13,7 @@ install:
   - git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master
   - git fetch --no-tags
   - git checkout $TRAVIS_BRANCH
-  - sh prepare.sh
+  - sudo sh prepare.sh
   - sh init.sh
   - sh set-mqtt-credentials.sh myusername mypassword
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
