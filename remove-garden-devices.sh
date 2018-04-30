@@ -4,38 +4,35 @@ echo ""
 
 DIR=$PWD
 
+SYSTEMCTL_SCRIPT="systemctl.sh"
 
 echo ""
 echo "MQTT Bridge Services"
 echo ""
 
-cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/
-for filename in *.service; do
+for filename in scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/*.service; do
   [ -f "$filename" ] || break
   echo "Removing device: $filename" && \
   echo "" && \
-  sudo systemctl stop "$filename" && \
-  sudo systemctl disable "$filename" && \
+  sudo sh $SYSTEMCTL_SCRIPT stop "$filename" && \
+  sudo sh $SYSTEMCTL_SCRIPT disable "$filename" && \
   echo "" && \
   rm $filename || exit 1
 done
-cd $DIR
 
 echo ""
 echo "Updater Services"
 echo ""
 
-cd scripts/apps/GitDeployer/svc/
-for filename in *.service; do
+for filename in scripts/apps/GitDeployer/svc/*.service; do
   [ -f "$filename" ] || break
   echo "Removing device: $filename" && \
   echo "" && \
-  sudo systemctl stop "$filename" && \
-  sudo systemctl disable "$filename" && \
+  sudo sh $SYSTEMCTL_SCRIPT stop "$filename" && \
+  sudo sh $SYSTEMCTL_SCRIPT disable "$filename" && \
   echo "" && \
   rm $filename || exit 1
 done
-cd $DIR
 
 cd mobile/linearmqtt && \
 sh reset.sh && \

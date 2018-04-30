@@ -29,21 +29,14 @@ echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
 # Set up MQTT bridge service
-cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && \
-cp svc/greensense-mqtt-bridge-monitor1.service.example svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sed -i "s/monitor1/$DEVICE_NAME/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sh install-services.sh && \
-cd $DIR && \
+sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-cd scripts/apps/GitDeployer/ && \
-cp svc/greensense-updater-monitor1.service.example svc/greensense-updater-$DEVICE_NAME.service && \
-sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-updater-$DEVICE_NAME.service && \
-sh install-services.sh && \
-cd $DIR && \
+sh create-update-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up mobile UI
+echo "Setting up Linear MQTT Dashboard UI..."
+
 cd mobile/linearmqtt/ && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 cd $DIR && \
