@@ -4,7 +4,7 @@ INDEX_DIR=$PWD
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerial && \
 sh build-all.sh && \
-cd $DIR && \
+cd $INDEX_DIR && \
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP && \
 sh build-all.sh && \
