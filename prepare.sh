@@ -2,10 +2,11 @@
 
 DIR=$PWD
 
-apt-get update && apt-get -y install wget git jq zip unzip curl apt-transport-https && \
+apt-get update && apt-get -y install wget git zip unzip curl apt-transport-https && \
 
 cd scripts/install/ && \
 
+sh install-jq.sh && \
 sh install-systemd.sh && \
 sh install-docker.sh && \
 sh install-platformio.sh && \
