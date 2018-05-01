@@ -40,7 +40,7 @@ fi
 cd $DIR && \
 
 if [ ! $IS_MOCK_SETUP ]; then
-    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT"
+    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
 else
     echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 fi
