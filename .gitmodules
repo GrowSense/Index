@@ -1,9 +1,6 @@
 [submodule "sketches/monitor/SoilMoistureSensorCalibratedSerial"]
 	path = sketches/monitor/SoilMoistureSensorCalibratedSerial
 	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git
-[submodule "sketches/monitor/SoilMoistureSensorCalibratedSerialESP"]
-	path = sketches/monitor/SoilMoistureSensorCalibratedSerialESP
-	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedSerialESP.git
 [submodule "sketches/irrigator/SoilMoistureSensorCalibratedPump"]
 	path = sketches/irrigator/SoilMoistureSensorCalibratedPump
 	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedPump
