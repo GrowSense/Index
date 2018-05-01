@@ -1,10 +1,10 @@
 echo ""
-echo "Creating garden monitor ESP8266 configuration"
+echo "Creating garden monitor configuration"
 echo ""
 
 # Example:
-# sh create-garden-monitor-esp.sh [Label] [DeviceName] [Port]
-# sh create-garden-monitor-esp.sh "Monitor1" monitor1 ttyUSB0 
+# sh create-garden-monitor.sh [Label] [DeviceName] [Port]
+# sh create-garden-monitor.sh "Monitor1" monitor1 ttyUSB0 
 
 DIR=$PWD
 
@@ -28,7 +28,11 @@ echo "Device label: $DEVICE_LABEL"
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
-# Skip the MQTT bridge service because it's not needed for the ESP version and the updater service because it won't work when not plugged in via USB
+# Set up MQTT bridge service
+sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
+
+# Set up update service
+sh create-updater-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up mobile UI
 echo "Setting up Linear MQTT Dashboard UI..."
@@ -37,4 +41,7 @@ cd mobile/linearmqtt/ && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 cd $DIR && \
 
-echo "Garden ESP8266 monitor created with device name '$DEVICE_NAME'"
+# Uploading sketch
+sh upload-monitor-esp-sketch.sh $DEVICE_PORT && \
+
+echo "Garden monitor created with device name '$DEVICE_NAME'"
