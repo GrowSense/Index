@@ -62,11 +62,11 @@ echo "" && \
 #docker stop mosquitto || echo "No mosquitto container running. Skipped."
 #docker rm mosquitto || echo "No mosquitto container found. Skipped."
 
-#echo "" && \
-#echo "Creating garden services" && \
-#echo "" && \
+echo "" && \
+echo "Creating garden services" && \
+echo "" && \
 
-#sh create-garden.sh && \
+sh test-garden.sh && \
 
 #
 # Garden Monitor
@@ -78,8 +78,7 @@ sh test-monitor.sh && \
 #
 sh test-irrigator.sh && \
 
-sh remove-garden-device.sh $MONITOR_DEVICE_NAME && \
-sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
+#sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
 
 #sh create-garden-monitor.sh $MONITOR_LABEL $MONITOR_DEVICE_NAME $MONITOR_PORT && \
 #sh create-garden-irrigator.sh $IRRIGATOR_LABEL $IRRIGATOR_DEVICE_NAME $IRRIGATOR_PORT && \

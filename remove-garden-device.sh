@@ -23,10 +23,10 @@ else
   echo "Removing updater service" && \
   rm -f scripts/apps/GitDeployer/svc/greensense-updater-$DEVICE_NAME.service && \
 
-  # Remove up mobile UI
-#  cd mobile/linearmqtt/ && \
-#  sh remove-garden-monitor-ui.sh $DEVICE_NAME && \
-#  cd $DIR
+  # Remove from mobile UI
+  #  cd mobile/linearmqtt/ && \
+  #  sh remove-garden-monitor-ui.sh $DEVICE_NAME && \
+  #  cd $DIR
 
   echo "Garden device removed: $DEVICE_NAME"
 fi
