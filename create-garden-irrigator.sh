@@ -29,19 +29,25 @@ echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
 # Set up MQTT bridge service
-cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && \
-cp svc/greensense-mqtt-bridge-irrigator1.service.example svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sed -i "s/irrigator1/$DEVICE_NAME/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
-sh install-services.sh && \
-cd $DIR && \
+sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-cd scripts/apps/GitDeployer/ && \
-cp svc/greensense-updater-irrigator1.service.example svc/greensense-updater-$DEVICE_NAME.service && \
-sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-updater-$DEVICE_NAME.service && \
-sh install-services.sh && \
-cd $DIR && \
+sh create-update-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
+
+# Set up MQTT bridge service
+#cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && \
+#cp svc/greensense-mqtt-bridge-irrigator1.service.example svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
+#sed -i "s/irrigator1/$DEVICE_NAME/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
+#sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-mqtt-bridge-$DEVICE_NAME.service && \
+#sh install-service.sh greensense-mqtt-bridge-$DEVICE_NAME.service && \
+#cd $DIR && \
+
+# Set up update service
+#cd scripts/apps/GitDeployer/ && \
+#cp svc/greensense-updater-irrigator1.service.example svc/greensense-updater-$DEVICE_NAME.service && \
+#sed -i "s/ttyUSB0/$DEVICE_PORT/g" svc/greensense-updater-$DEVICE_NAME.service && \
+#sh install-service.sh greensense-updater-$DEVICE_NAME.service && \
+#cd $DIR && \
 
 # Set up mobile UI
 cd mobile/linearmqtt/ && \

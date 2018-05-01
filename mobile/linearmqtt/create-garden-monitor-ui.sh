@@ -19,6 +19,8 @@ if [ ! $DEVICE_NAME ]; then
   DEVICE_NAME="monitor1"
 fi
 
+NEW_LINEAR_MQTT_SETTINGS_FILE="newsettings.json"
+
 sh increment-device-count.sh
 
 echo "Device label: $DEVICE_LABEL"
@@ -29,48 +31,77 @@ DEVICE_ID=$(($DEVICE_COUNT+1)) && \
 
 echo "Device number: $DEVICE_COUNT" && \
 
+echo ""
+echo "Setting up json"
+
 # Monitor tab
 
 MONITOR_TAB=$(cat parts/monitortab.json) && \
+
+echo "---------- Monitor Tab: Before"
+echo $MONITOR_TAB
+echo "----------"
 
 MONITOR_TAB=$(echo $MONITOR_TAB | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_TAB=$(echo $MONITOR_TAB | sed "s/monitor1/$DEVICE_NAME/g") && \
 
 MONITOR_TAB=$(echo $MONITOR_TAB | jq .id=$DEVICE_ID) && \
 
-NEW_SETTINGS=$(jq ".tabs[$DEVICE_COUNT] |= . + $MONITOR_TAB" newsettings.json) && \
+echo "---------- Monitor Tab: After"
+echo $MONITOR_TAB
+echo "----------"
 
-echo $NEW_SETTINGS > newsettings.json && \
+NEW_SETTINGS=$(jq ".tabs[$DEVICE_COUNT] |= . + $MONITOR_TAB" $NEW_LINEAR_MQTT_SETTINGS_FILE) && \
+
+echo $NEW_SETTINGS > $NEW_LINEAR_MQTT_SETTINGS_FILE && \
 
 # Monitor summary
 
 MONITOR_SUMMARY=$(cat parts/monitorsummary.json) && \
 
+echo "---------- Monitor Summary: Before"
+echo $MONITOR_SUMMARY
+echo "----------"
 MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/monitor1/$DEVICE_NAME/g") && \
 
 #MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | jq .id="$DEVICE_ID") && \
 
-NEW_SETTINGS=$(jq ".dashboards[0].dashboard[$(($DEVICE_COUNT-1))] |= . + $MONITOR_SUMMARY" newsettings.json) && \
+echo "---------- Monitor Summary: After"
+echo $MONITOR_SUMMARY
+echo "----------"
+DEVICE_INDEX=$(($DEVICE_COUNT-1))
 
-echo $NEW_SETTINGS > newsettings.json && \
+echo "Device index: $DEVICE_INDEX"
+
+NEW_SETTINGS=$(jq ".dashboards[0].dashboard[$(($DEVICE_INDEX))] |= . + $MONITOR_SUMMARY" $NEW_LINEAR_MQTT_SETTINGS_FILE) && \
+
+echo $NEW_SETTINGS > $NEW_LINEAR_MQTT_SETTINGS_FILE && \
 
 # Monitor dashboard
 
 MONITOR_DASHBOARD=$(cat parts/monitordashboard.json) && \
+
+echo "---------- Monitor Dashboard: Before"
+echo $MONITOR_DASHBOARD
+echo "----------"
 
 MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | sed "s/monitor1/$DEVICE_NAME/g") && \
 
 #MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | jq .id="$DEVICE_ID") && \
 
-NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT] |= . + $MONITOR_DASHBOARD" newsettings.json) && \
+echo "---------- Monitor Dashboard: After"
+echo $MONITOR_DASHBOARD
+echo "----------"
+
+NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT] |= . + $MONITOR_DASHBOARD" $NEW_LINEAR_MQTT_SETTINGS_FILE) && \
 
 echo $NEW_SETTINGS > newsettings.json && \
 
-NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT].id=\"$DEVICE_ID\"" newsettings.json) && \
+NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT].id=\"$DEVICE_ID\"" $NEW_LINEAR_MQTT_SETTINGS_FILE) && \
 
-echo $NEW_SETTINGS > newsettings.json && \
+echo $NEW_SETTINGS > $NEW_LINEAR_MQTT_SETTINGS_FILE && \
 
 sh package.sh && \
 
