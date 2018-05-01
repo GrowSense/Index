@@ -68,14 +68,10 @@ echo "" && \
 
 sh test-garden.sh && \
 
-#
-# Garden Monitor
-#
 sh test-monitor.sh && \
 
-#
-# Garden Irrigator
-#
+sh test-monitor-esp.sh && \
+
 sh test-irrigator.sh && \
 
 #sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
