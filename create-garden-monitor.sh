@@ -35,7 +35,7 @@ sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 sh create-updater-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up mobile UI
-echo "Setting up Linear MQTT Dashboard UI..."
+echo "Setting up Linear MQTT Dashboard UI..." && \
 
 cd mobile/linearmqtt/ && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
