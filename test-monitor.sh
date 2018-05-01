@@ -6,7 +6,8 @@ echo "----------" && \
 echo "Testing monitor scripts" && \
 echo "----------" && \
 
-sh clean.sh
+sh clean.sh && \
+sh remove-garden-devices.sh && \
 
 echo "" && \
 echo "Creating garden monitor services" && \

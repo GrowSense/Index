@@ -9,7 +9,7 @@ echo "----------" && \
 sh clean.sh
 
 echo "" && \
-echo "Creating garden monitor services" && \
+echo "Creating garden monitor ESP8266 services" && \
 echo "" && \
 
 sh create-garden-monitor-esp.sh $MONITOR_LABEL $MONITOR_DEVICE_NAME $MONITOR_PORT && \
