@@ -19,7 +19,11 @@ echo "----------" && \
 echo "Checking results" && \
 echo "----------" && \
 
-sh verify-device-ui.sh 1 "irrigator" $IRRIGATOR_DEVICE_NAME $IRRIGATOR_LABEL $IRRIGATOR_PORT
+sh verify-updater-service.sh "irrigator" $IRRIGATOR_DEVICE_NAME $IRRIGATOR_PORT && \
+
+sh verify-mqtt-bridge-service.sh "irrigator" $IRRIGATOR_DEVICE_NAME $IRRIGATOR_PORT && \
+
+sh verify-device-ui.sh 1 "irrigator" $IRRIGATOR_DEVICE_NAME $IRRIGATOR_LABEL $IRRIGATOR_PORT && \
 
 echo "" && \
 echo "----------" && \
