@@ -32,7 +32,7 @@ echo "Device port: $DEVICE_PORT"
 sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-update-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
+sh create-updater-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up mobile UI
 echo "Setting up Linear MQTT Dashboard UI..."
