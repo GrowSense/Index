@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense Jenkins Docker Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sh -c "wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/run-jenkins-arm-with-2-devices.sh | sh -s"
+
+ [Install]
+ WantedBy=multi-user.target
