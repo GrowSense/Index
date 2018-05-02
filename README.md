@@ -187,6 +187,14 @@ This is used for running GreenSense tests that aren't hardware related, or don't
 wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-from-github.sh | sh -s
 ```
 
+### 2 Attached USB Devices
+For use when 4 USB devices are attached.
+This is used on the GreenSense test server with the following attached:
+- A test monitor/irrigator (combined) device and corresponding test simulation device
+```
+wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-2-from-github.sh | sh -s
+```
+
 ### 4 Attached USB Devices
 For use when 4 USB devices are attached.
 This is used on the GreenSense test server with the following attached:
