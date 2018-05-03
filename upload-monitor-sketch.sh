@@ -4,6 +4,13 @@
 
 DIR=$PWD
 
+MOCK_FLAG_FILE="is-mock-setup.txt"
+IS_MOCK_SETUP=0
+if [ -f "$MOCK_FLAG_FILE" ]; then
+  IS_MOCK_SETUP=1
+  echo "Is mock setup"
+fi
+
 SERIAL_PORT=$1
 
 if [ ! $SERIAL_PORT ]; then
@@ -27,9 +34,17 @@ sh inject-version.sh && \
 sh build.sh && \
 
 # Upload the sketch
-sh upload.sh "/dev/$SERIAL_PORT"
+if [ $IS_MOCK_SETUP = 0 ]; then
+    sh upload.sh "/dev/$SERIAL_PORT" || exit 1
+else
+    echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
+fi
 
 cd $DIR
 
-sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT"
+if [ $IS_MOCK_SETUP = 0 ]; then
+    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+else
+    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+fi
 

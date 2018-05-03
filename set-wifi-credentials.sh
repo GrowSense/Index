@@ -19,3 +19,5 @@ echo "WiFi network name: $WIFI_NAME"
 echo $WIFI_NAME > wifi-name.security
 echo $WIFI_PASSWORD > wifi-password.security
 
+echo "Done"
+
