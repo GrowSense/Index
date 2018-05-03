@@ -12,7 +12,7 @@ pipeline {
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
-                sh 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git &> /dev/null'
+                sh 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git > /dev/null'
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoder CI"'
             }
