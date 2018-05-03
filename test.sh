@@ -4,6 +4,7 @@ echo "----------" && \
 
 NEW_SETTINGS_FILE="mobile/linearmqtt/newsettings.json"
 
+MQTT_HOST="garden"
 MQTT_USERNAME="myusername"
 MQTT_PASSWORD="mypassword"
 
@@ -26,7 +27,7 @@ echo "Setting MQTT credentials" && \
 echo "" && \
 
 
-sh set-mqtt-credentials.sh $MQTT_USERNAME $MQTT_PASSWORD && \
+sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD && \
 
 echo "" && \
 echo "Checking mosquitto userfile" && \
