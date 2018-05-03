@@ -19,7 +19,6 @@ pipeline {
         }
         stage('Inject Version') {
             steps {
-                sh 'sh increment-version.sh'
                 sh 'sh inject-version.sh'
             }
         }
@@ -33,14 +32,24 @@ pipeline {
                 sh 'sh test.sh'
             }
         }
-        stage('Push Version') {
+        stage('Clean') {
             steps {
-                sh 'sh push-version.sh'
+                sh 'sh clean.sh'
             }
         }
         stage('Graduate') {
             steps {
                 sh 'sh graduate.sh'
+            }
+        }
+        stage('Increment Version') {
+            steps {
+              sh 'sh increment-version.sh'
+            }
+        }
+        stage('Push Version') {
+            steps {
+                sh 'sh push-version.sh'
             }
         }
     }
