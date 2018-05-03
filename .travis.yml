@@ -13,7 +13,7 @@ install:
   - git fetch --no-tags
   - git checkout $TRAVIS_BRANCH
   - sh init-mock-setup.sh
-  - sudo sh prepare.sh
+  - sh prepare.sh
   - sh init.sh
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
