@@ -17,18 +17,9 @@ pipeline {
                 sh 'sh init-mock-setup.sh'
             }
         }
-        stage('Check CI skip')
-        {
-            steps {
-                sh '. ./check-ci-skip.sh'
-            }
-        }
         stage('Prepare') {
             steps {
-                if ( $SKIP_CI == 0 )
-                {
-                    sh 'sh prepare.sh'
-                }
+                sh 'sh prepare.sh'
             }
         }
         stage('Init') {
