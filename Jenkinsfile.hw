@@ -17,6 +17,11 @@ pipeline {
                 sh 'sh init-mock-setup.sh'
             }
         }
+        sh '. ./check-ci-skip.sh'
+        if( $SKIP_CI == 1 ) {
+            currentBuild.result = 'SUCCESS'
+            return
+        }
         stage('Prepare') {
             steps {
                 sh 'sh prepare.sh'
