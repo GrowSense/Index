@@ -1,8 +1,16 @@
+# python
+if ! type "python" > /dev/null; then
+  sudo apt-get install -y python
+fi
+
+if ! type "pip" > /dev/null; then
+  sudo apt-get install -y python-pip
+fi
+
 if ! type "pio" > /dev/null; then
   #mkdir -p ~/.platformio
   #sudo chown -R $USER ~/.platformio
 
-  sudo apt-get install -y python python-pip && \
 
 #  pip install --upgrade pip && \
 #  pip install --user setuptools testresources pyOpenSSL ndg-httpsclient pyasn1 && \
