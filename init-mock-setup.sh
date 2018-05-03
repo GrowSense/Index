@@ -6,4 +6,6 @@ echo "Flag file: $PWD/$MOCK_FLAG_FILE"
 
 echo "true" > $MOCK_FLAG_FILE
 
+sh init-mock-systemctl.sh
+
 echo "Done"
