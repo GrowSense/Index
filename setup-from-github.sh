@@ -30,7 +30,7 @@ echo "  $INDEX_DIR" && \
 
 cd $INDEX_DIR && \
 
-sudo sh prepare.sh && \
+sh prepare.sh && \
 sh init.sh && \
 
 echo "" && \
