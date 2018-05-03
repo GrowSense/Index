@@ -30,8 +30,8 @@ echo "  $INDEX_DIR" && \
 
 cd $INDEX_DIR && \
 
-sh prepare.sh && \
-sh init.sh && \
+#sh prepare.sh && \
+#sh init.sh && \
 
 echo "" && \
 echo "The GreenSense index is initialized and ready to use."
