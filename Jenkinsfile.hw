@@ -15,6 +15,7 @@ pipeline {
                 sh 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git > /dev/null'
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoder CI"'
+                sh 'git submodule update --init'
             }
         }
         stage('Build') {
