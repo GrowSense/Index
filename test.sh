@@ -4,6 +4,9 @@ echo "----------" && \
 
 NEW_SETTINGS_FILE="mobile/linearmqtt/newsettings.json"
 
+WIFI_NAME="mywifi"
+WIFI_PASSWORD="mywifipassword"
+
 MQTT_HOST="localhost"
 MQTT_USERNAME="myusername"
 MQTT_PASSWORD="mypassword"
@@ -23,9 +26,14 @@ echo "Executing test"
 echo "----------"
 
 echo "" && \
-echo "Setting MQTT credentials" && \
+echo "Setting WiFi credentials" && \
 echo "" && \
 
+sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD && \
+
+echo "" && \
+echo "Setting MQTT credentials" && \
+echo "" && \
 
 sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD && \
 

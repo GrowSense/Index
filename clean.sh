@@ -6,7 +6,7 @@ echo ""
 
 sh remove-garden-devices.sh
 
-cd mobile/linearmqtt/
+cd mobile/linearmqtt
 sh reset.sh
 cd $DIR
 
