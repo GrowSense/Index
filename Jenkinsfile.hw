@@ -19,12 +19,16 @@ pipeline {
         }
         stage('Check CI skip')
         {
-            sh '. ./check-ci-skip.sh'
+            steps {
+                sh '. ./check-ci-skip.sh'
+            }
         }
         stage('Prepare') {
             steps {
-                if ($SKIP_CI == 0)
+                if ( $SKIP_CI == 0 )
+                {
                     sh 'sh prepare.sh'
+                }
             }
         }
         stage('Init') {
