@@ -13,6 +13,7 @@ pipeline {
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoder CI"'
                 sh 'sh init-mock-systemctl.sh'
+                sh 'sh init-mock-docker.sh'
             }
         }
         stage('Prepare') {
