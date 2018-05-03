@@ -4,7 +4,6 @@ INDEX_DIR=$PWD
 
 echo "Building monitor" && \
 cd sketches/monitor/SoilMoistureSensorCalibratedSerial && \
-pwd && ls && \
 sh build-all.sh && \
 cd $INDEX_DIR && \
 echo "" && \
