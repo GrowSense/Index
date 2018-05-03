@@ -7,16 +7,6 @@ NEW_SETTINGS_FILE="mobile/linearmqtt/newsettings.json"
 MQTT_USERNAME="myusername"
 MQTT_PASSWORD="mypassword"
 
-MONITOR_LABEL="MyMonitor"
-MONITOR_DEVICE_NAME="mymonitor"
-MONITOR_PORT="ttyUSB0"
-MONITOR_CALIBRATED_TOPIC="/$MONITOR_DEVICE_NAME/C"
-
-IRRIGATOR_LABEL="MyIrrigator"
-IRRIGATOR_DEVICE_NAME="myirrigator"
-IRRIGATOR_PORT="ttyUSB1"
-IRRIGATOR_CALIBRATED_TOPIC="/$IRRIGATOR_DEVICE_NAME/C"
-
 echo "----------"
 echo "Preparing to test"
 echo "----------"
@@ -70,9 +60,11 @@ sh test-garden.sh && \
 
 sh test-monitor.sh && \
 
-#sh test-monitor-esp.sh && \
+sh test-monitor-esp.sh && \
 
 sh test-irrigator.sh && \
+
+sh test-irrigator-esp.sh && \
 
 #sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
 

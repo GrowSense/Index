@@ -1,6 +1,6 @@
 
 # Example:
-# sh upload-monitor-sketch-esp.sh "mymonitor" ttyUSB0
+# sh upload-irrigator-sketch-esp.sh "myirrigator" ttyUSB0
 
 DIR=$PWD
 
@@ -23,11 +23,11 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
-echo "Uploading monitor ESP8266 sketch"
+echo "Uploading irrigator ESP8266 sketch"
 
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/monitor/SoilMoistureSensorCalibratedSerialESP"
+BASE_PATH="sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
 cd $BASE_PATH
 
@@ -59,9 +59,9 @@ sh clean-settings.sh && \
 cd $DIR && \
 
 if [ $IS_MOCK_SETUP = 0 ]; then
-    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+    sh $BASE_PATH/irrigator-serial.sh "/dev/$SERIAL_PORT" || exit 1
 else
-    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+    echo "[mock] sh irrigator-serial.sh /dev/$SERIAL_PORT"
 fi
 
 echo "Finished upload"
