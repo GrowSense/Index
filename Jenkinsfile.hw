@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+    triggers {
+        pollSCM 'H/2 * * * *'
+    }
+    stages {
+        stage('Setup') {
+            steps {
+                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
+                sh "git fetch --no-tags"
+                sh 'git checkout $BRANCH_NAME'
+                sh 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git > /dev/null'
+                sh 'git config --global user.email "compulsivecoder@gmail.com"'
+                sh 'git config --global user.name "CompulsiveCoder CI"'
+                sh 'sh init-mock-setup.sh'
+            }
+        }
+        stage('Prepare') {
+            steps {
+                sh 'sh prepare.sh'
+            }
+        }
+        stage('Init') {
+            steps {
+                sh 'sh init.sh'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'sh build.sh'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'sh test.sh'
+            }
+        }
+        stage('Clean') {
+            steps {
+                sh 'sh clean.sh'
+            }
+        }
+        stage('Graduate') {
+            steps {
+                sh 'sh graduate.sh'
+            }
+        }
+        stage('Increment Version') {
+            steps {
+              sh 'sh increment-version.sh'
+            }
+        }
+        stage('Push Version') {
+            steps {
+                sh 'sh push-version.sh'
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
+

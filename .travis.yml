@@ -15,12 +15,9 @@ install:
   - sh init-mock-setup.sh
   - sudo sh prepare.sh
   - sh init.sh
-  - sh set-mqtt-credentials.sh myusername mypassword
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
 script:
   - sh update-submodules.sh
   - sh build.sh
   - sh test.sh
-  - sh clean.sh
-  - sh graduate.sh
