@@ -70,7 +70,7 @@ sh test-garden.sh && \
 
 sh test-monitor.sh && \
 
-sh test-monitor-esp.sh && \
+#sh test-monitor-esp.sh && \
 
 sh test-irrigator.sh && \
 
