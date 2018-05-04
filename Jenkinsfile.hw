@@ -18,41 +18,49 @@ pipeline {
             }
         }
         stage('Prepare') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh prepare.sh'
             }
         }
         stage('Init') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh init.sh'
             }
         }
         stage('Build') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh build.sh'
             }
         }
         stage('Test') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh test.sh'
             }
         }
         stage('Clean') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh clean.sh'
             }
         }
         stage('Graduate') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh graduate.sh'
             }
         }
         stage('Increment Version') {
+            when { expression { !shouldSkipBuild() } }
             steps {
               sh 'sh increment-version.sh'
             }
         }
         stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh push-version.sh'
             }
@@ -79,4 +87,7 @@ pipeline {
             )
         }
     }
+}
+Boolean shouldSkipBuild() {
+    return sh( script: 'sh check-ci-skip.sh', returnStatus: true )
 }
