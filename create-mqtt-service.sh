@@ -8,7 +8,7 @@ SYSTEMCTL_SCRIPT="systemctl.sh"
 echo "  Pulling the mosquitto docker image"
 sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm && \
 
-MOSQUITTO_DIR="scripts/docker/mosquitto"
+MOSQUITTO_DIR="scripts/docker/mosquitto" && \
 
 echo "  Creating /data/" && \
 mkdir -p $MOSQUITTO_DIR/data && \
