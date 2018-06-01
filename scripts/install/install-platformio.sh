@@ -11,7 +11,7 @@ pip install --upgrade pip
 pip install --user setuptools
 
 if ! type "pio" > /dev/null; then
-  sudo python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
+  python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
 else
   echo "Platform.io is already installed. Skipping."
 fi
