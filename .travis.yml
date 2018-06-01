@@ -1,12 +1,6 @@
-sudo: false
+sudo: required
 
-language: csharp
-
-mono:
-  - latest
-
-services:
-  - docker
+language: python
 
 install:
   - git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master
