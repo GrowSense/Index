@@ -13,7 +13,7 @@ fi
 
 echo "Upgrading pip"
 
-sudo pip install --upgrade pip
+pip install --upgrade pip
 
 echo "Installing pip setuptools"
 
