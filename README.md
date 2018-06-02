@@ -24,6 +24,10 @@ Complete hardware and software setup guides for the GreenSense projects are avai
 |               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv)  |
 | **Updater**  |               |               |               |
 |               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/GitDeployer.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/GitDeployer)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/GitDeployer.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/GitDeployer)  |
+| **Serial Controller**  |               |               |               |
+|               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/ArduinoSerialController.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/ArduinoSerialController)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/ArduinoSerialController.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/ArduinoSerialController)  |
+| **Serial Controller Client**  |               |               |               |
+|               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/ArduinoSerialControllerClient.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/ArduinoSerialControllerClient)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/ArduinoSerialControllerClient.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/ArduinoSerialControllerClient)  |
 
 ## Uptime Monitor
 Monitors the GreenSense infrastructure and live test systems.
