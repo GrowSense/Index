@@ -59,9 +59,9 @@ sh clean-settings.sh && \
 cd $DIR && \
 
 if [ $IS_MOCK_SETUP = 0 ]; then
-    sh $BASE_PATH/irrigator-serial.sh "/dev/$SERIAL_PORT" || exit 1
+    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
 else
-    echo "[mock] sh irrigator-serial.sh /dev/$SERIAL_PORT"
+    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 fi
 
 echo "Finished upload"
