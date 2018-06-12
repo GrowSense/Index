@@ -3,8 +3,8 @@ echo "Creating garden monitor configuration"
 echo ""
 
 # Example:
-# sh create-garden-monitor.sh [Label] [DeviceName] [Port]
-# sh create-garden-monitor.sh "Monitor1" monitor1 ttyUSB0 
+# sh create-garden-monitor-esp.sh [Label] [DeviceName] [Port]
+# sh create-garden-monitor-esp.sh "WiFiMonitor1" wifiMonitor1 ttyUSB0 
 
 DIR=$PWD
 
@@ -13,11 +13,11 @@ DEVICE_NAME=$2
 DEVICE_PORT=$3
 
 if [ ! $DEVICE_LABEL ]; then
-  DEVICE_LABEL="Monitor1"
+  DEVICE_LABEL="WiFiMonitor1"
 fi
 
 if [ ! $DEVICE_NAME ]; then
-  DEVICE_NAME="monitor1"
+  DEVICE_NAME="wifiMonitor1"
 fi
 
 if [ ! $DEVICE_PORT ]; then

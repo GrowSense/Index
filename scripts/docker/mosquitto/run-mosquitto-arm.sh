@@ -1,7 +1,7 @@
 docker stop mosquitto || echo "Skipping stop"
 docker rm mosquitto || echo "Skipping remove" 
 
-docker run -d \
+docker run -i \
   --restart=always \
   --name=mosquitto \
 	--volume $PWD/data:/mosquitto_data \

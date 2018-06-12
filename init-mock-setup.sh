@@ -8,5 +8,6 @@ echo "true" > $MOCK_FLAG_FILE
 
 sh init-mock-systemctl.sh
 sh init-mock-docker.sh
+sh init-mock-hardware.sh
 
 echo "Done"
