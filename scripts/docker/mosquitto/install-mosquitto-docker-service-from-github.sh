@@ -37,7 +37,7 @@ echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE && \
 
 echo "Install mosquitto service file"
 
-SERVICE_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/docker/mosquitto/greensense-mosquitto-docker.service"
+SERVICE_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/greensense-mosquitto-docker.service"
 
 sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/greensense-mosquitto-docker.service
 
