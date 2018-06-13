@@ -41,4 +41,4 @@ cd mobile/linearmqtt/ && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 cd $DIR && \
 
-echo "Garden ESP8266 monitor created with device name '$DEVICE_NAME'"
+echo "Garden monitor created with device name '$DEVICE_NAME'"
