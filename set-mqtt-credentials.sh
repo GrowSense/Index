@@ -16,7 +16,7 @@ fi
 
 if [ "$PASSWORD" ]; then
 
-  echo "Host: $USERNAME"
+  echo "Host: $HOST"
   echo "Username: $USERNAME"
   echo "Port: $PORT"
 

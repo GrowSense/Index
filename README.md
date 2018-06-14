@@ -188,6 +188,13 @@ Remove all services for all garden devices found.
 sh remove-garden-devices.sh
 ```
 
+## Mosquitto MQTT Broker
+Set up mosquitto MQTT broker without setting up the entire GreenSense index:
+```
+wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/install-mosquitto-docker-service-from-github.sh | sh -s mqttUsername mqttPassword
+```
+Note: Change mqttUsername and mqttPassword to the desired MQTT username and password.
+
 ## Jenkins Continuous Integration
 Set up jenkins continous integration server for GreenSense projects:
 
