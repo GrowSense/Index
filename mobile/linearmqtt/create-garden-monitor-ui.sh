@@ -62,14 +62,14 @@ MONITOR_SUMMARY=$(cat parts/monitorsummary.json) && \
 echo "---------- Monitor Summary: Before"
 echo $MONITOR_SUMMARY
 echo "----------"
+
 MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/monitor1/$DEVICE_NAME/g") && \
 
-#MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | jq .id="$DEVICE_ID") && \
+#echo "---------- Monitor Summary: After"
+#echo $MONITOR_SUMMARY
+#echo "----------"
 
-echo "---------- Monitor Summary: After"
-echo $MONITOR_SUMMARY
-echo "----------"
 DEVICE_INDEX=$(($DEVICE_COUNT-1))
 
 echo "Device index: $DEVICE_INDEX"
@@ -82,18 +82,18 @@ echo $NEW_SETTINGS > $NEW_LINEAR_MQTT_SETTINGS_FILE && \
 
 MONITOR_DASHBOARD=$(cat parts/monitordashboard.json) && \
 
-echo "---------- Monitor Dashboard: Before"
-echo $MONITOR_DASHBOARD
-echo "----------"
+#echo "---------- Monitor Dashboard: Before"
+#echo $MONITOR_DASHBOARD
+#echo "----------"
 
 MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | sed "s/Monitor1/$DEVICE_LABEL/g") && \
 MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | sed "s/monitor1/$DEVICE_NAME/g") && \
 
 #MONITOR_DASHBOARD=$(echo $MONITOR_DASHBOARD | jq .id="$DEVICE_ID") && \
 
-echo "---------- Monitor Dashboard: After"
-echo $MONITOR_DASHBOARD
-echo "----------"
+#echo "---------- Monitor Dashboard: After"
+#echo $MONITOR_DASHBOARD
+#echo "----------"
 
 NEW_SETTINGS=$(jq ".dashboards[$DEVICE_COUNT] |= . + $MONITOR_DASHBOARD" $NEW_LINEAR_MQTT_SETTINGS_FILE) && \
 

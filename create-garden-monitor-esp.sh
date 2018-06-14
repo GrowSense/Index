@@ -40,4 +40,4 @@ cd $DIR && \
 # Uploading sketch
 sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT && \
 
-echo "Garden monitor created with device name '$DEVICE_NAME'"
+echo "Garden ESP8266 monitor created with device name '$DEVICE_NAME'"
