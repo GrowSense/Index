@@ -11,7 +11,7 @@ install:
   - git checkout $TRAVIS_BRANCH
   - sh init-mock-setup.sh
   - sh prepare.sh
-  - sh init.sh
+  - sh init-all.sh
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
 script:
