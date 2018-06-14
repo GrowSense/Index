@@ -29,7 +29,7 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build.sh'
+                sh 'sh build-all.sh'
             }
         }
         stage('Test') {
