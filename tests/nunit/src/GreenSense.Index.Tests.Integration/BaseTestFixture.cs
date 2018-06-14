@@ -1,15 +1,11 @@
 using System;
-using NUnit.Framework;
-using System.Collections.Generic;
-using System.IO.Ports;
 using System.IO;
+using NUnit.Framework;
 
 namespace GreenSense.Index.Tests.Integration
 {
 	public class BaseTestFixture
 	{
-		public bool CalibrationIsReversedByDefault = true;
-
 		public string ProjectDirectory;
 
 		public string TemporaryDirectory;
