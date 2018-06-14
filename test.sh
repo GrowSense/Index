@@ -10,3 +10,4 @@ sh clean.sh && \
 
 echo "" && \
 echo "Testing complete"
+
