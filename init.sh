@@ -4,6 +4,10 @@ git submodule update --init
 
 DIR=$PWD
 
+cd tests/nunit/ && \
+sh init.sh && \
+cd $DIR && \
+
 cd sketches/monitor/SoilMoistureSensorCalibratedSerial/ && \
 sh init.sh && \
 cd $DIR && \

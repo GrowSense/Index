@@ -9,11 +9,11 @@ namespace GreenSense.Index.Tests.Integration
 		{
 		}
 
-		public string Create()
+		public string Create(string startingDirectory)
 		{
-			var projectDir = GetProjectDirectory();
+			var projectName = Path.GetFileName(startingDirectory);
 
-			var tmpDir = projectDir + "-tmp";
+			var tmpDir = Path.GetFullPath(startingDirectory + "/../" + projectName + ".tmp");
 
 			if (!Directory.Exists(tmpDir))
 				Directory.CreateDirectory(tmpDir);

@@ -1,14 +1,15 @@
 ﻿using System;
 using NUnit.Framework;
+
 namespace GreenSense.Index.Tests.Integration
 {
 	[TestFixture(Category = "Integration")]
-	public class CreateMonitorTestFixture : BaseTestFixture
+	public class CreateIrrigatorTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CreateMonitorScript()
+		public void Test_CreateIrrigatorScript()
 		{
-			var scriptName = "test-monitor";
+			var scriptName = "test-irrigator";
 
 			Console.WriteLine("Script:");
 			Console.WriteLine(scriptName);
@@ -17,7 +18,7 @@ namespace GreenSense.Index.Tests.Integration
 			starter.PreCommand = "sh init-mock-setup.sh";
 			var output = starter.RunScript(scriptName);
 
-			var successfulText = "Monitor test complete";
+			var successfulText = "Irrigator test complete";
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
 		}

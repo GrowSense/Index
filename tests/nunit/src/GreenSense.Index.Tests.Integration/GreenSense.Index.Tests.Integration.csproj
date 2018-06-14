@@ -42,6 +42,10 @@
     <Compile Include="ProcessStarter.cs" />
     <Compile Include="TemporaryDirectoryCreator.cs" />
     <Compile Include="DockerProcessStarter.cs" />
+    <Compile Include="CreateIrrigatorTestFixture.cs" />
+    <Compile Include="CreateGardenTestFixture.cs" />
+    <Compile Include="CreateMonitorEspTestFixture.cs" />
+    <Compile Include="CreateIrrigatorEspTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

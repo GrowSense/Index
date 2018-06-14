@@ -8,6 +8,10 @@ namespace GreenSense.Index.Tests.Integration
 
 		public string WorkingDirectory = Directory.GetCurrentDirectory();
 
+		public string PreCommand = "";
+
+		public string ExtraDockerArguments = "";
+
 		public DockerProcessStarter()
 		{
 		}
@@ -31,7 +35,9 @@ namespace GreenSense.Index.Tests.Integration
 
 		protected string RunDockerProcess(string command)
 		{
-			var fullCommand = "docker run -i --rm -v " + WorkingDirectory + ":/src -v /var/run/docker.sock:/var/run/docker.sock compulsivecoder/ubuntu-arm-iot-mono";
+			var fullCommand = "docker run -i --rm ";
+			fullCommand += ExtraDockerArguments;
+			fullCommand += " -v " + WorkingDirectory + ":/project -v /var/run/docker.sock:/var/run/docker.sock compulsivecoder/ubuntu-arm-iot-mono";
 			fullCommand += " " + command;
 
 			return RunProcess(fullCommand);
@@ -39,16 +45,13 @@ namespace GreenSense.Index.Tests.Integration
 
 		protected string RunDockerBash(string internalCommand)
 		{
-			var fullCommand = "/bin/bash -c \"" + internalCommand + "\"";
+			var fullPreCommand = "";
+			if (!String.IsNullOrEmpty(PreCommand))
+				fullPreCommand = PreCommand + " && ";
+
+			var fullCommand = "/bin/bash -c \"cd /project &&" + fullPreCommand + internalCommand + "\"";
 
 			return RunDockerProcess(fullCommand);
-		}
-
-		protected string RunClonedDockerBash(string internalCommand)
-		{
-			var fullCommand = "rsync -av --exclude='.git' /src/* /dest/ && cd /dest && " + internalCommand;
-
-			return RunDockerBash(fullCommand);
 		}
 
 		public string RunScript(string scriptName)
@@ -58,7 +61,7 @@ namespace GreenSense.Index.Tests.Integration
 
 			var fullCommand = "sh " + scriptName;
 
-			return RunClonedDockerBash(fullCommand);
+			return RunDockerBash(fullCommand);
 		}
 
 	}
