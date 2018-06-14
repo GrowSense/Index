@@ -16,7 +16,7 @@ namespace GreenSense.Index.Tests.Integration
 		public string TemporaryProjectDirectory;
 		public string TemporaryServicesDirectory;
 
-		public bool AutoDeleteTemporaryDirectory = true;
+		public bool AutoDeleteTemporaryDirectory = false;
 
 		public BaseTestFixture()
 		{
@@ -47,7 +47,7 @@ namespace GreenSense.Index.Tests.Integration
 		public void CopyDirectory(string source, string destination)
 		{
 			var starter = new ProcessStarter();
-			starter.Start("rsync -arzh --exclude='.git' --exclude='nunit-tmp' " + source + "/ " + destination + "/");
+			starter.Start("rsync -arzh --exclude='.git' " + source + "/ " + destination + "/");
 			Console.WriteLine(starter.Output);
 		}
 
