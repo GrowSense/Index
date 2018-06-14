@@ -49,7 +49,7 @@ namespace GreenSense.Index.Tests.Integration
 			if (!String.IsNullOrEmpty(PreCommand))
 				fullPreCommand = PreCommand + " && ";
 
-			var fullCommand = "/bin/bash -c \"cd /project &&" + fullPreCommand + internalCommand + "\"";
+			var fullCommand = "/bin/bash -c \"cd /project && " + fullPreCommand + internalCommand + "\"";
 
 			return RunDockerProcess(fullCommand);
 		}
