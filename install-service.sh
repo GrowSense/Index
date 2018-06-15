@@ -7,7 +7,6 @@ echo "Name: $SERVICE_FILE"
 
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
-
 MOCK_SYSTEMCTL_FLAG_FILE="is-mock-systemctl.txt"
 
 IS_MOCK_SYSTEMCTL=0
