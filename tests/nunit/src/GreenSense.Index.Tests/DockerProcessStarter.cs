@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
-namespace GreenSense.Index.Tests.Integration
+
+namespace GreenSense.Index.Tests
 {
 	public class DockerProcessStarter
 	{
@@ -11,6 +12,8 @@ namespace GreenSense.Index.Tests.Integration
 		public string PreCommand = "";
 
 		public string ExtraDockerArguments = "";
+
+		public bool IsMockDocker = false;
 
 		public DockerProcessStarter()
 		{
@@ -35,12 +38,16 @@ namespace GreenSense.Index.Tests.Integration
 
 		protected string RunDockerProcess(string command)
 		{
-			var fullCommand = "docker run -i --rm ";
-			fullCommand += ExtraDockerArguments;
-			fullCommand += " -v " + WorkingDirectory + ":/project -v /var/run/docker.sock:/var/run/docker.sock compulsivecoder/ubuntu-arm-iot-mono";
+			var fullCommand = "";
+			if (IsMockDocker)
+			{
+				fullCommand += "docker run -i --rm ";
+				fullCommand += ExtraDockerArguments;
+				fullCommand += " -v " + WorkingDirectory + ":/project -v /var/run/docker.sock:/var/run/docker.sock compulsivecoder/ubuntu-arm-iot-mono";
+			}
 			fullCommand += " " + command;
 
-			return RunProcess(fullCommand);
+			return RunProcess(fullCommand.Trim());
 		}
 
 		protected string RunDockerBash(string internalCommand)

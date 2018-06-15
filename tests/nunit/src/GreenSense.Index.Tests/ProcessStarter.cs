@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 
-namespace GreenSense.Index.Tests.Integration
+namespace GreenSense.Index.Tests
 {
 	public class ProcessStarter
 	{

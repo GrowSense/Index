@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GreenSense.Index.Tests.Integration
+namespace GreenSense.Index.Tests
 {
 	public class TemporaryDirectoryCreator
 	{
