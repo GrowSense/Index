@@ -18,7 +18,7 @@ fi
 
 SERVICES_DIR="/lib/systemd/system"
 
-if [ $IS_MOCK_SYSTEMCTL ]; then
+if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
   SERVICES_DIR="mock/services"
 fi
 
