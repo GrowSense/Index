@@ -19,7 +19,22 @@ if [ ! "$DEVICE_PORT" ]; then
     exit 1
 fi
 
-SERVICE_FILE="/lib/systemd/system/greensense-mqtt-bridge-$DEVICE_NAME.service" && \
+MOCK_SYSTEMCTL_FLAG_FILE="is-mock-systemctl.txt"
+
+IS_MOCK_SYSTEMCTL=0
+
+if [ -f "$MOCK_SYSTEMCTL_FLAG_FILE" ]; then
+  IS_MOCK_SYSTEMCTL=1
+  echo "Is mock systemctl"
+fi
+
+SERVICES_DIR="/lib/systemd/system"
+
+if [ $IS_MOCK_SYSTEMCTL ]; then
+  SERVICES_DIR="mock/services"
+fi
+
+SERVICE_FILE="$SERVICES_DIR/greensense-mqtt-bridge-$DEVICE_NAME.service" && \
 
 echo "Checking service file exists..."
 

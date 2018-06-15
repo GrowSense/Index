@@ -38,6 +38,16 @@ namespace GreenSense.Index.Tests
 			CopyDirectory(ProjectDirectory, TemporaryProjectDirectory);
 			Directory.SetCurrentDirectory(TemporaryProjectDirectory);
 
+			if (File.Exists(Path.GetFullPath("is-mock-systemctl.txt")))
+			{
+				TemporaryServicesDirectory = Path.Combine(TemporaryProjectDirectory, "mock/services");
+			}
+			else
+			{
+				TemporaryServicesDirectory = "/lib/systemd/system/";
+			}
+			Console.WriteLine("Services directory:");
+			Console.WriteLine("  " + TemporaryServicesDirectory);
 		}
 
 		public void CopyDirectory(string source, string destination)
@@ -57,15 +67,9 @@ namespace GreenSense.Index.Tests
 		public DockerProcessStarter GetDockerProcessStarter()
 		{
 			var starter = new DockerProcessStarter();
+
 			starter.WorkingDirectory = TemporaryProjectDirectory;
 
-			var systemServicesDir = "/lib/systemd/system/";
-
-			TemporaryServicesDirectory = Path.Combine(TemporaryDirectory, "services");
-
-			Directory.CreateDirectory(TemporaryServicesDirectory);
-
-			starter.ExtraDockerArguments = "-v " + TemporaryServicesDirectory + ":" + systemServicesDir;
 			starter.IsMockDocker = File.Exists(Path.GetFullPath("is-mock-docker.txt"));
 
 			return starter;
