@@ -39,11 +39,11 @@ namespace GreenSense.Index.Tests
 		protected string RunDockerProcess(string command)
 		{
 			var fullCommand = "";
-			if (IsMockDocker)
+			if (!IsMockDocker)
 			{
 				fullCommand += "docker run -i --rm ";
 				fullCommand += ExtraDockerArguments;
-				fullCommand += " -v " + WorkingDirectory + ":/project -v /var/run/docker.sock:/var/run/docker.sock compulsivecoder/ubuntu-arm-iot-mono";
+				fullCommand += " -v " + WorkingDirectory + ":~/workspace/GreenSense/Index -v /var/run/docker.sock:/var/run/docker.sock compulsivecoder/ubuntu-arm-iot-mono";
 			}
 			fullCommand += " " + command;
 
@@ -56,7 +56,13 @@ namespace GreenSense.Index.Tests
 			if (!String.IsNullOrEmpty(PreCommand))
 				fullPreCommand = PreCommand + " && ";
 
-			var fullCommand = "/bin/bash -c \"cd /project && " + fullPreCommand + internalCommand + "\"";
+			var cdCommand = "cd ~/workspace/GreenSense/Index &&";
+
+			// If docker is mocked don't change the directory
+			if (IsMockDocker)
+				cdCommand = "";
+
+			var fullCommand = "/bin/bash -c \"" + cdCommand + " " + fullPreCommand + internalCommand + "\"";
 
 			return RunDockerProcess(fullCommand);
 		}
