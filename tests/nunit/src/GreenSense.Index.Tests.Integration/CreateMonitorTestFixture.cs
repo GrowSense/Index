@@ -20,6 +20,8 @@ namespace GreenSense.Index.Tests.Integration
 			var successfulText = "Monitor test complete";
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
+
+			CheckDeviceInfoWasCreated("monitor/SoilMoistureSensorCalibratedSerial", "MyMonitor", "mymonitor", "ttyUSB0");
 		}
 	}
 }

@@ -21,6 +21,8 @@ namespace GreenSense.Index.Tests.Integration
 			var successfulText = "Irrigator ESP8266 test complete";
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
+
+			CheckDeviceInfoWasCreated("irrigator/SoilMoistureSensorCalibratedPumpESP", "MyIrrigator", "myirrigator", "ttyUSB1");
 		}
 	}
 }

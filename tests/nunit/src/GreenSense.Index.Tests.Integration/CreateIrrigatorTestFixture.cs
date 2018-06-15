@@ -21,6 +21,8 @@ namespace GreenSense.Index.Tests.Integration
 			var successfulText = "Irrigator test complete";
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
+
+			CheckDeviceInfoWasCreated("irrigator/SoilMoistureSensorCalibratedPump", "MyIrrigator", "myirrigator", "ttyUSB1");
 		}
 	}
 }
