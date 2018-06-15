@@ -16,4 +16,5 @@ install:
 
 script:
   - sh update-submodules.sh
-  - sh build-all.sh
+  - sh build-tests.sh
+  - sh test.sh
