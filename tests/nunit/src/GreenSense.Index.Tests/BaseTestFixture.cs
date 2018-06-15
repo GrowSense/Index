@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using NUnit.Framework;
 
-namespace GreenSense.Index.Tests.Integration
+namespace GreenSense.Index.Tests
 {
 	public class BaseTestFixture
 	{
@@ -43,7 +43,7 @@ namespace GreenSense.Index.Tests.Integration
 		public void CopyDirectory(string source, string destination)
 		{
 			var starter = new ProcessStarter();
-			starter.Start("rsync -arzh --exclude='.git' " + source + "/ " + destination + "/");
+			starter.Start("rsync -arh --exclude='.git' --exclude='.pioenvs' " + source + "/ " + destination + "/");
 			Console.WriteLine(starter.Output);
 		}
 
@@ -66,6 +66,7 @@ namespace GreenSense.Index.Tests.Integration
 			Directory.CreateDirectory(TemporaryServicesDirectory);
 
 			starter.ExtraDockerArguments = "-v " + TemporaryServicesDirectory + ":" + systemServicesDir;
+			starter.IsMockDocker = File.Exists(Path.GetFullPath("is-mock-docker.txt"));
 
 			return starter;
 		}
