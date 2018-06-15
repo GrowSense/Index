@@ -16,5 +16,4 @@ cd $DIR && \
 
 cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/ && \
 sh init.sh && \
-cd $DIR && \
-
+cd $DIR
