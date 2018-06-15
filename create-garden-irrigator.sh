@@ -28,6 +28,9 @@ echo "Device label: $DEVICE_LABEL"
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
+# Create device info
+sh create-device-info.sh irrigator/SoilMoistureSensorCalibratedPump $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT  
+
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 

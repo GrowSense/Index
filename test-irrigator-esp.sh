@@ -1,6 +1,6 @@
 IRRIGATOR_LABEL="MyIrrigator"
 IRRIGATOR_DEVICE_NAME="myirrigator"
-IRRIGATOR_PORT="ttyUSB0"
+IRRIGATOR_PORT="ttyUSB1"
 
 echo "----------" && \
 echo "Testing irrigator ESP8266 scripts" && \

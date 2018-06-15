@@ -74,5 +74,34 @@ namespace GreenSense.Index.Tests
 
 			return starter;
 		}
+
+		public void CheckDeviceInfoWasCreated(string deviceType, string deviceLabel, string deviceName, string devicePort)
+		{
+			var devicesDir = Path.GetFullPath("devices");
+			var deviceDir = Path.Combine(devicesDir, deviceName);
+
+			Console.WriteLine("Device dir:");
+			Console.WriteLine(deviceDir);
+
+			var deviceDirExists = Directory.Exists(deviceDir);
+
+			Assert.IsTrue(deviceDirExists, "Device directory not found: " + deviceDir);
+
+			var foundType = File.ReadAllText(Path.Combine(deviceDir, "type.txt")).Trim();
+
+			Assert.AreEqual(deviceType, foundType, "Device type doesn't match.");
+
+			var foundLabel = File.ReadAllText(Path.Combine(deviceDir, "label.txt")).Trim();
+
+			Assert.AreEqual(deviceLabel, foundLabel, "Device label doesn't match.");
+
+			var foundName = File.ReadAllText(Path.Combine(deviceDir, "name.txt")).Trim();
+
+			Assert.AreEqual(deviceName, foundName, "Device name doesn't match.");
+
+			var foundPort = File.ReadAllText(Path.Combine(deviceDir, "port.txt")).Trim();
+
+			Assert.AreEqual(devicePort, foundPort, "Device port doesn't match.");
+		}
 	}
 }

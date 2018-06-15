@@ -21,6 +21,8 @@ namespace GreenSense.Index.Tests.Integration
 			var successfulText = "Monitor ESP8266 test complete";
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
+
+			CheckDeviceInfoWasCreated("monitor/SoilMoistureSensorCalibratedSerialESP", "MyMonitor", "mymonitor", "ttyUSB0");
 		}
 	}
 }
