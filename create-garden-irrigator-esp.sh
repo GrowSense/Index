@@ -36,9 +36,7 @@ sh create-device-info.sh irrigator/SoilMoistureSensorCalibratedPumpESP $DEVICE_L
 # Set up mobile UI
 echo "Setting up Linear MQTT Dashboard UI..."
 
-cd mobile/linearmqtt/ && \
 sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
-cd $DIR && \
 
 # Uploading sketch
 sh upload-irrigator-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT && \

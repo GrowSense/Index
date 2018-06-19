@@ -36,9 +36,7 @@ sh create-device-info.sh monitor/SoilMoistureSensorCalibratedSerialESP $DEVICE_L
 # Set up mobile UI
 echo "Setting up Linear MQTT Dashboard UI..."
 
-cd mobile/linearmqtt/ && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
-cd $DIR && \
 
 # Uploading sketch
 sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT && \

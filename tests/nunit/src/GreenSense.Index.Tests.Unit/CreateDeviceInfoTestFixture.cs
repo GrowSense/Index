@@ -9,9 +9,9 @@ namespace GreenSense.Index.Tests.Unit
 		[Test]
 		public void Test_CreateDeviceInfo()
 		{
-			Console.WriteLine("Testing create-garden-info.sh script");
-
 			var scriptName = "create-device-info.sh";
+
+			Console.WriteLine("Testing " + scriptName + " script");
 
 			Console.WriteLine("Script:");
 			Console.WriteLine(scriptName);

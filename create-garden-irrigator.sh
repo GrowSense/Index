@@ -38,8 +38,6 @@ sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 sh create-updater-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up mobile UI
-cd mobile/linearmqtt/ && \
 sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
-cd $DIR && \
 
 echo "Garden irrigator created with device name '$DEVICE_NAME'"
