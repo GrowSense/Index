@@ -8,8 +8,8 @@ DIR=$PWD
 
 echo "Switching index to $BRANCH branch"
 
-git pull origin $BRANCH && \
-git checkout $BRANCH
+git checkout $BRANCH && \
+git pull origin $BRANCH
 
 cd $DIR
 
@@ -17,8 +17,8 @@ echo "Switching monitor to $BRANCH branch"
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerial/
 
-git pull origin $BRANCH && \
-git checkout $BRANCH
+git checkout $BRANCH && \
+git pull origin $BRANCH
 
 cd $DIR
 
@@ -26,8 +26,8 @@ echo "Switching ESP monitor to $BRANCH branch"
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/
 
-git pull origin $BRANCH && \
-git checkout $BRANCH
+git checkout $BRANCH && \
+git pull origin $BRANCH
 
 cd $DIR
 
@@ -35,8 +35,8 @@ echo "Switching irrigator to $BRANCH branch"
 
 cd sketches/irrigator/SoilMoistureSensorCalibratedPump/
 
-git pull origin $BRANCH && \
-git checkout $BRANCH
+git checkout $BRANCH && \
+git pull origin $BRANCH
 
 cd $DIR
 
