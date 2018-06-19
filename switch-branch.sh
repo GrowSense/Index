@@ -22,9 +22,27 @@ git checkout $BRANCH
 
 cd $DIR
 
+echo "Switching ESP monitor to $BRANCH branch"
+
+cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/
+
+git pull origin $BRANCH && \
+git checkout $BRANCH
+
+cd $DIR
+
 echo "Switching irrigator to $BRANCH branch"
 
 cd sketches/irrigator/SoilMoistureSensorCalibratedPump/
+
+git pull origin $BRANCH && \
+git checkout $BRANCH
+
+cd $DIR
+
+echo "Switching ESP irrigator to $BRANCH branch"
+
+cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/
 
 git pull origin $BRANCH && \
 git checkout $BRANCH
