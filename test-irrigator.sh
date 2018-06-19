@@ -30,6 +30,6 @@ echo "----------" && \
 echo "Cleaning up" && \
 echo "----------" && \
 
-sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
+#sh remove-garden-device.sh $IRRIGATOR_DEVICE_NAME && \
 
 echo "Irrigator test complete"
