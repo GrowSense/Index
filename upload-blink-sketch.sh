@@ -29,10 +29,10 @@ BLINK_SKETCH_PATH="src/Blink/Blink.ino"
 sed -i "s/int ledPin = .*/int ledPin = $LED_PIN;/" $BLINK_SKETCH_PATH && \
 
 # Build the sketch
-sh build.sh && \
+sh build-nano.sh && \
 
 # Upload the sketch
-sh upload.sh "/dev/$SERIAL_PORT" && \
+sh upload-nano.sh "/dev/$SERIAL_PORT" && \
 
 # Restore the original sketch
 git checkout $BLINK_SKETCH_PATH
