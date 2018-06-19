@@ -10,9 +10,25 @@ git pull origin master || exit 1
 
 cd $DIR
 
+echo "Updating SoilMoistureSensorCalibratedSerialESP"
+
+cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP && \
+git checkout master && \
+git pull origin master || exit 1
+
+cd $DIR
+
 echo "Updating SoilMoistureSensorCalibratedPump"
 
 cd sketches/irrigator/SoilMoistureSensorCalibratedPump && \
+git checkout master && \
+git pull origin master || exit 1
+
+cd $DIR
+
+echo "Updating SoilMoistureSensorCalibratedPumpESP"
+
+cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP && \
 git checkout master && \
 git pull origin master || exit 1
 
