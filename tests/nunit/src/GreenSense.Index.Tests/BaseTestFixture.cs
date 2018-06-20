@@ -51,6 +51,8 @@ namespace GreenSense.Index.Tests
 			}
 			Console.WriteLine("Services directory:");
 			Console.WriteLine("  " + TemporaryServicesDirectory);
+
+			ClearDevices();
 		}
 
 		public void CopyDirectory(string source, string destination)
@@ -65,6 +67,12 @@ namespace GreenSense.Index.Tests
 		{
 			if (AutoDeleteTemporaryDirectory)
 				Directory.Delete(TemporaryDirectory, true);
+		}
+
+		public void ClearDevices()
+		{
+			// Clear all devices for the test
+			Directory.Delete(Path.GetFullPath("devices"), true);
 		}
 
 		public DockerProcessStarter GetDockerProcessStarter()
@@ -109,7 +117,7 @@ namespace GreenSense.Index.Tests
 
 		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName)
 		{
-			Console.WriteLine("Checking that the monitor UI device was created...");
+			Console.WriteLine("Checking that the device UI was created...");
 			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
 			var json = JObject.Parse(jsonString);
 
@@ -209,6 +217,21 @@ namespace GreenSense.Index.Tests
 			var expectedValueMeterTopic = "/" + deviceName + "/C";
 
 			Assert.AreEqual(expectedValueMeterTopic, valueMeterElement["topic"].ToString(), "Value meter topic doesn't match the device name.");
+		}
+
+		public void CheckDeviceUICount(int numberOfDevicesExpected)
+		{
+			Console.WriteLine("Checking that the device UI was created...");
+			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
+			var json = JObject.Parse(jsonString);
+
+			Console.WriteLine("Checking the number of devices is correct...");
+			var dashboardsElement = json["dashboards"];
+
+			var expectedCount = 1 + numberOfDevicesExpected;
+			var actualCount = ((JArray)dashboardsElement).Count;
+
+			Assert.AreEqual(expectedCount, actualCount, "Wrong number of devices in UI");
 		}
 	}
 }

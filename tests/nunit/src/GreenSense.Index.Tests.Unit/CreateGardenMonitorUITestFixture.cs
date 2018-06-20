@@ -32,6 +32,18 @@ namespace GreenSense.Index.Tests.Unit
 			Console.WriteLine("Checking device UI was created...");
 
 			CheckDeviceUIWasCreated(deviceLabel, deviceName);
+
+			Console.WriteLine("Creating device info folder...");
+
+			Directory.CreateDirectory(Path.GetFullPath("devices/" + deviceName));
+
+			Console.WriteLine("Attempting to create a duplicate...");
+
+			starter.Start(command);
+
+			Console.WriteLine("Ensuring that no duplicate UI was created...");
+
+			CheckDeviceUICount(1);
 		}
 	}
 }
