@@ -21,3 +21,7 @@ fi
 if [ ! -d "NUnit.Runners.2.6.4" ]; then
     mono nuget.exe install nunit.runners -version 2.6.4
 fi
+
+if [ ! -d "Newtonsoft.Json.11.0.2" ]; then
+    mono nuget.exe install newtonsoft.json
+fi

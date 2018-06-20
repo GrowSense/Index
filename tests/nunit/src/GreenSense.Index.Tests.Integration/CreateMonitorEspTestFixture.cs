@@ -22,7 +22,14 @@ namespace GreenSense.Index.Tests.Integration
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
 
-			CheckDeviceInfoWasCreated("monitor/SoilMoistureSensorCalibratedSerialESP", "MyMonitor", "mymonitor", "ttyUSB0");
+			var type = "monitor/SoilMoistureSensorCalibratedSerialESP";
+			var label = "MyMonitor";
+			var name = "mymonitor";
+			var port = "ttyUSB0";
+
+			CheckDeviceInfoWasCreated(type, label, name, port);
+
+			CheckDeviceUIWasCreated(label, name);
 		}
 	}
 }
