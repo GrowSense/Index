@@ -72,7 +72,9 @@ namespace GreenSense.Index.Tests
 		public void ClearDevices()
 		{
 			// Clear all devices for the test
-			Directory.Delete(Path.GetFullPath("devices"), true);
+			var devicesPath = Path.GetFullPath("devices");
+			if (Directory.Exists(devicesPath))
+				Directory.Delete(devicesPath, true);
 		}
 
 		public DockerProcessStarter GetDockerProcessStarter()
