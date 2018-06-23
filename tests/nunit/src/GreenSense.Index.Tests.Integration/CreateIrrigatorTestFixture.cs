@@ -22,7 +22,14 @@ namespace GreenSense.Index.Tests.Integration
 
 			Assert.IsTrue(output.Contains(successfulText), "Failed");
 
-			CheckDeviceInfoWasCreated("irrigator/SoilMoistureSensorCalibratedPump", "MyIrrigator", "myirrigator", "ttyUSB1");
+			var type = "irrigator/SoilMoistureSensorCalibratedPump";
+			var label = "MyIrrigator";
+			var name = "myirrigator";
+			var port = "ttyUSB1";
+
+			CheckDeviceInfoWasCreated(type, label, name, port);
+
+			CheckDeviceUIWasCreated(label, name);
 		}
 	}
 }
