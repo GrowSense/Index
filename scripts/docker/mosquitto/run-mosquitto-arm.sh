@@ -3,6 +3,8 @@ docker rm mosquitto || echo "Skipping remove"
 
 MOSQUITTO_DIR="/usr/local/mosquitto"
 
+docker pull compulsivecoder/mosquitto-arm
+
 docker run -i \
   --restart=always \
   --name=mosquitto \
@@ -13,5 +15,5 @@ docker run -i \
 	-e MQTT_PASSWORD=pass \
 	-e MQTT_TOPIC=Test \
 	-p 1883:1883 \
-	-p 8090:8080 \
+	-p 8080:8080 \
 	compulsivecoder/mosquitto-arm

@@ -37,6 +37,6 @@ echo "$SERVICE_FILE_PATH"
 cp $SERVICE_EXAMPLE_FILE_PATH $SERVICE_FILE_PATH && \
 sed -i "s/${DEVICE_TYPE}1/$DEVICE_NAME/g" $SERVICE_FILE_PATH && \
 sed -i "s/ttyUSB[0-9]/$DEVICE_PORT/g" $SERVICE_FILE_PATH && \
-sh install-service.sh $SERVICE_FILE_PATH
+sudo sh install-service.sh $SERVICE_FILE_PATH
 
 echo "Finished creating update service"

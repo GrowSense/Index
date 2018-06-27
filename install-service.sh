@@ -34,6 +34,7 @@ else
   sudo chmod 644 $SERVICES_DIR/$SERVICE_FILE && \
   sudo sh $SYSTEMCTL_SCRIPT daemon-reload && \
   sudo sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
+  sudo sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
   sudo sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
 fi
 
