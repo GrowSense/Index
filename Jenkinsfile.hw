@@ -1,12 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Setup') {
+        stage('Checkout') {
             steps {
+                checkout scm
+
+                shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git' )
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
-                shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git' )
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
@@ -14,6 +16,7 @@ pipeline {
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
+                sh 'sh init-mock-submodule-builds.sh'
             }
         }
         stage('Prepare') {
@@ -66,9 +69,6 @@ pipeline {
         }
     }
     post {
-        always {
-            cleanWs()
-        }
         success() {
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
@@ -76,14 +76,17 @@ pipeline {
                 <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
               recipientProviders: [[$class: 'DevelopersRecipientProvider']]
             )
+          cleanWs()
         }
         failure() {
+          sh 'sh rollback.sh'
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
                 <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
               recipientProviders: [[$class: 'DevelopersRecipientProvider']]
             )
+          cleanWs()
         }
     }
 }
