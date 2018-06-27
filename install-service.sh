@@ -7,10 +7,35 @@ echo "Name: $SERVICE_FILE"
 
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
-sudo cp -fv $SERVICE_FILE_PATH /lib/systemd/system/$SERVICE_FILE
-sudo chmod 644 /lib/systemd/system/$SERVICE_FILE
-sudo sh $SYSTEMCTL_SCRIPT daemon-reload
-sudo sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE
-sudo sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
+MOCK_SYSTEMCTL_FLAG_FILE="is-mock-systemctl.txt"
+
+IS_MOCK_SYSTEMCTL=0
+
+if [ -f "$MOCK_SYSTEMCTL_FLAG_FILE" ]; then
+  IS_MOCK_SYSTEMCTL=1
+  echo "Is mock systemctl"
+fi
+
+SERVICES_DIR="/lib/systemd/system"
+
+if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
+  SERVICES_DIR="mock/services"
+fi
+
+mkdir -p $SERVICES_DIR
+
+echo "Services directory:"
+echo "  $SERVICES_DIR"
+
+if [ $IS_MOCK_SYSTEMCTL ]; then
+  cp $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE
+else
+  sudo cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE && \
+  sudo chmod 644 $SERVICES_DIR/$SERVICE_FILE && \
+  sudo sh $SYSTEMCTL_SCRIPT daemon-reload && \
+  sudo sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
+  sudo sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
+  sudo sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
+fi
 
 echo "Finished installing service"

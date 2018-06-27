@@ -1,9 +1,6 @@
 sudo: required
 
-language: csharp
-
-mono:
-  - latest
+language: python
 
 services:
   - docker
@@ -13,11 +10,11 @@ install:
   - git fetch --no-tags
   - git checkout $TRAVIS_BRANCH
   - sh init-mock-setup.sh
-  - sudo sh prepare.sh
-  - sh init.sh
+  - sh prepare.sh
+  - sh init-all.sh
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
 script:
   - sh update-submodules.sh
-  - sh build.sh
+  - sh build-tests.sh
   - sh test.sh

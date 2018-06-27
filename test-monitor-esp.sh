@@ -21,13 +21,13 @@ echo "----------" && \
 
 # Skip MQTT bridge and updater service verification because they aren't used with the WiFi version
 
-sh verify-device-ui.sh 1 "monitor" $MONITOR_DEVICE_NAME $MONITOR_LABEL $MONITOR_PORT && \
+#sh verify-device-ui.sh 1 "monitor" $MONITOR_DEVICE_NAME $MONITOR_LABEL $MONITOR_PORT && \
 
-echo "" && \
-echo "----------" && \
-echo "Cleaning up" && \
-echo "----------" && \
+#echo "" && \
+#echo "----------" && \
+#echo "Cleaning up" && \
+#echo "----------" && \
 
-sh remove-garden-device.sh $MONITOR_DEVICE_NAME && \
+#sh remove-garden-device.sh $MONITOR_DEVICE_NAME && \
 
 echo "Monitor ESP8266 test complete"

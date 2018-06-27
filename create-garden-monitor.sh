@@ -28,17 +28,17 @@ echo "Device label: $DEVICE_LABEL"
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
+# Set up mobile UI
+echo "Setting up Linear MQTT Dashboard UI..." && \
+sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+
+# Create device info
+sh create-device-info.sh monitor/SoilMoistureSensorCalibratedSerial $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
 sh create-updater-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
-# Set up mobile UI
-echo "Setting up Linear MQTT Dashboard UI..." && \
-
-cd mobile/linearmqtt/ && \
-sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
-cd $DIR && \
-
-echo "Garden ESP8266 monitor created with device name '$DEVICE_NAME'"
+echo "Garden monitor created with device name '$DEVICE_NAME'"

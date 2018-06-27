@@ -7,6 +7,15 @@ DIR=$PWD
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
 echo ""
+echo "Mobile UI Settings"
+echo ""
+
+cd mobile/linearmqtt && \
+sh reset.sh && \
+cd $DIR
+
+
+echo ""
 echo "MQTT Bridge Services"
 echo ""
 
@@ -15,11 +24,7 @@ for filename in scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/*.service; do
   shortname=$(basename $filename)
   echo "Removing service: $filename" && \
   echo "" && \
-  #sudo sh $SYSTEMCTL_SCRIPT stop "$filename" && \
-  #sudo sh $SYSTEMCTL_SCRIPT disable "$filename" && \
-  echo "" && \
   rm -v $filename || exit 1
-  #rm -v /lib/systemd/system/$shortname || exit 1
 done
 
 echo ""
@@ -31,26 +36,22 @@ for filename in scripts/apps/GitDeployer/svc/*.service; do
   shortname=$(basename $filename)
   echo "Removing service: $filename" && \
   echo "" && \
-  #sudo sh $SYSTEMCTL_SCRIPT stop "$filename" && \
-  #sudo sh $SYSTEMCTL_SCRIPT disable "$filename" && \
-  echo "" && \
   rm -v $filename || exit 1
-  #rm -v /lib/systemd/system/$shortname || exit 1
 done
+
+echo ""
+echo "Installed services"
+echo ""
 
 for filename in /lib/systemd/system/greensense-*.service; do
   [ -f "$filename" ] || break
   shortname=$(basename $filename)
-  echo "Removing service: $filename" && \
+  echo "Removing service: $shortname" && \
   echo "" && \
-  sudo sh $SYSTEMCTL_SCRIPT stop "$filename" && \
-  sudo sh $SYSTEMCTL_SCRIPT disable "$filename" && \
+  sudo sh $SYSTEMCTL_SCRIPT stop "$shortname" && \
+  sudo sh $SYSTEMCTL_SCRIPT disable "$shortname" && \
   echo "" && \
   sudo rm -v $filename || exit 1
 done
 
-cd mobile/linearmqtt && \
-sh reset.sh && \
-cd $DIR
-
-echo "Finished removing device services"
+echo "Finished removing garden device services"
