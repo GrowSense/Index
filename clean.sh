@@ -12,4 +12,9 @@ if [ -d "$TMP_DIR" ]; then
   sudo rm "$TMP_DIR/" -r
 fi
 
+cd mobile/linearmqtt/
+sh reset.sh
+
+cd $DIR
+
 echo "Done"
