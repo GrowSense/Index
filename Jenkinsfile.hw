@@ -16,6 +16,7 @@ pipeline {
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
+                sh 'sh init-mock-submodule-builds.sh'
             }
         }
         stage('Prepare') {
