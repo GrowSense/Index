@@ -1,5 +1,5 @@
 PRE_COMMIT_FILE=".git/hooks/pre-commit"
-COMMAND="test.sh && sh clean.sh"
+COMMAND="sh clean.sh"
 
 if [ -f $PRE_COMMIT_FILE ]; then
     cp "$PRE_COMMIT_FILE" "$PRE_COMMIT_FILE.bak"
