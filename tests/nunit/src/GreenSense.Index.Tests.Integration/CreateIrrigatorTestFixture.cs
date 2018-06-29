@@ -16,11 +16,7 @@ namespace GreenSense.Index.Tests.Integration
 
 			var starter = GetDockerProcessStarter();
 			starter.PreCommand = "sh init-mock-setup.sh";
-			var output = starter.RunScript(scriptName);
-
-			var successfulText = "Irrigator test complete";
-
-			Assert.IsTrue(output.Contains(successfulText), "Failed");
+			starter.RunScript(scriptName);
 
 			var type = "irrigator/SoilMoistureSensorCalibratedPump";
 			var label = "MyIrrigator";
@@ -30,6 +26,10 @@ namespace GreenSense.Index.Tests.Integration
 			CheckDeviceInfoWasCreated(type, label, name, port);
 
 			CheckDeviceUIWasCreated(label, name);
+
+			CheckMqttBridgeServiceFileWasCreated(name);
+
+			CheckUpdaterServiceFileWasCreated(name);
 		}
 	}
 }

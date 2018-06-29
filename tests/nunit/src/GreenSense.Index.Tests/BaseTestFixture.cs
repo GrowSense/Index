@@ -235,5 +235,23 @@ namespace GreenSense.Index.Tests
 
 			Assert.AreEqual(expectedCount, actualCount, "Wrong number of devices in UI");
 		}
+
+		public void CheckMqttBridgeServiceFileWasCreated(string deviceName)
+		{
+			var serviceFile = Path.Combine(TemporaryServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
+
+			var fileExists = File.Exists(serviceFile);
+
+			Assert.IsTrue(fileExists, "MQTT bridge service file not created: " + serviceFile);
+		}
+
+		public void CheckUpdaterServiceFileWasCreated(string deviceName)
+		{
+			var serviceFile = Path.Combine(TemporaryServicesDirectory, "greensense-updater-" + deviceName + ".service");
+
+			var fileExists = File.Exists(serviceFile);
+
+			Assert.IsTrue(fileExists, "Updater service file not created: " + serviceFile);
+		}
 	}
 }

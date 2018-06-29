@@ -26,8 +26,11 @@ mkdir -p $SERVICES_DIR
 
 echo "Services directory:"
 echo "  $SERVICES_DIR"
+echo "Destination file:"
+echo "  $SERVICES_DIR/$SERVICE_FILE"
 
-if [ $IS_MOCK_SYSTEMCTL ]; then
+if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
+  echo "Is mock systemctl. Installing to mock directory."
   cp $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE
 else
   sudo cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE && \
