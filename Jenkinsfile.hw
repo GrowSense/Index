@@ -9,6 +9,7 @@ pipeline {
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
+                sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
@@ -17,6 +18,12 @@ pipeline {
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
                 sh 'sh init-mock-submodule-builds.sh'
+            }
+        }
+        stage('Update Submodules') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh update-submodules.sh $BRANCH_NAME'
             }
         }
         stage('Prepare') {
@@ -67,6 +74,12 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         }
+        stage('Push Submodule Updates') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-submodule-updates.sh'
+            }
+        }
     }
     post {
         success() {
@@ -96,4 +109,8 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
+ 
+ 
+ 
+ 
  
