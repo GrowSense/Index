@@ -73,12 +73,6 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         }
-        stage('Push Submodule Updates') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-submodule-updates.sh'
-            }
-        }
     }
     post {
         success() {
