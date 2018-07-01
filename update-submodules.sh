@@ -2,7 +2,7 @@ echo "Updating submodules by checking out the master branch and pulling from ori
 
 BRANCH=$1
 
-if [ ! $BRANCH ]; then
+if [ ! "$BRANCH" ]; then
   BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 fi
 
