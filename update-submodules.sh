@@ -2,6 +2,8 @@ echo "Updating submodules by checking out the master branch and pulling from ori
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+echo "Branch: $BRANCH"
+
 DIR=$PWD
 
 echo "Updating SoilMoistureSensorCalibratedSerial"
