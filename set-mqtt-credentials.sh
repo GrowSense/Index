@@ -38,13 +38,13 @@ if [ "$PASSWORD" ]; then
   BRIDGE_SERVICE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   echo "  $BRIDGE_SERVICE_CONFIG_FILE"
   
-  if [ ! -f "$BRIDGE_SERVICE_CONFIG_FILE"]; then
+  if [ ! -f "$BRIDGE_SERVICE_CONFIG_FILE.bak" ]; then
     echo "Backing up the original config file"
     cp $BRIDGE_SERVICE_CONFIG_FILE $BRIDGE_SERVICE_CONFIG_FILE.bak
   fi
   
   echo "Restoring blank starter config file"
-  cp $BRIDGE_SERVICE_CONFIG_FILE $BRIDGE_SERVICE_CONFIG_FILE.bak
+  cp -f $BRIDGE_SERVICE_CONFIG_FILE.bak $BRIDGE_SERVICE_CONFIG_FILE
   
   echo "Inserting values"
   sed -i "s/localhost/$HOST/g" $BRIDGE_SERVICE_CONFIG_FILE && \
