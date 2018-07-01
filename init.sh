@@ -1,6 +1,6 @@
 echo "Initializing GreenSense index"
 
-git submodule update --init
+sh update-submodules.sh
 
 DIR=$PWD
 

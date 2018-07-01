@@ -23,13 +23,13 @@ pipeline {
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init.sh'
+                sh 'sh init-all.sh'
             }
         }
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build.sh'
+                sh 'sh build-all.sh'
             }
         }
         stage('Test') {

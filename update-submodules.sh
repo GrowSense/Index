@@ -10,6 +10,8 @@ echo "Branch: $BRANCH"
 
 DIR=$PWD
 
+git submodule update --init
+
 echo "Updating SoilMoistureSensorCalibratedSerial"
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerial && \
