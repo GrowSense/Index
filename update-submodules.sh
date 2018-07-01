@@ -1,6 +1,10 @@
 echo "Updating submodules by checking out the master branch and pulling from origin/master..."
 
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+BRANCH=$1
+
+if [ ! $BRANCH ]; then
+  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+fi
 
 echo "Branch: $BRANCH"
 
