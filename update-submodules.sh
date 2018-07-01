@@ -1,4 +1,4 @@
-echo "Updating submodules by checking out the master branch and pulling from origin/master..."
+echo "Updating submodules by checking out the master branch and pulling from origin..."
 
 BRANCH=$1
 
