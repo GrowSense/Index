@@ -11,7 +11,6 @@ pipeline {
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
-                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoder CI"'
                 sh 'sh init-mock-systemctl.sh'
@@ -23,6 +22,7 @@ pipeline {
         stage('Update Submodules') {
             when { expression { !shouldSkipBuild() } }
             steps {
+                sh 'git submodule update --init'
                 sh 'sh update-submodules.sh $BRANCH_NAME'
             }
         }
@@ -36,6 +36,12 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh init-all.sh'
+            }
+        }
+        stage('Set MQTT Credentials') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
             }
         }
         stage('Build') {

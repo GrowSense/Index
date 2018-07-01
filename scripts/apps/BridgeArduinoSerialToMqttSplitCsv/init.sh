@@ -26,6 +26,10 @@ echo "Installation complete. Launching deployer."
 if [ -f $CONFIG_FILE_TMP ]; then
   echo "Preserved config file found. Restoring."
 
+  echo "Backing up empty config file"
+  cp $CONFIG_FILE $CONFIG_FILE.bak
+
+  echo "Restoring existing config file"
   cp $CONFIG_FILE_TMP $CONFIG_FILE || exit 1
 fi
 
