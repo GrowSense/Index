@@ -19,13 +19,6 @@ pipeline {
                 sh 'sh init-mock-submodule-builds.sh'
             }
         }
-        stage('Update Submodules') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'git submodule update --init'
-                sh 'sh update-submodules.sh $BRANCH_NAME'
-            }
-        }
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
