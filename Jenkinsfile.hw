@@ -22,6 +22,7 @@ pipeline {
         stage('Update Submodules') {
             when { expression { !shouldSkipBuild() } }
             steps {
+                sh 'git submodule update --init'
                 sh 'sh update-submodules.sh $BRANCH_NAME'
             }
         }
