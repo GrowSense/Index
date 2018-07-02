@@ -6,7 +6,9 @@ echo ""
 
 sh remove-garden-devices.sh
 
-TMP_DIR="$PWD/../Index.tmp";
+TMP_DIR="$PWD.tmp";
+
+echo $TMP_DIR
 
 if [ -d "$TMP_DIR" ]; then
   sudo rm "$TMP_DIR/" -r
