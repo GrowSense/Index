@@ -9,8 +9,6 @@ Complete hardware and software setup guides for the GreenSense projects are avai
 
 |               |               | master | dev |
 | ------------- | ------------- | ------------- | ------------- |
-| **Sanity Tests**  |               |               |               |
-|               | Jenkins Test  | [![Build Status](http://greensense.hopto.org:8090/job/GardenSanity/badge/icon)](http://greensense.hopto.org:8090/job/GardenSanity/)  |   |
 | **Index**  |               |               |               |
 |               | Travis CI Test  | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=master)](https://travis-ci.org/GreenSense/Index) | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=dev)](https://travis-ci.org/GreenSense/Index) |
 |               | Jenkins Hardware Test  | [![Build Status](http://greensense.hopto.org:8080/job/GreenSense/job/Index/job/master/badge/icon)](http:/greensense.hopto.org:8080/job/GreenSense/job/Index/job/master/)  | [![Build Status](http://greensense.hopto.org:8080/job/GreenSense/job/Index/job/dev/badge/icon)](http:/greensense.hopto.org:8080/job/GreenSense/job/Index/job/dev/)  |
