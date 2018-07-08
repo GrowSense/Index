@@ -47,18 +47,18 @@ if [ $DEVICE_EXISTS = false ]; then
 
   MONITOR_TAB=$(cat parts/monitortab.json) && \
 
-  echo "---------- Monitor Tab: Before"
-  echo $MONITOR_TAB
-  echo "----------"
+#  echo "---------- Monitor Tab: Before"
+#  echo $MONITOR_TAB
+#  echo "----------"
 
   MONITOR_TAB=$(echo $MONITOR_TAB | sed "s/Monitor1/$DEVICE_LABEL/g") && \
   MONITOR_TAB=$(echo $MONITOR_TAB | sed "s/monitor1/$DEVICE_NAME/g") && \
 
   MONITOR_TAB=$(echo $MONITOR_TAB | jq .id=$DEVICE_ID) && \
 
-  echo "---------- Monitor Tab: After"
-  echo $MONITOR_TAB
-  echo "----------"
+#  echo "---------- Monitor Tab: After"
+#  echo $MONITOR_TAB
+#  echo "----------"
 
   NEW_SETTINGS=$(jq ".tabs[$DEVICE_COUNT] |= . + $MONITOR_TAB" $NEW_LINEAR_MQTT_SETTINGS_FILE) && \
 
@@ -68,9 +68,9 @@ if [ $DEVICE_EXISTS = false ]; then
 
   MONITOR_SUMMARY=$(cat parts/monitorsummary.json) && \
 
-  echo "---------- Monitor Summary: Before"
-  echo $MONITOR_SUMMARY
-  echo "----------"
+#  echo "---------- Monitor Summary: Before"
+#  echo $MONITOR_SUMMARY
+#  echo "----------"
 
   MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/Monitor1/$DEVICE_LABEL/g") && \
   MONITOR_SUMMARY=$(echo $MONITOR_SUMMARY | sed "s/monitor1/$DEVICE_NAME/g") && \
