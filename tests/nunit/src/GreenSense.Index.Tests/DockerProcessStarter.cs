@@ -50,7 +50,7 @@ namespace GreenSense.Index.Tests
 			return RunProcess(fullCommand.Trim());
 		}
 
-		protected string RunDockerBash(string internalCommand)
+		public string RunDockerBash(string internalCommand)
 		{
 			var fullPreCommand = "";
 			if (!String.IsNullOrEmpty(PreCommand))
