@@ -38,9 +38,9 @@ sh create-device-info.sh irrigator/SoilMoistureSensorCalibratedPump $DEVICE_LABE
 sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
+sh create-updater-service.sh irrigator nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-irrigator-sketch.sh $DEVICE_PORT && \
+sh upload-irrigator-nano-sketch.sh $DEVICE_PORT && \
 
 echo "Garden irrigator created with device name '$DEVICE_NAME'"

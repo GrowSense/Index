@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense Irrigator Update Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sh -c "cd /home/j/workspace/GreenSense/Index/scripts/apps/GitDeployer/ && sh start-git-deployer.sh 120 https://github.com/GreenSense/SoilMoistureSensorCalibratedPump.git tmp/SoilMoistureSensorCalibratedPump pull-build-and-upload-uno.sh ttyUSB0 > svc/irrigator1log.txt"
+
+ [Install]
+ WantedBy=multi-user.target
