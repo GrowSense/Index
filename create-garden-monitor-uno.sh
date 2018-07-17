@@ -39,9 +39,9 @@ sh create-device-info.sh monitor/SoilMoistureSensorCalibratedSerial $DEVICE_LABE
 sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
+sh create-updater-service.sh monitor uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-monitor-sketch.sh $DEVICE_PORT && \
+sh upload-monitor-uno-sketch.sh $DEVICE_PORT && \
 
 echo "Garden monitor created with device name '$DEVICE_NAME'"

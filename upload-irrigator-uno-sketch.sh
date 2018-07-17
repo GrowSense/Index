@@ -24,10 +24,10 @@ SKETCH_PATH="src/SoilMoistureSensorCalibratedPump/SoilMoistureSensorCalibratedPu
 sh inject-version.sh && \
 
 # Build the sketch
-sh build.sh && \
+sh build-uno.sh && \
 
 # Upload the sketch
-sh upload.sh "/dev/$SERIAL_PORT"
+sh upload-uno.sh "/dev/$SERIAL_PORT"
 
 cd $DIR
 

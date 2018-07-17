@@ -197,7 +197,7 @@ namespace GreenSense.Index.Tests
 			Assert.AreEqual(expectedDeviceElementId, deviceElementId.ToString(), "Value meter topic doesn't match the device name.");
 
 			// The value meter element has index 0 for the monitor and index 1 for the irrigator
-			var valueMeterIndex = (deviceName.Contains("monitor") ? 0 : 1);
+			var valueMeterIndex = (deviceName.ToLower().Contains("monitor") ? 0 : 1);
 
 			var valueMeterElement = deviceElement["dashboard"][valueMeterIndex];
 
