@@ -13,6 +13,9 @@ case "$OUTPUT" in
   *MqttConnectionException*)
     RESULT="Failed to connect to broker"
     ;;
+  *"An error occurred while retrieving package metadata"*)
+    RESULT="Nuget connection error"
+    ;;
   *inactive*)
     RESULT="Inactive"
     ;;
@@ -34,8 +37,11 @@ OUTPUT=$(sh view-updater-status.sh $DEVICE_NAME)
 RESULT="NotSet"
 
 case "$OUTPUT" in 
+  *"Update skipped"*)
+      RESULT="Up to date"
+    ;;
   *inactive*)
-    RESULT="Inactive"
+      RESULT="Inactive"
     ;;
   *active*)
     RESULT="Active"
