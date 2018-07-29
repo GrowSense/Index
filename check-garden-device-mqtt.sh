@@ -12,9 +12,9 @@ MQTT_PORT=$(cat mqtt-port.security)
 
 echo "  MQTT Data ($MQTT_HOST)"
 
-CALIBRATED_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/C" -C 1)
+CALIBRATED_VALUE=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/C" -C 1)
 
-if [ ! $CALUBRATED_VALUE ]; then
+if [ ! $CALIBRATED_VALUE ]; then
   echo "    No MQTT data detected"  
 else
   echo "    Soil moisture: $CALIBRATED_VALUE%"
