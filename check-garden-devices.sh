@@ -7,7 +7,7 @@ echo "Garden devices info..."
 echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
-    for d in "$DEVICES_DIR/*"; do
+    for d in $DEVICES_DIR/*; do
         DEVICE_TYPE=$(cat $d/type.txt)
         DEVICE_NAME=$(cat $d/name.txt)
         DEVICE_LABEL=$(cat $d/label.txt)
@@ -21,6 +21,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         sh check-garden-device.sh $DEVICE_NAME
        
+        echo ""
     done
 else
     echo "No device info found in $DEVICES_DIR"
