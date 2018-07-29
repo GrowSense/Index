@@ -48,16 +48,16 @@ sh inject-version.sh && \
 
 # Build the sketch
 if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
-    sh build.sh || exit 1
+    sh build-nano.sh || exit 1
 else
-    echo "[mock] sh build.sh.sh"
+    echo "[mock] sh build-nano.sh"
 fi
 
 # Upload the sketch
 if [ $IS_MOCK_HARDWARE = 0 ]; then
-    sh upload.sh "/dev/$SERIAL_PORT" || exit 1
+    sh upload-nano.sh "/dev/$SERIAL_PORT" || exit 1
 else
-    echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
+    echo "[mock] sh upload-nano.sh /dev/$SERIAL_PORT"
 fi
 
 cd $DIR
