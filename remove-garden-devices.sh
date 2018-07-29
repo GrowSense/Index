@@ -6,6 +6,14 @@ DIR=$PWD
 
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
+
+
+echo ""
+echo "Device Info"
+echo ""
+
+rm devices/* -r
+
 echo ""
 echo "Mobile UI Settings"
 echo ""
