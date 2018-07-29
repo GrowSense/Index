@@ -50,14 +50,14 @@ sh inject-version.sh && \
 if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
     sh build-uno.sh || exit 1
 else
-    echo "[mock] sh build.sh.sh"
+    echo "[mock] sh build-uno.sh"
 fi
 
 # Upload the sketch
 if [ $IS_MOCK_HARDWARE = 0 ]; then
     sh upload-uno.sh "/dev/$SERIAL_PORT" || exit 1
 else
-    echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
+    echo "[mock] sh upload-uno.sh /dev/$SERIAL_PORT"
 fi
 
 cd $DIR
