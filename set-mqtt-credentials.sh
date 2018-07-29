@@ -35,8 +35,8 @@ if [ "$PASSWORD" ]; then
 
   echo ""
   echo "Setting mqtt bridge config file:"
-  INSTALL_DIR="/usr/local/mqtt-bridge"
-  BRIDGE_SERVICE_CONFIG_FILE="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  
+  BRIDGE_SERVICE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   echo "  $BRIDGE_SERVICE_CONFIG_FILE"
   
   if [ ! -f "$BRIDGE_SERVICE_CONFIG_FILE.bak" ]; then
@@ -53,11 +53,15 @@ if [ "$PASSWORD" ]; then
   sed -i "s/123456/$PASSWORD/g" $BRIDGE_SERVICE_CONFIG_FILE
 
 
-  BRIDGE_SERVICE_CONFIG_FILE2="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  BRIDGE_SERVICE_CONFIG_FILE2="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   
   echo "Keeping a backup of the new config file"
   cp -f $BRIDGE_SERVICE_CONFIG_FILE $BRIDGE_SERVICE_CONFIG_FILE2
 
+  echo "Installing config file"
+  INSTALL_DIR="/usr/local/mqtt-bridge"
+  sudo mkdir -p $INSTALL_DIR
+  sudo cp -f $BRIDGE_SERVICE_CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
 
   echo ""
   echo "Finished setting MQTT credentials"
