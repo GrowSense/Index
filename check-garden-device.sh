@@ -1,13 +1,14 @@
 DEVICE_NAME=$1
 
 if [ ! $DEVICE_NAME ]; then
-  echo "Provided a device name as an argument."
+  echo "Please provide a device name as an argument."
   exit 1
 fi
 
 OUTPUT=$(sh view-mqtt-bridge-status.sh $DEVICE_NAME)
 
 RESULT="NotSet"
+SUB_RESULT=""
 
 case "$OUTPUT" in 
   *inactive*)
@@ -15,6 +16,21 @@ case "$OUTPUT" in
     ;;
   *active*)
     RESULT="Active"
+    ;;
+  *failed*)
+    RESULT="Failed"
+    ;;
+esac
+
+case "$OUTPUT" in 
+  *MqttConnectionException*)
+    SUB_RESULT="Failed to connect to broker"
+    ;;
+  *"An error occurred while retrieving package metadata"*)
+    SUB_RESULT="Nuget connection error"
+    ;;
+  *"No such file or directory"*)
+    SUB_RESULT="USB device not found"
     ;;
 esac
 
@@ -22,19 +38,40 @@ esac
 
 echo "  MQTT Bridge Service: $RESULT"
 
+if [ "$SUB_RESULT" ]; then
+  echo "    $SUB_RESULT"
+fi
+
 OUTPUT=$(sh view-updater-status.sh $DEVICE_NAME)
 
 RESULT="NotSet"
+SUB_RESULT=""
 
 case "$OUTPUT" in 
+
   *inactive*)
-    RESULT="Inactive"
+      RESULT="Inactive"
     ;;
   *active*)
     RESULT="Active"
     ;;
+  *failed*)
+    RESULT="Failed"
+    ;;
+esac
+
+case "$OUTPUT" in 
+  *"Update skipped"*)
+    SUB_RESULT="Up to date"
+  ;;
 esac
 
 #echo $OUTPUT
 
 echo "  Updater Service: $RESULT"
+
+if [ "$SUB_RESULT" ]; then
+  echo "    $SUB_RESULT"
+fi
+
+sh check-garden-device-mqtt.sh $DEVICE_NAME
