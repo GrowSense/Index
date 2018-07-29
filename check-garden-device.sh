@@ -10,12 +10,19 @@ OUTPUT=$(sh view-mqtt-bridge-status.sh $DEVICE_NAME)
 RESULT="NotSet"
 
 case "$OUTPUT" in 
+  *MqttConnectionException*)
+    RESULT="Failed to connect to broker"
+    ;;
   *inactive*)
     RESULT="Inactive"
     ;;
   *active*)
     RESULT="Active"
     ;;
+  *failed*)
+    RESULT="Failed"
+    ;;
+    
 esac
 
 #echo $OUTPUT
@@ -32,6 +39,9 @@ case "$OUTPUT" in
     ;;
   *active*)
     RESULT="Active"
+    ;;
+  *failed*)
+    RESULT="Failed"
     ;;
 esac
 
