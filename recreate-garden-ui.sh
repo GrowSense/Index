@@ -7,7 +7,7 @@ cd mobile/linearmqtt/
 sh reset.sh
 cd $DIR
 
-echo "Recrating linear MQTT UI"
+echo "Recreating linear MQTT UI"
 if [ -d "$DEVICES_DIR" ]; then
     for d in "$DEVICES_DIR/*"; do
         echo "Found device info:"
