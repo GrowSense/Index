@@ -82,10 +82,11 @@ sh init.sh
 ### Set MQTT Credentials
 Set the username and password used by the MQTT broker and MQTT bridge.
 ```
-sh set-mqtt-credentials.sh [Username] [Password]
+sh set-mqtt-credentials.sh [Host] [Username] [Password] [Port]
 
-sh set-mqtt-credentials.sh myuser mypass
+sh set-mqtt-credentials.sh 10.0.0.20 myuser mypass
 ```
+Note: The Port argument is optional and defaults to 1883.
 
 ### Set Up Garden Services
 Set up the mosquitto MQTT broker.
@@ -111,19 +112,51 @@ sh remove-cache.sh
 ### Create monitor device
 Set up a GreenSense monitor device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
-```
-sh create-garden-monitor.sh [DeviceName] [Port]
 
-sh create-garden-monitor.sh monitor1 ttyUSB0
+#### Arduino Nano
+```
+sh create-garden-monitor-nano.sh [DeviceLabel] [DeviceName] [Port]
+
+sh create-garden-monitor-nano.sh Monitor1 monitor1 ttyUSB0
+```
+
+#### Arduino Uno
+```
+sh create-garden-monitor-uno.sh [DeviceLabel] [DeviceName] [Port]
+
+sh create-garden-monitor-uno.sh Monitor1 monitor1 ttyUSB0
+```
+
+#### ESP12 WiFi Board
+```
+sh create-garden-monitor-esp.sh [DeviceLabel] [DeviceName] [Port]
+
+sh create-garden-monitor-esp.sh Monitor1 monitor1 ttyUSB0
 ```
 
 ### Create irrigator device
 Set up a GreenSense irrigator device including MQTT bridge and automatic updater.
 Note: Ensure the device is connected
-```
-sh create-garden-irrigator.sh [DeviceName] [Port]
 
-sh create-garden-irrigator.sh irrigator1 ttyUSB1
+#### Arduino Nano
+```
+sh create-garden-irrigator-nano.sh [DeviceLabel] [DeviceName] [Port]
+
+sh create-garden-irrigator-nano.sh Irrigator1 irrigator1 ttyUSB1
+```
+
+#### Arduino Uno
+```
+sh create-garden-irrigator-uno.sh [DeviceLabel] [DeviceName] [Port]
+
+sh create-garden-irrigator-uno.sh Irrigator1 irrigator1 ttyUSB1
+```
+
+#### ESP12 WiFi Board
+```
+sh create-garden-irrigator-esp.sh [DeviceLabel] [DeviceName] [Port]
+
+sh create-garden-irrigator-esp.sh Irrigator1 irrigator1 ttyUSB1
 ```
 
 ### View device updater service log
