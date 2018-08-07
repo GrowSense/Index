@@ -15,7 +15,7 @@ else
   echo "Restart MQTT bridge service" && \
   sudo systemctl restart greensense-mqtt-bridge-$DEVICE_NAME.service && \
 
-  echo "Restart Updater bridge service" && \
+  echo "Restart Updater service" && \
   sudo systemctl restart greensense-updater-$DEVICE_NAME.service && \
 
   echo "Garden device services restarted for '$DEVICE_NAME'"
