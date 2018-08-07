@@ -2,7 +2,7 @@
 
 DIR=$PWD
 
-sudo apt-get update && sudo apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https && \
+sudo apt-get update && sudo apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https mosquitto-clients && \
 
 cd scripts/install/ && \
 
