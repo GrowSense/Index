@@ -48,6 +48,6 @@ git pull origin $BRANCH || exit 1
 
 cd $DIR
 
-git commit -am "Updated submodules"
+#git commit -am "Updated submodules"
 
 echo "Finished updating submodules"
