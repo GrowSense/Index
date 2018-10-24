@@ -1,1 +1,1 @@
-echo 0 > devicecount.txt
+rm devicecount.txt
