@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense MQTT Bridge Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sh -c "mkdir -p /usr/local/mqtt-bridge/; cd /usr/local/mqtt-bridge/; wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/start-mqtt-bridge-from-github.sh | sh -s -- \"--DeviceName=monitor1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,V,F --SummaryKey=C\""
+
+ [Install]
+ WantedBy=multi-user.target
