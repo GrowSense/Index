@@ -133,7 +133,14 @@ namespace GreenSense.Index.Tests
 		public void CheckDeviceSummaryWasCreated(JObject json, string deviceLabel, string deviceName)
 		{
 			Console.WriteLine("Checking the device summary was created...");
+			
+			Console.WriteLine("Full JSON:");
+			Console.WriteLine(json.ToString());
+
 			var dashboardsElement = json["dashboards"];
+			
+			Console.WriteLine("Dashboards element:");
+			Console.WriteLine(dashboardsElement);
 
 			var summaryDashboardElement = dashboardsElement[0];
 

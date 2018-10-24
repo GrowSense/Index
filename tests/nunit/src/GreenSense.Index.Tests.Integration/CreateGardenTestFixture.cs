@@ -19,7 +19,7 @@ namespace GreenSense.Index.Tests.Integration
 			Console.WriteLine("Running create-garden script");
 
 			var starter = GetDockerProcessStarter();
-			starter.PreCommand = "sh init-mock-setup.sh";
+			starter.PreCommand = "sh init-mock-setup.sh && sh clean.sh";
 			var output = starter.RunScript(scriptName);
 
 			var successfulText = "Setup complete";

@@ -21,7 +21,7 @@ namespace GreenSense.Index.Tests.Integration
 			var arguments = deviceLabel + " " + deviceName + " " + devicePort;
 
 			var starter = GetDockerProcessStarter();
-			starter.PreCommand = "sh init-mock-setup.sh";
+			starter.PreCommand = "sh init-mock-setup.sh && sh clean.sh";
 			starter.RunDockerBash("sh " + scriptName + " " + arguments);
 
 			CheckDeviceInfoWasCreated(deviceType, deviceLabel, deviceName, devicePort);
