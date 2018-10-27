@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                cleanWs()
                 checkout scm
 
                 shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git' )
@@ -91,6 +92,9 @@ pipeline {
                 <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
               recipientProviders: [[$class: 'DevelopersRecipientProvider']]
             )
+        }
+        always(){
+            cleanWs()
         }
     }
 }
