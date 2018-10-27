@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                cleanWs()
                 checkout scm
 
                 shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git' )
