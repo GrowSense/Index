@@ -1,6 +1,12 @@
 pipeline {
     agent any
     stages {
+        stage('CleanWS') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                cleanWs()
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
@@ -91,9 +97,6 @@ pipeline {
                 <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
               recipientProviders: [[$class: 'DevelopersRecipientProvider']]
             )
-        }
-        always(){
-            cleanWs()
         }
     }
 }
