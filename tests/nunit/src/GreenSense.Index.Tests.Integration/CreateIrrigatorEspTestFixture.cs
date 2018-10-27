@@ -15,7 +15,7 @@ namespace GreenSense.Index.Tests.Integration
 			Console.WriteLine(scriptName);
 
 			var starter = GetDockerProcessStarter();
-			starter.PreCommand = "sh init-mock-setup.sh";
+			starter.PreCommand = "sh init-mock-setup.sh && sh clean.sh";
 			var output = starter.RunScript(scriptName);
 
 			var successfulText = "Irrigator ESP8266 test complete";

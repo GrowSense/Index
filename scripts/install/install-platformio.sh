@@ -15,16 +15,16 @@ echo "Upgrading pip"
 
 sudo chown $USER ~/.cache/pip -R
 
-sudo pip install --upgrade pip
+sudo pip install --ignore-installed --upgrade pip
 
 echo "Installing pip setuptools"
 
-pip install --user setuptools
+pip install --ignore-installed --user setuptools
 
 if ! type "pio" > /dev/null; then
   echo "Installing platformio"
 
-  pip install -U platformio
+  pip install --ignore-installed -U platformio
 
 #  python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
 else

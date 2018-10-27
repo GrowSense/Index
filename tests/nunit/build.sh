@@ -3,4 +3,4 @@ echo "Dir: $PWD"
 
 DIR=$PWD
 
-msbuild src/GreenSense.Index.sln /p:Configuration=Release
+xbuild src/GreenSense.Index.sln /p:Configuration=Release

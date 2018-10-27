@@ -63,7 +63,7 @@ After it completes, skip past the "Manual Clone and Initialize" section down to 
 ## Manual Clone and Initialize
 ### Clone Index with Submodules
 ```
-git clone --recursive git://github.com/GreenSense/Index.git GreenSense/Index
+git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index
 
 cd GreenSense/Index
 ```
