@@ -1,27 +1,35 @@
-git submodule update --init
+echo "Initializing GreenSense index submodules"
 
 DIR=$PWD
 
-echo "SoilMoistureSensorCalibratedSerial" && \
+git submodule update --init && \
+
+echo "" && \
+echo "Initializing GreenSense monitor (SoilMoistureSensorCalibratedSerial) submodule" && \
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerial/ && \
 sh init.sh && \
 cd $DIR && \
 
-echo "SoilMoistureSensorCalibratedSerialESP" && \
+echo "" && \
+echo "Initializing GreenSense WiFi/ESP monitor (SoilMoistureSensorCalibratedSerialESP) submodule" && \
 
 cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/ && \
 sh init.sh && \
 cd $DIR && \
 
-echo "SoilMoistureSensorCalibratedPump" && \
+echo "" && \
+echo "Initializing GreenSense irrigator (SoilMoistureSensorCalibratedPump) submodule" && \
 
 cd sketches/irrigator/SoilMoistureSensorCalibratedPump/ && \
 sh init.sh && \
 cd $DIR && \
 
-echo "SoilMoistureSensorCalibratedPumpESP" && \
+echo "" && \
+echo "Initializing GreenSense WiFi/ESP irrigator (SoilMoistureSensorCalibratedPumpESP) submodule" && \
 
 cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/ && \
 sh init.sh && \
-cd $DIR
+cd $DIR && \
+
+echo "Finished initializing submodules"

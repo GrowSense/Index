@@ -19,4 +19,4 @@ sh reset.sh
 
 cd $DIR
 
-echo "Done"
+echo "Finished cleaning project"
