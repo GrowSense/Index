@@ -1,7 +1,5 @@
 echo "Initializing GreenSense index"
 
-sh update-submodules.sh
-
 DIR=$PWD
 
 echo "" && \
