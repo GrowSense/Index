@@ -2,7 +2,7 @@ echo "Initializing GreenSense index submodules"
 
 DIR=$PWD
 
-git submodule update --init --recursive && \
+git submodule update --init --recursive || "Submodule update failed"
 
 echo "" && \
 echo "Initializing GreenSense monitor (SoilMoistureSensorCalibratedSerial) submodule" && \
