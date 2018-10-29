@@ -3,4 +3,4 @@ echo "Dir: $PWD"
 
 DIR=$PWD
 
-xbuild src/GreenSense.Index.sln /p:Configuration=Release
+xbuild /p:Configuration=Release /p:TargetFrameworkVersion=v4.5 /p:TargetFrameworkProfile="" src/GreenSense.Index.sln
