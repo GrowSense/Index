@@ -7,9 +7,8 @@ pipeline {
                 cleanWs()
             }
         }
-        stage('Checkout') {
+        stage('Setup') {
             steps {
-                cleanWs()
                 shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME .' )
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
