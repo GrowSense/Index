@@ -4,13 +4,12 @@ pipeline {
         stage('CleanWS') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                cleanWs()
+                deleteDir()
             }
         }
         stage('Setup') {
             steps {
-                shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME _tmpclone' )
-                sh "mv _tmpclone/* ." 
+                shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME .' )
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
