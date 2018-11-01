@@ -4,12 +4,20 @@ pipeline {
        pollSCM('*/10 * * * *')
     }
     stages {
+        stage('CleanWS') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                deleteDir()
+            }
+        }
         stage('Setup') {
             steps {
                 shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME .' )
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
+                sh 'git pull origin $BRANCH_NAME'
+                shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoder CI"'
                 sh 'sh init-mock-systemctl.sh'
@@ -28,6 +36,12 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh init-all.sh'
+            }
+        }
+        stage('Set MQTT Credentials') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
             }
         }
         stage('Build') {
@@ -68,9 +82,6 @@ pipeline {
         }
     }
     post {
-        always {
-            cleanWs()
-        }
         success() {
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
@@ -80,6 +91,7 @@ pipeline {
             )
         }
         failure() {
+          sh 'sh rollback.sh'
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
@@ -95,3 +107,11 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
