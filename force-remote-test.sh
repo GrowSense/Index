@@ -6,10 +6,10 @@ if [ "$BRANCH" = "dev" ]
 then
   echo "Forcing remote test"
 
-  echo " " >> Jenkinsfile.hw
+  echo " " >> Jenkinsfile
   
   git pull origin dev && \
-  git commit Jenkinsfile.hw -m "Forcing retest" && \
+  git commit Jenkinsfile -m "Forcing retest" && \
   git push origin dev && \
   
   echo "Repository has been updated. Test should now start on test server."
