@@ -4,14 +4,9 @@ pipeline {
        pollSCM('*/10 * * * *')
     }
     stages {
-        stage('CleanWS') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                deleteDir()
-            }
-        }
         stage('Setup') {
             steps {
+                deleteDir()
                 shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME _tmpclone' )
                 sh "mv _tmpclone/* ."
                 sh "mv _tmpclone/.git .git"
