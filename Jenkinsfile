@@ -15,8 +15,8 @@ pipeline {
                 shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME _tmpclone' )
                 sh "mv _tmpclone/* ."
                 sh "mv _tmpclone/.git .git"
-                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
-                sh "git fetch --no-tags"
+                //sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
+                //sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
