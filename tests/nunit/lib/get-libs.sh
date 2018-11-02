@@ -1,27 +1,13 @@
-echo "Getting library files"
+echo "Getting library files..."
 echo "  Dir: $PWD"
 
-LIB_DIR=$PWD
 
-NUGET_FILE="nuget.exe"
+# Nuget is disabled because it's not currently required
+#sh get-nuget.sh
+#sh nuget-update-self.sh
 
-if [ ! -f "$NUGET_FILE" ];
-then
-    echo "Getting nuget.exe..."
-    wget http://nuget.org/nuget.exe -q
-fi
+sh nuget-install.sh NUnit 2.6.4
+sh nuget-install.sh NUnit.Runners 2.6.4
+sh nuget-install.sh Newtonsoft.Json 11.0.2
 
-echo "Updating nuget.exe..."
-mono nuget.exe update -self
-
-if [ ! -d "NUnit.2.6.4" ]; then
-    mono nuget.exe install nunit -version 2.6.4
-fi
-
-if [ ! -d "NUnit.Runners.2.6.4" ]; then
-    mono nuget.exe install nunit.runners -version 2.6.4
-fi
-
-if [ ! -d "Newtonsoft.Json.11.0.2" ]; then
-    mono nuget.exe install newtonsoft.json
-fi
+echo "Finished getting library files."
