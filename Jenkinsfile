@@ -14,7 +14,7 @@ pipeline {
             steps {
                 shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME _tmpclone' )
                 sh "mv _tmpclone/* ."
-                sh "mv _tmpclone/.git ./.git"
+                sh "mv _tmpclone/.git .git"
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
