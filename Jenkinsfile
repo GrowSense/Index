@@ -22,7 +22,7 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh prepare.sh'
+                sh 'echo "Prepare script skipped" #sh prepare.sh'
             }
         }
         stage('Init') {
