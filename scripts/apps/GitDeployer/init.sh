@@ -1,14 +1,11 @@
 echo "Retrieving required libraries..."
 
-if [ ! -f nuget.exe ]; then
-    echo "nuget.exe not found. Downloading..."
-    wget http://nuget.org/nuget.exe || exit 1
-fi
-
-mono nuget.exe update -self || exit 1
+# Nuget is disabled
+# sh get-nuget.sh
+# sh nuget-update-self.sh
 
 echo "Installing libraries..."
 
-mono nuget.exe install GitDeployer -ExcludeVersion || exit 1
+mono nuget.exe install GitDeployer 10.0.0.20 || exit 1
 
 echo "Installation complete"
