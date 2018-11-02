@@ -1,6 +1,12 @@
-# mono
 echo "USE_MONO4=$USE_MONO4"
-if [ "$USE_MONO4" = 0 ]; then
+if [ "$USE_MONO4" = 1 ]; then
+  if ! type "xbuild" > /dev/null; then
+    echo "Using mono4"
+    sudo apt-get install -y tzdata mono-devel mono-complete ca-certificates-mono
+  else
+    echo "Mono is already installed. Skipping install."
+  fi
+else
   if ! type "msbuild" > /dev/null; then
     echo "Installing latest mono"
     VERSION_NAME=$(lsb_release -cs)
@@ -12,14 +18,6 @@ if [ "$USE_MONO4" = 0 ]; then
   else
     echo "Mono is already installed. Skipping install."
   fi
-else
-  if ! type "xbuild" > /dev/null; then
-    echo "Using mono4"
-    sudo apt-get install -y mono-devel mono-complete ca-certificates-mono
-  else
-    echo "Mono is already installed. Skipping install."
-  fi
 fi
 echo "Checking mono version..."
 mono --version
-
