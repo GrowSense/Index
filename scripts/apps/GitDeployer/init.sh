@@ -6,6 +6,6 @@ echo "Retrieving required libraries..."
 
 echo "Installing libraries..."
 
-mono nuget.exe install GitDeployer 10.0.0.20 || exit 1
+sh nuget-install.sh GitDeployer 10.0.0.20 || exit 1
 
 echo "Installation complete"
