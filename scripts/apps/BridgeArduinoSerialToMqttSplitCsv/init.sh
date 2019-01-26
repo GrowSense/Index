@@ -1,11 +1,8 @@
 echo "Retrieving required libraries..."
 
-if [ ! -f nuget.exe ]; then
-    echo "nuget.exe not found. Downloading..."
-    wget http://nuget.org/nuget.exe || exit 1
-fi
-
-mono nuget.exe update -self || exit 1
+# Nuget is disabled
+# sh get-nuget.sh
+# sh nuget-update-self.sh
 
 echo "Installing libraries..."
 
@@ -19,7 +16,7 @@ if [ -f $CONFIG_FILE ]; then
   cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
 fi
 
-mono nuget.exe install BridgeArduinoSerialToMqttSplitCsv -ExcludeVersion || exit 1
+sh nuget-install.sh BridgeArduinoSerialToMqttSplitCsv 1.0.0.38 || exit 1
 
 echo "Installation complete. Launching deployer."
 

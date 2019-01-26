@@ -4,19 +4,10 @@ pipeline {
        pollSCM('*/10 * * * *')
     }
     stages {
-        stage('CleanWS') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                deleteDir()
-            }
-        }
         stage('Setup') {
             steps {
-                shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME _tmpclone' )
-                sh "mv _tmpclone/* ."
-                sh "mv _tmpclone/.git ./.git"
-                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
-                sh "git fetch --no-tags"
+                deleteDir()
+                shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME .' )
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
@@ -31,7 +22,7 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh prepare.sh'
+                sh 'echo "Prepare script skipped" #sh prepare.sh'
             }
         }
         stage('Init') {
@@ -109,6 +100,14 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
