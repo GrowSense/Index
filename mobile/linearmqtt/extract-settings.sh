@@ -19,6 +19,8 @@ echo $MONITOR_TAB > parts/monitortab.json
 MONITOR_DASHBOARD=$(jq -r '.dashboards[1]' settings.json)
 echo $MONITOR_DASHBOARD > parts/monitordashboard.json
 
+# Irrigator
+
 IRRIGATOR_SUMMARY=$(jq -r '.dashboards[0].dashboard[1]' settings.json)
 echo $IRRIGATOR_SUMMARY > parts/irrigatorsummary.json
 
@@ -27,6 +29,17 @@ echo $IRRIGATOR_TAB > parts/irrigatortab.json
 
 IRRIGATOR_DASHBOARD=$(jq -r '.dashboards[2]' settings.json)
 echo $IRRIGATOR_DASHBOARD > parts/irrigatordashboard.json
+
+# Ventilator
+VENTILATOR_SUMMARY=$(jq -r '.dashboards[0].dashboard[2]' settings.json)
+echo $VENTILATOR_SUMMARY > parts/ventilatorsummary.json
+
+VENTILATOR_TAB=$(jq -r '.tabs[3]' settings.json)
+echo $VENTILATOR_TAB > parts/ventilatortab.json
+
+VENTILATOR_DASHBOARD=$(jq -r '.dashboards[3]' settings.json)
+echo $VENTILATOR_DASHBOARD > parts/ventilatordashboard.json
+
 
 cp settings.json template.json
 

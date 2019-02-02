@@ -31,7 +31,7 @@ namespace GreenSense.Index.Tests.Unit
 
 			Console.WriteLine("Checking device UI was created...");
 
-			CheckDeviceUIWasCreated(deviceLabel, deviceName);
+			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Humidity", "H");
 
 			Console.WriteLine("Creating device info folder...");
 

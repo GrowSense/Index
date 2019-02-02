@@ -10,9 +10,6 @@
 [submodule "sketches/irrigator/SoilMoistureSensorCalibratedPump"]
 	path = sketches/irrigator/SoilMoistureSensorCalibratedPump
 	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedPump.git
-[submodule "sketches/ventilator/TemperatureHumidityDHTSensorSerial"]
-	path = sketches/ventilator/TemperatureHumidityDHTSensorSerial
-	url = https://github.com/GreenSense/TemperatureHumidityDHTSensorSerial.git
 [submodule "sketches/ventilator/TemperatureHumidityDHTSensorFan"]
 	path = sketches/ventilator/TemperatureHumidityDHTSensorFan
 	url = https://github.com/GreenSense/TemperatureHumidityDHTSensorFan.git

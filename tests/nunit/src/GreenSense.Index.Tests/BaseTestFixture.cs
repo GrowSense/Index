@@ -117,7 +117,7 @@ namespace GreenSense.Index.Tests
 			Assert.AreEqual(devicePort, foundPort, "Device port doesn't match.");
 		}
 
-		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName)
+		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName, string valueMeterLabel, string valueMeterKey)
 		{
 			Console.WriteLine("Checking that the device UI was created...");
 			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
@@ -127,7 +127,7 @@ namespace GreenSense.Index.Tests
 
 			CheckDeviceSummaryWasCreated(json, deviceLabel, deviceName);
 			CheckDeviceTabIndexWasCreated(json, deviceLabel, deviceName);
-			CheckDeviceTabWasCreated(json, deviceLabel, deviceName);
+			CheckDeviceTabWasCreated(json, deviceLabel, deviceName, valueMeterLabel, valueMeterKey);
 		}
 
 		public void CheckDeviceSummaryWasCreated(JObject json, string deviceLabel, string deviceName)
@@ -162,7 +162,7 @@ namespace GreenSense.Index.Tests
 
 			Console.WriteLine("Checking summary device meter topic matches device name...");
 
-			var expectedTopic = "/" + deviceName + "/C";
+			var expectedTopic = "/" + deviceName + "/A";
 
 			Assert.AreEqual(expectedTopic, summaryDeviceMeterElement["topic"].ToString(), "Summary element topic doesn't match the device name.");
 		}
@@ -185,7 +185,7 @@ namespace GreenSense.Index.Tests
 			Assert.AreEqual(deviceLabel, deviceTabElement["name"].ToString(), "Summary element name doesn't match the device label.");
 		}
 
-		public void CheckDeviceTabWasCreated(JObject json, string deviceLabel, string deviceName)
+		public void CheckDeviceTabWasCreated(JObject json, string deviceLabel, string deviceName, string valueMeterLabel, string valueKey)
 		{
 			Console.WriteLine("Checking the device tab content was created...");
 			var dashboardsElement = json["dashboards"];
@@ -217,13 +217,13 @@ namespace GreenSense.Index.Tests
 
 			Console.WriteLine("Checking value meter name is valid...");
 
-			var expectedValueMeterName = "Soil Moisture";
+			var expectedValueMeterName = valueMeterLabel;
 
 			Assert.AreEqual(expectedValueMeterName, valueMeterElement["name"].ToString(), "Value meter name is invalid.");
 
 			Console.WriteLine("Checking value meter topic matches device name...");
 
-			var expectedValueMeterTopic = "/" + deviceName + "/C";
+			var expectedValueMeterTopic = "/" + deviceName + "/" + valueKey;
 
 			Assert.AreEqual(expectedValueMeterTopic, valueMeterElement["topic"].ToString(), "Value meter topic doesn't match the device name.");
 		}
