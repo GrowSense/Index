@@ -16,12 +16,12 @@ if [ -f $CONFIG_FILE ]; then
   cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
 fi
 
-INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/nuget-install.sh"
-wget -O - $INSTALL_SCRIPT_FILE_URL | sh -s || exit 1
+INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/install-package.sh"
+wget $INSTALL_SCRIPT_FILE_URL install-package.sh
 
-sh nuget-install.sh BridgeArduinoSerialToMqttSplitCsv 1.0.0.38 || exit 1
+sh install-package.sh BridgeArduinoSerialToMqttSplitCsv 1.0.0.38 || exit 1
 
-echo "Installation complete. Launching deployer."
+echo "Installation complete. Launching bridge."
 
 if [ -f $CONFIG_FILE_TMP ]; then
   echo "Preserved config file found. Restoring."
