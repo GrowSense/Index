@@ -32,6 +32,18 @@ then
   sh force-remote-test.sh || exit 1
   cd $DIR
   echo ""
+  
+  echo "Ventilator"
+  cd sketches/ventilator/TemperatureHumidityDHTSensorFan/
+  sh force-remote-test.sh || exit 1
+  cd $DIR
+  echo ""
+  
+  echo "Illuminator"
+  cd sketches/illuminator/LightPRSensorCalibratedLight/
+  sh force-remote-test.sh || exit 1
+  cd $DIR
+  echo ""
 
   echo "Tests for all projects should now have started on the test server."
 else
