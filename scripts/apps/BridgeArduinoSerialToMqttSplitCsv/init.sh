@@ -16,8 +16,10 @@ if [ -f $CONFIG_FILE ]; then
   cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
 fi
 
-INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/install-package.sh"
-wget $INSTALL_SCRIPT_FILE_URL install-package.sh
+if [ ! -f "install-package.sh" ]; then
+  INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/install-package.sh"
+  wget $INSTALL_SCRIPT_FILE_URL
+fi
 
 sh install-package.sh BridgeArduinoSerialToMqttSplitCsv 1.0.0.38 || exit 1
 

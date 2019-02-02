@@ -38,5 +38,12 @@ echo "Initializing GreenSense ventilator (TemperatureHumidityDHTSensorFan) submo
 cd sketches/ventilator/TemperatureHumidityDHTSensorFan/ && \
 sh init.sh && \
 cd $DIR && \
+echo "" && \
+
+echo "Initializing GreenSense illuminator (LightPRSensorCalibratedLight) submodule" && \
+
+cd sketches/illuminator/LightPRSensorCalibratedLight/ && \
+sh init.sh && \
+cd $DIR && \
 
 echo "Finished initializing submodules"
