@@ -67,7 +67,6 @@ else
     echo "[mock] sh build.sh"
 fi
 
-
 # Upload the sketch
 if [ $IS_MOCK_HARDWARE = 0 ]; then
     sh upload.sh "/dev/$SERIAL_PORT" || exit 1

@@ -32,4 +32,11 @@ cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/ && \
 sh init.sh && \
 cd $DIR && \
 
+echo "" && \
+echo "Initializing GreenSense ventilator (TemperatureHumidityDHTSensorFan) submodule" && \
+
+cd sketches/ventilator/TemperatureHumidityDHTSensorFan/ && \
+sh init.sh && \
+cd $DIR && \
+
 echo "Finished initializing submodules"
