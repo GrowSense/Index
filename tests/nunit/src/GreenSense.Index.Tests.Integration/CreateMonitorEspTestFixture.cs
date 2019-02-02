@@ -29,7 +29,7 @@ namespace GreenSense.Index.Tests.Integration
 
 			CheckDeviceInfoWasCreated(type, label, name, port);
 
-			CheckDeviceUIWasCreated(label, name, "Soil moisture", "C");
+			CheckDeviceUIWasCreated(label, name, "Soil Moisture", "C");
 		}
 	}
 }

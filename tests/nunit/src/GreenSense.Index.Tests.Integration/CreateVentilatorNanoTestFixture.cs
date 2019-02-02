@@ -14,7 +14,7 @@ namespace GreenSense.Index.Tests.Integration
 			Console.WriteLine("Script:");
 			Console.WriteLine(scriptName);
 
-			var deviceType = "ventilator/SoilMoistureSensorCalibratedPump";
+			var deviceType = "ventilator/TemperatureHumidityDHTSensorFan";
 			var deviceLabel = "MyVentilator";
 			var deviceName = "myVentilator";
 			var devicePort = "ttyUSB1";

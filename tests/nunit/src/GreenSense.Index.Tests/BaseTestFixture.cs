@@ -117,7 +117,12 @@ namespace GreenSense.Index.Tests
 			Assert.AreEqual(devicePort, foundPort, "Device port doesn't match.");
 		}
 
-		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName, string valueMeterLabel, string valueMeterKey)
+		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName, string valueLabel, string valueKey)
+		{
+			CheckDeviceUIWasCreated (deviceLabel, deviceName, valueLabel, valueKey, valueLabel, valueKey);
+		}
+
+		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName, string summaryValueLabel, string summaryValueKey, string valueLabel, string valueKey)
 		{
 			Console.WriteLine("Checking that the device UI was created...");
 			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
@@ -125,12 +130,12 @@ namespace GreenSense.Index.Tests
 
 			Console.WriteLine(jsonString);
 
-			CheckDeviceSummaryWasCreated(json, deviceLabel, deviceName);
+			CheckDeviceSummaryWasCreated(json, deviceLabel, deviceName, summaryValueKey);
 			CheckDeviceTabIndexWasCreated(json, deviceLabel, deviceName);
-			CheckDeviceTabWasCreated(json, deviceLabel, deviceName, valueMeterLabel, valueMeterKey);
+			CheckDeviceTabWasCreated(json, deviceLabel, deviceName, valueLabel, valueKey);
 		}
 
-		public void CheckDeviceSummaryWasCreated(JObject json, string deviceLabel, string deviceName)
+		public void CheckDeviceSummaryWasCreated(JObject json, string deviceLabel, string deviceName, string dataKey)
 		{
 			Console.WriteLine("Checking the device summary was created...");
 			
@@ -162,7 +167,7 @@ namespace GreenSense.Index.Tests
 
 			Console.WriteLine("Checking summary device meter topic matches device name...");
 
-			var expectedTopic = "/" + deviceName + "/A";
+			var expectedTopic = "/" + deviceName + "/" + dataKey;
 
 			Assert.AreEqual(expectedTopic, summaryDeviceMeterElement["topic"].ToString(), "Summary element topic doesn't match the device name.");
 		}
@@ -204,7 +209,7 @@ namespace GreenSense.Index.Tests
 			Assert.AreEqual(expectedDeviceElementId, deviceElementId.ToString(), "Value meter topic doesn't match the device name.");
 
 			// The value meter element has index 0 for the monitor and index 1 for the irrigator
-			var valueMeterIndex = (deviceName.ToLower().Contains("monitor") ? 0 : 1);
+			var valueMeterIndex = (deviceName.ToLower().Contains("irrigator") ? 1 : 0);
 
 			var valueMeterElement = deviceElement["dashboard"][valueMeterIndex];
 

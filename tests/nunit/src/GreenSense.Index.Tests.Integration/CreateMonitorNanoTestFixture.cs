@@ -26,7 +26,7 @@ namespace GreenSense.Index.Tests.Integration
 
 			CheckDeviceInfoWasCreated(deviceType, deviceLabel, deviceName, devicePort);
 
-			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Soil moisture", "C");
+			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Soil Moisture", "C");
 
 			CheckMqttBridgeServiceFileWasCreated(deviceName);
 

@@ -4,19 +4,19 @@ using NUnit.Framework;
 namespace GreenSense.Index.Tests.Integration
 {
 	[TestFixture(Category = "Integration")]
-	public class CreateIrrigatorUnoTestFixture : BaseTestFixture
+	public class CreateIlluminatorUnoTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CreateIrrigatorUnoScript()
+		public void Test_CreateIlluminatorUnoScript()
 		{
-			var scriptName = "create-garden-irrigator-uno.sh";
+			var scriptName = "create-garden-illuminator-uno.sh";
 
 			Console.WriteLine("Script:");
 			Console.WriteLine(scriptName);
 
-			var deviceType = "irrigator/SoilMoistureSensorCalibratedPump";
-			var deviceLabel = "MyIrrigator";
-			var deviceName = "myIrrigator";
+			var deviceType = "illuminator/LightPRSensorCalibratedLight";
+			var deviceLabel = "MyIlluminator";
+			var deviceName = "myIlluminator";
 			var devicePort = "ttyUSB1";
 
 			var arguments = deviceLabel + " " + deviceName + " " + devicePort;
@@ -27,7 +27,7 @@ namespace GreenSense.Index.Tests.Integration
 
 			CheckDeviceInfoWasCreated(deviceType, deviceLabel, deviceName, devicePort);
 
-			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Soil Moisture", "C");
+			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Light", "L");
 
 			CheckMqttBridgeServiceFileWasCreated(deviceName);
 

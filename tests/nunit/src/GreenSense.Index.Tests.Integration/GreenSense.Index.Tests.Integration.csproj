@@ -45,6 +45,8 @@
     <Compile Include="CreateIrrigatorUnoTestFixture.cs" />
     <Compile Include="CreateVentilatorNanoTestFixture.cs" />
     <Compile Include="CreateVentilatorUnoTestFixture.cs" />
+    <Compile Include="CreateIlluminatorUnoTestFixture.cs" />
+    <Compile Include="CreateIlluminatorNanoTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreenSense.Index.Tests\GreenSense.Index.Tests.csproj">

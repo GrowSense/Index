@@ -5,17 +5,17 @@ using Newtonsoft.Json.Linq;
 namespace GreenSense.Index.Tests.Unit
 {
 	[TestFixture(Category = "Unit")]
-	public class CreateGardenMonitorUITestFixture : BaseTestFixture
+	public class CreateGardenIlluminatorUITestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CreateGardenMonitorUI()
+		public void Test_CreateGardenIlluminatorUI()
 		{
-			var scriptName = "create-garden-monitor-ui.sh";
+			var scriptName = "create-garden-illuminator-ui.sh";
 
 			Console.WriteLine("Testing " + scriptName + " script");
 
-			var deviceLabel = "Monitor1";
-			var deviceName = "monitor1";
+			var deviceLabel = "Illuminator1";
+			var deviceName = "illuminator1";
 
 			var arguments = deviceLabel + " " + deviceName;
 
@@ -31,7 +31,7 @@ namespace GreenSense.Index.Tests.Unit
 
 			Console.WriteLine("Checking device UI was created...");
 
-			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Soil Moisture", "C");
+			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Light", "L");
 
 			Console.WriteLine("Creating device info folder...");
 

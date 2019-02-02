@@ -3,7 +3,7 @@ mkdir -p parts
 # Unzip the linear MQTT config file
 
 rm -f settings.config
-unzip config.linear
+unzip -o config.linear
 
 # Extract the template parts
 
@@ -40,25 +40,19 @@ echo $VENTILATOR_TAB > parts/ventilatortab.json
 VENTILATOR_DASHBOARD=$(jq -r '.dashboards[3]' settings.json)
 echo $VENTILATOR_DASHBOARD > parts/ventilatordashboard.json
 
+# Illuminator
+ILLUMINATOR_SUMMARY=$(jq -r '.dashboards[0].dashboard[3]' settings.json)
+echo $ILLUMINATOR_SUMMARY > parts/illuminatorsummary.json
+
+ILLUMINATOR_TAB=$(jq -r '.tabs[4]' settings.json)
+echo $ILLUMINATOR_TAB > parts/illuminatortab.json
+
+ILLUMINATOR_DASHBOARD=$(jq -r '.dashboards[4]' settings.json)
+echo $ILLUMINATOR_DASHBOARD > parts/illuminatordashboard.json
+
 
 cp settings.json template.json
 
-JSON_VALUE=$(jq -r 'del(.dashboards[0].dashboard[1])' template.json)
-echo $JSON_VALUE > template.json
-
-JSON_VALUE=$(jq -r 'del(.dashboards[0].dashboard[0])' template.json)
-echo $JSON_VALUE > template.json
-
-JSON_VALUE=$(jq -r 'del(.tabs[2])' template.json)
-echo $JSON_VALUE > template.json
-
-JSON_VALUE=$(jq -r 'del(.tabs[1])' template.json)
-echo $JSON_VALUE > template.json
-
-JSON_VALUE=$(jq -r 'del(.dashboards[2])' template.json)
-echo $JSON_VALUE > template.json
-
-JSON_VALUE=$(jq -r 'del(.dashboards[1])' template.json)
-echo $JSON_VALUE > template.json
+sh strip-template.sh
 
 echo "Extraction complete"
