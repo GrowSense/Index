@@ -1,10 +1,5 @@
 mkdir -p parts
 
-# Unzip the linear MQTT config file
-
-rm -f settings.config
-unzip -o config.linear
-
 # Extract the template parts
 
 SUMMARY_DASHBOARD=$(jq -r '.dashboards[0]' settings.json)
@@ -50,9 +45,5 @@ echo $ILLUMINATOR_TAB > parts/illuminatortab.json
 ILLUMINATOR_DASHBOARD=$(jq -r '.dashboards[4]' settings.json)
 echo $ILLUMINATOR_DASHBOARD > parts/illuminatordashboard.json
 
-
-cp settings.json template.json
-
-sh strip-template.sh
 
 echo "Extraction complete"
