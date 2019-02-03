@@ -46,12 +46,14 @@ SKETCH_PATH="src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibrated
 # Inject version into the sketch
 sh inject-version.sh && \
 
+# TODO: Remove if not needed. Build is performed during upload.
+
 # Build the sketch
-if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
-    sh build-uno.sh || exit 1
-else
-    echo "[mock] sh build-uno.sh"
-fi
+#if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
+#    sh build-uno.sh || exit 1
+#else
+#    echo "[mock] sh build-uno.sh"
+#fi
 
 # Upload the sketch
 if [ $IS_MOCK_HARDWARE = 0 ]; then
