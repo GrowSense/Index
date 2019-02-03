@@ -32,7 +32,7 @@ echo "Device port: $DEVICE_PORT"
 sh create-garden-ventilator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
-sh create-device-info.sh ventilator/SoilMoistureSensorCalibratedPump $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+sh create-device-info.sh ventilator/TemperatureHumidityDHTSensorFan $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh ventilator $DEVICE_NAME $DEVICE_PORT && \

@@ -39,7 +39,7 @@ echo "Uploading illuminator sketch"
 
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/illuminator/TemperatureHumidityDHTSensorFan"
+BASE_PATH="sketches/illuminator/LightPRSensorCalibratedLight"
 
 cd $BASE_PATH
 
