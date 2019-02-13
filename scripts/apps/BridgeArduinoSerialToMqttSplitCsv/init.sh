@@ -16,10 +16,11 @@ if [ -f $CONFIG_FILE ]; then
   cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
 fi
 
-if [ ! -f "install-package.sh" ]; then
+# TODO: Clean up. This check is disabled to allow the install package script to be overwritten
+#if [ ! -f "install-package.sh" ]; then
   INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/install-package.sh"
-  wget $INSTALL_SCRIPT_FILE_URL
-fi
+  wget -O install-package.sh $INSTALL_SCRIPT_FILE_URL
+#fi
 
 sh install-package.sh BridgeArduinoSerialToMqttSplitCsv 1.0.0.44 || exit 1
 
