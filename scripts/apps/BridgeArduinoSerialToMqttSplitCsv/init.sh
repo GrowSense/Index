@@ -9,11 +9,12 @@ echo "Installing libraries..."
 CONFIG_FILE="BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
 CONFIG_FILE_TMP="BridgeArduinoSerialToMqttSplitCsv.exe.config";
 
-
 if [ -f $CONFIG_FILE ]; then
   echo "Config file found. Preserving."
 
-  cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
+  if [ ! -f $CONFIG_FILE_TMP ]; then
+    cp $CONFIG_FILE $CONFIG_FILE_TMP || exit 1
+  fi
 fi
 
 # TODO: Clean up. This check is disabled to allow the install package script to be overwritten
