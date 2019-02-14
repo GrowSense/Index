@@ -62,12 +62,16 @@ else
     echo "[mock] sh upload-nano.sh /dev/$SERIAL_PORT"
 fi
 
+# TODO: Remove if not needed. Currently failing, so it's skipped to use the sketch build time as the current RTC time
 # Set the device clock
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-    sh set-clock.sh "/dev/$SERIAL_PORT" || exit 1
-else
-    echo "[mock] sh set-clock.sh /dev/$SERIAL_PORT"
-fi
+#if [ $IS_MOCK_HARDWARE = 0 ]; then
+    # Set the clock in a background process so it fires after the serial monitor opens
+#    sleep 4s && sh set-clock.sh "/dev/$SERIAL_PORT" &
+#else
+
+#    echo "[mock] timeout 10s sh $BASE_PATH/monitor-serial.sh \"/dev/$SERIAL_PORT\""
+#    echo "[mock] sh set-clock.sh /dev/$SERIAL_PORT"
+#fi
 
 
 cd $DIR
