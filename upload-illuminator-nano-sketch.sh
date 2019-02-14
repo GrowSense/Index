@@ -62,6 +62,14 @@ else
     echo "[mock] sh upload-nano.sh /dev/$SERIAL_PORT"
 fi
 
+# Set the device clock
+if [ $IS_MOCK_HARDWARE = 0 ]; then
+    sh set-clock.sh "/dev/$SERIAL_PORT" || exit 1
+else
+    echo "[mock] sh set-clock.sh /dev/$SERIAL_PORT"
+fi
+
+
 cd $DIR
 
 if [ $IS_MOCK_HARDWARE = 0 ]; then
