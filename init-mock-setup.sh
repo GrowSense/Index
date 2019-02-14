@@ -9,5 +9,6 @@ echo "true" > $MOCK_FLAG_FILE
 sh init-mock-systemctl.sh
 sh init-mock-docker.sh
 sh init-mock-hardware.sh
+sh init-mock-mqtt-bridge.sh
 
 echo "Done"
