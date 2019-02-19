@@ -16,6 +16,6 @@ TEMPERATURE_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P 
 if [ ! $HUMIDITY_VALUE ]; then
   echo "  No MQTT data detected"  
 else
-  echo "  Temperature: $HUMIDITY_VALUE c"
-  echo "  Humidity: $TEMPERATURE_VALUE %"
+  echo "  Temperature: $TEMPERATURE_VALUE c"
+  echo "  Humidity: $HUMIDITY_VALUE %"
 fi
