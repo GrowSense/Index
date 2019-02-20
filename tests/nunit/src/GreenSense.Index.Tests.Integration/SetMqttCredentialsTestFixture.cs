@@ -26,9 +26,8 @@ namespace GreenSense.Index.Tests.Integration
 
 			var arguments = host + " " + username + " " + password + " " + port;
 
-			var starter = GetDockerProcessStarter();
-			starter.PreCommand = "sh init-mock-setup.sh && sh clean.sh";
-			var output = starter.RunDockerBash("sh " + scriptName + ".sh " + arguments);
+			var starter = GetTestProcessStarter();
+			var output = starter.RunBash("sh " + scriptName + ".sh " + arguments);
 
 			var successfulText = "Finished setting MQTT credentials";
 

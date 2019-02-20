@@ -4,8 +4,6 @@ echo ""
 echo "Cleaning project"
 echo ""
 
-# Remove all garden devices and services
-sh remove-garden-devices.sh
 
 # Clean linear MQTT dashboard settings
 cd mobile/linearmqtt/
@@ -25,5 +23,8 @@ echo "Temp dir: $TMP_DIR"
 if [ -d "$TMP_DIR" ]; then
   rm "$TMP_DIR/" -r
 fi
+
+# Remove all garden devices and services
+sh remove-garden-devices.sh
 
 echo "Finished cleaning project"

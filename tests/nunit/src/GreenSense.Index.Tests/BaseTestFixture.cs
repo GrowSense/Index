@@ -9,11 +9,7 @@ namespace GreenSense.Index.Tests
 	{
 		public string ProjectDirectory;
 
-		public string TemporaryDirectory;
-		public string TemporaryProjectDirectory;
-		public string TemporaryServicesDirectory;
-
-		public bool AutoDeleteTemporaryDirectory = false;
+		public string ServicesDirectory;
 
 		public string LinearMqttSettingsFile = "mobile/linearmqtt/newsettings.json";
 
@@ -29,28 +25,18 @@ namespace GreenSense.Index.Tests
 			Console.WriteLine(ProjectDirectory);
 			Console.WriteLine("");
 
-			TemporaryDirectory = new TemporaryDirectoryCreator().Create(ProjectDirectory);
-			Console.WriteLine("Temporary directory: ");
-			Console.WriteLine(TemporaryDirectory);
-			Console.WriteLine("");
-
-			TemporaryProjectDirectory = Path.Combine(TemporaryDirectory, "project");
-			Directory.CreateDirectory(TemporaryProjectDirectory);
-			Console.WriteLine("Temporary project directory: ");
-			Console.WriteLine(TemporaryProjectDirectory);
-			CopyDirectory(ProjectDirectory, TemporaryProjectDirectory);
-			Directory.SetCurrentDirectory(TemporaryProjectDirectory);
+			Directory.SetCurrentDirectory (ProjectDirectory);
 
 			if (File.Exists(Path.GetFullPath("is-mock-systemctl.txt")))
 			{
-				TemporaryServicesDirectory = Path.Combine(TemporaryProjectDirectory, "mock/services");
+				ServicesDirectory = Path.Combine(ProjectDirectory, "mock/services");
 			}
 			else
 			{
-				TemporaryServicesDirectory = "/lib/systemd/system/";
+				ServicesDirectory = "/lib/systemd/system/";
 			}
 			Console.WriteLine("Services directory:");
-			Console.WriteLine("  " + TemporaryServicesDirectory);
+			Console.WriteLine("  " + ServicesDirectory);
 
 			ClearDevices();
 		}
@@ -65,8 +51,6 @@ namespace GreenSense.Index.Tests
 		[TearDown]
 		public void Finish()
 		{
-			if (AutoDeleteTemporaryDirectory)
-				Directory.Delete(TemporaryDirectory, true);
 		}
 
 		public void ClearDevices()
@@ -77,13 +61,13 @@ namespace GreenSense.Index.Tests
 				Directory.Delete(devicesPath, true);
 		}
 
-		public DockerProcessStarter GetDockerProcessStarter()
+		public TestProcessStarter GetTestProcessStarter()
 		{
-			var starter = new DockerProcessStarter();
+			var starter = new TestProcessStarter();
 
-			starter.WorkingDirectory = TemporaryProjectDirectory;
+			starter.WorkingDirectory = ProjectDirectory;
 
-			starter.IsMockDocker = File.Exists(Path.GetFullPath("is-mock-docker.txt"));
+			starter.Initialize ();
 
 			return starter;
 		}
@@ -258,7 +242,7 @@ namespace GreenSense.Index.Tests
 
 		public void CheckMqttBridgeServiceFileWasCreated(string deviceName)
 		{
-			var serviceFile = Path.Combine(TemporaryServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
+			var serviceFile = Path.Combine(ServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
 
 			var fileExists = File.Exists(serviceFile);
 
@@ -267,7 +251,7 @@ namespace GreenSense.Index.Tests
 
 		public void CheckUpdaterServiceFileWasCreated(string deviceName)
 		{
-			var serviceFile = Path.Combine(TemporaryServicesDirectory, "greensense-updater-" + deviceName + ".service");
+			var serviceFile = Path.Combine(ServicesDirectory, "greensense-updater-" + deviceName + ".service");
 
 			var fileExists = File.Exists(serviceFile);
 

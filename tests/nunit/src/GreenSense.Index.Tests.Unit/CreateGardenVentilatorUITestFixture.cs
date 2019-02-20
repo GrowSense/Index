@@ -21,13 +21,11 @@ namespace GreenSense.Index.Tests.Unit
 
 			var command = "sh " + scriptName + " " + arguments;
 
-			var starter = new ProcessStarter();
+			var starter = GetTestProcessStarter();
 
 			Console.WriteLine("Running script...");
 
-			starter.Start(command);
-
-			var output = starter.Output;
+			starter.RunBash(command);
 
 			Console.WriteLine("Checking device UI was created...");
 
@@ -39,7 +37,7 @@ namespace GreenSense.Index.Tests.Unit
 
 			Console.WriteLine("Attempting to create a duplicate...");
 
-			starter.Start(command);
+			starter.RunBash(command);
 
 			Console.WriteLine("Ensuring that no duplicate UI was created...");
 

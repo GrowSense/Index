@@ -18,8 +18,7 @@ namespace GreenSense.Index.Tests.Integration
 
 			Console.WriteLine("Running create-garden script");
 
-			var starter = GetDockerProcessStarter();
-			starter.PreCommand = "sh init-mock-setup.sh && sh clean.sh";
+			var starter = GetTestProcessStarter();
 			var output = starter.RunScript(scriptName);
 
 			var successfulText = "Setup complete";
@@ -36,7 +35,7 @@ namespace GreenSense.Index.Tests.Integration
 			if (!serviceFileName.EndsWith(".service"))
 				serviceFileName += ".service";
 
-			var serviceFilePath = Path.Combine(TemporaryServicesDirectory, serviceFileName);
+			var serviceFilePath = Path.Combine(ServicesDirectory, serviceFileName);
 
 			Console.WriteLine("Checking mosquitto service file exists...");
 			Console.WriteLine("  " + serviceFilePath);

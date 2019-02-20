@@ -14,8 +14,7 @@ namespace GreenSense.Index.Tests.Integration
 			Console.WriteLine("Script:");
 			Console.WriteLine(scriptName);
 
-			var starter = GetDockerProcessStarter();
-			starter.PreCommand = "sh init-mock-setup.sh && sh clean.sh";
+			var starter = GetTestProcessStarter();
 			var output = starter.RunScript(scriptName);
 
 			var successfulText = "Monitor ESP8266 test complete";
