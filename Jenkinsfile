@@ -4,6 +4,11 @@ pipeline {
        pollSCM('*/10 * * * *')
     }
     stages {
+        stage('CleanWS') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('Setup') {
             steps {
                 deleteDir()

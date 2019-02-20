@@ -5,7 +5,6 @@ pipeline {
     }
     stages {
         stage('CleanWS') {
-            when { expression { !shouldSkipBuild() } }
             steps {
                 deleteDir()
             }
