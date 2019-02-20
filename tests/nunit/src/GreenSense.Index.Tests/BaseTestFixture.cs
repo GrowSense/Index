@@ -128,7 +128,8 @@ namespace GreenSense.Index.Tests
 			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
 			var json = JObject.Parse(jsonString);
 
-			Console.WriteLine(jsonString);
+			// Disabled to reduce the console output length
+			//Console.WriteLine(jsonString);
 
 			CheckDeviceSummaryWasCreated(json, deviceLabel, deviceName, summaryValueKey);
 			CheckDeviceTabIndexWasCreated(json, deviceLabel, deviceName);
@@ -138,24 +139,28 @@ namespace GreenSense.Index.Tests
 		public void CheckDeviceSummaryWasCreated(JObject json, string deviceLabel, string deviceName, string dataKey)
 		{
 			Console.WriteLine("Checking the device summary was created...");
-			
-			Console.WriteLine("Full JSON:");
-			Console.WriteLine(json.ToString());
+
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Full JSON:");
+			//Console.WriteLine(json.ToString());
 
 			var dashboardsElement = json["dashboards"];
-			
-			Console.WriteLine("Dashboards element:");
-			Console.WriteLine(dashboardsElement);
+
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Dashboards element:");
+			//Console.WriteLine(dashboardsElement);
 
 			var summaryDashboardElement = dashboardsElement[0];
 
-			Console.WriteLine("Summary dashboard element:");
-			Console.WriteLine(summaryDashboardElement);
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Summary dashboard element:");
+			//Console.WriteLine(summaryDashboardElement);
 
 			var summaryDeviceMeterElement = summaryDashboardElement["dashboard"][0];
 
-			Console.WriteLine("Summary dashboard element:");
-			Console.WriteLine(summaryDeviceMeterElement);
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Summary dashboard element:");
+			//Console.WriteLine(summaryDeviceMeterElement);
 
 			Console.WriteLine("Details from json:");
 			Console.WriteLine("  name: " + summaryDeviceMeterElement["name"]);
@@ -179,8 +184,9 @@ namespace GreenSense.Index.Tests
 
 			var deviceTabElement = tabsElement[1];
 
-			Console.WriteLine("Device tab element:");
-			Console.WriteLine(deviceTabElement);
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Device tab element:");
+			//Console.WriteLine(deviceTabElement);
 
 			Console.WriteLine("Details from json:");
 			Console.WriteLine("  name: " + deviceTabElement["name"]);
@@ -198,8 +204,9 @@ namespace GreenSense.Index.Tests
 			var deviceElement = dashboardsElement[1];
 			var deviceElementId = dashboardsElement[1]["id"];
 
-			Console.WriteLine("Device element:");
-			Console.WriteLine(deviceElement);
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Device element:");
+			//Console.WriteLine(deviceElement);
 			Console.WriteLine("Device element ID: " + deviceElementId);
 
 			Console.WriteLine("Checking device element ID is correct...");
@@ -213,8 +220,9 @@ namespace GreenSense.Index.Tests
 
 			var valueMeterElement = deviceElement["dashboard"][valueMeterIndex];
 
-			Console.WriteLine("Value meter element:");
-			Console.WriteLine(valueMeterElement);
+			// Disabled to reduce the console output length
+			//Console.WriteLine("Value meter element:");
+			//Console.WriteLine(valueMeterElement);
 
 			Console.WriteLine("Details from json:");
 			Console.WriteLine("  name: " + valueMeterElement["name"]);
