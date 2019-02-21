@@ -44,10 +44,10 @@ pipeline {
                 shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
             }
         }
-        stage('Build') {
+        stage('Build Tests') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-all.sh'
+                sh 'sh build-tests.sh'
             }
         }
         stage('Test') {
