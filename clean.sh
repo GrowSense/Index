@@ -17,13 +17,6 @@ if [ -d "$MOCK_DIR" ]; then
   rm "$MOCK_DIR/" -r
 fi
 
-# Clean test .tmp directory
-TMP_DIR="$PWD.tmp";
-echo "Temp dir: $TMP_DIR"
-if [ -d "$TMP_DIR" ]; then
-  rm "$TMP_DIR/" -r
-fi
-
 # Remove all garden devices and services
 sh remove-garden-devices.sh
 
