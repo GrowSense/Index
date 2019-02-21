@@ -257,6 +257,27 @@ This is used on the GreenSense test server with the following attached:
 wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-4-from-github.sh | sh -s
 ```
 
+### 6 Attached USB Devices
+For use when 6 USB devices are attached.
+This is used on the GreenSense test server with the following attached:
+- A test monitor device and corresponding test simulation device
+- A test irrigator device and corresponding test simulation device
+- A test illuminator device and corresponding test simulation device
+```
+wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-6-from-github.sh | sh -s
+```
+
+### 8 Attached USB Devices
+For use when 8 USB devices are attached.
+This is used on the GreenSense test server with the following attached:
+- A test monitor device and corresponding test simulation device
+- A test irrigator device and corresponding test simulation device
+- A test illuminator device and corresponding test simulation device
+- A test ventilator device and corresponding test simulation device
+```
+wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-8-from-github.sh | sh -s
+```
+
 ## Mobile UI
 
 ### Install Linear MQTT Dashboard 
