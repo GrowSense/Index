@@ -10,6 +10,7 @@ install:
   - git fetch --no-tags
   - git checkout $TRAVIS_BRANCH
   - git pull origin $TRAVIS_BRANCH
+  - git submodule sync
   - sh init-mock-setup.sh
   - sh prepare.sh
   - sh init-all.sh
