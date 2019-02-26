@@ -13,6 +13,3 @@
 [submodule "sketches/illuminator/LightPRSensorCalibratedLight"]
 	path = sketches/illuminator/LightPRSensorCalibratedLight
 	url = https://github.com/GreenSense/LightPRSensorCalibratedLight.git
-[submodule "sketches/ventilator/TemperatureHumidityDHTSensorFan"]
-	path = sketches/ventilator/TemperatureHumidityDHTSensorFan
-	url = https://github.com/GreenSense/TemperatureHumidityDHTSensorFan.git
