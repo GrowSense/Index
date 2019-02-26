@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    triggers {
-       pollSCM('*/30 * * * *')
-    }
     stages {
         stage('CleanWS') {
             steps {
