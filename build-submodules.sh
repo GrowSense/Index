@@ -24,4 +24,16 @@ sh build-all.sh && \
 cd $INDEX_DIR && \
 echo "" && \
 
+echo "Building illuminator" && \
+cd sketches/illuminator/LightPRSensorCalibratedLight && \
+sh build-all.sh && \
+cd $INDEX_DIR && \
+echo "" && \
+
+echo "Building ventilator" && \
+cd sketches/ventilator/TemperatureHumidityDHTSensorFan && \
+sh build-all.sh && \
+cd $INDEX_DIR && \
+echo "" && \
+
 echo "Submodules were built successfully."
