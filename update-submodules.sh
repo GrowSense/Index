@@ -48,6 +48,25 @@ git pull origin $BRANCH || exit 1
 
 cd $DIR
 
+
+echo "Updating LightPRSensorCalibratedLight"
+
+cd sketches/illuminator/LightPRSensorCalibratedLight && \
+sh clean.sh && \
+git checkout $BRANCH && \
+git pull origin $BRANCH || exit 1
+
+cd $DIR
+
+echo "Updating TemperatureHumidityDHTSensorFan"
+
+cd sketches/ventilator/TemperatureHumidityDHTSensorFan && \
+sh clean.sh && \
+git checkout $BRANCH && \
+git pull origin $BRANCH || exit 1
+
+cd $DIR
+
 #git commit -am "Updated submodules"
 
 echo "Finished updating submodules"
