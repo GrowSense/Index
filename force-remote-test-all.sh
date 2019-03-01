@@ -28,7 +28,7 @@ then
   echo ""
   
   echo "Irrigator ESP"
-  cd sketches/irrigator/SoilMoistureSensorCalibratedPump/
+  cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/
   sh force-remote-test.sh || exit 1
   cd $DIR
   echo ""
