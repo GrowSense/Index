@@ -1,3 +1,5 @@
+DIR=$PWD
+
 echo "" && \
 echo "Initializing MQTT bridge utility" && \
 
@@ -17,3 +19,5 @@ echo "Initializing linear MQTT dashboard UI related scripts" && \
 cd mobile/linearmqtt/ && \
 sh init.sh && \
 cd $DIR && \
+
+echo "Done"
