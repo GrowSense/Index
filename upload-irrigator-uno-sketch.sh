@@ -12,7 +12,6 @@ IS_MOCK_SETUP=0
 IS_MOCK_HARDWARE=0
 IS_MOCK_SUBMODULE_BUILDS=0
 
-IS_MOCK_SETUP=0
 if [ -f "$MOCK_FLAG_FILE" ]; then
   IS_MOCK_SETUP=1
   echo "Is mock setup"
@@ -38,14 +37,15 @@ echo "Uploading irrigator sketch"
 
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/irrigator/SoilMoistureSensorCalibratedPump"
+BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPump"
 
 cd $BASE_PATH
 
-SKETCH_PATH="src/SoilMoistureSensorCalibratedPump/SoilMoistureSensorCalibratedPump.ino"
+echo "Current directory:"
+echo $BASE_PATH
 
 # Inject version into the sketch
-sh inject-version.sh
+sh inject-version.sh || exit 1
 
 # TODO: Remove if not needed. Build is performed during upload.
 

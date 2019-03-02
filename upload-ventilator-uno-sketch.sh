@@ -37,9 +37,9 @@ echo "Uploading ventilator sketch"
 
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/ventilator/TemperatureHumidityDHTSensorFan"
+BASE_PATH="$PWD/sketches/ventilator/TemperatureHumidityDHTSensorFan"
 
-cd $BASE_PATH
+cd "$BASE_PATH"
 
 echo "Current directory:"
 echo $BASE_PATH
