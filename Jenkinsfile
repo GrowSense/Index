@@ -25,7 +25,7 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh prepare.sh'
+                sh 'echo "Disabled prepare script" # sh prepare.sh'
             }
         }
         stage('Init') {

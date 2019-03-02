@@ -1,5 +1,5 @@
 echo "USE_MONO4=$USE_MONO4"
-if [ "$USE_MONO4" = 1 ]; then
+if [ $USE_MONO4 = 1 ]; then
   if ! type "xbuild" > /dev/null; then
     echo "Using mono4"
     sudo apt-get install -y tzdata mono-devel mono-complete ca-certificates-mono
