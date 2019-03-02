@@ -31,8 +31,7 @@ pipeline {
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-apps.sh'
-                sh 'sh init-tests.sh'
+                sh 'sh init-all.sh'
             }
         }
         stage('Set MQTT Credentials') {

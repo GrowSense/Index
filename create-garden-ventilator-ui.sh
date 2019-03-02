@@ -7,6 +7,7 @@ echo ""
 # sh create-garden-ventilator-ui.sh MyVentilator myventilator
 
 DIR=$PWD
+
 DEVICE_EXISTS=false
 
 DEVICE_LABEL=$1
