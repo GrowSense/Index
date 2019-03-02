@@ -20,6 +20,7 @@ pipeline {
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
                 sh 'sh init-mock-submodule-builds.sh'
+                sh 'git submodule update --init --recursive'
             }
         }
         stage('Prepare') {
@@ -31,7 +32,8 @@ pipeline {
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-all.sh'
+                sh 'sh init-apps.sh'
+                sh 'sh init-tests.sh'
             }
         }
         stage('Set MQTT Credentials') {
