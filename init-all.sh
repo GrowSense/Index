@@ -1,6 +1,7 @@
 echo "Initializing entire GreenSense index and all submodules"
 
 sh init.sh && \
+sh init-apps.sh && \
 sh init-tests.sh && \
 sh init-submodules.sh && \
 
