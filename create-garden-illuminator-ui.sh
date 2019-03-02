@@ -82,7 +82,7 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
-  sh package.sh
+  sh package.sh || exit 1
 else
   echo "Device already exists. Skipping UI creation."
 fi
