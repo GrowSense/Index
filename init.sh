@@ -1,14 +1,5 @@
 echo "Initializing GreenSense index"
 
-DIR=$PWD
-
-echo "" && \
-echo "Initializing GreenSense index unit tests" && \
-
-cd tests/nunit/ && \
-sh init.sh && \
-cd $DIR && \
-
 echo "" && \
 echo "Initializing MQTT bridge utility" && \
 
