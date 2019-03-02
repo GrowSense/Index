@@ -11,4 +11,4 @@ cp newsettings.json output/settings.json && \
 
 cd output && \
 
-zip -r config.linear settings.json
+zip -r config.linear settings.json || exit 1
