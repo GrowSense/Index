@@ -8,13 +8,14 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                deleteDir()
-                shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME .' )
+                checkout scm
+
+                shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git' )
+                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
+                sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
-                sh 'git config --global user.email "compulsivecoder@gmail.com"'
-                sh 'git config --global user.name "CompulsiveCoder CI"'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
