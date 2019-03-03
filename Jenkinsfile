@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+      skipDefaultCheckout true
+    }
     stages {
         stage('CleanWS') {
             steps {
@@ -16,7 +19,6 @@ pipeline {
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
                 sh 'sh init-mock-submodule-builds.sh'
-                sh 'git submodule update --init --recursive'
             }
         }
         stage('Prepare') {
