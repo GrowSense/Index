@@ -19,6 +19,8 @@ pipeline {
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
                 sh 'sh init-mock-submodule-builds.sh'
+                sh 'git config --global user.email "compulsivecoder@gmail.com"'
+                sh 'git config --global user.name "CompulsiveCoder"'
             }
         }
         stage('Prepare') {
