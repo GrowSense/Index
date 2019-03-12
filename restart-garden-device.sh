@@ -13,10 +13,10 @@ else
   echo "Device name: $DEVICE_NAME"
 
   echo "Restart MQTT bridge service" && \
-  sudo systemctl restart greensense-mqtt-bridge-$DEVICE_NAME.service && \
+  sh systemctl.sh restart greensense-mqtt-bridge-$DEVICE_NAME.service && \
 
   echo "Restart Updater service" && \
-  sudo systemctl restart greensense-updater-$DEVICE_NAME.service && \
+  sh systemctl.sh restart greensense-updater-$DEVICE_NAME.service && \
 
   echo "Garden device services restarted for '$DEVICE_NAME'"
 

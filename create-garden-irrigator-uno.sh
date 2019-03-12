@@ -29,7 +29,7 @@ echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
 # Remove any existing services
-sh remove-garden-services.sh $DEVICE_NAME && \
+sh remove-garden-device.sh $DEVICE_NAME && \
 
 # Uploading sketch
 sh upload-irrigator-uno-sketch.sh $DEVICE_PORT && \
