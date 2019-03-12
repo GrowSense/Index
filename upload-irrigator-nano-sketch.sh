@@ -48,6 +48,9 @@ SKETCH_PATH="src/SoilMoistureSensorCalibratedPump/SoilMoistureSensorCalibratedPu
 # Inject version into the sketch
 sh inject-version.sh && \
 
+# Inject board type into the sketch (used for device discovery)
+sh inject-board-type.sh "nano" && \
+
 # TODO: Remove if not needed. Build is performed during upload.
 
 # Build the sketch

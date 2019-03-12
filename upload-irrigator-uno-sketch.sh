@@ -45,7 +45,10 @@ echo "Current directory:"
 echo $BASE_PATH
 
 # Inject version into the sketch
-sh inject-version.sh || exit 1
+sh inject-version.sh && \
+
+# Inject board type into the sketch (used for device discovery)
+sh inject-board-type.sh "uno" && \
 
 # TODO: Remove if not needed. Build is performed during upload.
 
