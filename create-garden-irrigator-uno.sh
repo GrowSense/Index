@@ -28,6 +28,12 @@ echo "Device label: $DEVICE_LABEL"
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
+# Remove any existing services
+sh remove-garden-services.sh $DEVICE_NAME && \
+
+# Uploading sketch
+sh upload-irrigator-uno-sketch.sh $DEVICE_PORT && \
+
 # Set up mobile UI
 sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
@@ -40,7 +46,5 @@ sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 # Set up update service
 sh create-updater-service.sh irrigator uno $DEVICE_NAME $DEVICE_PORT && \
 
-# Uploading sketch
-sh upload-irrigator-uno-sketch.sh $DEVICE_PORT && \
 
 echo "Garden irrigator created with device name '$DEVICE_NAME'"
