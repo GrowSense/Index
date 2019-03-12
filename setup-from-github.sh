@@ -31,7 +31,7 @@ echo "  $INDEX_DIR" && \
 cd $INDEX_DIR && \
 
 sudo sh prepare.sh && \
-sh init.sh && \
+sh init-all.sh && \
 
 echo "" && \
 echo "The GreenSense index is initialized and ready to use."
