@@ -1,7 +1,7 @@
 echo "USE_MONO4=$USE_MONO4"
 
 if [ ! $USE_MONO4 ]; then
-  if [ -f "use-mono4.txt"]; then
+  if [ -f "use-mono4.txt" ]; then
     USE_MONO4=1
   fi
 fi
