@@ -31,13 +31,6 @@ if [ -f $CONFIG_FILE_TMP ]; then
 
   echo "Restoring existing config file"
   cp $CONFIG_FILE_TMP $CONFIG_FILE || exit 1
-else
-
-  echo "Inserting values"
-  sed -i "s//$HOST/g" $CONFIG_FILE && \
-  sed -i "s/user/$USERNAME/g" $CONFIG_FILE && \
-  sed -i "s/123456/$PASSWORD/g" $CONFIG_FILE
-  sed -i "s/1883/$PORT/g" $CONFIG_FILE
 
 fi
 

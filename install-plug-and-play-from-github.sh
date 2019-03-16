@@ -67,8 +67,6 @@ echo "Importing GreenSense config file..."
 
 sudo wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config -O ArduinoPlugAndPlay.exe.config
 
-echo "stopped"
-exit 1
 WORKSPACE_DIR="$INSTALL_DIR/workspace"
 
 sudo mkdir -p $WORKSPACE_DIR || exit 1
@@ -77,11 +75,6 @@ cd $WORKSPACE_DIR
 echo "Workspace dir:"
 echo "  $WORKSPACE_DIR"
 
-echo "Current dir: $PWD"
-cat ArduinoPlugAndplay.exe.config
-
-echo "stopped"
-exit 1
 INDEX_DIR="$WORKSPACE_DIR/GreenSense/Index"
 
 if [ ! -d "$INDEX_DIR" ]; then
@@ -102,6 +95,5 @@ sudo sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_P
 echo "Creating plug and play service..."
 
 sudo sh create-plug-and-play-service.sh
-
 
 echo "Finished creating MQTT bridge service"

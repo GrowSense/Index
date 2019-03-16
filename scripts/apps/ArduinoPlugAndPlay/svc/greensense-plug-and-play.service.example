@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "mkdir -p /usr/local/ArduinoPlugAndPlay/; cd /usr/local/ArduinoPlugAndPlay/; wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/ArduinoPlugAndPlay/start-plug-and-play-from-github.sh | sh
+ ExecStart=/bin/sh -c "mkdir -p /usr/local/ArduinoPlugAndPlay/; cd /usr/local/ArduinoPlugAndPlay/; wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/ArduinoPlugAndPlay/start-plug-and-play-from-github.sh | sh"
 
  [Install]
  WantedBy=multi-user.target
