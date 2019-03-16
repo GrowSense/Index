@@ -45,7 +45,7 @@ sh create-updater-service.sh monitor uno $DEVICE_NAME $DEVICE_PORT && \
 sh upload-monitor-uno-sketch.sh $DEVICE_PORT && \
 
 # Display the device details
-echo "Device info:"
-sh view-garden-device.sh $DEVICE_NAME && \
+#echo "Device info:"
+#sh view-garden-device.sh $DEVICE_NAME && \
 
 echo "Garden monitor created with device name '$DEVICE_NAME'"

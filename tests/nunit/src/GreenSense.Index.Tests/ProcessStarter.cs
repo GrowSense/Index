@@ -6,205 +6,195 @@ using System.IO;
 
 namespace GreenSense.Index.Tests
 {
-	public class ProcessStarter
-	{
-		public bool IsError { get; set; }
+    public class ProcessStarter
+    {
+        public bool IsError { get; set; }
 
-		public bool ThrowExceptionOnError = true;
+        public bool ThrowExceptionOnError = true;
 
-		public bool WriteOutputToConsole = true;
+        public bool WriteOutputToConsole = true;
 
-		public string Output
-		{
-			get { return OutputBuilder.ToString(); }
-		}
+        public bool IsVerbose = false;
 
-		public StringBuilder OutputBuilder = new StringBuilder();
+        public string Output {
+            get { return OutputBuilder.ToString (); }
+        }
 
-		public ProcessStarter()
-		{
-		}
+        public StringBuilder OutputBuilder = new StringBuilder ();
 
-		public Process Start(params string[] commandParts)
-		{
-			return Start(String.Join(" ", commandParts));
-		}
+        public ProcessStarter ()
+        {
+        }
 
-		public Process Start(string command, string argument1, params string[] otherArguments)
-		{
-			var arguments = new List<string>();
-			arguments.Add(argument1);
-			arguments.AddRange(otherArguments);
+        public Process Start (params string[] commandParts)
+        {
+            return Start (String.Join (" ", commandParts));
+        }
 
-			return Start(command, arguments.ToArray());
-		}
+        public Process Start (string command, string argument1, params string[] otherArguments)
+        {
+            var arguments = new List<string> ();
+            arguments.Add (argument1);
+            arguments.AddRange (otherArguments);
 
-		public Process Start(string command, string argument1, string argument2, params string[] otherArguments)
-		{
-			var arguments = new List<string>();
-			arguments.Add(argument1);
-			arguments.Add(argument2);
-			arguments.AddRange(otherArguments);
+            return Start (command, arguments.ToArray ());
+        }
 
-			return Start(command, arguments.ToArray());
-		}
+        public Process Start (string command, string argument1, string argument2, params string[] otherArguments)
+        {
+            var arguments = new List<string> ();
+            arguments.Add (argument1);
+            arguments.Add (argument2);
+            arguments.AddRange (otherArguments);
 
-		public Process Start(string command)
-		{
-			if (command.Contains(" "))
-			{
-				var cmd = String.Empty;
-				var arguments = new string[] { };
-				var list = new List<string>(command.Split(' '));
-				cmd = list[0];
-				list.RemoveAt(0);
-				arguments = list.ToArray();
-				return Start(cmd, arguments);
-			}
-			else
-			{
-				return Start(command, new string[] { });
-			}
-		}
-		/// <summary>
-		/// Starts/executes a process in the current thread.
-		/// </summary>
-		/// <param name='command'></param>
-		/// <param name='arguments'></param>
-		public virtual Process Start(string command, params string[] arguments)
-		{
-			return Start(command, String.Join(" ", arguments));
-		}
+            return Start (command, arguments.ToArray ());
+        }
 
-		/// <summary>
-		/// Starts/executes a process in the current thread.
-		/// </summary>
-		/// <param name='command'></param>
-		/// <param name='arguments'></param>
-		public virtual Process Start(string command, string arguments)
-		{
-			Console.WriteLine("");
-			Console.WriteLine("Starting process:");
-			Console.WriteLine(command + " " + arguments);
-			Console.WriteLine("");
+        public Process Start (string command)
+        {
+            if (command.Contains (" ")) {
+                var cmd = String.Empty;
+                var arguments = new string[] { };
+                var list = new List<string> (command.Split (' '));
+                cmd = list [0];
+                list.RemoveAt (0);
+                arguments = list.ToArray ();
+                return Start (cmd, arguments);
+            } else {
+                return Start (command, new string[] { });
+            }
+        }
 
-			// If the command has an extension (and is therefore an actual file)
-			if (Path.GetExtension(command) != String.Empty)
-			{
-				// If the file doesn't exist
-				if (!File.Exists(Path.GetFullPath(command)))
-					throw new ArgumentException("Cannot find the file '" + Path.GetFullPath(command) + "'.");
-			}
+        /// <summary>
+        /// Starts/executes a process in the current thread.
+        /// </summary>
+        /// <param name='command'></param>
+        /// <param name='arguments'></param>
+        public virtual Process Start (string command, params string[] arguments)
+        {
+            return Start (command, String.Join (" ", arguments));
+        }
 
-			// Create the process start information
-			ProcessStartInfo info = new ProcessStartInfo(
-				command,
-				arguments
-			);
+        /// <summary>
+        /// Starts/executes a process in the current thread.
+        /// </summary>
+        /// <param name='command'></param>
+        /// <param name='arguments'></param>
+        public virtual Process Start (string command, string arguments)
+        {
+            if (IsVerbose) {
+                Console.WriteLine ("");
+                Console.WriteLine ("Starting process:");
+                Console.WriteLine (command + " " + arguments);
+                Console.WriteLine ("");
+            }
 
-			// Configure the process
-			info.UseShellExecute = false;
-			info.RedirectStandardInput = true;
-			info.RedirectStandardOutput = true;
-			info.RedirectStandardError = true;
-			info.CreateNoWindow = true;
+            // If the command has an extension (and is therefore an actual file)
+            if (Path.GetExtension (command) != String.Empty) {
+                // If the file doesn't exist
+                if (!File.Exists (Path.GetFullPath (command)))
+                    throw new ArgumentException ("Cannot find the file '" + Path.GetFullPath (command) + "'.");
+            }
 
-			// TODO: Remove if not needed
-			//info.ErrorDialog = true;
+            // Create the process start information
+            ProcessStartInfo info = new ProcessStartInfo (
+                               command,
+                               arguments
+                           );
 
-			// Start the process
-			Process process = new Process();
+            // Configure the process
+            info.UseShellExecute = false;
+            info.RedirectStandardInput = true;
+            info.RedirectStandardOutput = true;
+            info.RedirectStandardError = true;
+            info.CreateNoWindow = true;
 
-			process.StartInfo = info;
+            // TODO: Remove if not needed
+            //info.ErrorDialog = true;
 
-			process.EnableRaisingEvents = true;
+            // Start the process
+            Process process = new Process ();
 
-			var c = Console.Out;
+            process.StartInfo = info;
 
-			// Output the errors to the console
-			process.ErrorDataReceived += new DataReceivedEventHandler
-				(
-					delegate (object sender, DataReceivedEventArgs e)
-					{
-						Console.SetOut(c);
-						c.WriteLine(e.Data);
-						OutputBuilder.Append(e.Data);
-					}
-				);
+            process.EnableRaisingEvents = true;
 
-			// Output the data to the console
-			process.OutputDataReceived += new DataReceivedEventHandler
-				(
-					delegate (object sender, DataReceivedEventArgs e)
-					{
-						Console.SetOut(c);
-						c.WriteLine(e.Data);
-						OutputBuilder.Append(e.Data);
-					}
-				);
+            var c = Console.Out;
 
-			try
-			{
-				process.Start();
+            // Output the errors to the console
+            process.ErrorDataReceived += new DataReceivedEventHandler (
+                delegate (object sender, DataReceivedEventArgs e) {
+                    Console.SetOut (c);
+                    c.WriteLine (e.Data);
+                    OutputBuilder.Append (e.Data);
+                }
+            );
 
-				process.BeginOutputReadLine();
-				process.BeginErrorReadLine();
+            // Output the data to the console
+            process.OutputDataReceived += new DataReceivedEventHandler (
+                delegate (object sender, DataReceivedEventArgs e) {
+                    Console.SetOut (c);
+                    c.WriteLine (e.Data);
+                    OutputBuilder.Append (e.Data);
+                }
+            );
 
-				process.WaitForExit();
+            try {
+                process.Start ();
 
-				// If the exit code is NOT zero then an error must have occurred
-				IsError = (process.ExitCode != 0);
-			}
-			catch (Exception ex)
-			{
-				IsError = true;
+                process.BeginOutputReadLine ();
+                process.BeginErrorReadLine ();
 
-				var title = "\"Error starting process.\"";
+                process.WaitForExit ();
 
-				OutputBuilder.Append(title);
-				OutputBuilder.Append(ex.ToString());
+                // If the exit code is NOT zero then an error must have occurred
+                IsError = (process.ExitCode != 0);
+            } catch (Exception ex) {
+                IsError = true;
 
-				if (ThrowExceptionOnError)
-					throw new Exception(title, ex);
-				else
-				{
-					Console.WriteLine("");
-					Console.WriteLine(title);
-					Console.WriteLine(ex.ToString());
-					Console.WriteLine("");
-				}
-			}
+                var title = "\"Error starting process.\"";
 
-			return process;
-		}
+                OutputBuilder.Append (title);
+                OutputBuilder.Append (ex.ToString ());
 
-		public string[] FixArguments(string[] arguments)
-		{
-			List<string> argsList = new List<string>();
+                if (ThrowExceptionOnError)
+                    throw new Exception (title, ex);
+                else {
+                    Console.WriteLine ("");
+                    Console.WriteLine (title);
+                    Console.WriteLine (ex.ToString ());
+                    Console.WriteLine ("");
+                }
+            }
 
-			if (arguments != null && arguments.Length > 0)
-				argsList.AddRange(arguments);
+            return process;
+        }
 
-			for (int i = 0; i < argsList.Count; i++)
-			{
-				if (!String.IsNullOrEmpty(argsList[i]))
-				{
-					argsList[i] = FixArgument(argsList[i]);
-				}
-			}
+        public string[] FixArguments (string[] arguments)
+        {
+            List<string> argsList = new List<string> ();
 
-			return argsList.ToArray();
-		}
+            if (arguments != null && arguments.Length > 0)
+                argsList.AddRange (arguments);
 
-		public string FixArgument(string argument)
-		{
-			if (argument.Contains(" ")
-				&& argument.IndexOf("\"") != 0)
-				return @"""" + argument + @"""";
-			else
-				return argument;
-		}
+            for (int i = 0; i < argsList.Count; i++) {
+                if (!String.IsNullOrEmpty (argsList [i])) {
+                    argsList [i] = FixArgument (argsList [i]);
+                }
+            }
 
-	}
+            return argsList.ToArray ();
+        }
+
+        public string FixArgument (string argument)
+        {
+            if (argument.Contains (" ")
+            && argument.IndexOf ("\"") != 0)
+                return @"""" + argument + @"""";
+            else
+                return argument;
+        }
+
+    }
 }
 

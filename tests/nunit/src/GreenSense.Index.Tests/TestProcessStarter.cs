@@ -17,6 +17,7 @@ namespace GreenSense.Index.Tests
 
         public TestProcessStarter ()
         {
+            Starter.IsVerbose = false;
         }
 
         public void Initialize ()

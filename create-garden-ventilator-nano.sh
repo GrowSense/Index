@@ -44,7 +44,7 @@ sh create-updater-service.sh ventilator nano $DEVICE_NAME $DEVICE_PORT && \
 sh upload-ventilator-nano-sketch.sh $DEVICE_PORT && \
 
 # Display the device details
-echo "Device info:"
-sh view-garden-device.sh $DEVICE_NAME && \
+#echo "Device info:"
+#sh view-garden-device.sh $DEVICE_NAME && \
 
 echo "Garden ventilator created with device name '$DEVICE_NAME'"
