@@ -1,49 +1,52 @@
 ﻿using System;
 using NUnit.Framework;
 using System.IO;
+
 namespace GreenSense.Index.Tests.Unit
 {
-	[TestFixture(Category = "Unit")]
-	public class CreateDeviceInfoTestFixture : BaseTestFixture
-	{
-		[Test]
-		public void Test_CreateDeviceInfo()
-		{
-			var scriptName = "create-device-info.sh";
+    [TestFixture (Category = "Unit")]
+    public class CreateDeviceInfoTestFixture : BaseTestFixture
+    {
+        [Test]
+        public void Test_CreateDeviceInfo ()
+        {
+            var scriptName = "create-device-info.sh";
 
-			Console.WriteLine("Testing " + scriptName + " script");
+            Console.WriteLine ("Testing " + scriptName + " script");
 
-			Console.WriteLine("Script:");
-			Console.WriteLine(scriptName);
+            Console.WriteLine ("Script:");
+            Console.WriteLine (scriptName);
 
-			var deviceType = "monitor/SoilMoistureSensorCalibratedSerial";
-			var deviceLabel = "Monitor1";
-			var deviceName = "monitor1";
-			var devicePort = "ttyUSB0";
+            var deviceBoard = "uno";
+            var deviceGroup = "monitor";
+            var deviceProject = "SoilMoistureSensorCalibratedSerial";
+            var deviceLabel = "Monitor1";
+            var deviceName = "monitor1";
+            var devicePort = "ttyUSB0";
 
-			var arguments = deviceType + " " + deviceLabel + " " + deviceName + " " + devicePort;
+            var arguments = deviceBoard + " " + deviceGroup + " " + deviceProject + " " + deviceLabel + " " + deviceName + " " + devicePort;
 
-			var command = "sh " + scriptName + " " + arguments;
+            var command = "sh " + scriptName + " " + arguments;
 
-			var starter = new ProcessStarter();
+            var starter = new ProcessStarter ();
 
-			Console.WriteLine("Running script...");
+            Console.WriteLine ("Running script...");
 
-			starter.Start(command);
+            starter.Start (command);
 
-			var output = starter.Output;
+            var output = starter.Output;
 
-			Console.WriteLine("Checking device info was created...");
+            Console.WriteLine ("Checking device info was created...");
 
-			CheckDeviceInfoWasCreated(deviceType, deviceLabel, deviceName, devicePort);
+            CheckDeviceInfoWasCreated (deviceBoard, deviceGroup, deviceProject, deviceLabel, deviceName, devicePort);
 
-			Console.WriteLine("Checking console output is correct...");
+            Console.WriteLine ("Checking console output is correct...");
 
-			var successfulText = "Device info created";
+            var successfulText = "Device info created";
 
-			Assert.IsTrue(output.Contains(successfulText), "Failed");
+            Assert.IsTrue (output.Contains (successfulText), "Failed");
 
-			Console.WriteLine("Test complete");
-		}
-	}
+            Console.WriteLine ("Test complete");
+        }
+    }
 }

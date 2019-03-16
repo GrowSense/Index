@@ -1,33 +1,11 @@
-BOARD_TYPE=$1
-FAMILY_NAME=$2
-GROUP_NAME=$3
-PROJECT_NAME=$4
-PORT=$5
+#!/bin/bash
 
-EXAMPLE="Example:\n\t...sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [Port]"
 
-if [ ! $FAMILY_NAME ]; then
-  echo "Provide a family name as an argument."
-  echo $EXAMPLE
-  exit 1
-fi
+DEVICE_PORT=$1
 
-if [ ! $GROUP_NAME ]; then
-  echo "Provide a group name as an argument."
-  echo $EXAMPLE
-  exit 1
-fi
-if [ ! $PROJECT_NAME ]; then
-  echo "Provide a project name as an argument."
-  echo $EXAMPLE
-  exit 1
-fi
-if [ ! $BOARD_TYPE ]; then
-  echo "Provide a board type as an argument."
-  echo $EXAMPLE
-  exit 1
-fi
-if [ ! $PORT ]; then
+EXAMPLE="Example:\n\t...sh [Port]"
+
+if [ ! $DEVICE_PORT ]; then
   echo "Provide a port as an argument."
   echo $EXAMPLE
   exit 1
@@ -35,57 +13,46 @@ fi
 
 echo "Automatically removing device..."
 
-WORKSPACE_DIR="workspace"
-
-mkdir -p $WORKSPACE_DIR
-
-cd $WORKSPACE_DIR
-
-INDEX_DIR="GreenSense/Index"
-
-if [ ! -d $INDEX_DIR ]; then
-  echo "GreenSense index not found locally. Setting up."
-  wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh
-fi
-
-cd $INDEX_DIR
-
-echo $PWD
+echo "Device port: $DEVICE_PORT"
 
 sh update.sh
 
-DEVICE_NUMBER=1
+echo "Looking for device:"
 
-echo "Device number: $DEVICE_NUMBER"
+DEVICES_DIR="devices"
 
-#DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
+DEVICE_NAME=""
 
-if [ -d "$DEVICE_INFO_DIR" ]; then
-
-  echo "Device exists"
-  
-  until [ ! -d "$DEVICE_INFO_DIR" ]; do
-    echo "Increasing device number"
-    DEVICE_NUMBER=$((DEVICE_NUMBER+1))
-    DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
-    echo "Device info dir:"
-    echo $DEVICE_INFO_DIR
+if [ -d $DEVICES_DIR ]; then
+  for d in $DEVICES_DIR/*
+  do
+    echo "Device info dir: $d"
+     
+    PORT=$(cat "$d/port.txt")
+     
+    echo "Port: $PORT"
+     
+    if [ "$PORT" = "$DEVICE_PORT" ]; then
+      DEVICE_NAME=$(cat "$d/name.txt")
+    fi
   done
 fi
 
-DEVICE_NAME="$GROUP_NAME$DEVICE_NUMBER"
-echo "Device name: $DEVICE_NAME"
+notify-send "Removing $DEVICE_NAME device"
 
-echo "Device info dir:"
-echo $DEVICE_INFO_DIR
-
+if [ $DEVICE_NAME ]; then
+  echo "Device name: $DEVICE_NAME"
 
 
-SCRIPT_NAME="remove-garden-device.sh"
-echo ""
-echo "Add device script:"
-echo $SCRIPT_NAME "$DEVICE_NAME"
-echo ""
-sh $SCRIPT_NAME "$DEVICE_NAME"
+  SCRIPT_NAME="remove-garden-device.sh"
+  echo ""
+  echo "Remove device script:"
+  echo $SCRIPT_NAME "$DEVICE_NAME"
+  echo ""
+  sh $SCRIPT_NAME "$DEVICE_NAME"
 
+else
+  echo "Device not found."
+fi
 
+notify-send "Finished removing $DEVICE_NAME device"

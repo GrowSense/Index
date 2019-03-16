@@ -3,34 +3,36 @@ using NUnit.Framework;
 
 namespace GreenSense.Index.Tests.Integration
 {
-	[TestFixture(Category = "Integration")]
-	public class CreateVentilatorUnoTestFixture : BaseTestFixture
-	{
-		[Test]
-		public void Test_CreateVentilatorUnoScript()
-		{
-			var scriptName = "create-garden-ventilator-uno.sh";
+    [TestFixture (Category = "Integration")]
+    public class CreateVentilatorUnoTestFixture : BaseTestFixture
+    {
+        [Test]
+        public void Test_CreateVentilatorUnoScript ()
+        {
+            var scriptName = "create-garden-ventilator-uno.sh";
 
-			Console.WriteLine("Script:");
-			Console.WriteLine(scriptName);
+            Console.WriteLine ("Script:");
+            Console.WriteLine (scriptName);
 
-			var deviceType = "ventilator/TemperatureHumidityDHTSensorFan";
-			var deviceLabel = "MyVentilator";
-			var deviceName = "myVentilator";
-			var devicePort = "ttyUSB1";
+            var deviceBoard = "uno";
+            var deviceGroup = "ventilator";
+            var deviceProject = "TemperatureHumidityDHTSensorFan";
+            var deviceLabel = "MyVentilator";
+            var deviceName = "myVentilator";
+            var devicePort = "ttyUSB1";
 
-			var arguments = deviceLabel + " " + deviceName + " " + devicePort;
+            var arguments = deviceLabel + " " + deviceName + " " + devicePort;
 
-			var starter = GetTestProcessStarter();
-			starter.RunBash("sh " + scriptName + " " + arguments);
+            var starter = GetTestProcessStarter ();
+            starter.RunBash ("sh " + scriptName + " " + arguments);
 
-			CheckDeviceInfoWasCreated(deviceType, deviceLabel, deviceName, devicePort);
+            CheckDeviceInfoWasCreated (deviceBoard, deviceGroup, deviceProject, deviceLabel, deviceName, devicePort);
 
-			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Ventilator1", "A", "Temperature", "T");
+            CheckDeviceUIWasCreated (deviceLabel, deviceName, "Ventilator1", "A", "Temperature", "T");
 
-			CheckMqttBridgeServiceFileWasCreated(deviceName);
+            CheckMqttBridgeServiceFileWasCreated (deviceName);
 
-			CheckUpdaterServiceFileWasCreated(deviceName);
-		}
-	}
+            CheckUpdaterServiceFileWasCreated (deviceName);
+        }
+    }
 }

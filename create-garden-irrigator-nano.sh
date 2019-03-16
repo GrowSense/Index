@@ -31,14 +31,16 @@ echo "Device port: $DEVICE_PORT"
 # Remove any existing services
 sh remove-garden-device.sh $DEVICE_NAME && \
 
-# Upload sketch
-sh upload-irrigator-nano-sketch.sh $DEVICE_PORT && \
+# NOTE: Set up the UI before the device info otherwise it will think it already exists and won't add it to the UI
 
 # Set up mobile UI
 sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
-sh create-device-info.sh irrigator/SoilMoistureSensorCalibratedPump $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+sh create-device-info.sh nano irrigator SoilMoistureSensorCalibratedPump $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+
+# Upload sketch
+sh upload-irrigator-nano-sketch.sh $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \

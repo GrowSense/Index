@@ -33,30 +33,15 @@ if [ ! $PORT ]; then
   exit 1
 fi
 
-WORKSPACE_DIR="workspace"
+echo "Automatically adding a device..."
 
-mkdir -p $WORKSPACE_DIR
-
-cd $WORKSPACE_DIR
-
-INDEX_DIR="GreenSense/Index"
-
-#if [ ! -d $INDEX_DIR ]; then
-#  echo "GreenSense index not found locally. Setting up."
-#  git clone --recursive https://github.com/GreenSense/Index.git $INDEX_DIR
-#  cd $INDEX_DIR
-#  sh init-all.sh
-#fi
-
-cd $INDEX_DIR
+notify-send "Adding $GROUP_NAME device"
 
 sh update.sh
 
 DEVICE_NUMBER=1
 
 echo "Device number: $DEVICE_NUMBER"
-
-#DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
 
 if [ -d "$DEVICE_INFO_DIR" ]; then
 
@@ -86,4 +71,4 @@ echo $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
 echo ""
 sh $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
 
-
+notify-send "Finished adding $GROUP_NAME device"

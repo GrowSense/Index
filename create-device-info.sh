@@ -1,14 +1,28 @@
 
-DEVICE_TYPE=$1
-DEVICE_LABEL=$2
-DEVICE_NAME=$3
-DEVICE_PORT=$4
+DEVICE_BOARD=$1
+DEVICE_GROUP=$2
+DEVICE_PROJECT=$3
+DEVICE_LABEL=$4
+DEVICE_NAME=$5
+DEVICE_PORT=$6
 
 
-EXAMPLE_TEXT="Example: sh create-device-info.sh monitor/SoilMoistureSensorCalibratedSerial Monitor1 monitor1 ttyUSB0"
+EXAMPLE_TEXT="Example: sh create-device-info.sh uno monitor SoilMoistureSensorCalibratedSerial Monitor1 monitor1 ttyUSB0"
 
-if [ ! $DEVICE_TYPE ]; then
-  echo "Device type must be specified as an argument."
+if [ ! $DEVICE_BOARD ]; then
+  echo "Device board must be specified as an argument."
+  echo $EXAMPLE_TEXT
+  exit 1
+fi
+
+if [ ! $DEVICE_GROUP ]; then
+  echo "Device project group must be specified as an argument."
+  echo $EXAMPLE_TEXT
+  exit 1
+fi
+
+if [ ! $DEVICE_PROJECT ]; then
+  echo "Device project must be specified as an argument."
   echo $EXAMPLE_TEXT
   exit 1
 fi
@@ -31,11 +45,14 @@ if [ ! $DEVICE_PORT ]; then
   exit 1
 fi
 
-echo "Device type: $DEVICE_TYPE"
+echo "Device board: $DEVICE_BOARD"
+echo "Device group: $DEVICE_GROUP"
+echo "Device type: $DEVICE_PROJECT"
 echo "Device label: $DEVICE_LABEL"
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
+DEVICE_FAMILY="GreenSense"
 
 DEVICES_DIR=$PWD/devices
 
@@ -45,9 +62,12 @@ DEVICE_DIR=$DEVICES_DIR/$DEVICE_NAME
 
 mkdir -p $DEVICE_DIR
 
-echo $DEVICE_TYPE > $DEVICE_DIR/type.txt
+echo $DEVICE_BOARD > $DEVICE_DIR/board.txt
+echo $DEVICE_PROJECT > $DEVICE_DIR/project.txt
 echo $DEVICE_LABEL > $DEVICE_DIR/label.txt
 echo $DEVICE_NAME > $DEVICE_DIR/name.txt
 echo $DEVICE_PORT > $DEVICE_DIR/port.txt
+echo $DEVICE_GROUP > $DEVICE_DIR/group.txt
+echo $DEVICE_FAMILY > $DEVICE_DIR/family.txt
 
 echo "Device info created"

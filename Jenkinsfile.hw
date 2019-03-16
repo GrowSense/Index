@@ -1,10 +1,8 @@
 pipeline {
     agent any
-    options {
-      skipDefaultCheckout true
-    }
     stages {
         stage('CleanWS') {
+            when { expression { !shouldSkipBuild() } }
             steps {
                 deleteDir()
             }
@@ -18,7 +16,6 @@ pipeline {
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
-                sh 'sh init-mock-submodule-builds.sh'
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoderCI"'
             }
@@ -26,14 +23,13 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'echo "Disabled prepare script" # sh prepare.sh'
+                sh 'sh prepare.sh'
             }
         }
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-apps.sh'
-                sh 'sh init-tests.sh'
+                sh 'sh init-all.sh'
             }
         }
         stage('Set MQTT Credentials') {
@@ -45,13 +41,13 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-tests.sh'
+                sh 'sh build-all.sh'
             }
         }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test-software.sh'
+                sh 'sh test.sh'
             }
         }
         stage('Clean') {
@@ -105,43 +101,6 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  
  

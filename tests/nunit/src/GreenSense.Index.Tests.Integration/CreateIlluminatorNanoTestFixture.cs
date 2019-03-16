@@ -3,34 +3,36 @@ using NUnit.Framework;
 
 namespace GreenSense.Index.Tests.Integration
 {
-	[TestFixture(Category = "Integration")]
-	public class CreateIlluminatorNanoTestFixture : BaseTestFixture
-	{
-		[Test]
-		public void Test_CreateIlluminatorNanoScript()
-		{
-			var scriptName = "create-garden-illuminator-nano.sh";
+    [TestFixture (Category = "Integration")]
+    public class CreateIlluminatorNanoTestFixture : BaseTestFixture
+    {
+        [Test]
+        public void Test_CreateIlluminatorNanoScript ()
+        {
+            var scriptName = "create-garden-illuminator-nano.sh";
 
-			Console.WriteLine("Script:");
-			Console.WriteLine(scriptName);
+            Console.WriteLine ("Script:");
+            Console.WriteLine (scriptName);
 
-			var deviceType = "illuminator/LightPRSensorCalibratedLight";
-			var deviceLabel = "MyIlluminator";
-			var deviceName = "myIlluminator";
-			var devicePort = "ttyUSB1";
+            var deviceBoard = "nano";
+            var deviceGroup = "illuminator";
+            var deviceProject = "LightPRSensorCalibratedLight";
+            var deviceLabel = "MyIlluminator";
+            var deviceName = "myIlluminator";
+            var devicePort = "ttyUSB1";
 
-			var arguments = deviceLabel + " " + deviceName + " " + devicePort;
+            var arguments = deviceLabel + " " + deviceName + " " + devicePort;
 
-			var starter = GetTestProcessStarter();
-			starter.RunBash("sh " + scriptName + " " + arguments);
+            var starter = GetTestProcessStarter ();
+            starter.RunBash ("sh " + scriptName + " " + arguments);
 
-			CheckDeviceInfoWasCreated(deviceType, deviceLabel, deviceName, devicePort);
+            CheckDeviceInfoWasCreated (deviceBoard, deviceGroup, deviceProject, deviceLabel, deviceName, devicePort);
 
-			CheckDeviceUIWasCreated(deviceLabel, deviceName, "Light", "L");
+            CheckDeviceUIWasCreated (deviceLabel, deviceName, "Light", "L");
 
-			CheckMqttBridgeServiceFileWasCreated(deviceName);
+            CheckMqttBridgeServiceFileWasCreated (deviceName);
 
-			CheckUpdaterServiceFileWasCreated(deviceName);
-		}
-	}
+            CheckUpdaterServiceFileWasCreated (deviceName);
+        }
+    }
 }

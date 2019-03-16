@@ -33,7 +33,7 @@ echo "Setting up Linear MQTT Dashboard UI..." && \
 sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
-sh create-device-info.sh monitor/SoilMoistureSensorCalibratedSerial $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+sh create-device-info.sh nano monitor SoilMoistureSensorCalibratedSerial $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
@@ -43,5 +43,9 @@ sh create-updater-service.sh monitor nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
 sh upload-monitor-nano-sketch.sh $DEVICE_PORT && \
+
+# Display the device details
+echo "Device info:"
+sh view-garden-device.sh $DEVICE_NAME && \
 
 echo "Garden monitor created with device name '$DEVICE_NAME'"

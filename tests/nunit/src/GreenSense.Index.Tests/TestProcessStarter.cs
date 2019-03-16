@@ -3,63 +3,82 @@ using System.IO;
 
 namespace GreenSense.Index.Tests
 {
-	public class TestProcessStarter
-	{
-		public ProcessStarter Starter = new ProcessStarter();
+    public class TestProcessStarter
+    {
+        public ProcessStarter Starter = new ProcessStarter ();
 
-		public string WorkingDirectory = Directory.GetCurrentDirectory();
+        public string WorkingDirectory = Directory.GetCurrentDirectory ();
 
-		public string PreCommand = "sh prepare-for-test.sh";
+        public string PreCommand = "sh prepare-for-test.sh";
 
-		public TestProcessStarter()
-		{
-		}
+        public bool IsMockSystemCTL = true;
+        public bool IsMockHardware = true;
+        public bool IsMockMqttBridge = true;
 
-		public void Initialize()
-		{
-			Console.WriteLine ("Initializing the test");
+        public TestProcessStarter ()
+        {
+        }
 
-			RunProcess (PreCommand);
-		}
+        public void Initialize ()
+        {
+            Console.WriteLine ("Initializing the test");
 
-		protected string RunProcess(string command)
-		{
-			var currentDirectory = Environment.CurrentDirectory;
+            RunProcess (PreCommand);
 
-			Directory.SetCurrentDirectory(WorkingDirectory);
+            if (IsMockHardware)
+                RunProcess ("sh init-mock-hardware.sh");
+            else
+                File.Delete (Path.GetFullPath ("is-mock-hardware.txt"));
 
-			Console.WriteLine("Running process...");
-			Console.WriteLine(command);
+            if (IsMockSystemCTL)
+                RunProcess ("sh init-mock-systemctl.sh");
+            else
+                File.Delete (Path.GetFullPath ("is-mock-systemctl.txt"));
 
-			Starter.Start(command);
-			var output = Starter.Output;
+            if (IsMockMqttBridge)
+                RunProcess ("sh init-mock-mqtt-bridge.sh");
+            else
+                File.Delete (Path.GetFullPath ("is-mock-mqtt-bridge.txt"));
+        }
 
-			Directory.SetCurrentDirectory(currentDirectory);
+        protected string RunProcess (string command)
+        {
+            var currentDirectory = Environment.CurrentDirectory;
 
-			return output;
-		}
+            Directory.SetCurrentDirectory (WorkingDirectory);
 
-		public string RunBash(string internalCommand)
-		{
-			Console.WriteLine ("Running bash command: ");
-			Console.WriteLine (internalCommand);
+            Console.WriteLine ("Running process...");
+            Console.WriteLine (command);
 
-			var output = String.Empty;
+            Starter.Start (command);
+            var output = Starter.Output;
 
-			output += RunProcess (internalCommand);
+            Directory.SetCurrentDirectory (currentDirectory);
 
-			return output;
-		}
+            return output;
+        }
 
-		public string RunScript(string scriptName)
-		{
-			if (!scriptName.EndsWith(".sh"))
-				scriptName += ".sh";
+        public string RunBash (string internalCommand)
+        {
+            Console.WriteLine ("Running bash command: ");
+            Console.WriteLine (internalCommand);
 
-			var fullCommand = "sh " + scriptName;
+            var output = String.Empty;
 
-			return RunBash(fullCommand);
-		}
+            output += RunProcess (internalCommand);
 
-	}
+            return output;
+        }
+
+        public string RunScript (string scriptName)
+        {
+            if (!scriptName.EndsWith (".sh"))
+                scriptName += ".sh";
+
+            var fullCommand = "sh " + scriptName;
+
+            return RunBash (fullCommand);
+        }
+
+    }
 }

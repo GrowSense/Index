@@ -56,10 +56,10 @@ for filename in /lib/systemd/system/greensense-*.service; do
   shortname=$(basename $filename)
   echo "Removing service: $shortname" && \
   echo "" && \
-  sudo sh $SYSTEMCTL_SCRIPT stop "$shortname" && \
-  sudo sh $SYSTEMCTL_SCRIPT disable "$shortname" && \
-  echo "" && \
-  sudo rm -v $filename || exit 1
+  sh $SYSTEMCTL_SCRIPT stop "$shortname" && \
+  sh $SYSTEMCTL_SCRIPT disable "$shortname" && \
+  echo "" || exit 1
+  #sudo rm -v $filename || exit 1
 done
 
 echo "Finished removing garden device services"

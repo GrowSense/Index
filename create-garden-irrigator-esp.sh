@@ -33,7 +33,7 @@ echo "Setting up Linear MQTT Dashboard UI..."
 sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
-sh create-device-info.sh irrigator/SoilMoistureSensorCalibratedPumpESP $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+sh create-device-info.sh esp irrigator SoilMoistureSensorCalibratedPumpESP $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Skip the MQTT bridge service because it's not needed for the ESP version and the updater service because it won't work when not plugged in via USB
 
