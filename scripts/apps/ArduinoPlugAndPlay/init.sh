@@ -1,9 +1,5 @@
 echo "Retrieving required libraries..."
 
-# Nuget is disabled
-# sh get-nuget.sh
-# sh nuget-update-self.sh
-
 echo "Installing libraries..."
 
 CONFIG_FILE="ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
@@ -25,7 +21,7 @@ fi
 
 sh install-package.sh ArduinoPlugAndPlay 1.0.0.1 || exit 1
 
-echo "Installation complete. Launching bridge."
+echo "Installation complete. Launching plug and play."
 
 if [ -f $CONFIG_FILE_TMP ]; then
   echo "Preserved config file found. Restoring."
