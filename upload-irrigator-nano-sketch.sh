@@ -69,9 +69,10 @@ fi
 
 cd $DIR
 
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-  sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-else
-  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-fi
+# TODO: Clean up. Disabled due to problems.
+#if [ $IS_MOCK_HARDWARE = 0 ]; then
+#  sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+#else
+#  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+#fi
 

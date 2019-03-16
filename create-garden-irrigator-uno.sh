@@ -46,5 +46,8 @@ sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 # Set up update service
 sh create-updater-service.sh irrigator uno $DEVICE_NAME $DEVICE_PORT && \
 
+# Display the device details
+echo "Device info:"
+sh view-garden-device.sh $DEVICE_NAME
 
 echo "Garden irrigator created with device name '$DEVICE_NAME'"
