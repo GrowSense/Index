@@ -32,7 +32,7 @@ if [ ! -d "$PACKAGE_FILE" ]; then
 	if [ $NUGET_INSTALL_ERROR=1 ]; then
 		wget -q "https://github.com/GreenSense/libs/raw/master/$PACKAGE_FILE.nupkg" -O $PACKAGE_FILE_EXT
 
-		unzip -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FILE/"
+		unzip -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_NAME/"
 	fi
 else
 	echo "$PACKAGE_FILE library already exists. Skipping download."
