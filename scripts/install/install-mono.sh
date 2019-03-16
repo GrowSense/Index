@@ -1,4 +1,11 @@
 echo "USE_MONO4=$USE_MONO4"
+
+if [ ! $USE_MONO4 ]; then
+  if [ -f "use-mono4.txt"]; then
+    USE_MONO4=1
+  fi
+fi
+
 if [ $USE_MONO4 = 1 ]; then
   if ! type "xbuild" > /dev/null; then
     echo "Using mono4"
@@ -7,7 +14,7 @@ if [ $USE_MONO4 = 1 ]; then
     echo "Mono is already installed. Skipping install."
   fi
 else
-  if ! type "msbuild" > /dev/null; then
+  if ! type "xbuild" > /dev/null; then
     echo "Installing latest mono"
     VERSION_NAME=$(lsb_release -cs)
   

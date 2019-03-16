@@ -10,4 +10,6 @@ export USE_MONO4=1
 
 echo "USE_MONO4=$USE_MONO4"
 
+echo "$USE_MONO4" > scripts/install/use-mono4.txt
+
 echo "Done"
