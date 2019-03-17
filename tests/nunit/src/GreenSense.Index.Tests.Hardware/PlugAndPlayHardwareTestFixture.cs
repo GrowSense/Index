@@ -43,22 +43,6 @@ namespace GreenSense.Index.Tests.Hardware
             mockPlatformio.ConnectDevice (shortPortName);
             mockReaderWriter.SetMockOutput (mockOutputs.GetDeviceSerialOutput (deviceInfo));
 
-            // TODO: Remove if not needed.
-            // Upload disabled. Shouldn't be needed because of the mocking
-            /*Console.WriteLine ("");
-            Console.WriteLine ("Uploading the irrigator sketch to the device...");
-            Console.WriteLine ("");
-
-            var starter = GetTestProcessStarter (false);
-            starter.IsMockHardware = false;
-            starter.Initialize ();
-            starter.RunBash ("sh upload-irrigator-uno-sketch.sh " + shortPortName);
-
-            var uploadCompletedText = "avrdude done.  Thank you.";
-            Assert.IsTrue (starter.Starter.Output.Contains (uploadCompletedText));
-
-            Assert.IsFalse (starter.Starter.IsError, "An error occurred.");*/
-
             Console.WriteLine ("");
             Console.WriteLine ("Performing add device test...");
             Console.WriteLine ("");
