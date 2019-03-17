@@ -42,8 +42,9 @@ sh update.sh
 
 DEVICE_NUMBER=1
 
-echo "Device number: $DEVICE_NUMBER"
 
+DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
+    
 if [ -d "$DEVICE_INFO_DIR" ]; then
 
   echo "Device exists"
@@ -59,6 +60,7 @@ fi
 
 DEVICE_NAME="$GROUP_NAME$DEVICE_NUMBER"
 echo "Device name: $DEVICE_NAME"
+echo "Device number: $DEVICE_NUMBER"
 
 echo "Device info dir:"
 echo $DEVICE_INFO_DIR
