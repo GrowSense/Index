@@ -1,13 +1,15 @@
+#!/bin/bash
+
 DEVICES_DIR="devices"
 
 DIR=$PWD
 
 echo ""
-echo "Garden devices data..."
+echo "Garden devices..."
 echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
-    for d in $DEVICES_DIR/*; do
+    for d in "$DEVICES_DIR/*"; do
         DEVICE_NAME=$(cat $d/name.txt)
         DEVICE_LABEL=$(cat $d/label.txt)        
         
@@ -18,7 +20,7 @@ if [ -d "$DEVICES_DIR" ]; then
         echo ""
     done
 else
-    echo "No device info found in $DEVICES_DIR"
+    echo "No devices have been added."
 fi
 
 echo ""
