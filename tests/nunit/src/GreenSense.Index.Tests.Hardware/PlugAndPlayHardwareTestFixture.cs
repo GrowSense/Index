@@ -44,7 +44,7 @@ namespace GreenSense.Index.Tests.Hardware
             var starter = GetTestProcessStarter (false);
             starter.IsMockHardware = false;
             starter.Initialize ();
-            starter.RunBash ("sh upload-irrigator-nano-sketch.sh " + shortPortName);
+            starter.RunBash ("sh upload-irrigator-uno-sketch.sh " + shortPortName);
 
             var uploadCompletedText = "avrdude done.  Thank you.";
             Assert.IsTrue (starter.Starter.Output.Contains (uploadCompletedText));
