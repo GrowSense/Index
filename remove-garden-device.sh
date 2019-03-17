@@ -27,7 +27,7 @@ else
 
   echo "Removing device info"
   DEVICE_INFO_DIR="devices/$DEVICE_NAME"
-  if [ -d $DEVICE_INFO_DIR] ; then
+  if [ -d $DEVICE_INFO_DIR ]; then
     rm $DEVICE_INFO_DIR -R
   fi
   
