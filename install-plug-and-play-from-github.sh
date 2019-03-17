@@ -96,4 +96,4 @@ echo "Creating plug and play service..."
 
 sudo sh create-plug-and-play-service.sh
 
-echo "Finished creating MQTT bridge service"
+echo "Finished setting up plug and play"
