@@ -17,14 +17,10 @@ namespace GreenSense.Index.Tests.Hardware
 
             // Set up the mock objects
             var mockPlatformio = new MockPlatformioWrapper ();
-            //var mockReaderWriter = new MockDeviceReaderWriter ();
-            // var mockProcessStarter = new MockProcessStarter ();
 
             // Set up the device manager with the mock dependencies
             var deviceManager = new DeviceManager ();
-            //deviceManager.Platformio = mockPlatformio;
-            //deviceManager.ReaderWriter = mockReaderWriter;
-            // deviceManager.Starter = mockProcessStarter;
+            //deviceManager.Platformio = mockPlatformio; // Don't set it yet
 
             deviceManager.DeviceAddedCommand = "sh auto-add-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
             deviceManager.DeviceRemovedCommand = "sh auto-remove-device.sh {PORT}";
@@ -38,16 +34,8 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.FamilyName = "GreenSense";
             deviceInfo.GroupName = "irrigator";
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
-            deviceInfo.BoardType = "nano";
+            deviceInfo.BoardType = "uno";
             deviceInfo.Port = shortPortName;
-
-
-            // Set the mock output from the device
-            //mockReaderWriter.SetMockOutput (mockPlatformio.MockOutputs.GetDeviceSerialOutput (deviceInfo));
-
-
-            //mockPlatformio.ConnectDevice (portName);
-
 
             Console.WriteLine ("");
             Console.WriteLine ("Uploading the irrigator sketch to the device...");

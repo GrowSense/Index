@@ -18,7 +18,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.FamilyName = "GreenSense";
             deviceInfo.GroupName = "irrigator";
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
-            deviceInfo.BoardType = "nano";
+            deviceInfo.BoardType = "uno";
             deviceInfo.Port = GetDevicePort ();
 
             var cmd = String.Format ("sh auto-add-device.sh {0} {1} {2} {3} {4}",

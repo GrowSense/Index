@@ -20,7 +20,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.FamilyName = "GreenSense";
             deviceInfo.GroupName = "irrigator";
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
-            deviceInfo.BoardType = "nano";
+            deviceInfo.BoardType = "uno";
             deviceInfo.Port = GetDevicePort ();
 
             var deviceName = "TestDevice1";
