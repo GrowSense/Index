@@ -26,7 +26,10 @@ else
   rm -f scripts/apps/GitDeployer/svc/greensense-updater-$DEVICE_NAME.service
 
   echo "Removing device info"
-  rm devices/$DEVICE_NAME -R
+  DEVICE_INFO_DIR="devices/$DEVICE_NAME"
+  if [ -d $DEVICE_INFO_DIR] ; then
+    rm $DEVICE_INFO_DIR -R
+  fi
   
   # Remove from mobile UI
   #  cd mobile/linearmqtt/ && \
