@@ -18,7 +18,7 @@ namespace GreenSense.Index.Tests.Hardware
             // Set up the mock objects
             var mockPlatformio = new MockPlatformioWrapper ();
             var mockReaderWriter = new MockDeviceReaderWriter ();
-
+            var mockOutputs = new MockDeviceOutputs ();
 
             // Set up the device manager with the mock dependencies
             var deviceManager = new DeviceManager ();
@@ -41,7 +41,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.Port = shortPortName;
 
             mockPlatformio.ConnectDevice (shortPortName);
-            mockReaderWriter.SetMockOutput (mockPlatformio.MockOutputs.GetDeviceSerialOutput (deviceInfo));
+            mockReaderWriter.SetMockOutput (mockOutputs.GetDeviceSerialOutput (deviceInfo));
 
             Console.WriteLine ("");
             Console.WriteLine ("Uploading the irrigator sketch to the device...");
