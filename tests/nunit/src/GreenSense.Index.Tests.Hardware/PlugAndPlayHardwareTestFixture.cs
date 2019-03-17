@@ -17,10 +17,13 @@ namespace GreenSense.Index.Tests.Hardware
 
             // Set up the mock objects
             var mockPlatformio = new MockPlatformioWrapper ();
+            var mockReaderWriter = new MockDeviceReaderWriter ();
+
 
             // Set up the device manager with the mock dependencies
             var deviceManager = new DeviceManager ();
-            //deviceManager.Platformio = mockPlatformio; // Don't set it yet
+            deviceManager.Platformio = mockPlatformio;
+            deviceManager.ReaderWriter = mockReaderWriter;
 
             deviceManager.DeviceAddedCommand = "sh auto-add-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
             deviceManager.DeviceRemovedCommand = "sh auto-remove-device.sh {PORT}";
@@ -36,6 +39,9 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
             deviceInfo.BoardType = "uno";
             deviceInfo.Port = shortPortName;
+
+            mockPlatformio.ConnectDevice (shortPortName);
+            mockReaderWriter.SetMockOutput (mockPlatformio.MockOutputs.GetDeviceSerialOutput (deviceInfo));
 
             Console.WriteLine ("");
             Console.WriteLine ("Uploading the irrigator sketch to the device...");
@@ -67,8 +73,7 @@ namespace GreenSense.Index.Tests.Hardware
             Console.WriteLine ("Preparing remove device test...");
             Console.WriteLine ("");
 
-            // Set the mock platformio object to the device manager so it can simulate no devices found
-            deviceManager.Platformio = mockPlatformio;
+            mockPlatformio.DisconnectDevice (shortPortName);
 
             Console.WriteLine ("");
             Console.WriteLine ("Performing remove device test...");
