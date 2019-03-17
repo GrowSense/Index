@@ -38,7 +38,8 @@ if [ -d $DEVICES_DIR ]; then
   done
 fi
 
-notify-send "Removing $DEVICE_NAME device"
+# Disabled because it's causing problems with tests
+#notify-send "Removing $DEVICE_NAME device"
 
 if [ $DEVICE_NAME ]; then
   echo "Device name: $DEVICE_NAME"
@@ -55,4 +56,5 @@ else
   echo "Device not found."
 fi
 
-notify-send "Finished removing $DEVICE_NAME device"
+# Disabled because it's causing problems with tests
+#notify-send "Finished removing $DEVICE_NAME device"

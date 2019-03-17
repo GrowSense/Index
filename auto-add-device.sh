@@ -35,7 +35,8 @@ fi
 
 echo "Automatically adding a device..."
 
-notify-send "Adding $GROUP_NAME device"
+# Disabled because it's causing problems with tests
+#notify-send "Adding $GROUP_NAME device"
 
 sh update.sh
 
@@ -71,4 +72,5 @@ echo $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
 echo ""
 sh $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
 
-notify-send "Finished adding $GROUP_NAME device"
+# Disabled because it's causing problems with tests
+#notify-send "Finished adding $GROUP_NAME device"
