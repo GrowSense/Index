@@ -1,4 +1,4 @@
-#sh init.sh
+sh init.sh
 
 echo "Launching arduino plug and play."
 
