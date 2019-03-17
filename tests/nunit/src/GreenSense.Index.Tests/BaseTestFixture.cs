@@ -25,6 +25,9 @@ namespace GreenSense.Index.Tests
             dir = dir.Replace ("/tests/nunit/bin/Release", "");
             dir = dir.Replace ("/tests/nunit/bin/Debug", "");
 
+            dir = dir.Replace ("/bin/Release", "");
+            dir = dir.Replace ("/bin/Debug", "");
+
             ProjectDirectory = dir;
             Console.WriteLine ("Project directory: ");
             Console.WriteLine (ProjectDirectory);

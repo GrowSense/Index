@@ -1,8 +1,10 @@
 pipeline {
     agent any
+    options {
+      skipDefaultCheckout true
+    }
     stages {
         stage('CleanWS') {
-            when { expression { !shouldSkipBuild() } }
             steps {
                 deleteDir()
             }
