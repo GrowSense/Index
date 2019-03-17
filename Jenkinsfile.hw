@@ -49,7 +49,7 @@ pipeline {
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test.sh'
+                sh 'sh test-all.sh'
             }
         }
         stage('Clean') {
