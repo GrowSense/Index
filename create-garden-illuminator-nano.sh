@@ -32,7 +32,7 @@ echo "Device port: $DEVICE_PORT"
 sh create-garden-illuminator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
-sh create-device-info.sh illuminator/LightPRSensorCalibratedLight $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+sh create-device-info.sh nano illuminator LightPRSensorCalibratedLight $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh illuminator $DEVICE_NAME $DEVICE_PORT && \

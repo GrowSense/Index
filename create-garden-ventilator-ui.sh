@@ -7,6 +7,7 @@ echo ""
 # sh create-garden-ventilator-ui.sh MyVentilator myventilator
 
 DIR=$PWD
+
 DEVICE_EXISTS=false
 
 DEVICE_LABEL=$1
@@ -82,7 +83,7 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
-  sh package.sh
+  sh package.sh || exit 1
 else
   echo "Device already exists. Skipping UI creation."
 fi

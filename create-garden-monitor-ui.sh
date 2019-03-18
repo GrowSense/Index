@@ -112,7 +112,7 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > $NEW_LINEAR_MQTT_SETTINGS_FILE && \
 
-  sh package.sh
+  sh package.sh || exit 1
 else
   echo "Device already exists. Skipping UI creation."
 fi

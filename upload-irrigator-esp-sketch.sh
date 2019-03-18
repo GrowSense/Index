@@ -44,9 +44,12 @@ echo "Uploading irrigator ESP8266 sketch"
 
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
+BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
-cd $BASE_PATH
+cd "$BASE_PATH"
+
+echo "Current directory:"
+echo "$BASE_PATH"
 
 # Pull the security files from the index into the project
 sh pull-security-files.sh && \
@@ -58,7 +61,7 @@ sh inject-security-settings.sh && \
 sh inject-device-name.sh "$DEVICE_NAME" && \
 
 # Inject version into the sketch
-sh inject-version.sh && \
+sh inject-version.sh || exit 1
 
 # TODO: Remove if not needed. Build is performed during upload.
 
@@ -81,10 +84,11 @@ sh clean-settings.sh && \
 
 cd $DIR && \
 
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-else
-    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-fi
+# TODO: Clean up. Disabled because it's causing problems with plug and play
+#if [ $IS_MOCK_HARDWARE = 0 ]; then
+#    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+#else
+#    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+#fi
 
 echo "Finished upload"

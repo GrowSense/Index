@@ -3,32 +3,34 @@ using NUnit.Framework;
 
 namespace GreenSense.Index.Tests.Integration
 {
-	[TestFixture(Category = "Integration")]
-	public class CreateMonitorEspTestFixture : BaseTestFixture
-	{
-		[Test]
-		public void Test_CreateMonitorEspScript()
-		{
-			var scriptName = "test-monitor-esp";
+    [TestFixture (Category = "Integration")]
+    public class CreateMonitorEspTestFixture : BaseTestFixture
+    {
+        [Test]
+        public void Test_CreateMonitorEspScript ()
+        {
+            var scriptName = "test-monitor-esp";
 
-			Console.WriteLine("Script:");
-			Console.WriteLine(scriptName);
+            Console.WriteLine ("Script:");
+            Console.WriteLine (scriptName);
 
-			var starter = GetTestProcessStarter();
-			var output = starter.RunScript(scriptName);
+            var starter = GetTestProcessStarter ();
+            var output = starter.RunScript (scriptName);
 
-			var successfulText = "Monitor ESP8266 test complete";
+            var successfulText = "Monitor ESP8266 test complete";
 
-			Assert.IsTrue(output.Contains(successfulText), "Failed");
+            Assert.IsTrue (output.Contains (successfulText), "Failed");
 
-			var type = "monitor/SoilMoistureSensorCalibratedSerialESP";
-			var label = "MyMonitor";
-			var name = "mymonitor";
-			var port = "ttyUSB0";
+            var board = "esp";
+            var group = "monitor";
+            var project = "SoilMoistureSensorCalibratedSerialESP";
+            var label = "MyMonitor";
+            var name = "mymonitor";
+            var port = "ttyUSB0";
 
-			CheckDeviceInfoWasCreated(type, label, name, port);
+            CheckDeviceInfoWasCreated (board, group, project, label, name, port);
 
-			CheckDeviceUIWasCreated(label, name, "Soil Moisture", "C");
-		}
-	}
+            CheckDeviceUIWasCreated (label, name, "Soil Moisture", "C");
+        }
+    }
 }

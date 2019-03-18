@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+      skipDefaultCheckout true
+    }
     stages {
         stage('CleanWS') {
             steps {
@@ -8,29 +11,29 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                deleteDir()
-                shHide( 'git clone --recursive https://${GHTOKEN}@github.com/GreenSense/Index.git -b $BRANCH_NAME .' )
+                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/Index.git .' )
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
-                sh 'git config --global user.email "compulsivecoder@gmail.com"'
-                sh 'git config --global user.name "CompulsiveCoder CI"'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
                 sh 'sh init-mock-submodule-builds.sh'
+                sh 'git config --global user.email "compulsivecoder@gmail.com"'
+                sh 'git config --global user.name "CompulsiveCoderCI"'
             }
         }
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh prepare.sh'
+                sh 'echo "Skipped prepare to speed up tests." # sh prepare.sh'
             }
         }
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-all.sh'
+                sh 'sh init-apps.sh'
+                sh 'sh init-tests.sh'
             }
         }
         stage('Set MQTT Credentials') {
@@ -48,31 +51,13 @@ pipeline {
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test.sh'
+                sh 'sh test-software.sh'
             }
         }
         stage('Clean') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh clean.sh'
-            }
-        }
-        stage('Graduate') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh graduate.sh'
-            }
-        }
-        stage('Increment Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-              sh 'sh increment-version.sh'
-            }
-        }
-        stage('Push Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-version.sh'
             }
         }
     }
@@ -102,6 +87,26 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  

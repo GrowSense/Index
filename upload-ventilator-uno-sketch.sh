@@ -12,7 +12,6 @@ IS_MOCK_SETUP=0
 IS_MOCK_HARDWARE=0
 IS_MOCK_SUBMODULE_BUILDS=0
 
-IS_MOCK_SETUP=0
 if [ -f "$MOCK_FLAG_FILE" ]; then
   IS_MOCK_SETUP=1
   echo "Is mock setup"
@@ -38,12 +37,15 @@ echo "Uploading ventilator sketch"
 
 echo "Serial port: $SERIAL_PORT"
 
-BASE_PATH="sketches/ventilator/TemperatureHumidityDHTSensorFan"
+BASE_PATH="$PWD/sketches/ventilator/TemperatureHumidityDHTSensorFan"
 
-cd $BASE_PATH
+cd "$BASE_PATH"
+
+echo "Current directory:"
+echo $BASE_PATH
 
 # Inject version into the sketch
-sh inject-version.sh
+sh inject-version.sh || exit 1
 
 # TODO: Remove if not needed. Build is performed during upload.
 
@@ -63,8 +65,9 @@ fi
 
 cd $DIR
 
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-  sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-else
-  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-fi
+# TODO: Clean up. Disabled because it's causing problems with plug and play
+#if [ $IS_MOCK_HARDWARE = 0 ]; then
+#  sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+#else
+#  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+#fi

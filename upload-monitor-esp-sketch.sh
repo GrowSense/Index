@@ -81,10 +81,11 @@ sh clean-settings.sh && \
 
 cd $DIR && \
 
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-else
-    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-fi
+# TODO: Clean up. Disabled because it's causing problems with plug and play
+#if [ $IS_MOCK_HARDWARE = 0 ]; then
+#    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+#else
+#    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+#fi
 
 echo "Finished upload"

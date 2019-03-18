@@ -5,257 +5,270 @@ using Newtonsoft.Json.Linq;
 
 namespace GreenSense.Index.Tests
 {
-	public class BaseTestFixture
-	{
-		public string ProjectDirectory;
+    public class BaseTestFixture
+    {
+        public string ProjectDirectory;
 
-		public string ServicesDirectory;
+        public string ServicesDirectory;
 
-		public string LinearMqttSettingsFile = "mobile/linearmqtt/newsettings.json";
+        public string LinearMqttSettingsFile = "mobile/linearmqtt/newsettings.json";
 
-		public BaseTestFixture()
-		{
-		}
+        public BaseTestFixture ()
+        {
+        }
 
-		[SetUp]
-		public void Initialize()
-		{
-			ProjectDirectory = Path.GetFullPath("../../../..");
-			Console.WriteLine("Project directory: ");
-			Console.WriteLine(ProjectDirectory);
-			Console.WriteLine("");
+        [SetUp]
+        public void Initialize ()
+        {
+            var dir = Environment.CurrentDirectory;
 
-			Directory.SetCurrentDirectory (ProjectDirectory);
+            dir = dir.Replace ("/tests/nunit/bin/Release", "");
+            dir = dir.Replace ("/tests/nunit/bin/Debug", "");
 
-			if (File.Exists(Path.GetFullPath("is-mock-systemctl.txt")))
-			{
-				ServicesDirectory = Path.Combine(ProjectDirectory, "mock/services");
-			}
-			else
-			{
-				ServicesDirectory = "/lib/systemd/system/";
-			}
-			Console.WriteLine("Services directory:");
-			Console.WriteLine("  " + ServicesDirectory);
+            dir = dir.Replace ("/bin/Release", "");
+            dir = dir.Replace ("/bin/Debug", "");
 
-			ClearDevices();
-		}
+            ProjectDirectory = dir;
+            Console.WriteLine ("Project directory: ");
+            Console.WriteLine (ProjectDirectory);
+            Console.WriteLine ("");
 
-		public void CopyDirectory(string source, string destination)
-		{
-			var starter = new ProcessStarter();
-			starter.Start("rsync -arh --exclude='.git' --exclude='.pioenvs' " + source + "/ " + destination + "/");
-			Console.WriteLine(starter.Output);
-		}
+            Directory.SetCurrentDirectory (ProjectDirectory);
 
-		[TearDown]
-		public void Finish()
-		{
-		}
+            if (File.Exists (Path.GetFullPath ("is-mock-systemctl.txt"))) {
+                ServicesDirectory = Path.Combine (ProjectDirectory, "mock/services");
+            } else {
+                ServicesDirectory = "/lib/systemd/system/";
+            }
+            Console.WriteLine ("Services directory:");
+            Console.WriteLine ("  " + ServicesDirectory);
 
-		public void ClearDevices()
-		{
-			// Clear all devices for the test
-			var devicesPath = Path.GetFullPath("devices");
-			if (Directory.Exists(devicesPath))
-				Directory.Delete(devicesPath, true);
-		}
+            ClearDevices ();
+        }
 
-		public TestProcessStarter GetTestProcessStarter()
-		{
-			var starter = new TestProcessStarter();
+        public void CopyDirectory (string source, string destination)
+        {
+            var starter = new ProcessStarter ();
+            starter.Start ("rsync -arh --exclude='.git' --exclude='.pioenvs' " + source + "/ " + destination + "/");
+            Console.WriteLine (starter.Output);
+        }
 
-			starter.WorkingDirectory = ProjectDirectory;
+        [TearDown]
+        public void Finish ()
+        {
+        }
 
-			starter.Initialize ();
+        public void ClearDevices ()
+        {
+            // Clear all devices for the test
+            var devicesPath = Path.GetFullPath ("devices");
+            if (Directory.Exists (devicesPath))
+                Directory.Delete (devicesPath, true);
+        }
 
-			return starter;
-		}
+        public TestProcessStarter GetTestProcessStarter ()
+        {
+            return GetTestProcessStarter (true);
+        }
 
-		public void CheckDeviceInfoWasCreated(string deviceType, string deviceLabel, string deviceName, string devicePort)
-		{
-			var devicesDir = Path.GetFullPath("devices");
-			var deviceDir = Path.Combine(devicesDir, deviceName);
+        public TestProcessStarter GetTestProcessStarter (bool initializeStarter)
+        {
+            var starter = new TestProcessStarter ();
 
-			Console.WriteLine("Device dir:");
-			Console.WriteLine(deviceDir);
+            starter.WorkingDirectory = ProjectDirectory;
 
-			var deviceDirExists = Directory.Exists(deviceDir);
+            if (initializeStarter)
+                starter.Initialize ();
 
-			Assert.IsTrue(deviceDirExists, "Device directory not found: " + deviceDir);
+            return starter;
+        }
 
-			var foundType = File.ReadAllText(Path.Combine(deviceDir, "type.txt")).Trim();
+        public void CheckDeviceInfoWasCreated (string deviceBoard, string deviceGroup, string deviceProject, string deviceLabel, string deviceName, string devicePort)
+        {
+            var devicesDir = Path.GetFullPath ("devices");
+            var deviceDir = Path.Combine (devicesDir, deviceName);
 
-			Assert.AreEqual(deviceType, foundType, "Device type doesn't match.");
+            Console.WriteLine ("Device dir:");
+            Console.WriteLine (deviceDir);
 
-			var foundLabel = File.ReadAllText(Path.Combine(deviceDir, "label.txt")).Trim();
+            var deviceDirExists = Directory.Exists (deviceDir);
 
-			Assert.AreEqual(deviceLabel, foundLabel, "Device label doesn't match.");
+            Assert.IsTrue (deviceDirExists, "Device directory not found: " + deviceDir);
 
-			var foundName = File.ReadAllText(Path.Combine(deviceDir, "name.txt")).Trim();
+            var foundBoard = File.ReadAllText (Path.Combine (deviceDir, "board.txt")).Trim ();
+            Assert.AreEqual (deviceBoard, foundBoard, "Device board doesn't match.");
 
-			Assert.AreEqual(deviceName, foundName, "Device name doesn't match.");
+            var foundGroup = File.ReadAllText (Path.Combine (deviceDir, "group.txt")).Trim ();
+            Assert.AreEqual (deviceGroup, foundGroup, "Device group doesn't match.");
 
-			var foundPort = File.ReadAllText(Path.Combine(deviceDir, "port.txt")).Trim();
+            var foundProject = File.ReadAllText (Path.Combine (deviceDir, "project.txt")).Trim ();
+            Assert.AreEqual (deviceProject, foundProject, "Device project doesn't match.");
 
-			Assert.AreEqual(devicePort, foundPort, "Device port doesn't match.");
-		}
+            var foundLabel = File.ReadAllText (Path.Combine (deviceDir, "label.txt")).Trim ();
+            Assert.AreEqual (deviceLabel, foundLabel, "Device label doesn't match.");
 
-		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName, string valueLabel, string valueKey)
-		{
-			CheckDeviceUIWasCreated (deviceLabel, deviceName, valueLabel, valueKey, valueLabel, valueKey);
-		}
+            var foundName = File.ReadAllText (Path.Combine (deviceDir, "name.txt")).Trim ();
+            Assert.AreEqual (deviceName, foundName, "Device name doesn't match.");
 
-		public void CheckDeviceUIWasCreated(string deviceLabel, string deviceName, string summaryValueLabel, string summaryValueKey, string valueLabel, string valueKey)
-		{
-			Console.WriteLine("Checking that the device UI was created...");
-			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
-			var json = JObject.Parse(jsonString);
+            var foundPort = File.ReadAllText (Path.Combine (deviceDir, "port.txt")).Trim ();
+            Assert.AreEqual (devicePort, foundPort, "Device port doesn't match.");
+        }
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine(jsonString);
+        public void CheckDeviceUIWasCreated (string deviceLabel, string deviceName, string valueLabel, string valueKey)
+        {
+            CheckDeviceUIWasCreated (deviceLabel, deviceName, valueLabel, valueKey, valueLabel, valueKey);
+        }
 
-			CheckDeviceSummaryWasCreated(json, deviceLabel, deviceName, summaryValueKey);
-			CheckDeviceTabIndexWasCreated(json, deviceLabel, deviceName);
-			CheckDeviceTabWasCreated(json, deviceLabel, deviceName, valueLabel, valueKey);
-		}
+        public void CheckDeviceUIWasCreated (string deviceLabel, string deviceName, string summaryValueLabel, string summaryValueKey, string valueLabel, string valueKey)
+        {
+            Console.WriteLine ("Checking that the device UI was created...");
+            var jsonString = File.ReadAllText (LinearMqttSettingsFile);
+            var json = JObject.Parse (jsonString);
 
-		public void CheckDeviceSummaryWasCreated(JObject json, string deviceLabel, string deviceName, string dataKey)
-		{
-			Console.WriteLine("Checking the device summary was created...");
+            // Disabled to reduce the console output length
+            //Console.WriteLine(jsonString);
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Full JSON:");
-			//Console.WriteLine(json.ToString());
+            CheckDeviceSummaryWasCreated (json, deviceLabel, deviceName, summaryValueKey);
+            CheckDeviceTabIndexWasCreated (json, deviceLabel, deviceName);
+            CheckDeviceTabWasCreated (json, deviceLabel, deviceName, valueLabel, valueKey);
+        }
 
-			var dashboardsElement = json["dashboards"];
+        public void CheckDeviceSummaryWasCreated (JObject json, string deviceLabel, string deviceName, string dataKey)
+        {
+            Console.WriteLine ("Checking the device summary was created...");
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Dashboards element:");
-			//Console.WriteLine(dashboardsElement);
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Full JSON:");
+            //Console.WriteLine(json.ToString());
 
-			var summaryDashboardElement = dashboardsElement[0];
+            var dashboardsElement = json ["dashboards"];
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Summary dashboard element:");
-			//Console.WriteLine(summaryDashboardElement);
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Dashboards element:");
+            //Console.WriteLine(dashboardsElement);
 
-			var summaryDeviceMeterElement = summaryDashboardElement["dashboard"][0];
+            var summaryDashboardElement = dashboardsElement [0];
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Summary dashboard element:");
-			//Console.WriteLine(summaryDeviceMeterElement);
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Summary dashboard element:");
+            //Console.WriteLine(summaryDashboardElement);
 
-			Console.WriteLine("Details from json:");
-			Console.WriteLine("  name: " + summaryDeviceMeterElement["name"]);
-			Console.WriteLine("  topic: " + summaryDeviceMeterElement["topic"]);
+            var summaryDeviceMeterElement = summaryDashboardElement ["dashboard"] [0];
 
-			Console.WriteLine("Checking summary device meter name matches device label...");
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Summary dashboard element:");
+            //Console.WriteLine(summaryDeviceMeterElement);
 
-			Assert.AreEqual(deviceLabel, summaryDeviceMeterElement["name"].ToString(), "Summary element name doesn't match the device label.");
+            Console.WriteLine ("Details from json:");
+            Console.WriteLine ("  name: " + summaryDeviceMeterElement ["name"]);
+            Console.WriteLine ("  topic: " + summaryDeviceMeterElement ["topic"]);
 
-			Console.WriteLine("Checking summary device meter topic matches device name...");
+            Console.WriteLine ("Checking summary device meter name matches device label...");
 
-			var expectedTopic = "/" + deviceName + "/" + dataKey;
+            Assert.AreEqual (deviceLabel, summaryDeviceMeterElement ["name"].ToString (), "Summary element name doesn't match the device label.");
 
-			Assert.AreEqual(expectedTopic, summaryDeviceMeterElement["topic"].ToString(), "Summary element topic doesn't match the device name.");
-		}
+            Console.WriteLine ("Checking summary device meter topic matches device name...");
 
-		public void CheckDeviceTabIndexWasCreated(JObject json, string deviceLabel, string deviceName)
-		{
-			Console.WriteLine("Checking the device tab index was created...");
-			var tabsElement = json["tabs"];
+            var expectedTopic = "/" + deviceName + "/" + dataKey;
 
-			var deviceTabElement = tabsElement[1];
+            Assert.AreEqual (expectedTopic, summaryDeviceMeterElement ["topic"].ToString (), "Summary element topic doesn't match the device name.");
+        }
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Device tab element:");
-			//Console.WriteLine(deviceTabElement);
+        public void CheckDeviceTabIndexWasCreated (JObject json, string deviceLabel, string deviceName)
+        {
+            Console.WriteLine ("Checking the device tab index was created...");
+            var tabsElement = json ["tabs"];
 
-			Console.WriteLine("Details from json:");
-			Console.WriteLine("  name: " + deviceTabElement["name"]);
+            var deviceTabElement = tabsElement [1];
 
-			Console.WriteLine("Checking device tab name matches device label...");
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Device tab element:");
+            //Console.WriteLine(deviceTabElement);
 
-			Assert.AreEqual(deviceLabel, deviceTabElement["name"].ToString(), "Summary element name doesn't match the device label.");
-		}
+            Console.WriteLine ("Details from json:");
+            Console.WriteLine ("  name: " + deviceTabElement ["name"]);
 
-		public void CheckDeviceTabWasCreated(JObject json, string deviceLabel, string deviceName, string valueMeterLabel, string valueKey)
-		{
-			Console.WriteLine("Checking the device tab content was created...");
-			var dashboardsElement = json["dashboards"];
+            Console.WriteLine ("Checking device tab name matches device label...");
 
-			var deviceElement = dashboardsElement[1];
-			var deviceElementId = dashboardsElement[1]["id"];
+            Assert.AreEqual (deviceLabel, deviceTabElement ["name"].ToString (), "Summary element name doesn't match the device label.");
+        }
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Device element:");
-			//Console.WriteLine(deviceElement);
-			Console.WriteLine("Device element ID: " + deviceElementId);
+        public void CheckDeviceTabWasCreated (JObject json, string deviceLabel, string deviceName, string valueMeterLabel, string valueKey)
+        {
+            Console.WriteLine ("Checking the device tab content was created...");
+            var dashboardsElement = json ["dashboards"];
 
-			Console.WriteLine("Checking device element ID is correct...");
+            var deviceElement = dashboardsElement [1];
+            var deviceElementId = dashboardsElement [1] ["id"];
 
-			var expectedDeviceElementId = "2";
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Device element:");
+            //Console.WriteLine(deviceElement);
+            Console.WriteLine ("Device element ID: " + deviceElementId);
 
-			Assert.AreEqual(expectedDeviceElementId, deviceElementId.ToString(), "Value meter topic doesn't match the device name.");
+            Console.WriteLine ("Checking device element ID is correct...");
 
-			// The value meter element has index 0 for the monitor and index 1 for the irrigator
-			var valueMeterIndex = (deviceName.ToLower().Contains("irrigator") ? 1 : 0);
+            var expectedDeviceElementId = "2";
 
-			var valueMeterElement = deviceElement["dashboard"][valueMeterIndex];
+            Assert.AreEqual (expectedDeviceElementId, deviceElementId.ToString (), "Value meter topic doesn't match the device name.");
 
-			// Disabled to reduce the console output length
-			//Console.WriteLine("Value meter element:");
-			//Console.WriteLine(valueMeterElement);
+            // The value meter element has index 0 for the monitor and index 1 for the irrigator
+            var valueMeterIndex = (deviceName.ToLower ().Contains ("irrigator") ? 1 : 0);
 
-			Console.WriteLine("Details from json:");
-			Console.WriteLine("  name: " + valueMeterElement["name"]);
-			Console.WriteLine("  topic: " + valueMeterElement["topic"]);
+            var valueMeterElement = deviceElement ["dashboard"] [valueMeterIndex];
 
-			Console.WriteLine("Checking value meter name is valid...");
+            // Disabled to reduce the console output length
+            //Console.WriteLine("Value meter element:");
+            //Console.WriteLine(valueMeterElement);
 
-			var expectedValueMeterName = valueMeterLabel;
+            Console.WriteLine ("Details from json:");
+            Console.WriteLine ("  name: " + valueMeterElement ["name"]);
+            Console.WriteLine ("  topic: " + valueMeterElement ["topic"]);
 
-			Assert.AreEqual(expectedValueMeterName, valueMeterElement["name"].ToString(), "Value meter name is invalid.");
+            Console.WriteLine ("Checking value meter name is valid...");
 
-			Console.WriteLine("Checking value meter topic matches device name...");
+            var expectedValueMeterName = valueMeterLabel;
 
-			var expectedValueMeterTopic = "/" + deviceName + "/" + valueKey;
+            Assert.AreEqual (expectedValueMeterName, valueMeterElement ["name"].ToString (), "Value meter name is invalid.");
 
-			Assert.AreEqual(expectedValueMeterTopic, valueMeterElement["topic"].ToString(), "Value meter topic doesn't match the device name.");
-		}
+            Console.WriteLine ("Checking value meter topic matches device name...");
 
-		public void CheckDeviceUICount(int numberOfDevicesExpected)
-		{
-			Console.WriteLine("Checking that the device UI was created...");
-			var jsonString = File.ReadAllText(LinearMqttSettingsFile);
-			var json = JObject.Parse(jsonString);
+            var expectedValueMeterTopic = "/" + deviceName + "/" + valueKey;
 
-			Console.WriteLine("Checking the number of devices is correct...");
-			var dashboardsElement = json["dashboards"];
+            Assert.AreEqual (expectedValueMeterTopic, valueMeterElement ["topic"].ToString (), "Value meter topic doesn't match the device name.");
+        }
 
-			var expectedCount = 1 + numberOfDevicesExpected;
-			var actualCount = ((JArray)dashboardsElement).Count;
+        public void CheckDeviceUICount (int numberOfDevicesExpected)
+        {
+            Console.WriteLine ("Checking that the device UI was created...");
+            var jsonString = File.ReadAllText (LinearMqttSettingsFile);
+            var json = JObject.Parse (jsonString);
 
-			Assert.AreEqual(expectedCount, actualCount, "Wrong number of devices in UI");
-		}
+            Console.WriteLine ("Checking the number of devices is correct...");
+            var dashboardsElement = json ["dashboards"];
 
-		public void CheckMqttBridgeServiceFileWasCreated(string deviceName)
-		{
-			var serviceFile = Path.Combine(ServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
+            var expectedCount = 1 + numberOfDevicesExpected;
+            var actualCount = ((JArray)dashboardsElement).Count;
 
-			var fileExists = File.Exists(serviceFile);
+            Assert.AreEqual (expectedCount, actualCount, "Wrong number of devices in UI");
+        }
 
-			Assert.IsTrue(fileExists, "MQTT bridge service file not created: " + serviceFile);
-		}
+        public void CheckMqttBridgeServiceFileWasCreated (string deviceName)
+        {
+            var serviceFile = Path.Combine (ServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
 
-		public void CheckUpdaterServiceFileWasCreated(string deviceName)
-		{
-			var serviceFile = Path.Combine(ServicesDirectory, "greensense-updater-" + deviceName + ".service");
+            var fileExists = File.Exists (serviceFile);
 
-			var fileExists = File.Exists(serviceFile);
+            Assert.IsTrue (fileExists, "MQTT bridge service file not created: " + serviceFile);
+        }
 
-			Assert.IsTrue(fileExists, "Updater service file not created: " + serviceFile);
-		}
-	}
+        public void CheckUpdaterServiceFileWasCreated (string deviceName)
+        {
+            var serviceFile = Path.Combine (ServicesDirectory, "greensense-updater-" + deviceName + ".service");
+
+            var fileExists = File.Exists (serviceFile);
+
+            Assert.IsTrue (fileExists, "Updater service file not created: " + serviceFile);
+        }
+    }
 }

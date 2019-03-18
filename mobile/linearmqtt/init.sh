@@ -17,4 +17,4 @@ sh strip-template.sh && \
 # Copy the template file to the new settings file as a starting point
 cp template.json newsettings.json && \
 
-echo "Extraction complete"
+echo "Initialization complete"

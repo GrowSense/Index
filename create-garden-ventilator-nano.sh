@@ -32,7 +32,7 @@ echo "Device port: $DEVICE_PORT"
 sh create-garden-ventilator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
-sh create-device-info.sh ventilator/TemperatureHumidityDHTSensorFan $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+sh create-device-info.sh nano ventilator TemperatureHumidityDHTSensorFan $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh ventilator $DEVICE_NAME $DEVICE_PORT && \
@@ -42,5 +42,9 @@ sh create-updater-service.sh ventilator nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
 sh upload-ventilator-nano-sketch.sh $DEVICE_PORT && \
+
+# Display the device details
+#echo "Device info:"
+#sh view-garden-device.sh $DEVICE_NAME && \
 
 echo "Garden ventilator created with device name '$DEVICE_NAME'"
