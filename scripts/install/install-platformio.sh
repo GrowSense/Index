@@ -30,3 +30,8 @@ if ! type "pio" > /dev/null; then
 else
   echo "Platform.io is already installed. Skipping."
 fi
+
+# Give the user necessary permissions
+sudo usermod -a -G tty $USER
+sudo usermod -a -G dialout $USER
+

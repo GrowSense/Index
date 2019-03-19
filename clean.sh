@@ -17,6 +17,9 @@ if [ -d "$MOCK_DIR" ]; then
   rm "$MOCK_DIR/" -r
 fi
 
+# Disable mocking
+sh disable-mocking.sh
+
 # Remove all garden devices and services
 sh remove-garden-devices.sh
 
