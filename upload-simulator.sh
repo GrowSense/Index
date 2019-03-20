@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#. ./common.sh
-
 SIMULATOR_PORT=$1
 
 if [ ! $SIMULATOR_PORT ]; then
   echo "Specify a port as an argument"
   exit 1
 fi
+
+DIR=$PWD
 
 echo "Uploading simulator to port $SIMULATOR_PORT"
 
@@ -28,6 +28,8 @@ cd ArduinoSerialController && \
 
 # Upload
 sh upload-to-port.sh "$SIMULATOR_PORT" && \
+
+cd $DIR && \
 
 # Remove the temporary directory
 rm -rf $SIMULATOR_TMP_DIR
