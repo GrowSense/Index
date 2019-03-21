@@ -8,7 +8,7 @@ namespace GreenSense.Index.Tests.Hardware
     public class AutoConnectDeviceHardwareTestFixture : BaseHardwareTestFixture
     {
         [Test]
-        public void Test_AutoAddDevice ()
+        public void Test_AutoConnectDevices ()
         {
             var deviceInfo = new DeviceInfo ();
             deviceInfo.FamilyName = "GreenSense";
@@ -19,14 +19,22 @@ namespace GreenSense.Index.Tests.Hardware
 
             var deviceInfo2 = new DeviceInfo ();
             deviceInfo2.FamilyName = "GreenSense";
-            deviceInfo2.GroupName = "irrigator";
-            deviceInfo2.ProjectName = "SoilMoistureSensorCalibratedPump";
+            deviceInfo2.GroupName = "illuminator";
+            deviceInfo2.ProjectName = "LightPRSensorCalibratedLight";
             deviceInfo2.BoardType = "uno";
             deviceInfo2.Port = GetIlluminatorPort ();
+
+            var deviceInfo3 = new DeviceInfo ();
+            deviceInfo3.FamilyName = "GreenSense";
+            deviceInfo3.GroupName = "ventilator";
+            deviceInfo3.ProjectName = "TemperatureHumidityDHTSensorFan";
+            deviceInfo3.BoardType = "uno";
+            deviceInfo3.Port = GetVentilatorPort ();
 
             using (var helper = new AutoConnectDeviceHardwareTestHelper (ProjectDirectory)) {
                 helper.Devices.Add (deviceInfo);
                 helper.Devices.Add (deviceInfo2);
+                helper.Devices.Add (deviceInfo3);
                 helper.TestConnectDevice ();
             }
         }
