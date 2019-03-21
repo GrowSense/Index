@@ -38,7 +38,7 @@ namespace GreenSense.Index.Tests.Hardware
             var devicePort = Environment.GetEnvironmentVariable ("VENTILATOR_PORT");
 
             if (String.IsNullOrEmpty (devicePort))
-                devicePort = "/dev/ttyUSB5";
+                devicePort = "/dev/ttyUSB2";
 
             Console.WriteLine ("Device port: " + devicePort);
 
