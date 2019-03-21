@@ -92,6 +92,10 @@ echo "Setting MQTT credentials..."
 
 sudo sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
 
+echo "Creating garden..."
+
+sudo sh create-garden.sh
+
 echo "Creating plug and play service..."
 
 sudo sh create-plug-and-play-service.sh
