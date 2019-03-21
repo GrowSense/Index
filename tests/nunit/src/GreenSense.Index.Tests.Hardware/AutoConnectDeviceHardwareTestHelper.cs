@@ -40,7 +40,7 @@ namespace GreenSense.Index.Tests.Hardware
 
                 starter.RunBash (cmd);
 
-                Assert.IsFalse (starter.Starter.IsError);
+                Assert.IsFalse (starter.Starter.IsError, "An error occurred running the bash command.");
 
                 int deviceNumber = 1; // Always 1 when there's only one of each device. Each type is numbered separately.
 
