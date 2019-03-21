@@ -6,10 +6,10 @@ using System.IO;
 namespace GreenSense.Index.Tests.Hardware
 {
     [TestFixture (Category = "Hardware")]
-    public class AutoRemoveDeviceHardwareTestFixture : BaseHardwareTestFixture
+    public class AutoDisconnectDeviceHardwareTestFixture : BaseHardwareTestFixture
     {
         [Test]
-        public void Test_AutoRemoveDevice ()
+        public void Test_AutoDisconnectDevice ()
         {
 
             var starter = GetTestProcessStarter (false);
@@ -27,7 +27,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             CreateExampleDevice (deviceName, deviceInfo);
 
-            var cmd = String.Format ("sh auto-remove-device.sh {0}",
+            var cmd = String.Format ("sh auto-disconnect-device.sh {0}",
                           deviceInfo.Port.Replace ("/dev/", "")
                       );
 
