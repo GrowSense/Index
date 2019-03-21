@@ -28,19 +28,22 @@ namespace GreenSense.Index.Tests
             RunProcess (PreCommand);
 
             if (IsMockHardware)
-                RunProcess ("sh init-mock-hardware.sh");
+                File.WriteAllText (Path.GetFullPath ("is-mock-hardware.txt"), 1.ToString ());
             else
                 File.Delete (Path.GetFullPath ("is-mock-hardware.txt"));
 
             if (IsMockSystemCTL)
-                RunProcess ("sh init-mock-systemctl.sh");
+                File.WriteAllText (Path.GetFullPath ("is-mock-systemctl.txt"), 1.ToString ());
             else
                 File.Delete (Path.GetFullPath ("is-mock-systemctl.txt"));
 
             if (IsMockMqttBridge)
-                RunProcess ("sh init-mock-mqtt-bridge.sh");
+                File.WriteAllText (Path.GetFullPath ("is-mock-mqtt-bridge.txt"), 1.ToString ());
             else
                 File.Delete (Path.GetFullPath ("is-mock-mqtt-bridge.txt"));
+
+
+
         }
 
         protected string RunProcess (string command)

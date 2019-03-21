@@ -9,8 +9,6 @@ namespace GreenSense.Index.Tests
     {
         public string ProjectDirectory;
 
-        public string ServicesDirectory;
-
         public string LinearMqttSettingsFile = "mobile/linearmqtt/newsettings.json";
 
         public BaseTestFixture ()
@@ -34,14 +32,6 @@ namespace GreenSense.Index.Tests
             Console.WriteLine ("");
 
             Directory.SetCurrentDirectory (ProjectDirectory);
-
-            if (File.Exists (Path.GetFullPath ("is-mock-systemctl.txt"))) {
-                ServicesDirectory = Path.Combine (ProjectDirectory, "mock/services");
-            } else {
-                ServicesDirectory = "/lib/systemd/system/";
-            }
-            Console.WriteLine ("Services directory:");
-            Console.WriteLine ("  " + ServicesDirectory);
 
             ClearDevices ();
         }
@@ -255,7 +245,7 @@ namespace GreenSense.Index.Tests
 
         public void CheckMqttBridgeServiceFileWasCreated (string deviceName)
         {
-            var serviceFile = Path.Combine (ServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
+            var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-mqtt-bridge-" + deviceName + ".service");
 
             var fileExists = File.Exists (serviceFile);
 
@@ -264,11 +254,22 @@ namespace GreenSense.Index.Tests
 
         public void CheckUpdaterServiceFileWasCreated (string deviceName)
         {
-            var serviceFile = Path.Combine (ServicesDirectory, "greensense-updater-" + deviceName + ".service");
+            var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-updater-" + deviceName + ".service");
 
             var fileExists = File.Exists (serviceFile);
 
             Assert.IsTrue (fileExists, "Updater service file not created: " + serviceFile);
+        }
+
+        public string GetServicesDirectory ()
+        {
+            var servicesDirectory = "";
+            if (File.Exists (Path.GetFullPath (Path.Combine (ProjectDirectory, "is-mock-systemctl.txt")))) {
+                servicesDirectory = Path.Combine (ProjectDirectory, "mock/services");
+            } else {
+                servicesDirectory = "/lib/systemd/system/";
+            }
+            return servicesDirectory;
         }
     }
 }

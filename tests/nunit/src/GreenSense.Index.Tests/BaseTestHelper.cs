@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using System.IO;
 
 namespace GreenSense.Index.Tests
 {
@@ -39,6 +40,16 @@ namespace GreenSense.Index.Tests
 
         #endregion
 
+        public string GetServicesDirectory ()
+        {
+            var servicesDirectory = "";
+            if (File.Exists (Path.GetFullPath ("is-mock-systemctl.txt"))) {
+                servicesDirectory = Path.Combine (ProjectDirectory, "mock/services");
+            } else {
+                servicesDirectory = "/lib/systemd/system/";
+            }
+            return servicesDirectory;
+        }
 
         #region Console Write Functions
 
