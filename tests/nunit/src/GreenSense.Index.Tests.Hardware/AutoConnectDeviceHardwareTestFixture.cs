@@ -34,7 +34,7 @@ namespace GreenSense.Index.Tests.Hardware
             using (var helper = new AutoConnectDeviceHardwareTestHelper (ProjectDirectory)) {
                 helper.Devices.Add (deviceInfo);
                 helper.Devices.Add (deviceInfo2);
-                helper.Devices.Add (deviceInfo3);
+                //helper.Devices.Add (deviceInfo3);
                 helper.TestConnectDevice ();
             }
         }
