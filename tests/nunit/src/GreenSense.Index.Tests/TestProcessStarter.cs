@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace GreenSense.Index.Tests
 {
@@ -40,6 +41,8 @@ namespace GreenSense.Index.Tests
                 RunProcess ("sh init-mock-mqtt-bridge.sh");
             else
                 File.Delete (Path.GetFullPath ("is-mock-mqtt-bridge.txt"));
+
+            Thread.Sleep (1000);
         }
 
         protected string RunProcess (string command)

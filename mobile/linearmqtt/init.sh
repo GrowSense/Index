@@ -5,16 +5,8 @@ mkdir -p parts && \
 rm -f settings.json && \
 unzip -o config.linear && \
 
-# Extract the template parts
-sh extract-parts.sh
+cp settings.json settings.json.bak
 
-# Create the blank template file
-cp settings.json template.json && \
+sh init-settings.sh
 
-# Remove devices from the template
-sh strip-template.sh && \
-
-# Copy the template file to the new settings file as a starting point
-cp template.json newsettings.json && \
-
-echo "Initialization complete"
+#echo "Initialization complete"

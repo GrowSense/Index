@@ -16,7 +16,7 @@ echo "Device Info"
 echo ""
 
 if [ -d "devices" ]; then
-  rm devices/* -r
+  rm devices -r
 fi
 
 echo ""
