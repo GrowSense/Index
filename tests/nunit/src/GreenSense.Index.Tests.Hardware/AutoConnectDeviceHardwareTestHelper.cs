@@ -36,7 +36,7 @@ namespace GreenSense.Index.Tests.Hardware
                           );
 
                 Console.WriteLine ("");
-                Console.WriteLine ("Adding device #" + i + " device...");
+                Console.WriteLine ("Adding device #" + i + "...");
 
                 starter.RunBash (cmd);
 

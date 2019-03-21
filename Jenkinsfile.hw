@@ -33,6 +33,7 @@ pipeline {
             steps {
                 sh 'sh init-apps.sh'
                 sh 'sh init-tests.sh'
+                sh 'sh init-sketches.sh'
             }
         }
         stage('Set MQTT Credentials') {
