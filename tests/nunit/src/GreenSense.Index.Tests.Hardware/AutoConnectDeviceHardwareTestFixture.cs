@@ -36,7 +36,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo4.GroupName = "irrigator";
             deviceInfo4.ProjectName = "SoilMoistureSensorCalibratedPumpESP";
             deviceInfo4.BoardType = "esp";
-            deviceInfo4.Port = GetVentilatorPort ();
+            deviceInfo4.Port = GetIrrigatorESPPort ();
 
             using (var helper = new AutoConnectDeviceHardwareTestHelper (ProjectDirectory)) {
                 helper.Devices.Add (deviceInfo);
