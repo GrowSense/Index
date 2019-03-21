@@ -10,7 +10,7 @@ echo "Branch: $BRANCH"
 
 DIR=$PWD
 
-git submodule update --init || exit 1
+#git submodule update --init || exit 1
 
 echo "Updating SoilMoistureSensorCalibratedSerial"
 
