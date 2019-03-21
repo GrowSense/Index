@@ -42,9 +42,11 @@ namespace GreenSense.Index.Tests.Hardware
 
                 Assert.IsFalse (starter.Starter.IsError);
 
-                var expectedText = "Garden " + deviceInfo.GroupName + " created with device name '" + deviceInfo.GroupName + i + "'";
+                int deviceNumber = 1; // Always 1 when there's only one of each device. Each type is numbered separately.
 
-                Assert.IsTrue (starter.Starter.Output.Contains (expectedText));
+                var expectedText = "Garden " + deviceInfo.GroupName + " created with device name '" + deviceInfo.GroupName + deviceNumber + "'";
+
+                Assert.IsTrue (starter.Starter.Output.Contains (expectedText), "Expected text wasn't found: " + expectedText);
             }
         }
     }
