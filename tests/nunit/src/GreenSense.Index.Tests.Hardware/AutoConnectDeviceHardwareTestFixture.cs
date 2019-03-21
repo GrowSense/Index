@@ -31,10 +31,18 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo3.BoardType = "uno";
             deviceInfo3.Port = GetVentilatorPort ();
 
+            var deviceInfo4 = new DeviceInfo ();
+            deviceInfo4.FamilyName = "GreenSense";
+            deviceInfo4.GroupName = "irrigator";
+            deviceInfo4.ProjectName = "SoilMoistureSensorCalibratedPumpESP";
+            deviceInfo4.BoardType = "esp";
+            deviceInfo4.Port = GetVentilatorPort ();
+
             using (var helper = new AutoConnectDeviceHardwareTestHelper (ProjectDirectory)) {
                 helper.Devices.Add (deviceInfo);
                 helper.Devices.Add (deviceInfo2);
                 helper.Devices.Add (deviceInfo3);
+                helper.Devices.Add (deviceInfo4);
                 helper.TestConnectDevice ();
             }
         }
