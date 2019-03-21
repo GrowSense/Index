@@ -28,7 +28,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.DeviceAddedCommand = "sh auto-add-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
             deviceManager.DeviceRemovedCommand = "sh auto-remove-device.sh {PORT}";
 
-            var shortPortName = GetDevicePort ().Replace ("/dev/", "");
+            var shortPortName = GetIrrigatorPort ().Replace ("/dev/", "");
 
             var deviceInfo = new DeviceInfo ();
 

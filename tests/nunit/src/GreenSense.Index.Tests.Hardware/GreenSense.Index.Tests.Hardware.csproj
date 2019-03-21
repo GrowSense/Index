@@ -43,8 +43,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PlugAndPlayHardwareTestFixture.cs" />
     <Compile Include="BaseHardwareTestFixture.cs" />
-    <Compile Include="AutoAddDeviceHardwareTestFixture.cs" />
     <Compile Include="AutoRemoveDeviceHardwareTestFixture.cs" />
+    <Compile Include="AutoConnectDeviceHardwareTestFixture.cs" />
+    <Compile Include="AutoConnectDeviceHardwareTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

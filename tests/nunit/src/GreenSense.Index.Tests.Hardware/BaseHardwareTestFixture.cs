@@ -9,9 +9,21 @@ namespace GreenSense.Index.Tests.Hardware
         }
 
 
-        public string GetDevicePort ()
+        public string GetIrrigatorPort ()
         {
             var devicePort = Environment.GetEnvironmentVariable ("IRRIGATOR_PORT");
+
+            if (String.IsNullOrEmpty (devicePort))
+                devicePort = "/dev/ttyUSB0";
+
+            Console.WriteLine ("Device port: " + devicePort);
+
+            return devicePort;
+        }
+
+        public string GetIlluminatorPort ()
+        {
+            var devicePort = Environment.GetEnvironmentVariable ("ILLUMINATOR_PORT");
 
             if (String.IsNullOrEmpty (devicePort))
                 devicePort = "/dev/ttyUSB1";
@@ -21,12 +33,12 @@ namespace GreenSense.Index.Tests.Hardware
             return devicePort;
         }
 
-        public string GetDevicePort2 ()
+        public string GetVentilatorPort ()
         {
-            var devicePort = Environment.GetEnvironmentVariable ("ILLUMINATOR_PORT");
+            var devicePort = Environment.GetEnvironmentVariable ("VENTILATOR_PORT");
 
             if (String.IsNullOrEmpty (devicePort))
-                devicePort = "/dev/ttyUSB3";
+                devicePort = "/dev/ttyUSB5";
 
             Console.WriteLine ("Device port: " + devicePort);
 

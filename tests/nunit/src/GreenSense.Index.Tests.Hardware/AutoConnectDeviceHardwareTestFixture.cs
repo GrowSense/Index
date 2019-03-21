@@ -5,28 +5,34 @@ using ArduinoPlugAndPlay;
 namespace GreenSense.Index.Tests.Hardware
 {
     [TestFixture (Category = "Hardware")]
-    public class AutoAddDeviceHardwareTestFixture : BaseHardwareTestFixture
+    public class AutoConnectDeviceHardwareTestFixture : BaseHardwareTestFixture
     {
         [Test]
         public void Test_AutoAddDevice ()
         {
-            var starter = GetTestProcessStarter (false);
-            starter.IsMockHardware = false;
-            starter.Initialize ();
-
             var deviceInfo = new DeviceInfo ();
             deviceInfo.FamilyName = "GreenSense";
             deviceInfo.GroupName = "irrigator";
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
             deviceInfo.BoardType = "uno";
-            deviceInfo.Port = GetDevicePort ();
+            deviceInfo.Port = GetIrrigatorPort ();
 
             var deviceInfo2 = new DeviceInfo ();
             deviceInfo2.FamilyName = "GreenSense";
             deviceInfo2.GroupName = "irrigator";
             deviceInfo2.ProjectName = "SoilMoistureSensorCalibratedPump";
             deviceInfo2.BoardType = "uno";
-            deviceInfo2.Port = GetDevicePort2 ();
+            deviceInfo2.Port = GetIlluminatorPort ();
+
+            using (var helper = new AutoConnectDeviceHardwareTestHelper (ProjectDirectory)) {
+                helper.Devices.Add (deviceInfo);
+                helper.Devices.Add (deviceInfo2);
+                helper.TestConnectDevice ();
+            }
+            /*var starter = GetTestProcessStarter (false);
+            starter.IsMockHardware = false;
+            starter.Initialize ();
+
 
             var cmd = String.Format ("sh auto-add-device.sh {0} {1} {2} {3} {4}",
                           deviceInfo.BoardType,
@@ -64,7 +70,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             var expectedText2 = "Garden " + deviceInfo2.GroupName + " created with device name '" + deviceInfo2.GroupName + "2'";
 
-            Assert.IsTrue (starter.Starter.Output.Contains (expectedText2));
+            Assert.IsTrue (starter.Starter.Output.Contains (expectedText2));*/
         }
     }
 }
