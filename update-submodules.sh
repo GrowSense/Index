@@ -10,7 +10,7 @@ echo "Branch: $BRANCH"
 
 DIR=$PWD
 
-git submodule update --init
+git submodule update --init || exit 1
 
 echo "Updating SoilMoistureSensorCalibratedSerial"
 
@@ -67,6 +67,5 @@ git pull origin $BRANCH || exit 1
 
 cd $DIR
 
-#git commit -am "Updated submodules"
 
 echo "Finished updating submodules"
