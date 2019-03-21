@@ -45,7 +45,7 @@ if [ $DEVICE_NAME ]; then
   echo "Device name: $DEVICE_NAME"
 
 
-  SCRIPT_NAME="remove-garden-device.sh"
+  SCRIPT_NAME="disconnect-garden-device.sh"
   echo ""
   echo "Remove device script:"
   echo $SCRIPT_NAME "$DEVICE_NAME"
