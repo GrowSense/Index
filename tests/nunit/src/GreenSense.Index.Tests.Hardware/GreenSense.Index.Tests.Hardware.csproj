@@ -46,6 +46,7 @@
     <Compile Include="AutoConnectDeviceHardwareTestFixture.cs" />
     <Compile Include="AutoConnectDeviceHardwareTestHelper.cs" />
     <Compile Include="AutoDisconnectDeviceHardwareTestFixture.cs" />
+    <Compile Include="AutoDisconnectDeviceHardwareTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

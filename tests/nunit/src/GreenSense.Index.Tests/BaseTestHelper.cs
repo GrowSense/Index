@@ -7,6 +7,8 @@ namespace GreenSense.Index.Tests
     {
         public string ProjectDirectory { get; set; }
 
+        public TestProcessStarter Starter = new TestProcessStarter ();
+
         public BaseTestHelper ()
         {
         }
@@ -53,6 +55,16 @@ namespace GreenSense.Index.Tests
 
         #endregion
 
+        public void CheckForErrors ()
+        {
+            // TODO: Fix this. It doesn't work yet.
+            /*var output = Starter.Starter.Output;
+            if (output.Contains ("no tty present and no askpass program specified")) {
+                Console.WriteLine ("Error:");
+                Console.WriteLine ("Unable to perform a 'sudo' action. Try running clean script first.");
+                Assert.Fail ("Error");
+            }*/
+        }
 
         #region IDisposable Support
 
@@ -63,6 +75,7 @@ namespace GreenSense.Index.Tests
         {
             if (!disposedValue) {
                 if (disposing) {
+                    CheckForErrors ();
                     /*if (TestContext.CurrentContext.Result.State == TestState.Error
                         || TestContext.CurrentContext.Result.State == TestState.Failure) {
                         Console.WriteLine ("Complete device serial output...");

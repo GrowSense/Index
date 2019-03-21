@@ -11,8 +11,18 @@ namespace GreenSense.Index.Tests.Hardware
         [Test]
         public void Test_AutoDisconnectDevice ()
         {
+            var deviceInfo = new DeviceInfo ();
+            deviceInfo.FamilyName = "GreenSense";
+            deviceInfo.GroupName = "irrigator";
+            deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
+            deviceInfo.BoardType = "uno";
+            deviceInfo.Port = GetIrrigatorPort ();
 
-            var starter = GetTestProcessStarter (false);
+            using (var helper = new AutoDisconnectDeviceHardwareTestHelper (ProjectDirectory)) {
+                helper.ExampleDevice = deviceInfo;
+                helper.TestDisconnectDevice ();
+            }
+            /*var starter = GetTestProcessStarter (false);
             starter.IsMockHardware = false;
             starter.Initialize ();
 
@@ -37,29 +47,9 @@ namespace GreenSense.Index.Tests.Hardware
 
             var expectedText = "Garden device removed: " + deviceName;
 
-            Assert.IsTrue (starter.Starter.Output.Contains (expectedText));
+            Assert.IsTrue (starter.Starter.Output.Contains (expectedText));*/
         }
 
-        public void CreateExampleDevice (string deviceName, DeviceInfo deviceInfo)
-        {
-            var devicesDir = Path.GetFullPath ("devices");
-
-            if (!Directory.Exists (devicesDir))
-                Directory.CreateDirectory (devicesDir);
-
-            var deviceDir = Path.Combine (devicesDir, deviceName);
-
-            if (!Directory.Exists (deviceDir))
-                Directory.CreateDirectory (deviceDir);
-
-            var deviceNameFile = Path.Combine (deviceDir, "name.txt");
-
-            File.WriteAllText (deviceNameFile, deviceName);
-
-            var portFile = Path.Combine (deviceDir, "port.txt");
-
-            File.WriteAllText (portFile, deviceInfo.Port.Replace ("/dev/", ""));
-        }
     }
 }
 

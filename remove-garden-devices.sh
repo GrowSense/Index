@@ -6,6 +6,11 @@ DIR=$PWD
 
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+    SUDO='sudo'
+fi
+
 echo ""
 echo "Device Info"
 echo ""
@@ -59,7 +64,7 @@ for filename in /lib/systemd/system/greensense-*.service; do
   sh $SYSTEMCTL_SCRIPT stop "$shortname" && \
   sh $SYSTEMCTL_SCRIPT disable "$shortname" && \
   echo "" || exit 1
-  #sudo rm -v $filename || exit 1
+  $SUDO rm -v $filename || exit 1
 done
 
 echo "Finished removing garden device services"

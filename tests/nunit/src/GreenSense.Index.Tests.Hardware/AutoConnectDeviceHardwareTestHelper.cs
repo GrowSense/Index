@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GreenSense.Index.Tests.Hardware
 {
-    public class AutoConnectDeviceHardwareTestHelper: BaseTestHelper
+    public class AutoConnectDeviceHardwareTestHelper : BaseTestHelper
     {
         public List<DeviceInfo> Devices = new List<DeviceInfo> ();
 
