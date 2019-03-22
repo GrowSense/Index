@@ -3,10 +3,10 @@ echo "Retrieving required libraries..."
 echo "Installing libraries..."
 
 # TODO: Clean up
-if [ ! -f "install-package.sh" ]; then
+#if [ ! -f "install-package.sh" ]; then
   INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/install-package.sh"
   wget -O install-package.sh $INSTALL_SCRIPT_FILE_URL
-fi
+#fi
 
 sh install-package.sh GitDeployer 10.0.0.20 || exit 1
 
