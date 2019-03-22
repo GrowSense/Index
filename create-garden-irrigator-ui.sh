@@ -90,6 +90,8 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
+  echo 1 > $IS_DEVICE_UI_CREATED_FLAG_FILE
+
   sh package.sh || exit 1
 else
   echo "Device already exists. Skipping UI creation."
