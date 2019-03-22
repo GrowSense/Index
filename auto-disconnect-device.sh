@@ -50,7 +50,7 @@ if [ $DEVICE_NAME ]; then
   echo "Remove device script:"
   echo $SCRIPT_NAME "$DEVICE_NAME"
   echo ""
-  sh $SCRIPT_NAME "$DEVICE_NAME"
+  sh $SCRIPT_NAME "$DEVICE_NAME" || exit 1
 
 else
   echo "Device not found."
