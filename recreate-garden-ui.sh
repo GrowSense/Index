@@ -26,7 +26,7 @@ if [ -d "$DEVICES_DIR" ]; then
         IS_DEVICE_UI_CREATED_FLAG_FILE="$d/is-ui-created.txt"
         echo "0" > $IS_DEVICE_UI_CREATED_FLAG_FILE        
         
-        sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME
+        sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME || exit1
         
         echo "1" > $IS_DEVICE_UI_CREATED_FLAG_FILE
       fi
