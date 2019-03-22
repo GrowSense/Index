@@ -28,7 +28,7 @@ if [ -f $IS_DEVICE_UI_CREATED_FLAG_FILE ]; then
   IS_DEVICE_UI_CREATED=$(cat "$IS_DEVICE_UI_CREATED_FLAG_FILE")
 fi
 
-if [ $IS_DEVICE_UI_CREATED = 1 ]; then
+if [ $IS_DEVICE_UI_CREATED = "1" ]; then
   DEVICE_EXISTS=true
 fi
 
