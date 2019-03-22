@@ -121,6 +121,7 @@ namespace GreenSense.Index.Tests
             CheckDeviceSummaryWasCreated (json, deviceLabel, deviceName, summaryValueKey);
             CheckDeviceTabIndexWasCreated (json, deviceLabel, deviceName);
             CheckDeviceTabWasCreated (json, deviceLabel, deviceName, valueLabel, valueKey);
+            CheckFlagWasCreated (deviceName);
         }
 
         public void CheckDeviceSummaryWasCreated (JObject json, string deviceLabel, string deviceName, string dataKey)
@@ -250,6 +251,17 @@ namespace GreenSense.Index.Tests
             var fileExists = File.Exists (serviceFile);
 
             Assert.IsTrue (fileExists, "MQTT bridge service file not created: " + serviceFile);
+        }
+
+        public void CheckFlagWasCreated (string deviceName)
+        {
+            var deviceInfoDir = Path.Combine (ProjectDirectory, "devices/" + deviceName);
+
+            var flagFile = Path.Combine (deviceInfoDir, "is-ui-created.txt");
+
+            var fileExists = File.Exists (flagFile);
+
+            Assert.IsTrue (fileExists, "'UI is created' flag file not found: " + flagFile);
         }
 
         public void CheckUpdaterServiceFileWasCreated (string deviceName)

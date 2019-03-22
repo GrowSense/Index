@@ -13,19 +13,21 @@ DEVICE_LABEL=$1
 DEVICE_NAME=$2
 
 if [ ! $DEVICE_LABEL ]; then
-  DEVICE_LABEL="Illuminator1"
+  echo "Provide a label as an argument."
+  exit 1
 fi
 if [ ! $DEVICE_NAME ]; then
-  DEVICE_NAME="illuminator1"
+  echo "Provide a name as an argument."
+  exit 1
 fi
+# Check if the device is registered in the UI
+[ -f "devices/$DEVICE_NAME/is-ui-created.txt" ] \
+  && [ $(cat "devices/$DEVICE_NAME/is-ui-created.txt") = 1 ] \
+  && DEVICE_EXISTS=1 \
+  || DEVICE_EXISTS=0
 
-DEVICE_INFO_DIR="devices/$DEVICE_NAME"
-if [ -d "$DEVICE_INFO_DIR" ]; then
-  DEVICE_EXISTS=true
-fi
-
-
-if [ $DEVICE_EXISTS = false ]; then
+# If the device doesn't exist then add it
+if [ $DEVICE_EXISTS = 0 ]; then
   cd "mobile/linearmqtt/"
 
   sh increment-device-count.sh
@@ -82,12 +84,13 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
-  sh package.sh || exit 1
+  sh package.sh && \
+  
+  cd $DIR && \
+  
+  sh set-garden-device-ui-created.sh $DEVICE_NAME
 else
   echo "Device already exists. Skipping UI creation."
 fi
-
-
-cd $DIR && \
 
 echo "Finished creating illuminator UI"

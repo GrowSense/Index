@@ -23,24 +23,15 @@ fi
 echo "Label: $DEVICE_LABEL"
 echo "Name: $DEVICE_NAME"
 
-DEVICE_INFO_DIR="$PWD/devices/$DEVICE_NAME"
 
+# Check if the device is registered in the UI
+[ -f "devices/$DEVICE_NAME/is-ui-created.txt" ] \
+  && [ $(cat "devices/$DEVICE_NAME/is-ui-created.txt") = 1 ] \
+  && DEVICE_EXISTS=1 \
+  || DEVICE_EXISTS=0
 
-#IS_DEVICE_UI_CREATED_FLAG_FILE="$DEVICE_INFO_DIR/is-ui-created.txt"
-#IS_DEVICE_UI_CREATED=0
-#if [ -f $IS_DEVICE_UI_CREATED_FLAG_FILE ]; then
-#  IS_DEVICE_UI_CREATED=$(cat "$IS_DEVICE_UI_CREATED_FLAG_FILE")
-#fi
-
-. ./check-garden-device-ui-created.sh "$DEVICE_NAME"
-
-if [ $IS_DEVICE_UI_CREATED = "1" ]; then
-  DEVICE_EXISTS=true
-fi
-
-
-if [ $DEVICE_EXISTS = false ]; then
-  echo "Device doesn't exist yet. Creating it."
+# If the device doesn't exist then add it
+if [ $DEVICE_EXISTS = 0 ]; then
 
   cd "mobile/linearmqtt/"
 
