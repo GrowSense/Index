@@ -15,6 +15,7 @@ DEVICE_NAME=$2
 if [ ! $DEVICE_LABEL ]; then
   DEVICE_LABEL="Irrigator1"
 fi
+
 if [ ! $DEVICE_NAME ]; then
   DEVICE_NAME="irrigator1"
 fi
@@ -25,11 +26,13 @@ echo "Name: $DEVICE_NAME"
 DEVICE_INFO_DIR="$PWD/devices/$DEVICE_NAME"
 
 
-IS_DEVICE_UI_CREATED_FLAG_FILE="$DEVICE_INFO_DIR/is-ui-created.txt"
-IS_DEVICE_UI_CREATED=0
-if [ -f $IS_DEVICE_UI_CREATED_FLAG_FILE ]; then
-  IS_DEVICE_UI_CREATED=$(cat "$IS_DEVICE_UI_CREATED_FLAG_FILE")
-fi
+#IS_DEVICE_UI_CREATED_FLAG_FILE="$DEVICE_INFO_DIR/is-ui-created.txt"
+#IS_DEVICE_UI_CREATED=0
+#if [ -f $IS_DEVICE_UI_CREATED_FLAG_FILE ]; then
+#  IS_DEVICE_UI_CREATED=$(cat "$IS_DEVICE_UI_CREATED_FLAG_FILE")
+#fi
+
+. ./check-garden-device-ui-created.sh "$DEVICE_NAME"
 
 if [ $IS_DEVICE_UI_CREATED = "1" ]; then
   DEVICE_EXISTS=true
@@ -37,6 +40,8 @@ fi
 
 
 if [ $DEVICE_EXISTS = false ]; then
+  echo "Device doesn't exist yet. Creating it."
+
   cd "mobile/linearmqtt/"
 
   sh increment-device-count.sh
@@ -75,7 +80,6 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
-
   # Irrigator dashboard
 
   IRRIGATOR_DASHBOARD=$(cat parts/irrigatordashboard.json) && \
@@ -93,15 +97,16 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
-  mkdir -p "$DEVICE_INFO_DIR" && \
-  echo 1 > $IS_DEVICE_UI_CREATED_FLAG_FILE && \
-
   sh package.sh || exit 1
+  
+  cd $DIR && \
+  
+  sh set-garden-device-ui-created.sh $DEVICE_NAME
+
 else
   echo "Device already exists. Skipping UI creation."
 fi
 
 
-cd $DIR && \
 
 echo "Finished creating irrigator UI"
