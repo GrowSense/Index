@@ -1,9 +1,5 @@
 echo "Retrieving required libraries..."
 
-# Nuget is disabled
-# sh get-nuget.sh
-# sh nuget-update-self.sh
-
 echo "Installing libraries..."
 
 CONFIG_FILE="BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
