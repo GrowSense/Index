@@ -65,8 +65,8 @@ namespace GreenSense.Index.Tests
 
         public string RunBash (string internalCommand)
         {
-            Console.WriteLine ("Running bash command: ");
-            Console.WriteLine (internalCommand);
+            // Console.WriteLine ("Running bash command: ");
+            // Console.WriteLine (internalCommand);
 
             var output = String.Empty;
 

@@ -150,15 +150,15 @@ namespace GreenSense.Index.Tests
             //Console.WriteLine("Summary dashboard element:");
             //Console.WriteLine(summaryDeviceMeterElement);
 
-            Console.WriteLine ("Details from json:");
-            Console.WriteLine ("  name: " + summaryDeviceMeterElement ["name"]);
-            Console.WriteLine ("  topic: " + summaryDeviceMeterElement ["topic"]);
+            //Console.WriteLine ("Details from json:");
+            //Console.WriteLine ("  name: " + summaryDeviceMeterElement ["name"]);
+            //Console.WriteLine ("  topic: " + summaryDeviceMeterElement ["topic"]);
 
-            Console.WriteLine ("Checking summary device meter name matches device label...");
+            //Console.WriteLine ("Checking summary device meter name matches device label...");
 
             Assert.AreEqual (deviceLabel, summaryDeviceMeterElement ["name"].ToString (), "Summary element name doesn't match the device label.");
 
-            Console.WriteLine ("Checking summary device meter topic matches device name...");
+            //Console.WriteLine ("Checking summary device meter topic matches device name...");
 
             var expectedTopic = "/" + deviceName + "/" + dataKey;
 
@@ -176,10 +176,10 @@ namespace GreenSense.Index.Tests
             //Console.WriteLine("Device tab element:");
             //Console.WriteLine(deviceTabElement);
 
-            Console.WriteLine ("Details from json:");
-            Console.WriteLine ("  name: " + deviceTabElement ["name"]);
+            //Console.WriteLine ("Details from json:");
+            //Console.WriteLine ("  name: " + deviceTabElement ["name"]);
 
-            Console.WriteLine ("Checking device tab name matches device label...");
+            //Console.WriteLine ("Checking device tab name matches device label...");
 
             Assert.AreEqual (deviceLabel, deviceTabElement ["name"].ToString (), "Summary element name doesn't match the device label.");
         }
@@ -195,9 +195,9 @@ namespace GreenSense.Index.Tests
             // Disabled to reduce the console output length
             //Console.WriteLine("Device element:");
             //Console.WriteLine(deviceElement);
-            Console.WriteLine ("Device element ID: " + deviceElementId);
+            //Console.WriteLine ("Device element ID: " + deviceElementId);
 
-            Console.WriteLine ("Checking device element ID is correct...");
+            //Console.WriteLine ("Checking device element ID is correct...");
 
             var expectedDeviceElementId = "2";
 
@@ -212,17 +212,17 @@ namespace GreenSense.Index.Tests
             //Console.WriteLine("Value meter element:");
             //Console.WriteLine(valueMeterElement);
 
-            Console.WriteLine ("Details from json:");
-            Console.WriteLine ("  name: " + valueMeterElement ["name"]);
-            Console.WriteLine ("  topic: " + valueMeterElement ["topic"]);
+            //Console.WriteLine ("Details from json:");
+            //Console.WriteLine ("  name: " + valueMeterElement ["name"]);
+            //Console.WriteLine ("  topic: " + valueMeterElement ["topic"]);
 
-            Console.WriteLine ("Checking value meter name is valid...");
+            //Console.WriteLine ("Checking value meter name is valid...");
 
             var expectedValueMeterName = valueMeterLabel;
 
             Assert.AreEqual (expectedValueMeterName, valueMeterElement ["name"].ToString (), "Value meter name is invalid.");
 
-            Console.WriteLine ("Checking value meter topic matches device name...");
+            //Console.WriteLine ("Checking value meter topic matches device name...");
 
             var expectedValueMeterTopic = "/" + deviceName + "/" + valueKey;
 

@@ -28,38 +28,6 @@ pipeline {
                 sh 'echo "Skipped prepare to speed up tests." # sh prepare.sh'
             }
         }
-        stage('Init') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh init-apps.sh'
-                sh 'sh init-tests.sh'
-                sh 'sh init-sketches.sh'
-            }
-        }
-        stage('Set MQTT Credentials') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
-            }
-        }
-        stage('Build') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh build-tests.sh'
-            }
-        }
-        stage('Test') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh test-all.sh'
-            }
-        }
-        stage('Clean') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh clean.sh'
-            }
-        }
         stage('Graduate') {
             when { expression { !shouldSkipBuild() } }
             steps {

@@ -8,8 +8,8 @@ if [ "$BRANCH" = "dev" ];  then
   # Fetch other branches
   git fetch origin --quiet && \
 
-  # Pull the master branch into the dev branch
-  git pull origin master --quiet && \
+  # Merge the master branch into the dev branch
+  git merge master --quiet && \
 
   # Checkout the master branch
   git checkout master && \
