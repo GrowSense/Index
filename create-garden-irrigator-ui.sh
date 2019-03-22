@@ -19,7 +19,10 @@ if [ ! $DEVICE_NAME ]; then
   DEVICE_NAME="irrigator1"
 fi
 
-DEVICE_INFO_DIR="devices/$DEVICE_NAME"
+echo "Label: $DEVICE_LABEL"
+echo "Name: $DEVICE_NAME"
+
+DEVICE_INFO_DIR="$PWD/devices/$DEVICE_NAME"
 
 
 IS_DEVICE_UI_CREATED_FLAG_FILE="$DEVICE_INFO_DIR/is-ui-created.txt"
@@ -90,7 +93,8 @@ if [ $DEVICE_EXISTS = false ]; then
 
   echo $NEW_SETTINGS > newsettings.json && \
 
-  echo 1 > $IS_DEVICE_UI_CREATED_FLAG_FILE
+  mkdir -p "$DEVICE_INFO_DIR" && \
+  echo 1 > $IS_DEVICE_UI_CREATED_FLAG_FILE && \
 
   sh package.sh || exit 1
 else
