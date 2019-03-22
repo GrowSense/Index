@@ -20,7 +20,15 @@ if [ ! $DEVICE_NAME ]; then
 fi
 
 DEVICE_INFO_DIR="devices/$DEVICE_NAME"
-if [ -d "$DEVICE_INFO_DIR" ]; then
+
+
+IS_DEVICE_UI_CREATED_FLAG_FILE="$DEVICE_INFO_DIR/is-ui-created.txt"
+IS_DEVICE_UI_CREATED=0
+if [ -f $IS_DEVICE_UI_CREATED_FLAG_FILE ]; then
+  IS_DEVICE_UI_CREATED=$(cat "$IS_DEVICE_UI_CREATED_FLAG_FILE")
+fi
+
+if [ $IS_DEVICE_UI_CREATED = 1 ]; then
   DEVICE_EXISTS=true
 fi
 

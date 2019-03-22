@@ -11,8 +11,7 @@ if [ ! $DEVICE_NAME ]; then
 else
   echo "Device name: $DEVICE_NAME"
 
-  sh remove-device-services.sh $DEVICE_NAME
-
+  sh remove-device-services.sh $DEVICE_NAME || exit 1
 
   # Only remove it from the system completely if it's NOT an ESP/WiFi board. They can keep running without a USB connection.
   if [ $BOARD_TYPE != "esp" ]; then
@@ -24,10 +23,9 @@ else
       rm $DEVICE_INFO_DIR -R
     fi
     
-    # Remove from mobile UI
-    #  cd mobile/linearmqtt/ && \
-    #  sh remove-garden-monitor-ui.sh $DEVICE_NAME && \
-    #  cd $DIR
+    # Recreating garden UI
+    # TODO: Instead of regenerating the entire UI, figure out how to remove a single item from the UI
+    sh recreate-garden-ui.sh || exit 1
   else
     echo "This is an ESP/WiFi based microcontroller. It is still in the system and can run without a USB connection."
   fi
