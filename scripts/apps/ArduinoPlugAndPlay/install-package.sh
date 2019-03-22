@@ -21,7 +21,7 @@ PACKAGE_FILE_EXT="$PACKAGE_NAME.$PACKAGE_VERSION.nupkg"
 if [ ! -d "$PACKAGE_FILE" ]; then
 	wget -q "https://github.com/GreenSense/libs/raw/master/$PACKAGE_FILE.nupkg" -O $PACKAGE_FILE_EXT
 
-	unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FILE/"
+	unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_NAME/"
 else
 	echo "  Already exists. Skipping download."
 fi

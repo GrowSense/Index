@@ -3,6 +3,8 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
+                checkout scm
+                
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
