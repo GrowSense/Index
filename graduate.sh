@@ -9,7 +9,7 @@ if [ "$BRANCH" = "dev" ];  then
   git fetch origin --quiet && \
 
   # Merge the master branch into the dev branch
-  git merge master --quiet && \
+  git merge master && \
 
   # Checkout the master branch
   git checkout master && \
