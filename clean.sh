@@ -19,9 +19,10 @@ if [ -d "$MOCK_DIR" ]; then
   rm "$MOCK_DIR/" -r
 fi
 
+# Note: This is commented out because it messes with CI
 # Disable mocking
-echo "Disabling mocking..."
-sh disable-mocking.sh
+#echo "Disabling mocking..."
+#sh disable-mocking.sh
 
 # Remove all garden devices and services
 echo "Removing all garden devices..."
