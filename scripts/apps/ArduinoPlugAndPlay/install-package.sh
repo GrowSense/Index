@@ -18,7 +18,7 @@ PACKAGE_FILE_EXT="$PACKAGE_NAME.$PACKAGE_VERSION.nupkg"
 
 #echo "  Package file: $PACKAGE_FILE"
 
-if [ ! -d "$PACKAGE_NAME" ]; then
+if [ ! -f "$PACKAGE_FILE_EXT" ]; then
 	wget -q "https://github.com/GreenSense/libs/raw/master/$PACKAGE_FILE.nupkg" -O $PACKAGE_FILE_EXT
 
 	unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_NAME/"

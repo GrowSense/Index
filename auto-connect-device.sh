@@ -65,14 +65,14 @@ echo "Device number: $DEVICE_NUMBER"
 echo "Device info dir:"
 echo $DEVICE_INFO_DIR
 
-
+DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')"
 
 SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh
 echo ""
 echo "Add device script:"
-echo $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
+echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT
 echo ""
-sh $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
+sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT
 
 # Disabled because it's causing problems with tests
 #notify-send "Finished adding $GROUP_NAME device"
