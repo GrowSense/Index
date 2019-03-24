@@ -66,7 +66,7 @@ sudo wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/Ar
 
 echo "Installing plug and play..."
 
-wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/master/scripts-web/install-from-web.sh | sudo bash -s - master
+wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/dev/scripts-web/install-from-web.sh | sudo bash -s - dev  || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
 
 echo "Creating workspace..."
 WORKSPACE_DIR="$INSTALL_DIR/workspace"
