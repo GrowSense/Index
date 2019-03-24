@@ -33,10 +33,10 @@
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoPlugAndPlay">
-      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.43\lib\net40\ArduinoPlugAndPlay.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.45\lib\net40\ArduinoPlugAndPlay.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoPlugAndPlay.Tests">
-      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.43\lib\net40\ArduinoPlugAndPlay.Tests.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.45\lib\net40\ArduinoPlugAndPlay.Tests.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
