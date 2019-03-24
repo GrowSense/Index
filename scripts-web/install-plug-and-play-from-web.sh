@@ -61,7 +61,7 @@ cd $INSTALL_DIR
 
 echo "Importing GreenSense config file..."
 
-sudo -v wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O ArduinoPlugAndPlay.exe.config || (echo "Failed downloading GreenSense plug and play config file." && exit 1)
+sudo wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O ArduinoPlugAndPlay.exe.config || (echo "Failed downloading GreenSense plug and play config file." && exit 1)
 
 
 echo "Installing plug and play..."

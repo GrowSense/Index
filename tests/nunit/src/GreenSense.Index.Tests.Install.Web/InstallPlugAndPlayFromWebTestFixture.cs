@@ -7,7 +7,7 @@ namespace GreenSense.Index.Tests.Install.Web
     [TestFixture (Category = "InstallFromWeb")]
     public class InstallPlugAndPlayFromWebTestFixture : BaseTestFixture
     {
-        [Test]
+        //[Test]
         public void Test_Install_FromWeb ()
         {
             MoveToTemporaryDirectory ();
