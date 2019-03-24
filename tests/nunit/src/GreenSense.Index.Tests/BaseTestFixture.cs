@@ -9,6 +9,8 @@ namespace GreenSense.Index.Tests
     {
         public string ProjectDirectory;
 
+        public string TemporaryDirectory;
+
         public string LinearMqttSettingsFile = "mobile/linearmqtt/newsettings.json";
 
         public BaseTestFixture ()
@@ -282,6 +284,59 @@ namespace GreenSense.Index.Tests
                 servicesDirectory = "/lib/systemd/system/";
             }
             return servicesDirectory;
+        }
+
+
+        public void PullFileFromProject (string fileName)
+        {
+            PullFileFromProject (fileName, false);
+        }
+
+        public void PullFileFromProject (string fileName, bool removeDestinationDirectory)
+        {
+            var sourceFile = Path.Combine (ProjectDirectory, fileName);
+            var destinationFile = Path.Combine (TemporaryDirectory, fileName);
+
+            if (removeDestinationDirectory) {
+                var shortenedFileName = Path.GetFileName (fileName);
+                destinationFile = Path.Combine (TemporaryDirectory, shortenedFileName);
+            }
+
+            File.Copy (sourceFile, destinationFile);
+        }
+
+        public void MoveToProjectDirectory ()
+        {
+            Directory.SetCurrentDirectory (ProjectDirectory);
+        }
+
+        public void MoveToTemporaryDirectory ()
+        {
+            var tmpDir = Path.Combine (ProjectDirectory, "_tmp");
+
+            if (!Directory.Exists (tmpDir))
+                Directory.CreateDirectory (tmpDir);
+
+            var tmpTestDir = Path.Combine (tmpDir, Guid.NewGuid ().ToString ());
+
+            if (!Directory.Exists (tmpTestDir))
+                Directory.CreateDirectory (tmpTestDir);
+
+            TemporaryDirectory = tmpTestDir;
+
+            Directory.SetCurrentDirectory (tmpTestDir);
+        }
+
+        public void CleanTemporaryDirectory ()
+        {
+            var tmpDir = Environment.CurrentDirectory;
+
+            Directory.SetCurrentDirectory (ProjectDirectory);
+
+            Console.WriteLine ("Cleaning temporary directory:");
+            Console.WriteLine (tmpDir);
+
+            //Directory.Delete (tmpDir, true);
         }
     }
 }

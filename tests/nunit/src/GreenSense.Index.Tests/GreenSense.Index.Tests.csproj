@@ -42,6 +42,7 @@
     <Compile Include="TemporaryDirectoryCreator.cs" />
     <Compile Include="TestProcessStarter.cs" />
     <Compile Include="BaseTestHelper.cs" />
+    <Compile Include="BranchDetector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
