@@ -79,7 +79,7 @@ INDEX_DIR="$WORKSPACE_DIR/GreenSense/Index"
 echo "Setting up GreenSense index..."
 
 if [ ! -d "$INDEX_DIR" ]; then
-  sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sudo sh
+  sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sudo sh  || (echo "Failed to set up GreenSense index." && exit 1)
 fi
 cd $INDEX_DIR
 
