@@ -1,4 +1,4 @@
-echo "Creating Plug and Play service file..."
+echo "Installing GreenSense plug and play..."
 
 WIFI_NAME=$1
 WIFI_PASSWORD=$2
