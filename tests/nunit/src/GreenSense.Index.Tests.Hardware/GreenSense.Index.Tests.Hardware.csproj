@@ -8,8 +8,6 @@
     <RootNamespace>GreenSense.Index.Tests.Hardware</RootNamespace>
     <AssemblyName>GreenSense.Index.Tests.Hardware</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,4 +49,10 @@
     <Compile Include="AutoDisconnectDeviceHardwareTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\GreenSense.Index.Tests\GreenSense.Index.Tests.csproj">
+      <Project>{5F680715-2487-4569-9E21-E0D6D8936CDC}</Project>
+      <Name>GreenSense.Index.Tests</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

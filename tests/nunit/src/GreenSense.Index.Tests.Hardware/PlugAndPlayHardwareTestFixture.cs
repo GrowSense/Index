@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using ArduinoPlugAndPlay;
 using ArduinoPlugAndPlay.Tests;
+using System.IO;
+using System.Threading;
 
 namespace GreenSense.Index.Tests.Hardware
 {
@@ -50,8 +52,19 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.RunLoop ();
             Console.WriteLine (ProjectDirectory);
 
+            // Wait while the process runs
+            var processKey = "add-" + deviceInfo.Port;
+
+            Assert.IsTrue (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (processKey), "Can't find add device process.");
+
+            while (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (processKey)
+                   && !deviceManager.BackgroundStarter.StartedProcesses [processKey].HasExited)
+                Thread.Sleep (100);
+
+            var output = ReadPlugAndPlayLogFile ();
+
             var deviceCreatedText = "Garden " + deviceInfo.GroupName + " created with device name '" + deviceInfo.GroupName + "1'";
-            Assert.IsTrue (deviceManager.Starter.Output.Contains (deviceCreatedText));
+            Assert.IsTrue (output.Contains (deviceCreatedText), "Didn't find the expected output in the log: " + deviceCreatedText);
 
             Assert.IsFalse (deviceManager.Starter.IsError, "An error occurred.");
 
@@ -69,10 +82,23 @@ namespace GreenSense.Index.Tests.Hardware
 
             var deviceRemovedText = "Garden device removed: " + deviceName;
 
-            Assert.IsTrue (deviceManager.Starter.Output.Contains (deviceRemovedText));
+            output = ReadPlugAndPlayLogFile ();
+
+            Assert.IsTrue (output.Contains (deviceRemovedText));
 
             Assert.IsFalse (deviceManager.Starter.IsError, "An error occurred.");
 
+        }
+
+        public string ReadPlugAndPlayLogFile ()
+        {
+            var output = String.Empty;
+
+            var logsDir = Path.Combine (ProjectDirectory, "logs");
+            foreach (var logFile in Directory.GetFiles(logsDir))
+                output = File.ReadAllText (logFile);
+
+            return output;
         }
     }
 }

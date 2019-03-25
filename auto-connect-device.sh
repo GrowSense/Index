@@ -49,6 +49,7 @@ if [ -d "$DEVICE_INFO_DIR" ]; then
 
   echo "Device exists"
   
+  until [ ! -d "$DEVICE_INFO_DIR" ]; do
     echo "Increasing device number"
     DEVICE_NUMBER=$((DEVICE_NUMBER+1))
     DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
