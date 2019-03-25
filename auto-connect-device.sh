@@ -49,7 +49,6 @@ if [ -d "$DEVICE_INFO_DIR" ]; then
 
   echo "Device exists"
   
-  until [ ! -d "$DEVICE_INFO_DIR" ]; do
     echo "Increasing device number"
     DEVICE_NUMBER=$((DEVICE_NUMBER+1))
     DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
@@ -65,14 +64,15 @@ echo "Device number: $DEVICE_NUMBER"
 echo "Device info dir:"
 echo $DEVICE_INFO_DIR
 
-DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')"
+DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" && \
 
-SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh
-echo ""
-echo "Add device script:"
-echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT
-echo ""
-sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT
+SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh && \
+echo "" && \
+echo "Add device script:" && \
+echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT && \
+echo "" && \
+sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT ||
+(echo "An error occurred when connecting device" && sh remove-garden-device.sh && exit 1)
 
 # Disabled because it's causing problems with tests
 #notify-send "Finished adding $GROUP_NAME device"

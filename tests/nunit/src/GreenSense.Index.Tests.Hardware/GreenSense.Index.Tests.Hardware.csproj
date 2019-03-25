@@ -8,6 +8,8 @@
     <RootNamespace>GreenSense.Index.Tests.Hardware</RootNamespace>
     <AssemblyName>GreenSense.Index.Tests.Hardware</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +35,10 @@
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoPlugAndPlay">
-      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.49\lib\net40\ArduinoPlugAndPlay.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.55\lib\net40\ArduinoPlugAndPlay.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoPlugAndPlay.Tests">
-      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.49\lib\net40\ArduinoPlugAndPlay.Tests.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoPlugAndPlay.1.0.0.55\lib\net40\ArduinoPlugAndPlay.Tests.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -49,10 +51,4 @@
     <Compile Include="AutoDisconnectDeviceHardwareTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\GreenSense.Index.Tests\GreenSense.Index.Tests.csproj">
-      <Project>{5F680715-2487-4569-9E21-E0D6D8936CDC}</Project>
-      <Name>GreenSense.Index.Tests</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
