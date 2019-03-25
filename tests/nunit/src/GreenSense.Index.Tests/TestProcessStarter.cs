@@ -70,7 +70,9 @@ namespace GreenSense.Index.Tests
 
             var output = String.Empty;
 
-            output += RunProcess (internalCommand);
+            var fixedCommand = "/bin/bash -c '" + internalCommand + "'";
+
+            output += RunProcess (fixedCommand);
 
             return output;
         }

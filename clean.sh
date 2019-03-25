@@ -26,6 +26,10 @@ fi
 
 # Remove all garden devices and services
 echo "Removing all garden devices..."
-sh remove-garden-devices.sh
+sh remove-garden-devices.sh || (echo "Failed to removed garden devices." && exit 1)
+
+# Reset the MQTT details
+echo "Resettings MQTT credeitnals..."
+sh set-mqtt-credentials.sh 127.0.0.1 user pass123 1883 || (echo "Failed to reset MQTT credentials." && exit 1)
 
 echo "Finished cleaning project"

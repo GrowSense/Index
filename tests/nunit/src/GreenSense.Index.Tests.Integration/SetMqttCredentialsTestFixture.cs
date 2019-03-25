@@ -30,7 +30,9 @@ namespace GreenSense.Index.Tests.Integration
             starter.IsMockMqttBridge = true;
             starter.Initialize ();
 
-            var output = starter.RunBash ("sh " + scriptName + ".sh " + arguments);
+            var cmd = "sh " + scriptName + ".sh " + arguments;
+
+            var output = starter.RunBash (cmd);
 
             var successfulText = "Finished setting MQTT credentials";
 
@@ -56,7 +58,7 @@ namespace GreenSense.Index.Tests.Integration
 
         public void AssertMqttBridgeConfigFileContains (string configFileContent, string key, string value)
         {
-            var pattern = "<add key=\"{0}\" value=\"{1}\" />";
+            var pattern = "<add key=\"{0}\" value=\"{1}\"/>";
             var populatedPattern = String.Format (pattern, key, value);
 
             //Console.WriteLine ("Pattern: " + populatedPattern);

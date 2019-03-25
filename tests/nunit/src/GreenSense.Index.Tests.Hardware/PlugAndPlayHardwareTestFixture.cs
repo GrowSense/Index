@@ -58,7 +58,7 @@ namespace GreenSense.Index.Tests.Hardware
             Assert.IsTrue (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (addProcessKey), "Can't find add device process.");
 
             while (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (addProcessKey)
-                   && !deviceManager.BackgroundStarter.StartedProcesses [addProcessKey].HasExited)
+                   && !deviceManager.BackgroundStarter.StartedProcesses [addProcessKey].Process.HasExited)
                 Thread.Sleep (50);
 
             var output = ReadPlugAndPlayLogFile ();
@@ -86,7 +86,7 @@ namespace GreenSense.Index.Tests.Hardware
             Assert.IsTrue (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (removeProcessKey), "Can't find remove device process.");
 
             while (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (removeProcessKey)
-                   && !deviceManager.BackgroundStarter.StartedProcesses [removeProcessKey].HasExited)
+                   && !deviceManager.BackgroundStarter.StartedProcesses [removeProcessKey].Process.HasExited)
                 Thread.Sleep (50);
 
             var deviceRemovedText = "Garden device removed: " + deviceName;
