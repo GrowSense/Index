@@ -14,7 +14,7 @@ namespace GreenSense.Index.Tests.Hardware
             var devicePort = Environment.GetEnvironmentVariable ("IRRIGATOR_PORT");
 
             if (String.IsNullOrEmpty (devicePort))
-                devicePort = "/dev/ttyUSB1";
+                devicePort = "/dev/ttyUSB0";
 
             Console.WriteLine ("Device port: " + devicePort);
 
