@@ -24,15 +24,15 @@ fi
 
 INDEX_DIR="$PNP_INSTALL_DIR/workspace/GreenSense/Index"
 
-echo "Checking for ArduinoPlugAndPlay install dir..."
+echo "Checking for GreenSense index dir..."
 if [ ! -d $INDEX_DIR ]; then
-  echo "ArduinoPlugAndPlay doesn't appear to be installed at:"
+  echo "GreenSense Index doesn't appear to be installed at:"
   echo "  $INDEX_DIR"
   echo "Use the install-plug-and-play-from-web-sh script instead."
   exit 1
 fi
 
-echo "Moving to install dir..."
+echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
 echo "Updating index..."
