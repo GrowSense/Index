@@ -26,7 +26,7 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh prepare.sh'
+                sh 'echo "Prepare disabled to speed up tests." # sh prepare.sh'
             }
         }
         stage('Init') {
