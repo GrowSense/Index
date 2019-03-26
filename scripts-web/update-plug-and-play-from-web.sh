@@ -41,6 +41,8 @@ sh update-all.sh $BRANCH || (echo "Failed to update GreenSense index. Script: up
 echo "Reinitializing index..."
 sh init-runtime.sh $BRANCH || (echo "Failed to update GreenSense index. Script: update.sh" && exit 1)
 
+sh restart-garden.sh || (echo "Failed to restart garden services." && exit 1)
+
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
 wget -v --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s - $BRANCH || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
 
