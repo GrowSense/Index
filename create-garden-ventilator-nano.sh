@@ -41,7 +41,7 @@ sh create-mqtt-bridge-service.sh ventilator $DEVICE_NAME $DEVICE_PORT && \
 sh create-updater-service.sh ventilator nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-ventilator-nano-sketch.sh $DEVICE_PORT && \
+#sh upload-ventilator-nano-sketch.sh $DEVICE_PORT && \
 
 # Display the device details
 #echo "Device info:"

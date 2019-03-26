@@ -42,7 +42,7 @@ sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 sh create-updater-service.sh monitor nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-monitor-nano-sketch.sh $DEVICE_PORT && \
+#sh upload-monitor-nano-sketch.sh $DEVICE_PORT && \
 
 # Display the device details
 #echo "Device info:"

@@ -42,7 +42,7 @@ sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 sh create-updater-service.sh monitor uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-monitor-uno-sketch.sh $DEVICE_PORT && \
+#sh upload-monitor-uno-sketch.sh $DEVICE_PORT && \
 
 # Display the device details
 #echo "Device info:"
