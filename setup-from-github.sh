@@ -31,8 +31,7 @@ echo "  $INDEX_DIR" && \
 cd $INDEX_DIR && \
 
 sudo sh prepare.sh && \
-sh init-sketches.sh && \
-sh init-apps.sh && \
+sh init-runtime.sh && \
 
 echo "" && \
 echo "The GreenSense index is initialized and ready to use."
