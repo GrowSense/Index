@@ -36,10 +36,12 @@ echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
 echo "Updating index..."
-sh update-all.sh $BRANCH || (echo "Failed to update GreenSense index. Script: update.sh" && exit 1)
+sh update-all.sh $BRANCH || (echo "Failed to update GreenSense index. Script: update-all.sh" && exit 1)
 
 echo "Reinitializing index..."
-sh init-runtime.sh $BRANCH || (echo "Failed to update GreenSense index. Script: update.sh" && exit 1)
+sh init-runtime.sh $BRANCH || (echo "Failed to update GreenSense index. Script: init-runtime.sh" && exit 1)
+
+systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
 
 sh restart-garden.sh || (echo "Failed to restart garden services." && exit 1)
 
