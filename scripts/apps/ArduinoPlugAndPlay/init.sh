@@ -13,13 +13,7 @@ if [ -f $CONFIG_FILE ]; then
   fi
 fi
 
-# TODO: Clean up. This check is disabled to allow the install package script to be overwritten
-#if [ ! -f "install-package.sh" ]; then
-#  INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/ArduinoPlugAndPlay/install-package.sh"
-#  wget --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
-#fi
-
-sh install-package.sh ArduinoPlugAndPlay 1.0.0.69 || exit 1
+sh install-package.sh ArduinoPlugAndPlay 1.0.0.72 || exit 1
 
 echo "Installation complete. Launching plug and play."
 
