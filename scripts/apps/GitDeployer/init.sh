@@ -8,6 +8,6 @@ if [ ! -f "install-package.sh" ]; then
   wget -O install-package.sh $INSTALL_SCRIPT_FILE_URL
 fi
 
-sh install-package.sh GitDeployer 1.0.0.32 || exit 1
+sh install-package.sh GitDeployer 1.0.0.33 || exit 1
 
 echo "Installation complete"

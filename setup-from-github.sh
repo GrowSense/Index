@@ -18,7 +18,7 @@ if ! type "git" > /dev/null; then
   sudo apt-get update && sudo apt-get install -y git
 fi
 
-git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index -b $BRANCH && \
+git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index -b $BRANCH || (echo "Git clone failed." && exit 1)
 
 echo "Current directory:"
 echo "  $PWD"
@@ -30,8 +30,8 @@ echo "  $INDEX_DIR" && \
 
 cd $INDEX_DIR && \
 
-sudo sh prepare.sh && \
-sh init-runtime.sh && \
+sudo sh prepare.sh || (echo "Prepare script failed." && exit 1)
+sh init-runtime.sh || (echo "Init runtime script failed." && exit 1)
 
 echo "" && \
 echo "The GreenSense index is initialized and ready to use."
