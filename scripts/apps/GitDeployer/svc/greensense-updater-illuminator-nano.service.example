@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c 'mkdir -p /usr/local/git-deployer/ && cd /usr/local/git-deployer/ && wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/GitDeployer/start-git-deployer-from-github.sh | sh -s -- 120 https://github.com/GreenSense/LightPRSensorCalibratedLight.git tmp/LightPRSensorCalibratedLight "sh pull-build-and-upload-nano.sh" ttyUSB0'
+ ExecStart=/bin/nash -c 'mkdir -p /usr/local/git-deployer/ && cd /usr/local/git-deployer/ && wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/GitDeployer/start-git-deployer-from-github.sh | sh -s -- 120 https://github.com/GreenSense/LightPRSensorCalibratedLight.git tmp/LightPRSensorCalibratedLight "sh pull-build-and-upload-nano.sh" ttyUSB0'
 
  [Install]
  WantedBy=multi-user.target
