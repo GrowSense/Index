@@ -55,11 +55,14 @@ namespace GreenSense.Index.Tests.Hardware
             // Wait while the process runs
             var addProcessKey = "add-" + deviceInfo.Port;
 
-            Assert.IsTrue (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (addProcessKey), "Can't find add device process.");
+            Assert.AreEqual (1, deviceManager.BackgroundStarter.QueuedProcesses.Count, "Invalid process count.");
 
-            while (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (addProcessKey)
-                   && !deviceManager.BackgroundStarter.StartedProcesses [addProcessKey].Process.HasExited)
-                Thread.Sleep (50);
+            var addProcessWrapper = deviceManager.BackgroundStarter.QueuedProcesses.Peek ();
+
+            Assert.AreEqual (addProcessKey, addProcessWrapper.Key, "Can't find add device process.");
+
+            while (addProcessWrapper != null && !addProcessWrapper.HasExited)
+                Thread.Sleep (200);
 
             var output = ReadPlugAndPlayLogFile ();
 
@@ -83,11 +86,16 @@ namespace GreenSense.Index.Tests.Hardware
             // Wait while the process runs
             var removeProcessKey = "remove-" + deviceInfo.Port;
 
-            Assert.IsTrue (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (removeProcessKey), "Can't find remove device process.");
+            Assert.AreEqual (addProcessKey, addProcessWrapper.Key, "Can't find add device process.");
 
-            while (deviceManager.BackgroundStarter.StartedProcesses.ContainsKey (removeProcessKey)
-                   && !deviceManager.BackgroundStarter.StartedProcesses [removeProcessKey].Process.HasExited)
-                Thread.Sleep (50);
+            Assert.AreEqual (1, deviceManager.BackgroundStarter.QueuedProcesses.Count, "Invalid process count.");
+
+            var removeProcessWrapper = deviceManager.BackgroundStarter.QueuedProcesses.Peek ();
+
+            Assert.AreEqual (removeProcessKey, removeProcessWrapper.Key, "Can't find remove device process.");
+
+            while (addProcessWrapper != null && !addProcessWrapper.HasExited)
+                Thread.Sleep (200);
 
             var deviceRemovedText = "Garden device removed: " + deviceName;
 
