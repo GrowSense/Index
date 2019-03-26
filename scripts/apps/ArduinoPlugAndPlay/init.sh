@@ -19,7 +19,7 @@ fi
 #  wget --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
 #fi
 
-sh install-package.sh ArduinoPlugAndPlay 1.0.0.55 || exit 1
+sh install-package.sh ArduinoPlugAndPlay 1.0.0.67 || exit 1
 
 echo "Installation complete. Launching plug and play."
 
