@@ -92,4 +92,5 @@ echo "Creating garden..."
 
 sudo sh create-garden.sh
 
+
 echo "Finished setting up plug and play"
