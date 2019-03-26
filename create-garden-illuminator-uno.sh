@@ -41,6 +41,6 @@ sh create-mqtt-bridge-service.sh illuminator $DEVICE_NAME $DEVICE_PORT && \
 sh create-updater-service.sh illuminator uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-illuminator-uno-sketch.sh $DEVICE_PORT && \
+#sh upload-illuminator-uno-sketch.sh $DEVICE_PORT && \
 
 echo "Garden illuminator created with device name '$DEVICE_NAME'"

@@ -40,7 +40,7 @@ sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 sh create-device-info.sh nano irrigator SoilMoistureSensorCalibratedPump $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Upload sketch
-sh upload-irrigator-nano-sketch.sh $DEVICE_PORT && \
+#sh upload-irrigator-nano-sketch.sh $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
