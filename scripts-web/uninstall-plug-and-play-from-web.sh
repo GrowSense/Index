@@ -12,7 +12,7 @@ if [ ! -d $PNP_INSTALL_DIR ]; then
   exit 1
 fi
 
-INDEX_DIR="$PNP_INSTALL_DIR/workspace/GreenSense/Index"
+INDEX_DIR="/usr/local/GreenSense/Index"
 
 echo "Checking for GreenSense index dir..."
 if [ ! -d $INDEX_DIR ]; then

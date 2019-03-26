@@ -54,27 +54,22 @@ echo "MQTT Port: $MQTT_PORT"
 
 
 echo "Deploying workspace..."
-INSTALL_DIR="/usr/local/ArduinoPlugAndPlay"
-sudo mkdir -p $INSTALL_DIR || exit 1
+PNP_INSTALL_DIR="/usr/local/ArduinoPlugAndPlay"
+sudo mkdir -p $PNP_INSTALL_DIR || exit 1
 
-cd $INSTALL_DIR
+cd $PNP_INSTALL_DIR
 
 echo "Importing GreenSense config file..."
 
 sudo wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O ArduinoPlugAndPlay.exe.config || (echo "Failed downloading GreenSense plug and play config file." && exit 1)
 
-
 echo "Installing plug and play..."
 
 wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/dev/scripts-web/install-from-web.sh | sudo bash -s - dev  || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
 
-echo "Creating workspace..."
-WORKSPACE_DIR="$INSTALL_DIR/workspace"
-sudo mkdir -p $WORKSPACE_DIR || exit 1
-cd $WORKSPACE_DIR
-echo "  $WORKSPACE_DIR"
+cd "/usr/local"
 
-INDEX_DIR="$WORKSPACE_DIR/GreenSense/Index"
+INDEX_DIR="/usr/local/GreenSense/Index"
 
 echo "Setting up GreenSense index..."
 
