@@ -1,6 +1,8 @@
 
 # Restore the backed up settings
-cp settings.json.bak settings.json -f
+if [ -f "settings.json.bak" ]; then
+  cp settings.json.bak settings.json -f
+fi
 
 # Extract the template parts
 sh extract-parts.sh
