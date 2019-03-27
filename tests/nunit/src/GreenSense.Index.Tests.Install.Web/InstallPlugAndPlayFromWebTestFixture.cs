@@ -20,7 +20,8 @@ namespace GreenSense.Index.Tests.Install.Web
 
             var scriptPath = Path.GetFullPath ("install-plug-and-play-from-web.sh");
 
-            var branch = new BranchDetector ().GetBranch ();
+            var branchDetector = new BranchDetector ();
+            var branch = branchDetector.Branch;
 
             var destination = "installation/ArduinoPlugAndPlay";
 
@@ -40,7 +41,9 @@ namespace GreenSense.Index.Tests.Install.Web
             var mqttUser = "user";
             var mqttPass = "pass";
 
-            var cmd = "bash " + scriptPath + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass;
+            var installDir = "installation";
+
+            var cmd = "bash " + scriptPath + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass;
 
             Console.WriteLine ("Command:");
             Console.WriteLine ("  " + cmd);
