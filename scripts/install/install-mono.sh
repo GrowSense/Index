@@ -1,10 +1,13 @@
-echo "USE_MONO4=$USE_MONO4"
-
 if [ ! $USE_MONO4 ]; then
+  echo "Environment variable USE_MONO4 not set. Checking for use-mono4.txt file..."
   if [ -f "use-mono4.txt" ]; then
     USE_MONO4=1
+  else
+    USE_MONO4=0
   fi
 fi
+
+echo "USE_MONO4=$USE_MONO4"
 
 if [ $USE_MONO4 = 1 ]; then
   if ! type "xbuild" > /dev/null; then
