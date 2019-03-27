@@ -16,7 +16,7 @@ if [ -d "$DEVICES_DIR" ]; then
         echo "Found device info:"
         echo $d
         DEVICE_GROUP=$(cat $d/group.txt)
-        echo "  Device type: $DEVICE_TYPE"
+        echo "  Device type: $DEVICE_GROUP"
         DEVICE_NAME=$(cat $d/name.txt)
         echo "  Device name: $DEVICE_NAME"
         DEVICE_LABEL=$(cat $d/label.txt)

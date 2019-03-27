@@ -44,9 +44,11 @@ sh init-runtime.sh $BRANCH || (echo "Failed to update GreenSense index. Script: 
 echo "Recreating UI..."
 sh recreate-garden-ui.sh || (echo "Failed to recreate garden UI. Script: recreate-garden-ui.sh" && exit 1)
 
-systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
+echo "Recreating garden services..."
+sh recreate-garden-services.sh || (echo "Failed to recreate garden services. Script: recreate-garden-services.sh" && exit 1)
 
-sh restart-garden.sh || (echo "Failed to restart garden services." && exit 1)
+echo "Reloading systemctl..."
+systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
 
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
 wget -v --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s - $BRANCH || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
