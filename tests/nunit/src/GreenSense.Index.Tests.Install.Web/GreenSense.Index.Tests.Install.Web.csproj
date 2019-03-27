@@ -39,6 +39,7 @@
     <Compile Include="SetWiFiCredentialsFromWebTestFixture.cs" />
     <Compile Include="SetMqttCredentialsFromWebTestFixture.cs" />
     <Compile Include="SetCredentialsFromWebTestFixture.cs" />
+    <Compile Include="UpdatePlugAndPlayFromWebTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

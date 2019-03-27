@@ -1,18 +1,30 @@
 echo "Updating GreenSense plug and play..."
 
 BRANCH=$1
+INSTALL_DIR=$2
 
-EXAMPLE_COMMAND="Example:\n..sh [branch]"
+EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir]"
 
 if [ ! $BRANCH ]; then
   BRANCH="master"
 fi
 
+if [ "$INSTALL_DIR" = "?" ]; then
+    INSTALL_DIR="/usr/local/GreenSense/Index"
+fi
+if [ ! "$INSTALL_DIR" ]; then
+    INSTALL_DIR="/usr/local/GreenSense/Index"
+fi
+
 echo "Branch: $BRANCH"
 
-PNP_INSTALL_DIR="/usr/local/ArduinoPlugAndPlay"
 
-echo "Branch name: $BRANCH"
+INDEX_DIR="$INSTALL_DIR"
+GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
+BASE_DIR="$(dirname $GREENSENSE_DIR)"
+
+PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
+
 
 echo "Checking for ArduinoPlugAndPlay install dir..."
 if [ ! -d $PNP_INSTALL_DIR ]; then
@@ -22,7 +34,7 @@ if [ ! -d $PNP_INSTALL_DIR ]; then
   exit 1
 fi
 
-INDEX_DIR="/usr/local/GreenSense/Index"
+INDEX_DIR=$INSTALL_DIR
 
 echo "Checking for GreenSense index dir..."
 if [ ! -d $INDEX_DIR ]; then
@@ -51,7 +63,7 @@ echo "Reloading systemctl..."
 systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
 
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
-wget -v --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s - $BRANCH || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
+wget -v --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
 
 
 echo "Finished reinstalling GreenSense plug and play!"
