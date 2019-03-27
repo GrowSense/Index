@@ -338,5 +338,13 @@ namespace GreenSense.Index.Tests
 
             //Directory.Delete (tmpDir, true);
         }
+
+        public void EnableMocking (string path, string key)
+        {
+            var filePath = Path.GetFullPath (path) + "/is-mock-" + key + ".txt";
+            Directory.CreateDirectory (Path.GetDirectoryName (filePath));
+            File.WriteAllText (filePath, 1.ToString ());
+
+        }
     }
 }

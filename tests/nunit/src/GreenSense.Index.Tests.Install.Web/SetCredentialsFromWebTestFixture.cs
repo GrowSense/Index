@@ -7,7 +7,7 @@ namespace GreenSense.Index.Tests.Install.Web
     [TestFixture (Category = "InstallFromWeb")]
     public class SetCredentialsFromWebTestFixture : BaseTestFixture
     {
-        //[Test]
+        [Test]
         public void Test_SetCredentialsFromWeb ()
         {
             MoveToTemporaryDirectory ();
@@ -25,7 +25,7 @@ namespace GreenSense.Index.Tests.Install.Web
             var branchDetector = new BranchDetector ();
             var branch = branchDetector.Branch;
 
-            var installDir = "installation";
+            var installDir = Path.GetFullPath ("installation");
 
             var random = new Random ();
 
@@ -41,6 +41,9 @@ namespace GreenSense.Index.Tests.Install.Web
 
             Console.WriteLine ("Command:");
             Console.WriteLine ("  " + cmd);
+
+            EnableMocking (installDir, "systemctl");
+            EnableMocking (installDir, "mqtt-bridge");
 
             var starter = new ProcessStarter ();
 

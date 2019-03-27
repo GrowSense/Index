@@ -7,7 +7,7 @@ namespace GreenSense.Index.Tests.Install.Web
     [TestFixture (Category = "InstallFromWeb")]
     public class InstallPlugAndPlayFromWebTestFixture : BaseTestFixture
     {
-        //[Test]
+        [Test]
         public void Test_Install_FromWeb ()
         {
             MoveToTemporaryDirectory ();
@@ -23,27 +23,28 @@ namespace GreenSense.Index.Tests.Install.Web
             var branchDetector = new BranchDetector ();
             var branch = branchDetector.Branch;
 
-            var destination = "installation/ArduinoPlugAndPlay";
+            var installDir = Path.GetFullPath ("GreenSense/Index");
 
-            // Configure systemctl mocking
-            var isMockSystemCtlFile = Path.Combine (TemporaryDirectory, destination + "/is-mock-systemctl.txt");
-            Directory.CreateDirectory (Path.GetDirectoryName (isMockSystemCtlFile));
-            File.WriteAllText (isMockSystemCtlFile, 1.ToString ());
+            EnableMocking (installDir, "systemctl");
+            EnableMocking (installDir, "mqtt-bridge");
+            EnableMocking (installDir, "docker");
+            EnableMocking (installDir, "install");
 
-            // Configure install mocking
-            var isMockInstallFile = Path.Combine (TemporaryDirectory, destination + "/is-mock-install.txt");
-            Directory.CreateDirectory (Path.GetDirectoryName (isMockInstallFile));
-            File.WriteAllText (isMockInstallFile, 1.ToString ());
+            var pnpInstallDir = Path.GetFullPath ("ArduinoPlugAndPlay");
 
-            var wifiName = "MyWifi";
-            var wifiPass = "MyWifiPass";
-            var mqttHost = "localhost";
-            var mqttUser = "user";
-            var mqttPass = "pass";
+            EnableMocking (pnpInstallDir, "systemctl");
 
-            var installDir = "installation";
+            var random = new Random ();
 
-            var cmd = "bash " + scriptPath + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass;
+            var wifiName = "MyWifi" + random.Next (99);
+            var wifiPass = "MyPass" + random.Next (99);
+
+            var mqttHost = "10.0.0." + random.Next (99);
+            var mqttUser = "user" + random.Next (99);
+            var mqttPass = "pass" + random.Next (99);
+            var mqttPort = "18" + random.Next (99);
+
+            var cmd = "bash " + scriptPath + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort;
 
             Console.WriteLine ("Command:");
             Console.WriteLine ("  " + cmd);
@@ -60,9 +61,14 @@ namespace GreenSense.Index.Tests.Install.Web
 
             Assert.IsFalse (starter.IsError, "An error occurred.");
 
-            var expectedServiceFile = Path.Combine (Path.Combine (TemporaryDirectory, destination), "mock/services/arduino-plug-and-play.service");
-
+            Console.WriteLine ("Checking that the ArduinoPlugAndPlay service file was installed.");
+            var expectedServiceFile = Path.Combine (pnpInstallDir, "mock/services/arduino-plug-and-play.service");
             Assert.IsTrue (File.Exists (expectedServiceFile), "Plug and play service file not found.");
+
+            Console.WriteLine ("Checking that GreenSense index was installed.");
+            var indexGitDir = Path.Combine (installDir, ".git");
+            Assert.IsTrue (Directory.Exists (indexGitDir), "The GreenSense index .git folder wasn't found.");
+
         }
     }
 }
