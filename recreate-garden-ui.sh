@@ -10,7 +10,7 @@ cd $DIR
 
 echo "Recreating linear MQTT UI"
 if [ -d "$DEVICES_DIR" ]; then
-    for d in $DEVICES_DIR/; do
+    for d in $DEVICES_DIR/*; do
     
       if [ -f $d/name.txt ]; then
         echo "Found device info:"
