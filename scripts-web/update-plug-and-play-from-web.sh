@@ -41,6 +41,9 @@ sh update-all.sh $BRANCH || (echo "Failed to update GreenSense index. Script: up
 echo "Reinitializing index..."
 sh init-runtime.sh $BRANCH || (echo "Failed to update GreenSense index. Script: init-runtime.sh" && exit 1)
 
+echo "Recreating UI..."
+sh recreate-garden-ui.sh || (echo "Failed to recreate garden UI. Script: recreate-garden-ui.sh" && exit 1)
+
 systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
 
 sh restart-garden.sh || (echo "Failed to restart garden services." && exit 1)
