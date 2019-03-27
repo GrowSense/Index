@@ -55,7 +55,7 @@ echo "MQTT Port: $MQTT_PORT"
 
 echo "Creating ArduinoPlugAndPlay dir..."
 PNP_INSTALL_DIR="/usr/local/ArduinoPlugAndPlay"
-sudo mkdir -p $PNP_INSTALL_DIR || exit 1
+sudo mkdir -p $PNP_INSTALL_DIR || (echo "Failed to create ArduinoPlugAndPlay directory." && exit 1)
 
 cd $PNP_INSTALL_DIR
 
