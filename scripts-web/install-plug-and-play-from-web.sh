@@ -53,25 +53,21 @@ echo "MQTT Password: [hidden]"
 echo "MQTT Port: $MQTT_PORT"
 
 
-echo "Deploying workspace..."
+echo "Creating ArduinoPlugAndPlay dir..."
 PNP_INSTALL_DIR="/usr/local/ArduinoPlugAndPlay"
 sudo mkdir -p $PNP_INSTALL_DIR || exit 1
 
 cd $PNP_INSTALL_DIR
 
-echo "Importing GreenSense config file..."
+echo "Importing GreenSense config file into ArduinoPlugAndPlay dir..."
 
 sudo wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O ArduinoPlugAndPlay.exe.config || (echo "Failed downloading GreenSense plug and play config file." && exit 1)
 
-echo "Installing plug and play..."
-
-wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/dev/scripts-web/install-from-web.sh | sudo bash -s - dev  || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
+echo "Setting up GreenSense index..."
 
 cd "/usr/local"
 
 INDEX_DIR="/usr/local/GreenSense/Index"
-
-echo "Setting up GreenSense index..."
 
 if [ ! -d "$INDEX_DIR" ]; then
   sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sudo sh  || (echo "Failed to set up GreenSense index." && exit 1)
@@ -91,6 +87,10 @@ sudo sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_P
 echo "Creating garden..."
 
 sudo sh create-garden.sh
+
+echo "Installing plug and play..."
+
+wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/dev/scripts-web/install-from-web.sh | sudo bash -s - dev  || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
 
 
 echo "Finished setting up plug and play"
