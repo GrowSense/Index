@@ -65,28 +65,33 @@ sudo wget https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/Ar
 
 echo "Setting up GreenSense index..."
 
-cd "/usr/local"
-
 INDEX_DIR="/usr/local/GreenSense/Index"
 
 if [ ! -d "$INDEX_DIR" ]; then
-  sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sudo sh  || (echo "Failed to set up GreenSense index." && exit 1)
+  sudo git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" || (echo "Failed to set up GreenSense index." && exit 1)
+  
+  cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)  
+  
+  sudo sh prepare.sh || (echo "Failed to prepare index" && exit 1)
 fi
-cd $INDEX_DIR
 
-sudo sh update.sh
+cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)
+
+sudo sh update.sh || (echo "Failed to update GreenSense index" && exit 1)
+
+sudo sh init-runtime.sh || (echo "Failed to initialize runtime components" && exit 1)
 
 echo "Setting WiFi credentials..."
 
-sudo sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
+sudo sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD || (echo "Failed to set WiFi credentials" && exit 1)
 
 echo "Setting MQTT credentials..."
 
-sudo sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
+sudo sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || (echo "Failed to set MQTT credentials" && exit 1)
 
 echo "Creating garden..."
 
-sudo sh create-garden.sh
+sudo sh create-garden.sh || (echo "Failed to create garden" && exit 1)
 
 echo "Installing plug and play..."
 

@@ -33,16 +33,16 @@ else
   echo "Removing all devices and services..."
   sh remove-garden-devices.sh || (echo "Failed to remove garden devices." && exit 1)
 
-  cd "/usr/local/"
-
   echo "Removing MQTT bridge install directory..."
-  rm mqtt-bridge -R || (echo "Failed to remove MQTT bridge install directory." && exit 1)
+  rm "/usr/local/mqtt-bridge" -R || (echo "Failed to remove MQTT bridge install directory." && exit 1)
 
   echo "Removing updater (git deployer) install directory..."
-  rm git-deployer -R || (echo "Failed to remove updater (git deployer) install directory." && exit 1)
+  rm "/usr/local/git-deployer" -R || (echo "Failed to remove updater (git deployer) install directory." && exit 1)
 
+  echo "Removing GreenSense directory..."
   rm "/usr/local/GreenSense"  -R || (echo "Failed to remove GreenSense index directory." && exit 1)
-  
-  echo "Finished uninstalling GreenSense plug and play!"
 fi
+
+echo "Finished uninstalling GreenSense plug and play!"
+  
 
