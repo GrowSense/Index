@@ -17,6 +17,7 @@ if [ ! "$INSTALL_DIR" ]; then
 fi
 
 echo "Branch: $BRANCH"
+echo "Install dir: $BRANCH"
 
 
 INDEX_DIR="$INSTALL_DIR"
@@ -60,7 +61,11 @@ echo "Recreating garden services..."
 sh recreate-garden-services.sh || (echo "Failed to recreate garden services. Script: recreate-garden-services.sh" && exit 1)
 
 echo "Reloading systemctl..."
-systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
+if [ ! -f "is-mock-systemctl.txt" ]; then
+  systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
+else
+  echo "[mock] systemctl daemon-reload"
+fi
 
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
 wget -v --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)

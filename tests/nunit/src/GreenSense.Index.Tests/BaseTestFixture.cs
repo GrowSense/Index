@@ -329,7 +329,7 @@ namespace GreenSense.Index.Tests
 
         public void CleanTemporaryDirectory ()
         {
-            var tmpDir = Environment.CurrentDirectory;
+            var tmpDir = TemporaryDirectory;
 
             Directory.SetCurrentDirectory (ProjectDirectory);
 

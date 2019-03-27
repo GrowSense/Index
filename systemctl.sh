@@ -7,7 +7,7 @@ if [ ! -f $MOCK_FLAG_FILE ]; then
   if [ ! "$(id -u)" -eq 0 ]; then
       SUDO='sudo'
   fi
-  $SUDO systemctl $1 $2 $3
+  systemctl $1 $2 $3
 else
   echo "[mock] sudo systemctl $1 $2 $3"
 fi

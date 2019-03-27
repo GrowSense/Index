@@ -5,15 +5,15 @@ using System.IO;
 namespace GreenSense.Index.Tests.Install.Web
 {
     [TestFixture (Category = "InstallFromWeb")]
-    public class UpdatePlugAndPlayFromWebTestFixture : BaseTestFixture
+    public class UninstallPlugAndPlayFromWebTestFixture : BaseTestFixture
     {
         [Test]
-        public void Test_Update_FromWeb ()
+        public void Test_Uninstall_FromWeb ()
         {
             MoveToTemporaryDirectory ();
 
             Console.WriteLine ("");
-            Console.WriteLine ("Preparing update from web test...");
+            Console.WriteLine ("Preparing uninstall from web test...");
             Console.WriteLine ("");
 
             var installDir = Path.GetFullPath ("GreenSense/Index");
@@ -25,9 +25,9 @@ namespace GreenSense.Index.Tests.Install.Web
 
             PrepareGreenSenseInstallation (branch, installDir, pnpInstallDir);
 
-            PullFileFromProject ("scripts-web/update-plug-and-play-from-web.sh", true);
+            PullFileFromProject ("scripts-web/uninstall-plug-and-play-from-web.sh", true);
 
-            var scriptPath = Path.GetFullPath ("update-plug-and-play-from-web.sh");
+            var scriptPath = Path.GetFullPath ("uninstall-plug-and-play-from-web.sh");
             var cmd = "bash " + scriptPath + " " + branch + " " + installDir;
 
             Console.WriteLine ("Command:");
@@ -36,7 +36,7 @@ namespace GreenSense.Index.Tests.Install.Web
             var starter = new ProcessStarter ();
 
             Console.WriteLine ("");
-            Console.WriteLine ("Performing update from web test...");
+            Console.WriteLine ("Performing uninstall from web test...");
             Console.WriteLine ("");
 
             starter.Start (cmd);
@@ -47,16 +47,17 @@ namespace GreenSense.Index.Tests.Install.Web
 
             Console.WriteLine ("Checking that the ArduinoPlugAndPlay service file was installed.");
             var expectedServiceFile = Path.Combine (pnpInstallDir, "mock/services/arduino-plug-and-play.service");
-            Assert.IsTrue (File.Exists (expectedServiceFile), "Plug and play service file not found.");
+            Assert.IsFalse (File.Exists (expectedServiceFile), "Plug and play service file still exists.");
 
             Console.WriteLine ("Checking that GreenSense index was installed.");
-            var indexGitDir = Path.Combine (installDir, ".git");
-            Assert.IsTrue (Directory.Exists (indexGitDir), "The GreenSense index .git folder wasn't found.");
+            var indexDir = installDir;
+            Assert.IsFalse (Directory.Exists (indexDir), "The GreenSense index directory still exists.");
         }
 
         // TODO: Find a faster way of setting up a fake installation instead of doing an actual install
         public void PrepareGreenSenseInstallation (string branch, string greenSenseInstallDir, string arduinoPlugAndPlayInstallDir)
         {
+
             PullFileFromProject ("scripts-web/install-plug-and-play-from-web.sh", true);
 
             var scriptPath = Path.GetFullPath ("install-plug-and-play-from-web.sh");

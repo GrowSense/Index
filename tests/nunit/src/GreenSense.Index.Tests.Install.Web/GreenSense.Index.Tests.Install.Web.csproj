@@ -40,6 +40,7 @@
     <Compile Include="SetMqttCredentialsFromWebTestFixture.cs" />
     <Compile Include="SetCredentialsFromWebTestFixture.cs" />
     <Compile Include="UpdatePlugAndPlayFromWebTestFixture.cs" />
+    <Compile Include="UninstallPlugAndPlayFromWebTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
