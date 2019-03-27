@@ -42,7 +42,7 @@ sh update.sh
 
 DEVICE_NUMBER=1
 
-sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
+#sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
 
 DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
     
