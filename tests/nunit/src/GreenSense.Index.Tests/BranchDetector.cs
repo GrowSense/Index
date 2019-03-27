@@ -1,5 +1,4 @@
 ﻿using System;
-using gitter;
 
 namespace GreenSense.Index.Tests
 {
