@@ -88,6 +88,8 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   mv -f $GREENSENSE_DIR/_tmpclone/.git $INDEX_DIR/.git || (echo "Failed to move from temporary clone .git folder to destination" && exit 1)
   mv -f $GREENSENSE_DIR/_tmpclone/.gitmodules $INDEX_DIR/.gitmodules || (echo "Failed to move from temporary clone .gitmodules to destination" && exit 1)
   
+  rm -r $GREENSENSE_DIR/_tmpclone || (echo "Failed to remove temporary clone directory" && exit 1)
+  
   cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)  
   
   sh prepare.sh || (echo "Failed to prepare index" && exit 1)

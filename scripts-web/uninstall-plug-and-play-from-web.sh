@@ -65,7 +65,7 @@ else
   fi
 
   echo "Removing GreenSense directory..."
-  rm "$BASE_DIR/GreenSense"  -R || (echo "Failed to remove GreenSense index directory." && exit 1)
+  rm $INSTALL_DIR -R || (echo "Failed to remove GreenSense index directory." && exit 1)
 fi
 
 echo "Finished uninstalling GreenSense plug and play!"
