@@ -7,10 +7,10 @@ if [ ! "$BRANCH" ]; then
 fi
 
 echo "Branch: $BRANCH"
-
+echo "Dir: $PWD"
 DIR=$PWD
 
-#git submodule update --init || exit 1
+git submodule update --init || exit 1
 
 echo "Updating SoilMoistureSensorCalibratedSerial"
 

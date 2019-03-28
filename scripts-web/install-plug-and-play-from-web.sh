@@ -109,17 +109,18 @@ echo "Setting MQTT credentials..."
 
 sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || (echo "Failed to set MQTT credentials" && exit 1)
 
-echo "Creating system supervisor service..."
-
-sh create-supervisor-service.sh || (echo "Failed to create supervisor service" && exit 1)
-
 echo "Creating garden..."
 
 sh create-garden.sh || (echo "Failed to create garden" && exit 1)
 
+echo "Creating system supervisor service..."
+
+sh create-supervisor-service.sh || (echo "Failed to create supervisor service" && exit 1)
+
 echo "Installing plug and play..."
 
 wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
+
 
 
 echo "Finished setting up plug and play"
