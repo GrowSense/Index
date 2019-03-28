@@ -49,6 +49,7 @@
     <Compile Include="CreateIlluminatorNanoTestFixture.cs" />
     <Compile Include="SetMqttCredentialsTestFixture.cs" />
     <Compile Include="InstallPlugAndPlayTestFixture.cs" />
+    <Compile Include="UpgradeTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreenSense.Index.Tests\GreenSense.Index.Tests.csproj">

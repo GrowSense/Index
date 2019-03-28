@@ -41,6 +41,7 @@
     <Compile Include="SetCredentialsFromWebTestFixture.cs" />
     <Compile Include="UpdatePlugAndPlayFromWebTestFixture.cs" />
     <Compile Include="UninstallPlugAndPlayFromWebTestFixture.cs" />
+    <Compile Include="UpgradeTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

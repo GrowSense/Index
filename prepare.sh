@@ -2,7 +2,16 @@
 
 DIR=$PWD
 
-apt-get update && apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https mosquitto-clients xmlstarlet && \
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+  if [ ! -f "is-mock-sudo.txt" ]; then
+    SUDO='sudo'
+  fi
+fi
+
+$SUDO apt-get update && $SUDO apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https mosquitto-clients xmlstarlet && \
+
+
 
 cd scripts/install/ && \
 
