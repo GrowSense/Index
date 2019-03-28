@@ -90,13 +90,9 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   
   if [ -d $INDEX_DIR ]; then
     mv $INDEX_DIR.old/*.txt $INDEX_DIR/
+    
+    rm -r $INDEX_DIR.old || (echo "Failed to remove old index directory" && exit 1)
   fi
-  
-#  mv -f $GREENSENSE_DIR/_tmpclone/* $INDEX_DIR/ || (echo "Failed to move from temporary clone folder to destination" && exit 1)
-#  mv -f $GREENSENSE_DIR/_tmpclone/.git $INDEX_DIR/.git || (echo "Failed to move from temporary clone .git folder to destination" && exit 1)
-#  mv -f $GREENSENSE_DIR/_tmpclone/.gitmodules $INDEX_DIR/.gitmodules || (echo "Failed to move from temporary clone .gitmodules to destination" && exit 1)
-  
-  rm -r $INDEX_DIR.old || (echo "Failed to remove old index directory" && exit 1)
   
   cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)  
   
