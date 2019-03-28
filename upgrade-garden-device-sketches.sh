@@ -15,7 +15,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         echo "$DEVICE_LABEL"
         
-        sh update-garden-device-sketch.sh $DEVICE_NAME
+        sh upgrade-garden-device-sketch.sh $DEVICE_NAME
        
         echo ""
     done
