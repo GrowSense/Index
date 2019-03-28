@@ -268,11 +268,12 @@ namespace GreenSense.Index.Tests
 
         public void CheckUpdaterServiceFileWasCreated (string deviceName)
         {
-            var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-updater-" + deviceName + ".service");
+            // TODO: Remove if not needed. Updater has been replaced with update scripts so should now be obsolete
+            /*var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-updater-" + deviceName + ".service");
 
             var fileExists = File.Exists (serviceFile);
 
-            Assert.IsTrue (fileExists, "Updater service file not created: " + serviceFile);
+            Assert.IsTrue (fileExists, "Updater service file not created: " + serviceFile);*/
         }
 
         public string GetServicesDirectory ()
