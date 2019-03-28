@@ -9,7 +9,7 @@ echo "Garden devices..."
 echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
-    for d in "$DEVICES_DIR/*"; do
+    for d in $DEVICES_DIR/*; do
         DEVICE_NAME=$(cat $d/name.txt)
         DEVICE_LABEL=$(cat $d/label.txt)        
         
