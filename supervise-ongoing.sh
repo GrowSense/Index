@@ -1,8 +1,10 @@
 echo "Ongoing updater..."
 
-SLEEP_TIME=120
+SLEEP_TIME=600
 
 sh supervise.sh
+
+echo "Waiting for $SLEEP_TIME seconds before repeating..."
 
 sleep $SLEEP_TIME
 
