@@ -39,14 +39,14 @@ else
   else
     echo "  Needs to be updated."
     
-    sh systemctl.sh stop greensense-mqtt-bridge-$DEVICE_NAME.service
-    
     mkdir -p "logs/updates"
     
     cd "sketches/$DEVICE_GROUP/$DEVICE_PROJECT"
     sh clean.sh
     git pull origin $BRANCH
     cd $DIR
+    
+    sh systemctl.sh stop greensense-mqtt-bridge-$DEVICE_NAME.service
     
     SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
     timeout 5m sh $SCRIPT_NAME $DEVICE_PORT >> logs/updates/$DEVICE_NAME.txt
