@@ -21,8 +21,8 @@ MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
 echo "Publishing to MQTT..."
-echo "Topic: $TOPIC"
-echo "Message: $MESSAGE"
+echo "  Topic: $TOPIC"
+echo "  Message: $MESSAGE"
 
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$TOPIC" -m "$MESSAGE" || \
   (echo "Failed to publish to MQTT" && exit 1)  # Failed

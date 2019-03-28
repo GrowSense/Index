@@ -5,7 +5,7 @@ DEVICES_DIR="devices"
 DIR=$PWD
 
 echo ""
-echo "Upgrading devices..."
+echo "Supervising garden devices..."
 echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
@@ -15,7 +15,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         echo "$DEVICE_LABEL"
         
-        sh upgrade-garden-device-sketch.sh $DEVICE_NAME
+        sh supervise-device.sh $DEVICE_NAME
        
         echo ""
     done

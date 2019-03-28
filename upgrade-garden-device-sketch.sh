@@ -40,7 +40,7 @@ else
   echo "  Device version: $VERSION"
   echo "  Latest version ($BRANCH): $LATEST_FULL_VERSION"
   
-  if [ "$VERSION1" = "$LATEST_FULL_VERSION" ]; then
+  if [ "$VERSION" = "$LATEST_FULL_VERSION" ]; then
     echo "  Already on the latest version. Skipping upload."
   else
     echo "  Needs to be updated."
