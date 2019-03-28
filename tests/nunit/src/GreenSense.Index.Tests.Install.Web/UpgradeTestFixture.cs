@@ -25,6 +25,8 @@ namespace GreenSense.Index.Tests.Install.Web
 
             PrepareGreenSenseInstallation (branch, installDir, pnpInstallDir);
 
+            Directory.SetCurrentDirectory (installDir);
+
             PullFileFromProject ("upgrade.sh", true);
 
             var scriptPath = Path.GetFullPath ("upgrade.sh");
