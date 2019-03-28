@@ -46,7 +46,7 @@ sh create-device-info.sh nano irrigator SoilMoistureSensorCalibratedPump $DEVICE
 sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh irrigator nano $DEVICE_NAME $DEVICE_PORT && \
+#sh create-updater-service.sh irrigator nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Display the device details
 #echo "Device info:"

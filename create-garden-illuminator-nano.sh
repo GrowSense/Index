@@ -38,7 +38,7 @@ sh create-device-info.sh nano illuminator LightPRSensorCalibratedLight $DEVICE_L
 sh create-mqtt-bridge-service.sh illuminator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh illuminator nano $DEVICE_NAME $DEVICE_PORT && \
+#sh create-updater-service.sh illuminator nano $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
 #sh upload-illuminator-nano-sketch.sh $DEVICE_PORT && \

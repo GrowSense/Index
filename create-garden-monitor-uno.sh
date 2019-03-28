@@ -39,7 +39,7 @@ sh create-device-info.sh uno monitor SoilMoistureSensorCalibratedSerial $DEVICE_
 sh create-mqtt-bridge-service.sh monitor $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh monitor uno $DEVICE_NAME $DEVICE_PORT && \
+#sh create-updater-service.sh monitor uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
 #sh upload-monitor-uno-sketch.sh $DEVICE_PORT && \

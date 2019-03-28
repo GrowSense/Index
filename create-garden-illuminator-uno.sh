@@ -38,7 +38,7 @@ sh create-device-info.sh uno illuminator LightPRSensorCalibratedLight $DEVICE_LA
 sh create-mqtt-bridge-service.sh illuminator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh illuminator uno $DEVICE_NAME $DEVICE_PORT && \
+#sh create-updater-service.sh illuminator uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
 #sh upload-illuminator-uno-sketch.sh $DEVICE_PORT && \

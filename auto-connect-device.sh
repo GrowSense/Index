@@ -38,7 +38,7 @@ echo "Automatically adding a device..."
 # Disabled because it's causing problems with tests
 #notify-send "Adding $GROUP_NAME device"
 
-sh update-all.sh
+sh update.sh
 
 DEVICE_NUMBER=1
 

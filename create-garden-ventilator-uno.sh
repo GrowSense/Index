@@ -38,7 +38,7 @@ sh create-device-info.sh uno ventilator TemperatureHumidityDHTSensorFan $DEVICE_
 sh create-mqtt-bridge-service.sh ventilator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh ventilator uno $DEVICE_NAME $DEVICE_PORT && \
+#sh create-updater-service.sh ventilator uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
 ##sh upload-ventilator-uno-sketch.sh $DEVICE_PORT && \
