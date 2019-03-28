@@ -13,9 +13,9 @@ fi
 
 echo "Upgrading pip"
 
-sudo chown $USER ~/.cache/pip -R
+#sudo chown $USER ~/.cache/pip -R
 
-sudo pip install --ignore-installed --upgrade pip
+#sudo pip install --ignore-installed --upgrade pip
 
 echo "Installing pip setuptools"
 
