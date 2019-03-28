@@ -115,7 +115,7 @@ sh create-garden.sh || (echo "Failed to create garden" && exit 1)
 
 echo "Creating system supervisor service..."
 
-sh create-supervisor-service.sh || (echo "Failed to create supervisor service" && exit 1)
+#sh create-supervisor-service.sh || (echo "Failed to create supervisor service" && exit 1)
 
 echo "Installing plug and play..."
 
