@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "mkdir -p /usr/local/git-deployer/ && cd /usr/local/git-deployer/ && wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/GitDeployer/start-git-deployer-from-github.sh | bash -s 120 https://github.com/GreenSense/TemperatureHumidityDHTSensorFan.git tmp/TemperatureHumidityDHTSensorFan sh pull-build-and-upload-nano.sh ttyUSB0"
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/git-deployer/ && cd /usr/local/git-deployer/ && wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/GitDeployer/start-git-deployer-from-github.sh | bash -s 120 https://github.com/GreenSense/TemperatureHumidityDHTSensorFan.git /usr/local/GreenSense/Index/sketches/ventilator/TemperatureHumidityDHTSensorFan sh pull-build-and-upload-nano.sh ttyUSB0"
 
  [Install]
  WantedBy=multi-user.target
