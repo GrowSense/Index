@@ -109,6 +109,10 @@ echo "Setting MQTT credentials..."
 
 sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || (echo "Failed to set MQTT credentials" && exit 1)
 
+echo "Creating system supervisor service..."
+
+sh create-supervisor-service.sh || (echo "Failed to create supervisor service" && exit 1)
+
 echo "Creating garden..."
 
 sh create-garden.sh || (echo "Failed to create garden" && exit 1)
