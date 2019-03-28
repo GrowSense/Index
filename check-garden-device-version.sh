@@ -16,8 +16,10 @@ DEVICE_PROJECT=$(cat "devices/$DEVICE_NAME/project.txt")
 
 echo "  Project name: $DEVICE_PROJECT"
 
-LATEST_BUILD_NUMBER=$(curl -sL https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt)
-LATEST_VERSION_NUMBER=$(curl -sL https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt)
+#LATEST_BUILD_NUMBER=$(curl -sL https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt)
+#LATEST_VERSION_NUMBER=$(curl -sL https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt)
+LATEST_BUILD_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt" -q -O -)
+LATEST_VERSION_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt" -q -O -)
 
 LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
