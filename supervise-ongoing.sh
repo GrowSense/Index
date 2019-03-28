@@ -1,6 +1,6 @@
 echo "Ongoing updater..."
 
-SLEEP_TIME=10
+SLEEP_TIME=60
 
 sh supervise.sh
 

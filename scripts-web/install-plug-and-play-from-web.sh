@@ -82,11 +82,15 @@ echo "Setting up GreenSense index..."
 if [ ! -d "$INDEX_DIR/.git" ]; then
   mkdir -p $INDEX_DIR || (echo "Failed to create GreenSense index directory" && exit 1)
 
-  mv $INDEX_DIR $INDEX_DIR.old
+  if [ -d $INDEX_DIR ]; then
+    mv $INDEX_DIR $INDEX_DIR.old
+  fi
   
   git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
   
-  mv $INDEX_DIR.old/*.txt $INDEX_DIR/
+  if [ -d $INDEX_DIR ]; then
+    mv $INDEX_DIR.old/*.txt $INDEX_DIR/
+  fi
   
 #  mv -f $GREENSENSE_DIR/_tmpclone/* $INDEX_DIR/ || (echo "Failed to move from temporary clone folder to destination" && exit 1)
 #  mv -f $GREENSENSE_DIR/_tmpclone/.git $INDEX_DIR/.git || (echo "Failed to move from temporary clone .git folder to destination" && exit 1)
