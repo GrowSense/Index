@@ -82,13 +82,17 @@ echo "Setting up GreenSense index..."
 if [ ! -d "$INDEX_DIR/.git" ]; then
   mkdir -p $INDEX_DIR || (echo "Failed to create GreenSense index directory" && exit 1)
 
-  git clone --recursive https://github.com/GreenSense/Index.git "$GREENSENSE_DIR/_tmpclone" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
+  mv $INDEX_DIR $INDEX_DIR.old
   
-  mv -f $GREENSENSE_DIR/_tmpclone/* $INDEX_DIR/ || (echo "Failed to move from temporary clone folder to destination" && exit 1)
-  mv -f $GREENSENSE_DIR/_tmpclone/.git $INDEX_DIR/.git || (echo "Failed to move from temporary clone .git folder to destination" && exit 1)
-  mv -f $GREENSENSE_DIR/_tmpclone/.gitmodules $INDEX_DIR/.gitmodules || (echo "Failed to move from temporary clone .gitmodules to destination" && exit 1)
+  git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
   
-  rm -r $GREENSENSE_DIR/_tmpclone || (echo "Failed to remove temporary clone directory" && exit 1)
+  mv $INDEX_DIR.old/*.txt $INDEX_DIR/
+  
+#  mv -f $GREENSENSE_DIR/_tmpclone/* $INDEX_DIR/ || (echo "Failed to move from temporary clone folder to destination" && exit 1)
+#  mv -f $GREENSENSE_DIR/_tmpclone/.git $INDEX_DIR/.git || (echo "Failed to move from temporary clone .git folder to destination" && exit 1)
+#  mv -f $GREENSENSE_DIR/_tmpclone/.gitmodules $INDEX_DIR/.gitmodules || (echo "Failed to move from temporary clone .gitmodules to destination" && exit 1)
+  
+  rm -r $INDEX_DIR.old || (echo "Failed to remove old index directory" && exit 1)
   
   cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)  
   
