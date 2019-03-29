@@ -88,7 +88,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   
   git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
   
-  if [ -d $INDEX_DIR ]; then
+  if [ -d $INDEX_DIR.old ]; then
     mv $INDEX_DIR.old/*.txt $INDEX_DIR/
     
     rm -r $INDEX_DIR.old || (echo "Failed to remove old index directory" && exit 1)
