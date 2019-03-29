@@ -56,7 +56,8 @@ Complete hardware and software setup guides for the GreenSense projects are avai
 |               | Jenkins Software Build #1  | [![Build Status](http://greensense.ddns.net:880/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/badge/icon)](http:/greensense.ddns.net:880/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://greensense.ddns.net:880/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/badge/icon)](http:/greensense.ddns.net:880/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/)  |
 |               | Jenkins Software Build #2  | [![Build Status](http://greensense.ddns.net:881/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/badge/icon)](http:/greensense.ddns.net:881/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://greensense.ddns.net:881/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/badge/icon)](http:/greensense.ddns.net:881/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/)  |
 |               | Jenkins Software Build #3  | [![Build Status](http://greensense.ddns.net:882/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/badge/icon)](http:/greensense.ddns.net:882/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://greensense.ddns.net:882/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/badge/icon)](http:/greensense.ddns.net:882/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/)  |
-|               | Jenkins Hardware Test      | [![Build Status](http://greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/badge/icon)](http:/greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)    | [![Build Status](http://greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/badge/icon)](http:/greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/)  |
+|               | Jenkins Hardware Test #1   | [![Build Status](http://greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/badge/icon)](http:/greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)    | [![Build Status](http://greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/badge/icon)](http:/greensense.ddns.net:8080/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/)  |
+|               | Jenkins Hardware Test #2   | [![Build Status](http://greensense.ddns.net:8081/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/badge/icon)](http:/greensense.ddns.net:8081/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)    | [![Build Status](http://greensense.ddns.net:8081/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/badge/icon)](http:/greensense.ddns.net:8081/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/)  |
 | **MQTT Bridge** |               |               |               |
 |               | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv)  |
 |               | Jenkins Software Build #1  | [![Build Status](http://greensense.ddns.net:880/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/master/badge/icon)](http:/greensense.ddns.net:880/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/master/)  | [![Build Status](http://greensense.ddns.net:880/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/dev/badge/icon)](http:/greensense.ddns.net:880/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/dev/)  |
@@ -89,6 +90,52 @@ Complete hardware and software setup guides for the GreenSense projects are avai
 ## Uptime Monitor
 Monitors the GreenSense infrastructure and live test systems.
 - [Uptime Robot](https://stats.uptimerobot.com/OPj6DfM61)
+
+# GreenSense Plug and Play
+The recommended way to use the GreenSense devices is via plug and play.
+
+Notes:
+- A branch is specified as an argument. By default you can use the "master" branch. Developers can use the "dev" branch.
+- An installation directory can be specified as an argument. Provide a question mark '?' as an argument to use the default location.
+
+## Install GreenSense and Plug and Play
+
+```
+# Use either wget or curl to download and launch the setup process...
+
+# wget
+sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass]
+
+# curl
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass]
+```
+
+Note: The above script will take a long time to run.
+
+## Update GreenSense and Plug and Play
+
+```
+# Use either wget or curl to download and launch the setup process...
+
+# wget
+sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+
+# curl
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+```
+
+## Uninstall GreenSense and Plug and Play
+
+```
+# Use either wget or curl to download and launch the setup process...
+
+# wget
+sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+
+# curl
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+```
+
 
 # Clone and Setup
 
