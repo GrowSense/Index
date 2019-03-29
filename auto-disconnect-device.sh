@@ -15,7 +15,7 @@ echo "Automatically disconnecting device..."
 
 echo "Device port: $DEVICE_PORT"
 
-sh update.sh
+#sh update.sh
 
 echo "Looking for device:"
 
