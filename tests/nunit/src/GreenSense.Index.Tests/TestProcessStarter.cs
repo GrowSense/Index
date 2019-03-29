@@ -15,6 +15,7 @@ namespace GreenSense.Index.Tests
         public bool IsMockSystemCTL = true;
         public bool IsMockHardware = true;
         public bool IsMockMqttBridge = true;
+        public bool IsMockMqtt = true;
 
         public TestProcessStarter ()
         {
@@ -42,7 +43,10 @@ namespace GreenSense.Index.Tests
             else
                 File.Delete (Path.GetFullPath ("is-mock-mqtt-bridge.txt"));
 
-
+            if (IsMockMqtt)
+                File.WriteAllText (Path.GetFullPath ("is-mock-mqtt.txt"), 1.ToString ());
+            else
+                File.Delete (Path.GetFullPath ("is-mock-mqtt.txt"));
 
         }
 

@@ -24,7 +24,11 @@ echo "Publishing to MQTT..."
 echo "  Topic: $TOPIC"
 echo "  Message: $MESSAGE"
 
-mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$TOPIC" -m "$MESSAGE" || \
-  (echo "Failed to publish to MQTT" && exit 1)  # Failed
+if [ ! -f "is-mock-mqtt.txt" ]; then
+  mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$TOPIC" -m "$MESSAGE" || \
+    (echo "Failed to publish to MQTT" && exit 1)  # Failed
+else
+  echo "[mock] mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P [hidden] -p $MQTT_PORT -t \"$TOPIC\" -m \"$MESSAGE\""
+fi
   
 #echo "Successfully published MQTT message."

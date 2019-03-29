@@ -30,7 +30,7 @@ namespace GreenSense.Index.Tests.Install.Web
             PullFileFromProject ("upgrade.sh", true);
 
             var scriptPath = Path.GetFullPath ("upgrade.sh");
-            var cmd = "bash " + scriptPath;// + " " + branch + " " + installDir;
+            var cmd = "bash " + scriptPath;
 
             Console.WriteLine ("Command:");
             Console.WriteLine ("  " + cmd);

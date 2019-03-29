@@ -42,7 +42,7 @@ fi
 #notify-send "Removing $DEVICE_NAME device"
 
 if [ $DEVICE_NAME ]; then
-  sh mqtt-publish "$DEVICE_NAME" "StatusMessage" "Disconnecting"
+  sh mqtt-publish.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting"
 
   echo "Device name: $DEVICE_NAME"
 
@@ -54,7 +54,7 @@ if [ $DEVICE_NAME ]; then
   echo ""
   sh $SCRIPT_NAME "$DEVICE_NAME" || (echo "Disconnect script failed." && exit 1)
   
-  sh mqtt-publish "$DEVICE_NAME" "StatusMessage" "Disconnected"
+  sh mqtt-publish.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
 else
   echo "Device not found."
 fi
