@@ -63,7 +63,7 @@ fi
 
 DEVICE_NAME="$GROUP_NAME$DEVICE_NUMBER"
 
-sh mqtt-publish.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
 
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
@@ -81,7 +81,7 @@ echo "" && \
 sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT ||
 (echo "An error occurred when connecting device" && sh remove-garden-device.sh && exit 1)
 
-sh mqtt-publish.sh "$DEVICE_NAME" "StatusMessage" "Connected"
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
 # Disabled because it's causing problems with tests
 #notify-send "Finished adding $GROUP_NAME device"
