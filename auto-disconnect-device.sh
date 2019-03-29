@@ -11,7 +11,7 @@ if [ ! $DEVICE_PORT ]; then
   exit 1
 fi
 
-echo "Automatically removing device..."
+echo "Automatically disconnecting device..."
 
 echo "Device port: $DEVICE_PORT"
 
@@ -42,6 +42,8 @@ fi
 #notify-send "Removing $DEVICE_NAME device"
 
 if [ $DEVICE_NAME ]; then
+  sh mqtt-publish "$DEVICE_NAME" "StatusMessage" "Disconnecting"
+
   echo "Device name: $DEVICE_NAME"
 
 
@@ -50,8 +52,9 @@ if [ $DEVICE_NAME ]; then
   echo "Remove device script:"
   echo $SCRIPT_NAME "$DEVICE_NAME"
   echo ""
-  sh $SCRIPT_NAME "$DEVICE_NAME" || exit 1
-
+  sh $SCRIPT_NAME "$DEVICE_NAME" || (echo "Disconnect script failed." && exit 1)
+  
+  sh mqtt-publish "$DEVICE_NAME" "StatusMessage" "Disconnected"
 else
   echo "Device not found."
 fi
