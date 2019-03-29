@@ -17,7 +17,7 @@ if [ ! "$INSTALL_DIR" ]; then
 fi
 
 echo "Branch: $BRANCH"
-echo "Install dir: $BRANCH"
+echo "Install dir: $INSTALL_DIR"
 
 
 INDEX_DIR="$INSTALL_DIR"
