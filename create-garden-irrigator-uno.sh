@@ -40,13 +40,13 @@ sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 sh create-device-info.sh uno irrigator SoilMoistureSensorCalibratedPump $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Uploading sketch
-sh upload-irrigator-uno-sketch.sh $DEVICE_PORT && \
+#sh upload-irrigator-uno-sketch.sh $DEVICE_PORT && \
 
 # Set up MQTT bridge service
 sh create-mqtt-bridge-service.sh irrigator $DEVICE_NAME $DEVICE_PORT && \
 
 # Set up update service
-sh create-updater-service.sh irrigator uno $DEVICE_NAME $DEVICE_PORT && \
+#sh create-updater-service.sh irrigator uno $DEVICE_NAME $DEVICE_PORT && \
 
 # Display the device details
 #echo "Device info:"

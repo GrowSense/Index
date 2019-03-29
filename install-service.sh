@@ -22,6 +22,11 @@ if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
   SERVICES_DIR="mock/services"
 fi
 
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+    SUDO='sudo'
+fi
+
 mkdir -p $SERVICES_DIR
 
 echo "Services directory:"
@@ -33,12 +38,12 @@ if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
   echo "Is mock systemctl. Installing to mock directory."
   cp $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE
 else
-  sudo cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE && \
-  sudo chmod 644 $SERVICES_DIR/$SERVICE_FILE && \
-  sudo sh $SYSTEMCTL_SCRIPT daemon-reload && \
-  sudo sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
-  sudo sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
-  sudo sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
+  $SUDO cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE && \
+  $SUDO chmod 644 $SERVICES_DIR/$SERVICE_FILE && \
+  sh $SYSTEMCTL_SCRIPT daemon-reload && \
+  sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
+  sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
+  sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
 fi
 
 echo "Finished installing service"

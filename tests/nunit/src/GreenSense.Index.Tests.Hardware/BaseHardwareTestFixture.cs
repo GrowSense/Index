@@ -9,9 +9,21 @@ namespace GreenSense.Index.Tests.Hardware
         }
 
 
-        public string GetDevicePort ()
+        public string GetIrrigatorPort ()
         {
             var devicePort = Environment.GetEnvironmentVariable ("IRRIGATOR_PORT");
+
+            if (String.IsNullOrEmpty (devicePort))
+                devicePort = "/dev/ttyUSB0";
+
+            Console.WriteLine ("Device port: " + devicePort);
+
+            return devicePort;
+        }
+
+        public string GetIrrigatorESPPort ()
+        {
+            var devicePort = Environment.GetEnvironmentVariable ("IRRIGATOR_ESP_PORT");
 
             if (String.IsNullOrEmpty (devicePort))
                 devicePort = "/dev/ttyUSB1";
@@ -21,9 +33,21 @@ namespace GreenSense.Index.Tests.Hardware
             return devicePort;
         }
 
-        public string GetDevicePort2 ()
+        public string GetIlluminatorPort ()
         {
             var devicePort = Environment.GetEnvironmentVariable ("ILLUMINATOR_PORT");
+
+            if (String.IsNullOrEmpty (devicePort))
+                devicePort = "/dev/ttyUSB2";
+
+            Console.WriteLine ("Device port: " + devicePort);
+
+            return devicePort;
+        }
+
+        public string GetVentilatorPort ()
+        {
+            var devicePort = Environment.GetEnvironmentVariable ("VENTILATOR_PORT");
 
             if (String.IsNullOrEmpty (devicePort))
                 devicePort = "/dev/ttyUSB3";
@@ -38,7 +62,7 @@ namespace GreenSense.Index.Tests.Hardware
             var simulatorPort = Environment.GetEnvironmentVariable ("IRRIGATOR_SIMULATOR_PORT");
 
             if (String.IsNullOrEmpty (simulatorPort))
-                simulatorPort = "/dev/ttyUSB1";
+                simulatorPort = "/dev/ttyUSB4";
 
             Console.WriteLine ("Simulator port: " + simulatorPort);
 

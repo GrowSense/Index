@@ -26,7 +26,7 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'echo "Skipped prepare to speed up tests." # sh prepare.sh'
+                sh 'echo "Prepare disabled to speed up tests." # sh prepare.sh'
             }
         }
         stage('Init') {
@@ -87,6 +87,18 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  

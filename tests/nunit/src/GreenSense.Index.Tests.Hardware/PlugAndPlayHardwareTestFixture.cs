@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using ArduinoPlugAndPlay;
 using ArduinoPlugAndPlay.Tests;
+using System.IO;
+using System.Threading;
 
 namespace GreenSense.Index.Tests.Hardware
 {
@@ -25,10 +27,10 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.Platformio = mockPlatformio;
             deviceManager.ReaderWriter = mockReaderWriter;
 
-            deviceManager.DeviceAddedCommand = "sh auto-add-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
-            deviceManager.DeviceRemovedCommand = "sh auto-remove-device.sh {PORT}";
+            deviceManager.DeviceAddedCommand = "sh auto-connect-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
+            deviceManager.DeviceRemovedCommand = "sh auto-disconnect-device.sh {PORT}";
 
-            var shortPortName = GetDevicePort ().Replace ("/dev/", "");
+            var shortPortName = GetIrrigatorPort ().Replace ("/dev/", "");
 
             var deviceInfo = new DeviceInfo ();
 
@@ -50,8 +52,22 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.RunLoop ();
             Console.WriteLine (ProjectDirectory);
 
+            // Wait while the process runs
+            var addProcessKey = "add-" + deviceInfo.Port;
+
+            Assert.AreEqual (1, deviceManager.BackgroundStarter.QueuedProcesses.Count, "Invalid process count.");
+
+            var addProcessWrapper = deviceManager.BackgroundStarter.QueuedProcesses.Peek ();
+
+            Assert.AreEqual (addProcessKey, addProcessWrapper.Key, "Can't find add device process.");
+
+            while (addProcessWrapper != null && !addProcessWrapper.HasExited)
+                Thread.Sleep (200);
+
+            var output = ReadPlugAndPlayLogFile ();
+
             var deviceCreatedText = "Garden " + deviceInfo.GroupName + " created with device name '" + deviceInfo.GroupName + "1'";
-            Assert.IsTrue (deviceManager.Starter.Output.Contains (deviceCreatedText));
+            Assert.IsTrue (output.Contains (deviceCreatedText), "Didn't find the expected output in the log: " + deviceCreatedText);
 
             Assert.IsFalse (deviceManager.Starter.IsError, "An error occurred.");
 
@@ -67,12 +83,40 @@ namespace GreenSense.Index.Tests.Hardware
 
             deviceManager.RunLoop ();
 
+            // Wait while the process runs
+            var removeProcessKey = "remove-" + deviceInfo.Port;
+
+            Assert.AreEqual (addProcessKey, addProcessWrapper.Key, "Can't find add device process.");
+
+            Assert.AreEqual (1, deviceManager.BackgroundStarter.QueuedProcesses.Count, "Invalid process count.");
+
+            var removeProcessWrapper = deviceManager.BackgroundStarter.QueuedProcesses.Peek ();
+
+            Assert.AreEqual (removeProcessKey, removeProcessWrapper.Key, "Can't find remove device process.");
+
+            while (addProcessWrapper != null && !addProcessWrapper.HasExited)
+                Thread.Sleep (200);
+
             var deviceRemovedText = "Garden device removed: " + deviceName;
 
-            Assert.IsTrue (deviceManager.Starter.Output.Contains (deviceRemovedText));
+            output = ReadPlugAndPlayLogFile ();
+
+            Assert.IsTrue (output.Contains (deviceRemovedText));
 
             Assert.IsFalse (deviceManager.Starter.IsError, "An error occurred.");
 
+
+        }
+
+        public string ReadPlugAndPlayLogFile ()
+        {
+            var output = String.Empty;
+
+            var logsDir = Path.Combine (ProjectDirectory, "logs");
+            foreach (var logFile in Directory.GetFiles(logsDir))
+                output = File.ReadAllText (logFile);
+
+            return output;
         }
     }
 }

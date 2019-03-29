@@ -9,7 +9,7 @@ namespace GreenSense.Index.Tests
     {
         public string ProjectDirectory;
 
-        public string ServicesDirectory;
+        public string TemporaryDirectory;
 
         public string LinearMqttSettingsFile = "mobile/linearmqtt/newsettings.json";
 
@@ -34,14 +34,6 @@ namespace GreenSense.Index.Tests
             Console.WriteLine ("");
 
             Directory.SetCurrentDirectory (ProjectDirectory);
-
-            if (File.Exists (Path.GetFullPath ("is-mock-systemctl.txt"))) {
-                ServicesDirectory = Path.Combine (ProjectDirectory, "mock/services");
-            } else {
-                ServicesDirectory = "/lib/systemd/system/";
-            }
-            Console.WriteLine ("Services directory:");
-            Console.WriteLine ("  " + ServicesDirectory);
 
             ClearDevices ();
         }
@@ -131,6 +123,7 @@ namespace GreenSense.Index.Tests
             CheckDeviceSummaryWasCreated (json, deviceLabel, deviceName, summaryValueKey);
             CheckDeviceTabIndexWasCreated (json, deviceLabel, deviceName);
             CheckDeviceTabWasCreated (json, deviceLabel, deviceName, valueLabel, valueKey);
+            CheckFlagWasCreated (deviceName);
         }
 
         public void CheckDeviceSummaryWasCreated (JObject json, string deviceLabel, string deviceName, string dataKey)
@@ -159,15 +152,15 @@ namespace GreenSense.Index.Tests
             //Console.WriteLine("Summary dashboard element:");
             //Console.WriteLine(summaryDeviceMeterElement);
 
-            Console.WriteLine ("Details from json:");
-            Console.WriteLine ("  name: " + summaryDeviceMeterElement ["name"]);
-            Console.WriteLine ("  topic: " + summaryDeviceMeterElement ["topic"]);
+            //Console.WriteLine ("Details from json:");
+            //Console.WriteLine ("  name: " + summaryDeviceMeterElement ["name"]);
+            //Console.WriteLine ("  topic: " + summaryDeviceMeterElement ["topic"]);
 
-            Console.WriteLine ("Checking summary device meter name matches device label...");
+            //Console.WriteLine ("Checking summary device meter name matches device label...");
 
             Assert.AreEqual (deviceLabel, summaryDeviceMeterElement ["name"].ToString (), "Summary element name doesn't match the device label.");
 
-            Console.WriteLine ("Checking summary device meter topic matches device name...");
+            //Console.WriteLine ("Checking summary device meter topic matches device name...");
 
             var expectedTopic = "/" + deviceName + "/" + dataKey;
 
@@ -185,10 +178,10 @@ namespace GreenSense.Index.Tests
             //Console.WriteLine("Device tab element:");
             //Console.WriteLine(deviceTabElement);
 
-            Console.WriteLine ("Details from json:");
-            Console.WriteLine ("  name: " + deviceTabElement ["name"]);
+            //Console.WriteLine ("Details from json:");
+            //Console.WriteLine ("  name: " + deviceTabElement ["name"]);
 
-            Console.WriteLine ("Checking device tab name matches device label...");
+            //Console.WriteLine ("Checking device tab name matches device label...");
 
             Assert.AreEqual (deviceLabel, deviceTabElement ["name"].ToString (), "Summary element name doesn't match the device label.");
         }
@@ -204,9 +197,9 @@ namespace GreenSense.Index.Tests
             // Disabled to reduce the console output length
             //Console.WriteLine("Device element:");
             //Console.WriteLine(deviceElement);
-            Console.WriteLine ("Device element ID: " + deviceElementId);
+            //Console.WriteLine ("Device element ID: " + deviceElementId);
 
-            Console.WriteLine ("Checking device element ID is correct...");
+            //Console.WriteLine ("Checking device element ID is correct...");
 
             var expectedDeviceElementId = "2";
 
@@ -221,17 +214,17 @@ namespace GreenSense.Index.Tests
             //Console.WriteLine("Value meter element:");
             //Console.WriteLine(valueMeterElement);
 
-            Console.WriteLine ("Details from json:");
-            Console.WriteLine ("  name: " + valueMeterElement ["name"]);
-            Console.WriteLine ("  topic: " + valueMeterElement ["topic"]);
+            //Console.WriteLine ("Details from json:");
+            //Console.WriteLine ("  name: " + valueMeterElement ["name"]);
+            //Console.WriteLine ("  topic: " + valueMeterElement ["topic"]);
 
-            Console.WriteLine ("Checking value meter name is valid...");
+            //Console.WriteLine ("Checking value meter name is valid...");
 
             var expectedValueMeterName = valueMeterLabel;
 
             Assert.AreEqual (expectedValueMeterName, valueMeterElement ["name"].ToString (), "Value meter name is invalid.");
 
-            Console.WriteLine ("Checking value meter topic matches device name...");
+            //Console.WriteLine ("Checking value meter topic matches device name...");
 
             var expectedValueMeterTopic = "/" + deviceName + "/" + valueKey;
 
@@ -255,20 +248,104 @@ namespace GreenSense.Index.Tests
 
         public void CheckMqttBridgeServiceFileWasCreated (string deviceName)
         {
-            var serviceFile = Path.Combine (ServicesDirectory, "greensense-mqtt-bridge-" + deviceName + ".service");
+            var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-mqtt-bridge-" + deviceName + ".service");
 
             var fileExists = File.Exists (serviceFile);
 
             Assert.IsTrue (fileExists, "MQTT bridge service file not created: " + serviceFile);
         }
 
+        public void CheckFlagWasCreated (string deviceName)
+        {
+            var deviceInfoDir = Path.Combine (ProjectDirectory, "devices/" + deviceName);
+
+            var flagFile = Path.Combine (deviceInfoDir, "is-ui-created.txt");
+
+            var fileExists = File.Exists (flagFile);
+
+            Assert.IsTrue (fileExists, "'UI is created' flag file not found: " + flagFile);
+        }
+
         public void CheckUpdaterServiceFileWasCreated (string deviceName)
         {
-            var serviceFile = Path.Combine (ServicesDirectory, "greensense-updater-" + deviceName + ".service");
+            // TODO: Remove if not needed. Updater has been replaced with update scripts so should now be obsolete
+            /*var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-updater-" + deviceName + ".service");
 
             var fileExists = File.Exists (serviceFile);
 
-            Assert.IsTrue (fileExists, "Updater service file not created: " + serviceFile);
+            Assert.IsTrue (fileExists, "Updater service file not created: " + serviceFile);*/
+        }
+
+        public string GetServicesDirectory ()
+        {
+            var servicesDirectory = "";
+            if (File.Exists (Path.GetFullPath (Path.Combine (ProjectDirectory, "is-mock-systemctl.txt")))) {
+                servicesDirectory = Path.Combine (ProjectDirectory, "mock/services");
+            } else {
+                servicesDirectory = "/lib/systemd/system/";
+            }
+            return servicesDirectory;
+        }
+
+
+        public void PullFileFromProject (string fileName)
+        {
+            PullFileFromProject (fileName, false);
+        }
+
+        public void PullFileFromProject (string fileName, bool removeDestinationDirectory)
+        {
+            var sourceFile = Path.Combine (ProjectDirectory, fileName);
+            var destinationFile = Path.Combine (TemporaryDirectory, fileName);
+
+            if (removeDestinationDirectory) {
+                var shortenedFileName = Path.GetFileName (fileName);
+                destinationFile = Path.Combine (TemporaryDirectory, shortenedFileName);
+            }
+
+            File.Copy (sourceFile, destinationFile);
+        }
+
+        public void MoveToProjectDirectory ()
+        {
+            Directory.SetCurrentDirectory (ProjectDirectory);
+        }
+
+        public void MoveToTemporaryDirectory ()
+        {
+            var tmpDir = Path.Combine (ProjectDirectory, "_tmp");
+
+            if (!Directory.Exists (tmpDir))
+                Directory.CreateDirectory (tmpDir);
+
+            var tmpTestDir = Path.Combine (tmpDir, Guid.NewGuid ().ToString ());
+
+            if (!Directory.Exists (tmpTestDir))
+                Directory.CreateDirectory (tmpTestDir);
+
+            TemporaryDirectory = tmpTestDir;
+
+            Directory.SetCurrentDirectory (tmpTestDir);
+        }
+
+        public void CleanTemporaryDirectory ()
+        {
+            var tmpDir = TemporaryDirectory;
+
+            Directory.SetCurrentDirectory (ProjectDirectory);
+
+            Console.WriteLine ("Cleaning temporary directory:");
+            Console.WriteLine (tmpDir);
+
+            //Directory.Delete (tmpDir, true);
+        }
+
+        public void EnableMocking (string path, string key)
+        {
+            var filePath = Path.GetFullPath (path) + "/is-mock-" + key + ".txt";
+            Directory.CreateDirectory (Path.GetDirectoryName (filePath));
+            File.WriteAllText (filePath, 1.ToString ());
+
         }
     }
 }

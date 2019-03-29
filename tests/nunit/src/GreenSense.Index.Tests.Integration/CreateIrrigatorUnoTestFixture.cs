@@ -17,8 +17,8 @@ namespace GreenSense.Index.Tests.Integration
             var deviceBoard = "uno";
             var deviceGroup = "irrigator";
             var deviceProject = "SoilMoistureSensorCalibratedPump";
-            var deviceLabel = "MyIrrigator";
-            var deviceName = "myIrrigator";
+            var deviceLabel = "TestIrrigator";
+            var deviceName = "testIrrigator";
             var devicePort = "ttyUSB1";
 
             var arguments = deviceLabel + " " + deviceName + " " + devicePort;

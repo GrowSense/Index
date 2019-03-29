@@ -2,14 +2,23 @@
 
 DIR=$PWD
 
-sudo apt-get update && sudo apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https mosquitto-clients && \
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+  if [ ! -f "is-mock-sudo.txt" ]; then
+    SUDO='sudo'
+  fi
+fi
+
+$SUDO apt-get update && $SUDO apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https mosquitto-clients xmlstarlet && \
+
+
 
 cd scripts/install/ && \
 
 sh install-platformio.sh && \
-sudo sh install-jq.sh && \
-sudo sh install-systemd.sh && \
-sudo sh install-docker.sh && \
-sudo sh install-mono.sh && \
+sh install-jq.sh && \
+sh install-systemd.sh && \
+sh install-docker.sh && \
+sh install-mono.sh && \
 
 cd $DIR

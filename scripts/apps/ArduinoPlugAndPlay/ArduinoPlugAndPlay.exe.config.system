@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appSettings>
+        <add key="DeviceAddedCommand" value="cd /usr/local/GreenSense/Index; sh auto-connect-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}" />
+        <add key="DeviceRemovedCommand" value="cd /usr/local/GreenSense/Index; sh auto-disconnect-device.sh {PORT}" />
+    </appSettings>
+</configuration>

@@ -1,33 +1,33 @@
 ﻿using System;
-using NUnit.Framework;
+using System.Collections.Generic;
 using ArduinoPlugAndPlay;
+using NUnit.Framework;
 using System.IO;
 
 namespace GreenSense.Index.Tests.Hardware
 {
-    [TestFixture (Category = "Hardware")]
-    public class AutoRemoveDeviceHardwareTestFixture : BaseHardwareTestFixture
+    public class AutoDisconnectDeviceHardwareTestHelper : BaseTestHelper
     {
-        [Test]
-        public void Test_AutoRemoveDevice ()
+        public DeviceInfo ExampleDevice;
+
+        public AutoDisconnectDeviceHardwareTestHelper (string projectDirectory) : base (projectDirectory)
+        {
+        }
+
+        public void TestDisconnectDevice ()
         {
 
             var starter = GetTestProcessStarter (false);
             starter.IsMockHardware = false;
             starter.Initialize ();
 
-            var deviceInfo = new DeviceInfo ();
-            deviceInfo.FamilyName = "GreenSense";
-            deviceInfo.GroupName = "irrigator";
-            deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
-            deviceInfo.BoardType = "uno";
-            deviceInfo.Port = GetDevicePort ();
+            var deviceInfo = ExampleDevice;
 
             var deviceName = "TestDevice1";
 
             CreateExampleDevice (deviceName, deviceInfo);
 
-            var cmd = String.Format ("sh auto-remove-device.sh {0}",
+            var cmd = String.Format ("sh auto-disconnect-device.sh {0}",
                           deviceInfo.Port.Replace ("/dev/", "")
                       );
 

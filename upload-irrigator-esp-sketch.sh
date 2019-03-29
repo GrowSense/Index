@@ -40,8 +40,9 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
-echo "Uploading irrigator ESP8266 sketch"
+echo "Uploading irrigator ESP sketch"
 
+echo "Device name: $DEVICE_NAME"
 echo "Serial port: $SERIAL_PORT"
 
 BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
@@ -79,8 +80,9 @@ else
     echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
 fi
 
+# Note: Clean disabled because it messes with tests
 # Clean all settings
-sh clean-settings.sh && \
+#sh clean-settings.sh && \
 
 cd $DIR && \
 

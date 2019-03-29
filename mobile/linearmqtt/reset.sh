@@ -1,3 +1,3 @@
 sh reset-device-count.sh && \
-sh init.sh && \
+sh init-settings.sh && \
 sh extract-parts.sh

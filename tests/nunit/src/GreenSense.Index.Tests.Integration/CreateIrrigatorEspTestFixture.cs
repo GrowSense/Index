@@ -9,28 +9,31 @@ namespace GreenSense.Index.Tests.Integration
         [Test]
         public void Test_CreateIrrigatorEspScript ()
         {
-            var scriptName = "test-irrigator-esp";
+            var scriptName = "create-garden-irrigator-esp.sh";
 
             Console.WriteLine ("Script:");
             Console.WriteLine (scriptName);
 
             var starter = GetTestProcessStarter ();
-            var output = starter.RunScript (scriptName);
-
-            var successfulText = "Irrigator ESP8266 test complete";
-
-            Assert.IsTrue (output.Contains (successfulText), "Failed");
 
             var board = "esp";
             var group = "irrigator";
             var project = "SoilMoistureSensorCalibratedPumpESP";
-            var label = "MyIrrigator";
-            var name = "myirrigator";
+            var label = "MyESPIrrigator";
+            var deviceName = "espIrrigator1";
             var port = "ttyUSB1";
 
-            CheckDeviceInfoWasCreated (board, group, project, label, name, port);
+            var arguments = label + " " + deviceName + " " + port;
 
-            CheckDeviceUIWasCreated (label, name, "Soil Moisture", "C");
+            var output = starter.RunBash ("sh " + scriptName + " " + arguments);
+
+            var successfulText = "Garden irrigator created with device name '" + deviceName + "'";
+
+            Assert.IsTrue (output.Contains (successfulText), "Failed");
+
+            CheckDeviceInfoWasCreated (board, group, project, label, deviceName, port);
+
+            CheckDeviceUIWasCreated (label, deviceName, "Soil Moisture", "C");
         }
     }
 }

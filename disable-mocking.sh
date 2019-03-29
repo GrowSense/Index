@@ -1,0 +1,1 @@
+rm is-mock*.txt

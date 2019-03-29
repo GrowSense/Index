@@ -38,9 +38,12 @@ echo "Automatically adding a device..."
 # Disabled because it's causing problems with tests
 #notify-send "Adding $GROUP_NAME device"
 
-sh update.sh
+#sh update.sh
 
 DEVICE_NUMBER=1
+
+# TODO: Remove if not needed. It shouldn't be needed. Only if plug and play isn't reliable enough at removing devices
+#sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
 
 
 DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
@@ -59,20 +62,28 @@ if [ -d "$DEVICE_INFO_DIR" ]; then
 fi
 
 DEVICE_NAME="$GROUP_NAME$DEVICE_NUMBER"
+
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
+
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
 
 echo "Device info dir:"
 echo $DEVICE_INFO_DIR
 
+DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" && \
 
+SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh && \
+echo "" && \
+echo "Add device script:" && \
+echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT && \
+echo "" && \
+sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT ||
+(echo "An error occurred when connecting device" && sh remove-garden-device.sh && exit 1)
 
-SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh
-echo ""
-echo "Add device script:"
-echo $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
-echo ""
-sh $SCRIPT_NAME "$DEVICE_NAME" "$DEVICE_NAME" $PORT
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
+
+echo "Finished auto connecting device."
 
 # Disabled because it's causing problems with tests
 #notify-send "Finished adding $GROUP_NAME device"

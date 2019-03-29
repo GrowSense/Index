@@ -25,14 +25,13 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'echo "Skipped prepare to speed up tests." # sh prepare.sh'
+                sh 'echo "Prepare disabled to speed up tests." # sh prepare.sh'
             }
         }
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-apps.sh'
-                sh 'sh init-tests.sh'
+                sh 'sh init-all.sh'
             }
         }
         stage('Set MQTT Credentials') {

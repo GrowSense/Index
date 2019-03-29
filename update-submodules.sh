@@ -7,10 +7,10 @@ if [ ! "$BRANCH" ]; then
 fi
 
 echo "Branch: $BRANCH"
-
+echo "Dir: $PWD"
 DIR=$PWD
 
-git submodule update --init
+git submodule update --init --recursive || exit 1
 
 echo "Updating SoilMoistureSensorCalibratedSerial"
 
@@ -67,6 +67,5 @@ git pull origin $BRANCH || exit 1
 
 cd $DIR
 
-#git commit -am "Updated submodules"
 
 echo "Finished updating submodules"

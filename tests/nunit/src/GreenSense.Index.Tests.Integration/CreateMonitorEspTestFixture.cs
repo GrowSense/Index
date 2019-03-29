@@ -9,28 +9,32 @@ namespace GreenSense.Index.Tests.Integration
         [Test]
         public void Test_CreateMonitorEspScript ()
         {
-            var scriptName = "test-monitor-esp";
+
+            var scriptName = "create-garden-monitor-esp.sh";
 
             Console.WriteLine ("Script:");
             Console.WriteLine (scriptName);
 
             var starter = GetTestProcessStarter ();
-            var output = starter.RunScript (scriptName);
-
-            var successfulText = "Monitor ESP8266 test complete";
-
-            Assert.IsTrue (output.Contains (successfulText), "Failed");
 
             var board = "esp";
             var group = "monitor";
             var project = "SoilMoistureSensorCalibratedSerialESP";
-            var label = "MyMonitor";
-            var name = "mymonitor";
-            var port = "ttyUSB0";
+            var label = "MyESPMonitor";
+            var deviceName = "espMonitor1";
+            var port = "ttyUSB1";
 
-            CheckDeviceInfoWasCreated (board, group, project, label, name, port);
+            var arguments = label + " " + deviceName + " " + port;
 
-            CheckDeviceUIWasCreated (label, name, "Soil Moisture", "C");
+            var output = starter.RunBash ("sh " + scriptName + " " + arguments);
+
+            var successfulText = "Garden ESP8266 monitor created with device name '" + deviceName + "'";
+
+            Assert.IsTrue (output.Contains (successfulText), "Failed");
+
+            CheckDeviceInfoWasCreated (board, group, project, label, deviceName, port);
+
+            CheckDeviceUIWasCreated (label, deviceName, "Soil Moisture", "C");
         }
     }
 }

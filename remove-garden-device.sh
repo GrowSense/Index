@@ -11,20 +11,8 @@ if [ ! $DEVICE_NAME ]; then
 else
   echo "Device name: $DEVICE_NAME"
 
-  echo "Stopping/disabling MQTT bridge service" && \
-  sh $SYSTEMCTL_SCRIPT stop greensense-mqtt-bridge-$DEVICE_NAME.service
-  sh $SYSTEMCTL_SCRIPT disable greensense-mqtt-bridge-$DEVICE_NAME.service
-
-  echo "Removing MQTT bridge service" && \
-  rm -f scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/greensense-mqtt-bridge-$DEVICE_NAME.service
-
-  echo "Stopping/disabling service" && \
-  sh $SYSTEMCTL_SCRIPT stop greensense-updater-$DEVICE_NAME.service
-  sh $SYSTEMCTL_SCRIPT disable greensense-updater-$DEVICE_NAME.service
-
-  echo "Removing updater service" && \
-  rm -f scripts/apps/GitDeployer/svc/greensense-updater-$DEVICE_NAME.service
-
+  sh remove-device-services.sh || exit 1 
+  
   echo "Removing device info"
   DEVICE_INFO_DIR="devices/$DEVICE_NAME"
   if [ -d $DEVICE_INFO_DIR ]; then

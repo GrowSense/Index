@@ -57,11 +57,10 @@ if [ "$PASSWORD" ]; then
   cp -f $BRIDGE_SERVICE_CONFIG_FILE.bak $BRIDGE_SERVICE_CONFIG_FILE
   
   echo "Inserting values"
-  sed -i "s/localhost/$HOST/g" $BRIDGE_SERVICE_CONFIG_FILE && \
-  sed -i "s/user/$USERNAME/g" $BRIDGE_SERVICE_CONFIG_FILE && \
-  sed -i "s/123456/$PASSWORD/g" $BRIDGE_SERVICE_CONFIG_FILE
-  sed -i "s/1883/$PORT/g" $BRIDGE_SERVICE_CONFIG_FILE
-
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Host"]/@value' -v "$HOST" $BRIDGE_SERVICE_CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="UserId"]/@value' -v "$USERNAME" $BRIDGE_SERVICE_CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Password"]/@value' -v "$PASSWORD" $BRIDGE_SERVICE_CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="MqttPort"]/@value' -v "$PORT" $BRIDGE_SERVICE_CONFIG_FILE
 
   BRIDGE_SERVICE_CONFIG_FILE2="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   

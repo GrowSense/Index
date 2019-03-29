@@ -1,14 +1,14 @@
-MOCK_FLAG_FILE="../../is-mock-setup.txt"
+MOCK_FLAG_FILE="../../is-mock-docker.txt"
 
 if ! type "docker" > /dev/null; then
-  if [ ! -f "$MOCK_FLAG_FILE" ]; then
+  if [ ! -f $MOCK_FLAG_FILE ]; then
     curl https://get.docker.com/ | sh -s
+    
+    usermod -aG docker $USER || "Failed to add user to docker group."
   else
-    echo "Mock setup. Skipping docker install."
+    echo "Is mock docker. Skipping docker install."
   fi
 else
   echo "Docker is already installed. Skipping."
 fi
-
-sudo usermod -aG docker $USER
 

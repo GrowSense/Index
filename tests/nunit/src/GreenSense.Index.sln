@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenSense.Index.Tests.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenSense.Index.Tests.Hardware", "GreenSense.Index.Tests.Hardware\GreenSense.Index.Tests.Hardware.csproj", "{FAC8A108-0D56-45A6-B8E1-BB41BC5FEC58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenSense.Index.Tests.Install.Web", "GreenSense.Index.Tests.Install.Web\GreenSense.Index.Tests.Install.Web.csproj", "{C508CEA4-44F9-4B29-A15C-A06A4F8FCA5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{5F680715-2487-4569-9E21-E0D6D8936CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F680715-2487-4569-9E21-E0D6D8936CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F680715-2487-4569-9E21-E0D6D8936CDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C508CEA4-44F9-4B29-A15C-A06A4F8FCA5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C508CEA4-44F9-4B29-A15C-A06A4F8FCA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C508CEA4-44F9-4B29-A15C-A06A4F8FCA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C508CEA4-44F9-4B29-A15C-A06A4F8FCA5F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DED5F13A-7978-4986-9FCC-B92F85D72B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DED5F13A-7978-4986-9FCC-B92F85D72B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED5F13A-7978-4986-9FCC-B92F85D72B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
