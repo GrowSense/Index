@@ -83,5 +83,7 @@ sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT ||
 
 sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
+echo "Finished auto connecting device."
+
 # Disabled because it's causing problems with tests
 #notify-send "Finished adding $GROUP_NAME device"

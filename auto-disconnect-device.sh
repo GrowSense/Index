@@ -55,6 +55,8 @@ if [ $DEVICE_NAME ]; then
   sh $SCRIPT_NAME "$DEVICE_NAME" || (echo "Disconnect script failed." && exit 1)
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
+  
+  echo "Finished auto disconnecting device."
 else
   echo "Device not found."
 fi
