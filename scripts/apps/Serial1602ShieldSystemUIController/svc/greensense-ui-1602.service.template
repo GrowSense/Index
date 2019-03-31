@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "mkdir -p /usr/local/Serial1602ShieldSystemUIController/; cd /usr/local/Serial1602ShieldSystemUIController/; wget -O - https://raw.githubusercontent.com/GreenSense/Index/{BRANCH}/scripts/apps/Serial1602ShieldSystemUIController/start-ui-controller-from-github.sh | bash -s --SerialPort={PORT} --DeviceName {DEVICE_NAME} --DevicesDirectory=/usr/local/GreenSense/Index/devices"
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/Serial1602ShieldSystemUIController/; cd /usr/local/Serial1602ShieldSystemUIController/; wget -O - https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/apps/Serial1602ShieldSystemUIController/start-ui-controller-from-github.sh | bash -s --SerialPort={PORT} --DeviceName {DEVICE_NAME} --DevicesDirectory=/usr/local/GreenSense/Index/devices"
 
  [Install]
  WantedBy=multi-user.target
