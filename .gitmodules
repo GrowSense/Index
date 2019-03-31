@@ -16,3 +16,6 @@
 [submodule "sketches/illuminator/LightPRSensorCalibratedLight"]
 	path = sketches/illuminator/LightPRSensorCalibratedLight
 	url = https://github.com/GreenSense/LightPRSensorCalibratedLight.git
+[submodule "sketches/ui/Serial1602ShieldSystemUI"]
+	path = sketches/ui/Serial1602ShieldSystemUI
+	url = https://github.com/GreenSense/Serial1602ShieldSystemUI.git

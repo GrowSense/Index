@@ -43,6 +43,8 @@ namespace GreenSense.Index.Tests.Integration
 
             var installedMqttBridgeConfigFile = "mock/mqtt-bridge/BridgeArduinoSerialToMqttSplitCsv.exe.config";
             CheckMqttBridgeConfigFile (installedMqttBridgeConfigFile, host, username, password, port);
+
+            Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
         }
 
         public void CheckMqttBridgeConfigFile (string configFileName, string host, string username, string password, int port)

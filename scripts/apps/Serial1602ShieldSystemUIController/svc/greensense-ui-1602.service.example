@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense 1602 LCD Shield System UI Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/Serial1602ShieldSystemUIController/; cd /usr/local/Serial1602ShieldSystemUIController/; wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/Serial1602ShieldSystemUIController/start-ui-controller-from-github.sh | bash -s --SerialPort=/dev/ttyUSB0 --DeviceName interface1 --DevicesDirectory=/usr/local/GreenSense/Index/devices"
+
+ [Install]
+ WantedBy=multi-user.target
