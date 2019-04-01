@@ -1,5 +1,10 @@
+BRANCH=$1
 
-INIT_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/Serial1602ShieldSystemUIController/init.sh"
+if [ ! $BRANCH ]; then
+  BRANCH="master"
+fi
+
+INIT_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts/apps/Serial1602ShieldSystemUIController/init.sh"
 wget --no-cache -O init.sh $INIT_SCRIPT_FILE_URL
 
 sh init.sh || exit 1
