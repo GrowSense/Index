@@ -17,11 +17,12 @@ echo "Upgrading pip"
 
 #sudo pip install --ignore-installed --upgrade pip
 
-echo "Installing pip setuptools"
-
-pip install --ignore-installed --user setuptools
 
 if ! type "pio" > /dev/null; then
+  echo "Installing pip setuptools"
+
+  pip install --ignore-installed --user setuptools
+
   echo "Installing platformio"
 
   pip install --ignore-installed -U platformio
