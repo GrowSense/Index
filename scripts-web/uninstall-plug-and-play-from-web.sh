@@ -63,6 +63,12 @@ else
     echo "Removing updater (git deployer) install directory..."
     rm "$BASE_DIR/git-deployer" -R || (echo "Failed to remove updater (git deployer) install directory." && exit 1)
   fi
+  
+  if [ -d "$BASE_DIR/Serial1602ShieldSystemUIController" ]; then
+    echo "Removing UI controller install directory..."
+    rm "$BASE_DIR/Serial1602ShieldSystemUIController" -R || (echo "Failed to remove UI controller install directory." && exit 1)
+  fi
+
 
   echo "Removing GreenSense directory..."
   rm $INSTALL_DIR -R || (echo "Failed to remove GreenSense index directory." && exit 1)
