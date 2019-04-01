@@ -20,5 +20,6 @@ sh install-jq.sh && \
 sh install-systemd.sh && \
 sh install-docker.sh && \
 sh install-mono.sh && \
+sh install-hub.sh && \
 
 cd $DIR
