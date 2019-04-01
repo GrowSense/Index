@@ -11,7 +11,7 @@ if [ ! $DEVICE_NAME ]; then
 else
   echo "Device name: $DEVICE_NAME"
 
-  sh remove-device-services.sh || exit 1 
+  sh remove-device-services.sh $DEVICE_NAME || exit 1 
   
   echo "Removing device info"
   DEVICE_INFO_DIR="devices/$DEVICE_NAME"
