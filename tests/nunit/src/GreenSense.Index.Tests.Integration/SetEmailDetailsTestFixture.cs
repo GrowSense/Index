@@ -6,12 +6,12 @@ using System.IO;
 namespace GreenSense.Index.Tests.Integration
 {
     [TestFixture (Category = "Integration")]
-    public class SetMqttCredentialsTestFixture : BaseTestFixture
+    public class SetEmailDetailsTestFixture : BaseTestFixture
     {
         [Test]
-        public void Test_SetMqttCredentialsScript ()
+        public void Test_SetEmailDetailsScript ()
         {
-            var scriptName = "set-mqtt-credentials";
+            var scriptName = "set-email-details";
 
             Console.WriteLine ("Script:");
             Console.WriteLine (scriptName);
@@ -19,48 +19,44 @@ namespace GreenSense.Index.Tests.Integration
             Console.WriteLine ("Running " + scriptName + " script");
 
             var random = new Random ();
-            var host = "10.0.0." + random.Next (200);
-            var username = "user" + random.Next (9);
-            var password = "pass" + random.Next (9);
-            var port = Convert.ToInt32 ("1234" + random.Next (9));
+            var smtpServer = "smtp.example" + random.Next (200) + ".com";
+            var adminEmail = "user" + random.Next (9) + "@example.com";
 
-            var arguments = host + " " + username + " " + password + " " + port;
+            var arguments = smtpServer + " " + adminEmail;
 
             var starter = GetTestProcessStarter (false);
-            starter.IsMockMqttBridge = true;
+            starter.IsMockUIController = true;
             starter.Initialize ();
 
             var cmd = "sh " + scriptName + ".sh " + arguments;
 
             var output = starter.RunBash (cmd);
 
-            var successfulText = "Finished setting MQTT credentials";
+            var successfulText = "Finished setting email details";
 
             Assert.IsTrue (output.Contains (successfulText), "Failed");
 
             var internalMqttBridgeConfigFile = "scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config";
-            CheckConfigFile (internalMqttBridgeConfigFile, host, username, password, port);
+            CheckConfigFile (internalMqttBridgeConfigFile, smtpServer, adminEmail);
 
             var installedMqttBridgeConfigFile = "mock/mqtt-bridge/BridgeArduinoSerialToMqttSplitCsv.exe.config";
-            CheckConfigFile (installedMqttBridgeConfigFile, host, username, password, port);
+            CheckConfigFile (installedMqttBridgeConfigFile, smtpServer, adminEmail);
 
             var internalUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController.exe.config";
-            CheckConfigFile (internalUIControllerConfigFile, host, username, password, port);
+            CheckConfigFile (internalUIControllerConfigFile, smtpServer, adminEmail);
 
             var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController.exe.config";
-            CheckConfigFile (installedUIControllerConfigFile, host, username, password, port);
+            CheckConfigFile (installedUIControllerConfigFile, smtpServer, adminEmail);
 
             Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
         }
 
-        public void CheckConfigFile (string configFileName, string host, string username, string password, int port)
+        public void CheckConfigFile (string configFileName, string smtpServer, string adminEmail)
         {
             var configFileContent = File.ReadAllText (configFileName);
 			
-            AssertConfigFileContains (configFileContent, "Host", host);
-            AssertConfigFileContains (configFileContent, "UserId", username);
-            AssertConfigFileContains (configFileContent, "Password", password);
-            AssertConfigFileContains (configFileContent, "MqttPort", port.ToString ());
+            AssertConfigFileContains (configFileContent, "SmtpServer", smtpServer);
+            AssertConfigFileContains (configFileContent, "EmailAddress", adminEmail);
 
         }
 

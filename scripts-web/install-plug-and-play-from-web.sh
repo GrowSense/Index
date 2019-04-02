@@ -12,7 +12,10 @@ MQTT_USERNAME=$6
 MQTT_PASSWORD=$7
 MQTT_PORT=$8
 
-EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUsername] [MqttPassword] [MqttPort]"
+SMTP_SERVER=$9
+ADMIN_EMAIL=${10}
+
+EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUsername] [MqttPassword] [MqttPort] [SmtpServer] [AdminEmail]"
 
 if [ ! $WIFI_NAME ]; then
     echo "Specify WiFi network name as an argument."
@@ -62,6 +65,9 @@ echo "MQTT Host: $MQTT_HOST"
 echo "MQTT Username: $MQTT_USERNAME"
 echo "MQTT Password: [hidden]"
 echo "MQTT Port: $MQTT_PORT"
+
+echo "SMTP server: $SMTP_SERVER"
+echo "Admin email: $ADMIN_EMAIL"
 
 INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
@@ -113,6 +119,10 @@ echo "Setting MQTT credentials..."
 
 sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || (echo "Failed to set MQTT credentials" && exit 1)
 
+echo "Setting email detiails..."
+
+sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to set email details" && exit 1)
+
 echo "Creating garden..."
 
 sh create-garden.sh || (echo "Failed to create garden" && exit 1)
@@ -123,7 +133,7 @@ sh create-supervisor-service.sh || (echo "Failed to create supervisor service" &
 
 echo "Installing plug and play..."
 
-wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
+wget -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
 
 
 

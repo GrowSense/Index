@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ""
-echo "Setting mosquitto MQTT credentials for 1602 LCD shield UI controller..."
+echo "Setting MQTT credentials for 1602 LCD shield UI controller..."
 echo ""
 
 HOST=$1
@@ -35,7 +35,7 @@ if [ "$PASSWORD" ]; then
   echo $PORT > "mqtt-port.security"
 
   echo ""
-  echo "Setting mqtt bridge config file:"
+  echo "Setting UI controller config file:"
   
   CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIController.exe.config"
   echo "  $CONFIG_FILE"

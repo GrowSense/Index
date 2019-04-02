@@ -3,5 +3,7 @@
     <appSettings>
         <add key="DeviceAddedCommand" value="cd /usr/local/GreenSense/Index; sh auto-connect-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}" />
         <add key="DeviceRemovedCommand" value="cd /usr/local/GreenSense/Index; sh auto-disconnect-device.sh {PORT}" />
+        <add key="SmtpServer" value="mail.example.com" />
+        <add key="EmailAddress" value="user@example.com" />
     </appSettings>
 </configuration>

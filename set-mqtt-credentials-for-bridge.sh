@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ""
-echo "Setting mosquitto MQTT credentials for MQTT bridge..."
+echo "Setting MQTT credentials for MQTT bridge..."
 echo ""
 
 HOST=$1
