@@ -31,7 +31,7 @@ pipeline {
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-all.sh'
+                sh '#sh init-all.sh'
             }
         }
         stage('Set MQTT Credentials') {
@@ -43,13 +43,13 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-tests.sh'
+                sh '#sh build-tests.sh'
             }
         }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test-all.sh'
+                sh '#sh test-all.sh'
             }
         }
         stage('Deploy') {
@@ -67,7 +67,7 @@ pipeline {
         stage('Graduate') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh graduate.sh'
+                sh '#sh graduate.sh'
             }
         }
         stage('Increment Version') {
