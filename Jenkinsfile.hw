@@ -22,58 +22,10 @@ pipeline {
                 sh 'git config --global user.name "CompulsiveCoderCI"'
             }
         }
-        stage('Prepare') {
+        stage('RemoteInstall') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'echo "Prepare disabled to speed up tests." # sh prepare.sh'
-            }
-        }
-        stage('Init') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh init-all.sh'
-            }
-        }
-        stage('Set MQTT Credentials') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
-            }
-        }
-        stage('Build') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh build-tests.sh'
-            }
-        }
-        stage('Test') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh test-all.sh'
-            }
-        }
-        stage('Clean') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh clean.sh'
-            }
-        }
-        stage('Graduate') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh graduate.sh'
-            }
-        }
-        stage('Increment Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-              sh 'sh increment-version.sh'
-            }
-        }
-        stage('Push Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-version.sh'
+                shHide( 'sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" ${INSTALL_SSH_USERNAME}@${INSTALL_HOST} "echo hello > ~/output.txt" ')
             }
         }
     }
