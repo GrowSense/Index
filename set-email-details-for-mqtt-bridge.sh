@@ -38,8 +38,8 @@ if [ ! -f "$CONFIG_FILE.bak" ]; then
   cp $CONFIG_FILE $CONFIG_FILE.bak
 fi
 
-echo "Restoring blank starter config file"
-cp -f $CONFIG_FILE.bak $CONFIG_FILE
+#echo "Restoring blank starter config file"
+#cp -f $CONFIG_FILE.bak $CONFIG_FILE
 
 echo "Inserting values"
 xmlstarlet ed -L -u '/configuration/appSettings/add[@key="SmtpServer"]/@value' -v "$SMTP_SERVER" $CONFIG_FILE
