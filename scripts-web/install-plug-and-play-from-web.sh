@@ -133,7 +133,7 @@ sh create-supervisor-service.sh || (echo "Failed to create supervisor service" &
 
 echo "Installing plug and play..."
 
-wget --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
+wget --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
 
 
 echo "Finished setting up plug and play"

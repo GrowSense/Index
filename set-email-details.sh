@@ -24,7 +24,7 @@ echo "Admin email: $ADMIN_EMAIL"
 echo $SMTP_SERVER > "smtp-server.security"
 echo $ADMIN_EMAIL > "admin-email.security"
 
-sh set-email-details-for-mqtt-bridge.sh $SMTP_SERVER $ADMIN_EMAIL && \
-sh set-email-details-for-1602-ui.sh $SMTP_SERVER $ADMIN_EMAIL && \
+sh set-email-details-for-mqtt-bridge.sh "$SMTP_SERVER" "$ADMIN_EMAIL" && \
+sh set-email-details-for-1602-ui.sh "$SMTP_SERVER" "$ADMIN_EMAIL" && \
 
 echo "Finished setting email details."
