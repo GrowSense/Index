@@ -1,6 +1,6 @@
 echo "Checking status of deployment..."
 
-sleep 5s
+sleep 15s
 
 echo "Viewing arduino plug and play service status..."
 
