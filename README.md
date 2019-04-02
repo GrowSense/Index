@@ -100,17 +100,31 @@ Notes:
 
 ## Install GreenSense and Plug and Play
 
+Use either wget or curl to download and launch the setup process...
+
+### wget
 ```
-# Use either wget or curl to download and launch the setup process...
-
-# wget
-sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass]
-
-# curl
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass]
+# syntax
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+# master
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
+# dev
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/dev/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- dev ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
 ```
 
-Note: The above script will take a long time to run.
+### curl
+```
+# syntax
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+# master
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+# dev
+curl https://raw.githubusercontent.com/GreenSense/Index/dev/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- dev ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+```
+
+Notes:
+- Specifying ? as the install path will install to the default locations.
+- The above script will take a long time to run to be patient.
 
 ## Update GreenSense and Plug and Play
 
@@ -118,10 +132,10 @@ Note: The above script will take a long time to run.
 # Use either wget or curl to download and launch the setup process...
 
 # wget
-sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 
 # curl
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 ```
 
 ## Uninstall GreenSense and Plug and Play
@@ -130,10 +144,10 @@ curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/updat
 # Use either wget or curl to download and launch the setup process...
 
 # wget
-sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 
 # curl
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s [Branch] [InstallDir]
+curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 ```
 
 

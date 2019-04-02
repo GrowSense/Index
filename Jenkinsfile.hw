@@ -58,7 +58,7 @@ pipeline {
                sh 'sh deploy.sh'
             }
         }
-        stage('CheckDeployment') {
+        stage('Check Deployment') {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh check-deployment.sh'
