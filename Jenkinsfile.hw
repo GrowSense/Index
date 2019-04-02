@@ -22,6 +22,12 @@ pipeline {
                 sh 'git config --global user.name "CompulsiveCoderCI"'
             }
         }
+        stage('Prepare') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'apt install -y sshpass'
+            }
+        }
         stage('RemoteInstall') {
             when { expression { !shouldSkipBuild() } }
             steps {
