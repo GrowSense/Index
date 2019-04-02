@@ -37,7 +37,7 @@ pipeline {
         stage('Set MQTT Credentials') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
+                shHide( '#sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
             }
         }
         stage('Build') {
@@ -56,6 +56,12 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh deploy.sh'
+            }
+        }
+        stage('CheckDeployment') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh check-deployment.sh'
             }
         }
         stage('Clean') {
