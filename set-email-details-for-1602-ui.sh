@@ -18,6 +18,7 @@ if [ ! "$ADMIN_EMAIL" ]; then
   exit 1
 fi
 
+IS_MOCK_UI_CONTROLLER=0
 if [ -f "is-mock-ui-controller.txt" ]; then
   IS_MOCK_UI_CONTROLLER=1
   echo "Is mock setup"

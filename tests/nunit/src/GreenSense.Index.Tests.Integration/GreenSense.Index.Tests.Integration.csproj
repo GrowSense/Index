@@ -49,7 +49,6 @@
     <Compile Include="CreateIlluminatorNanoTestFixture.cs" />
     <Compile Include="SetMqttCredentialsTestFixture.cs" />
     <Compile Include="InstallPlugAndPlayTestFixture.cs" />
-    <Compile Include="UpgradeTestFixture.cs" />
     <Compile Include="SetEmailDetailsTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
