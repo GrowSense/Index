@@ -67,7 +67,7 @@ pipeline {
         stage('Clean') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh clean.sh'
+                sh '#sh clean.sh'
             }
         }
         stage('Graduate') {
