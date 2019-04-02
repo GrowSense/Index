@@ -17,7 +17,8 @@ if [ ! "$ADMIN_EMAIL" ]; then
   echo "Please provide an admin email address as an argument."
   exit 1
 fi
-
+ 
+IS_MOCK_MQTT_BRIDGE=0
 if [ -f "is-mock-mqtt-bridge.txt" ]; then
   IS_MOCK_MQTT_BRIDGE=1
   echo "Is mock setup"
