@@ -43,7 +43,6 @@ if [ ! -d $INDEX_DIR ]; then
   echo "GreenSense Index doesn't appear to be installed at:"
   echo "  $INDEX_DIR"
   echo "Aborting uninstall."
-  exit 1
 else
   echo "Moving to GreenSense index dir..."
   cd $INDEX_DIR
