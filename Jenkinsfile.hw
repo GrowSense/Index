@@ -23,7 +23,7 @@ pipeline {
         stage('RemoteInstall') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                shHide( 'sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" ${INSTALL_SSH_USERNAME}@${INSTALL_HOST} "echo hello; echo hello > ~/output.txt" ')
+                shHide( 'sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" ${INSTALL_SSH_USERNAME}@${INSTALL_HOST} "sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/dev/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- $BRANCH_NAME" ')
             }
         }
     }
