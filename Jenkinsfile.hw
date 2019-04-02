@@ -1,17 +1,9 @@
 pipeline {
     agent any
-    options {
-      skipDefaultCheckout true
-    }
     stages {
-        stage('CleanWS') {
-            steps {
-                deleteDir()
-            }
-        }
         stage('Setup') {
             steps {
-                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/Index.git .' )
+                shHide( '#git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/Index.git .' )
                 sh '#git checkout $BRANCH_NAME'
                 sh '#git pull origin $BRANCH_NAME'
                 shHide( '#sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
@@ -25,7 +17,7 @@ pipeline {
         stage('Prepare') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'apt install -y sshpass'
+                sh 'apt-get update && apt-get install -y sshpass'
             }
         }
         stage('RemoteInstall') {
