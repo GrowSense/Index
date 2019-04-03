@@ -9,7 +9,7 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
-$SUDO apt-get update && $SUDO apt-get -y install wget git zip unzip curl software-properties-common apt-transport-https mosquitto-clients xmlstarlet && \
+$SUDO apt-get update && $SUDO apt-get -y install wget git zip unzip curl software-properties-common ca-certificates apt-transport-https mosquitto-clients xmlstarlet && \
 
 
 

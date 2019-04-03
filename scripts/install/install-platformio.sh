@@ -5,6 +5,9 @@ if ! type "python" > /dev/null; then
   sudo apt-get install -y python
 fi
 
+# TODO: Remove if not needed.
+# Platformio can either be installed using pip, or using the one line install command
+
 if ! type "pip" > /dev/null; then
   echo "Installing python-pip"
 
@@ -15,13 +18,13 @@ echo "Upgrading pip"
 
 #sudo chown $USER ~/.cache/pip -R
 
-#sudo pip install --ignore-installed --upgrade pip
+sudo pip install --ignore-installed --upgrade pip
 
 
 if ! type "pio" > /dev/null; then
 #  echo "Installing pip setuptools"
 
-#  pip install --ignore-installed --user setuptools
+  pip install --ignore-installed --user setuptools wheel
 
   echo "Installing platformio"
 
