@@ -19,15 +19,15 @@ echo "Upgrading pip"
 
 
 if ! type "pio" > /dev/null; then
-  echo "Installing pip setuptools"
+#  echo "Installing pip setuptools"
 
-  pip install --ignore-installed --user setuptools
+#  pip install --ignore-installed --user setuptools
 
   echo "Installing platformio"
 
-  pip install --ignore-installed -U platformio
+#  pip install --ignore-installed -U platformio
 
-#  python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
+  python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
 else
   echo "Platform.io is already installed. Skipping."
 fi
