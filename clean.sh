@@ -19,6 +19,10 @@ if [ -d "$MOCK_DIR" ]; then
   rm "$MOCK_DIR/" -r
 fi
 
+if [ -d "_tmp" ]; then
+  rm "_tmp" -r
+fi
+
 # Note: This is commented out because it messes with CI
 # Disable mocking
 #echo "Disabling mocking..."
