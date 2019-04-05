@@ -1,7 +1,7 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if [ $BRANCH == "dev" ]; then
+if [ "$BRANCH" = "dev" ]; then
   echo "Updating GreenSense plug and play on remote computer..."
 
   sshpass -p $DEV_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $DEV_INSTALL_SSH_USERNAME@$DEV_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME"
