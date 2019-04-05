@@ -46,23 +46,21 @@ pipeline {
                 sh 'sh build-tests.sh'
             }
         }
+        stage('Deploy to Staging') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy.sh'
+            }
+        }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh test-all.sh'
             }
         }
-        stage('Deploy') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy.sh'
-            }
-        }
         stage('Check Deployment') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh 'echo "Sleeping for 30s so all devices can be detected.'
-               sh 'sleep 30s'
                sh 'sh check-deployment.sh'
             }
         }
