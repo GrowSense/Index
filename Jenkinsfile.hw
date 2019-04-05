@@ -61,6 +61,8 @@ pipeline {
         stage('Check Deployment') {
             when { expression { !shouldSkipBuild() } }
             steps {
+               sh 'echo "Sleeping for 30s so all devices can be detected.'
+               sh 'sleep 30s'
                sh 'sh check-deployment.sh'
             }
         }
