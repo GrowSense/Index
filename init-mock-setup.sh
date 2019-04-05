@@ -10,6 +10,7 @@ sh init-mock-systemctl.sh && \
 sh init-mock-docker.sh && \
 sh init-mock-hardware.sh && \
 sh init-mock-mqtt-bridge.sh && \
+sh init-mock-ui-controller.sh && \
 sh init-mock-sudo.sh && \
 
 echo "Done"
