@@ -57,7 +57,7 @@ if [ "$PASSWORD" ]; then
   CONFIG_FILE2="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   
   echo "Keeping a backup of the new config file"
-  echo "$CONFIG_FILE2"
+  echo "  $CONFIG_FILE2"
   cp -f $CONFIG_FILE $CONFIG_FILE2
 
   echo "Installing config file to"
@@ -74,7 +74,7 @@ if [ "$PASSWORD" ]; then
     cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
   fi
   
-  echo "$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  echo "  $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
 
   echo ""
   echo "Finished setting MQTT credentials"
