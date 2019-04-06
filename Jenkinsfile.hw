@@ -31,19 +31,19 @@ pipeline {
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-all.sh'
+                sh '#sh init-all.sh'
             }
         }
         stage('Set MQTT Credentials') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
+                shHide( '#sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
             }
         }
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-tests.sh'
+                sh '#sh build-tests.sh'
             }
         }
         stage('Deploy Dev') {
@@ -55,7 +55,7 @@ pipeline {
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test-all.sh'
+                sh '#sh test-all.sh'
             }
         }
         stage('Deploy Master') {
