@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Checking status of deployment..."
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
@@ -35,7 +37,7 @@ UI_CONTOLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChec
 
 [[ $(echo $UI_CONTOLLER_RESULT) =~ "Loaded: loaded" ]] || (echo "The UI controller service isn't loaded" && exit 1)
 [[ $(echo $UI_CONTOLLER_RESULT) =~ "Active: active" ]] || (echo "The UI controller service isn't active" && exit 1)
-[[ $(echo $UI_CONTOLLER_RESULT) =~ "not found" ]] && (echo "The UI controller service wasn't found" && exit 1)
+[[ $(echo $UI_CONTOLLER_RESULT) =~ "not found" ]] && echo "The UI controller service wasn't found" && exit 1
 
 
 echo "Viewing garden status..."
