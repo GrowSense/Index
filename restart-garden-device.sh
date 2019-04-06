@@ -19,12 +19,12 @@ else
   if [ "$DEVICE_GROUP" = "ui" ]; then
   
     echo "Restart UI controller service" && \
-    sh systemctl.sh restart greensense-ui-controller-1602-$DEVICE_NAME.service || exit 1
+    sh systemctl.sh restart greensense-ui-controller-1602-$DEVICE_NAME.service
     
   else
 
     echo "Restart MQTT bridge service" && \
-    sh systemctl.sh restart greensense-mqtt-bridge-$DEVICE_NAME.service || exit 1
+    sh systemctl.sh restart greensense-mqtt-bridge-$DEVICE_NAME.service
 
   fi
   

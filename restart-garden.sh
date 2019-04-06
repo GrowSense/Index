@@ -4,6 +4,8 @@ echo ""
 
 DIR=$PWD
 
+sh restart-supervisor.sh
+
 DEVICES_DIR="devices"
 
 if [ -d "$DEVICES_DIR" ]; then
