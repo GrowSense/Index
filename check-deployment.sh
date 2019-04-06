@@ -27,7 +27,10 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 
 echo "Viewing GreenSense UI controller service status..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-ui1.service" || (echo "Error attempting to view UI controller status." && exit 1)
+UI_CONTOLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-ui1.service" || (echo "Error attempting to view UI controller status." && exit 1))
+
+[[ $(echo $UI_CONTOLLER_RESULT) =~ "not found" ]] && echo "The UI controller service wasn't found" && exit 1
+
 
 echo "Viewing garden status..."
 
