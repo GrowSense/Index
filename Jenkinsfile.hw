@@ -67,7 +67,8 @@ pipeline {
         stage('Check Deployment') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh 'bash check-deployment.sh || exit 1'
+               sh 'sleep 15'
+               sh 'bash check-deployment.sh'
             }
         }
         stage('Clean') {
