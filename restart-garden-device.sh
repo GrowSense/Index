@@ -11,13 +11,22 @@ if [ ! $DEVICE_NAME ]; then
 else
 
   echo "Device name: $DEVICE_NAME"
+  
+  DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+  
+  echo "Device group: $DEVICE_GROUP"
+  
+  if [ "$DEVICE_GROUP" = "ui" ]; then
+  
+    echo "Restart UI controller service" && \
+    sh systemctl.sh restart greensense-ui-controller-1602-$DEVICE_NAME.service || exit 1
+    
+  else
 
-  echo "Restart MQTT bridge service" && \
-  sh systemctl.sh restart greensense-mqtt-bridge-$DEVICE_NAME.service && \
+    echo "Restart MQTT bridge service" && \
+    sh systemctl.sh restart greensense-mqtt-bridge-$DEVICE_NAME.service || exit 1
 
-  echo "Restart Updater service" && \
-  sh systemctl.sh restart greensense-updater-$DEVICE_NAME.service && \
-
+  fi
+  
   echo "Garden device services restarted for '$DEVICE_NAME'"
-
 fi
