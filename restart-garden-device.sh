@@ -19,7 +19,7 @@ else
   if [ "$DEVICE_GROUP" = "ui" ]; then
   
     echo "Restart UI controller service" && \
-    sh systemctl.sh restart greensense-ui-controller-1602-$DEVICE_NAME.service
+    sh systemctl.sh restart greensense-ui-1602-$DEVICE_NAME.service
     
   else
 
