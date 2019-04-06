@@ -1,41 +1,41 @@
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+  if [ ! -f "is-mock-sudo.txt" ]; then
+    SUDO='sudo'
+  fi
+fi
+
 # python
 if ! type "python" > /dev/null; then
   echo "Installing python"
 
-  sudo apt-get install -y python
+  $SUDO apt-get install -y python
 fi
 
-# TODO: Remove if not needed.
-# Platformio can either be installed using pip, or using the one line install command
-
+# pip
 if ! type "pip" > /dev/null; then
   echo "Installing python-pip"
 
-  sudo apt-get install -y python-pip
+  $SUDO apt-get install -y python-pip
 fi
 
-echo "Upgrading pip"
-
-#sudo chown $USER ~/.cache/pip -R
-
-sudo pip install --ignore-installed --upgrade pip
-
-
+# platform.io
 if ! type "pio" > /dev/null; then
-#  echo "Installing pip setuptools"
+  echo "Upgrading pip"
+  $SUDO pip install --ignore-installed --upgrade pip
 
+  echo "Installing pip extras"
   pip install --ignore-installed --user setuptools wheel
 
   echo "Installing platformio"
-
-#  pip install --ignore-installed -U platformio
-
+  # pip install --ignore-installed -U platformio
   python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
+  
+  # Give the user necessary permissions
+  $SUDO usermod -a -G tty $USER
+  $SUDO usermod -a -G dialout $USER
+
 else
   echo "Platform.io is already installed. Skipping."
 fi
-
-# Give the user necessary permissions
-sudo usermod -a -G tty $USER
-sudo usermod -a -G dialout $USER
 
