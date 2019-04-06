@@ -49,8 +49,12 @@ echo ${UI_CONTROLLER_RESULT}
 [[ ! $(echo $UI_CONTOLLER_RESULT) =~ "Active: active" ]] && echo "The UI controller service isn't active" && exit 1
 [[ $(echo $UI_CONTOLLER_RESULT) =~ "not found" ]] && echo "The UI controller service wasn't found" && exit 1
 
+echo "Viewing garden data..."
+
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh" || (echo "Error attempting to view garden data." && exit 1)
+
 echo "Viewing garden status..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh" || (echo "Error attempting to view garden status." && exit 1)
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh" || (echo "Error attempting to check garden status." && exit 1)
 
 echo "Finished checking status of deployment."
