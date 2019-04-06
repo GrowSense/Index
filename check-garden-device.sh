@@ -42,36 +42,4 @@ if [ "$SUB_RESULT" ]; then
   echo "    $SUB_RESULT"
 fi
 
-OUTPUT=$(sh view-updater-status.sh $DEVICE_NAME)
-
-RESULT="NotSet"
-SUB_RESULT=""
-
-case "$OUTPUT" in 
-
-  *inactive*)
-      RESULT="Inactive"
-    ;;
-  *active*)
-    RESULT="Active"
-    ;;
-  *failed*)
-    RESULT="Failed"
-    ;;
-esac
-
-case "$OUTPUT" in 
-  *"Update skipped"*)
-    SUB_RESULT="Up to date"
-  ;;
-esac
-
-#echo $OUTPUT
-
-echo "  Updater Service: $RESULT"
-
-if [ "$SUB_RESULT" ]; then
-  echo "    $SUB_RESULT"
-fi
-
 sh check-garden-device-mqtt.sh $DEVICE_NAME

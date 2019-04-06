@@ -8,7 +8,7 @@ echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
     for d in $DEVICES_DIR/*; do
-        DEVICE_TYPE=$(cat $d/type.txt)
+        DEVICE_GROUP=$(cat $d/group.txt)
         DEVICE_NAME=$(cat $d/name.txt)
         DEVICE_LABEL=$(cat $d/label.txt)
         DEVICE_PORT=$(cat $d/port.txt)
@@ -16,7 +16,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         echo "$DEVICE_LABEL"
         echo "  Name: $DEVICE_NAME"
-        echo "  Type: $DEVICE_TYPE"
+        echo "  Group: $DEVICE_GROUP"
         echo "  Port: $DEVICE_PORT"
         
         sh check-garden-device.sh $DEVICE_NAME
