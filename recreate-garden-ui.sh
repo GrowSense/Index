@@ -22,13 +22,16 @@ if [ -d "$DEVICES_DIR" ]; then
         DEVICE_LABEL=$(cat $d/label.txt)
         echo "  Device label: $DEVICE_LABEL"
         
-        
-        IS_DEVICE_UI_CREATED_FLAG_FILE="$d/is-ui-created.txt"
-        echo "0" > $IS_DEVICE_UI_CREATED_FLAG_FILE        
-        
-        sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME || exit1
-        
-        echo "1" > $IS_DEVICE_UI_CREATED_FLAG_FILE
+        if [ "$DEVICE_GROUP" = "ui" ]; then
+          echo "This is a UI device. Skipping UI creation."
+        else
+          IS_DEVICE_UI_CREATED_FLAG_FILE="$d/is-ui-created.txt"
+          echo "0" > $IS_DEVICE_UI_CREATED_FLAG_FILE        
+          
+          sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME || exit 1
+          
+          echo "1" > $IS_DEVICE_UI_CREATED_FLAG_FILE
+        fi
       fi
     done
 else
