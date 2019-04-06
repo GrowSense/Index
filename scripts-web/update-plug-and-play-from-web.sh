@@ -67,8 +67,11 @@ else
   echo "[mock] systemctl daemon-reload"
 fi
 
+echo "Restarting garden services..."
+sh restart-garden.sh || (echo "Failed to restart garden services. Script: restart-garden.sh" && exit 1)
+
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
-wget -v --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
+wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
 
 
 echo "Finished reinstalling GreenSense plug and play!"
