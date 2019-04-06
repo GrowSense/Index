@@ -16,6 +16,9 @@ if [ $USE_MONO4 = 1 ]; then
   else
     echo "Mono is already installed. Skipping install."
   fi
+  
+  echo "Checking mono version..."
+  mono --version
 else
   if ! type "xbuild" > /dev/null; then
     echo "Installing latest mono"
@@ -28,6 +31,7 @@ else
   else
     echo "Mono is already installed. Skipping install."
   fi
+  
+  echo "Checking mono version..."
+  mono --version
 fi
-echo "Checking mono version..."
-mono --version
