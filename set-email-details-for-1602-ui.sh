@@ -30,7 +30,7 @@ echo "Admin email: $ADMIN_EMAIL"
 echo ""
 echo "Setting UI controller config file:"
 
-CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIController.exe.config"
+CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config"
 echo "  $CONFIG_FILE"
 
 if [ ! -f "$CONFIG_FILE.bak" ]; then
@@ -45,7 +45,7 @@ echo "Inserting values"
 xmlstarlet ed -L -u '/configuration/appSettings/add[@key="SmtpServer"]/@value' -v "$SMTP_SERVER" $CONFIG_FILE
 xmlstarlet ed -L -u '/configuration/appSettings/add[@key="EmailAddress"]/@value' -v "$ADMIN_EMAIL" $CONFIG_FILE
 
-CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController.exe.config"
+CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config"
 
 echo "Keeping a backup of the new config file"
 echo "$CONFIG_FILE2"
@@ -65,7 +65,7 @@ else
   cp -f $CONFIG_FILE2 $INSTALL_DIR/Serial1602ShieldSystemUIController.exe.config
 fi
 
-echo "$INSTALL_DIR/Serial1602ShieldSystemUIController.exe.config"
+echo "$INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config"
 
 echo ""
 echo "Finished setting email details for 1602 LCD UI controller"

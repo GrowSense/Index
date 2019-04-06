@@ -2,8 +2,8 @@ echo "Retrieving required libraries..."
 
 echo "Installing libraries..."
 
-CONFIG_FILE="Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIController.exe.config";
-CONFIG_FILE_TMP="Serial1602ShieldSystemUIController.exe.config";
+CONFIG_FILE="Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
+CONFIG_FILE_TMP="Serial1602ShieldSystemUIControllerConsole.exe.config";
 
 if [ -f $CONFIG_FILE ]; then
   echo "Config file found. Preserving."
@@ -19,7 +19,7 @@ if [ ! -f "install-package.sh" ]; then
   wget --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
 fi
 
-sh install-package.sh Serial1602ShieldSystemUIController 1.0.0.47 || exit 1
+sh install-package.sh Serial1602ShieldSystemUIController 1.0.0.49 || exit 1
 
 echo "Installation complete. Launching bridge."
 
