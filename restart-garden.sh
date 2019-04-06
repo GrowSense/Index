@@ -4,7 +4,7 @@ echo ""
 
 DIR=$PWD
 
-sh restart-supervisor.sh
+sh restart-supervisor.sh || exit 1
 
 DEVICES_DIR="devices"
 
