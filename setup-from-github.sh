@@ -30,7 +30,7 @@ echo "  $INDEX_DIR" && \
 
 cd $INDEX_DIR && \
 
-sudo sh prepare.sh || (echo "Prepare script failed." && exit 1)
+sudo bash prepare.sh || (echo "Prepare script failed." && exit 1)
 sh init-runtime.sh || (echo "Init runtime script failed." && exit 1)
 
 echo "" && \

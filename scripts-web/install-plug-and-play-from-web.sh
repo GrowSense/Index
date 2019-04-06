@@ -102,7 +102,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   
   cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)  
   
-  sh prepare.sh || (echo "Failed to prepare index" && exit 1)
+  bash prepare.sh || (echo "Failed to prepare index" && exit 1)
 fi
 
 cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)
