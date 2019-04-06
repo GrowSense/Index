@@ -59,6 +59,10 @@ namespace GreenSense.Index.Tests.Hardware
             var portFile = Path.Combine (deviceDir, "port.txt");
 
             File.WriteAllText (portFile, deviceInfo.Port.Replace ("/dev/", ""));
+
+            var boardFile = Path.Combine (deviceDir, "board.txt");
+
+            File.WriteAllText (boardFile, deviceInfo.BoardType);
         }
     }
 }
