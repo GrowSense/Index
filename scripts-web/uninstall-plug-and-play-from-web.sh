@@ -23,6 +23,8 @@ INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
 BASE_DIR="$(dirname $GREENSENSE_DIR)"
 
+echo "Base dir: $BASE_DIR"
+
 PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 
 echo "Checking for ArduinoPlugAndPlay install dir..."
@@ -56,25 +58,25 @@ else
   echo "Removing all devices and services..."
   sh remove-garden-devices.sh || (echo "Failed to remove garden devices." && exit 1)
 
-  if [ -d "$BASE_DIR/mqtt-bridge" ]; then
-    echo "Removing MQTT bridge install directory..."
-    rm "$BASE_DIR/mqtt-bridge" -R || (echo "Failed to remove MQTT bridge install directory." && exit 1)
-  fi
-
-  if [ -d "$BASE_DIR/git-deployer" ]; then
-    echo "Removing updater (git deployer) install directory..."
-    rm "$BASE_DIR/git-deployer" -R || (echo "Failed to remove updater (git deployer) install directory." && exit 1)
-  fi
-  
-  if [ -d "$BASE_DIR/Serial1602ShieldSystemUIController" ]; then
-    echo "Removing UI controller install directory..."
-    rm "$BASE_DIR/Serial1602ShieldSystemUIController" -R || (echo "Failed to remove UI controller install directory." && exit 1)
-  fi
-
-
   echo "Removing GreenSense directory..."
   rm $INSTALL_DIR -R || (echo "Failed to remove GreenSense index directory." && exit 1)
 fi
+
+if [ -d "$BASE_DIR/mqtt-bridge" ]; then
+  echo "Removing MQTT bridge install directory..."
+  rm "$BASE_DIR/mqtt-bridge" -R || (echo "Failed to remove MQTT bridge install directory." && exit 1)
+fi
+
+if [ -d "$BASE_DIR/git-deployer" ]; then
+  echo "Removing updater (git deployer) install directory..."
+  rm "$BASE_DIR/git-deployer" -R || (echo "Failed to remove updater (git deployer) install directory." && exit 1)
+fi
+
+if [ -d "$BASE_DIR/Serial1602ShieldSystemUIController" ]; then
+  echo "Removing UI controller install directory..."
+  rm "$BASE_DIR/Serial1602ShieldSystemUIController" -R || (echo "Failed to remove UI controller install directory." && exit 1)
+fi
+
 
 echo "Finished uninstalling GreenSense plug and play!"
   
