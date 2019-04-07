@@ -48,6 +48,10 @@ fi
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
+
+echo "Publishing status to MQTT..."
+sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
+
 echo "Updating index..."
 sh update-all.sh $BRANCH || (echo "Failed to update GreenSense index. Script: update-all.sh" && exit 1)
 

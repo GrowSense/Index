@@ -48,7 +48,7 @@ else
   cd $INDEX_DIR
   
   echo "Publishing status to MQTT..."
-  sh mqtt-publish "/garden/StatusMessage" "Uninstalling" || echo "MQTT publish failed."
+  sh mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" || echo "MQTT publish failed."
 
   echo "Removing all devices and services..."
   sh remove-garden-devices.sh || (echo "Failed to remove garden devices." && exit 1)
