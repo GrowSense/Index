@@ -49,6 +49,16 @@ echo "${UI_CONTROLLER_RESULT}"
 [[ ! $(echo $UI_CONTROLLER_RESULT) =~ "Active: active" ]] && echo "The UI controller service isn't active" && exit 1
 [[ $(echo $UI_CONTROLLER_RESULT) =~ "not found" ]] && echo "The UI controller service wasn't found" && exit 1
 
+echo "Viewing irrigator1 MQTT bridge service status..."
+
+IRRIGATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-irrigator1.service" || (echo "Error attempting to view irrigator1 MQTT bridge status." && exit 1))
+
+echo "${IRRIGATOR_MQTT_BRIDGE_RESULT}"
+
+[[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The irrigator1 MQTT bridge service isn't loaded" && exit 1
+[[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The irrigator1 MQTT bridge service isn't active" && exit 1
+[[ $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The irrigator1 MQTT bridge service wasn't found" && exit 1
+
 echo "Viewing garden data..."
 
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh" || (echo "Error attempting to view garden data." && exit 1)
