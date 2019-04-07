@@ -54,9 +54,16 @@ else
     
     # Publish the status. The device is being upgraded.
     sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || (echo "Failed to publish device status 'Updgrading'." && exit 1)
+    
+    SERVICE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
+    
+    if [ "$DEVICE_GROUP" = "ui" ]; then
+      SERVICE_NAME="greensense-ui-1602-$DEVICE_NAME.service"  
+    fi
+    
 
-    # Stop the MQTT bridge so the upgrade can execute
-    sh systemctl.sh stop greensense-mqtt-bridge-$DEVICE_NAME.service || (echo "Failed to stop the MQTT bridge service.")
+    # Stop the service so the upgrade can execute
+    sh systemctl.sh stop $SERVICE_NAME || echo "Failed to stop service: $SERVICE_NAME"
       
     SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
     timeout $UPGRADE_SCRIPT_TIMEOUT sh $SCRIPT_NAME $DEVICE_PORT >> logs/updates/$DEVICE_NAME.txt || \
@@ -78,8 +85,8 @@ else
     
     # If the upgrade script completed successfully
     if [ $STATUS_CODE = 0 ]; then
-      # Restart the device  
-      sh systemctl.sh start greensense-mqtt-bridge-$DEVICE_NAME.service # && \
+      # Restart the service  
+      sh systemctl.sh start $SERVICE_NAME || echo "Failed to restart service: $SERVICE_NAME"
       
       sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
      
