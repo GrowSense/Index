@@ -8,6 +8,7 @@ if [ "$BRANCH" = "master" ]; then
 
 #  sshpass -p $MASTER_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $MASTER_INSTALL_SSH_USERNAME@$MASTER_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME" || (echo "Update failed" && exit 1)
 
+  echo "Host: $MASTER_INSTALL_HOST"
 
   echo "Uninstalling GreenSense plug and play on remote computer..."
 

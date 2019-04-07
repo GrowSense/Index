@@ -19,6 +19,8 @@ if [ "$BRANCH" = "dev" ]; then
   INSTALL_SSH_PORT=$DEV_INSTALL_SSH_PORT
 fi
 
+echo "Host: $INSTALL_HOST"
+
 echo "Viewing platform.io list..."
 
 PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "pio device list" || (echo "Error attempting to view pio device list." && exit 1))
