@@ -3,6 +3,8 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$BRANCH" = "master" ]; then
 
+  echo "Deploying master branch..."
+
 # Update disabled. Full uninstall and reinstall works better
 #  echo "Updating GreenSense plug and play on remote computer..."
 

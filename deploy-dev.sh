@@ -2,6 +2,9 @@
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$BRANCH" = "dev" ]; then
+
+  echo "Deploying dev branch..."
+
   echo "Updating GreenSense plug and play on remote computer..."
   
   echo "Host: $DEV_INSTALL_HOST"
