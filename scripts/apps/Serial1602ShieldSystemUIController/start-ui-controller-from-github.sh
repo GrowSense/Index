@@ -11,4 +11,4 @@ wget --no-cache -O init.sh $INIT_SCRIPT_FILE_URL
 
 sh init.sh || exit 1
 
-mono Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIController.exe $1 $2 $3 $4 $5 $6 $7 $8 $9
+mono Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe $1 $2 $3 $4 $5 $6 $7 $8 $9
