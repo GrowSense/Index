@@ -2,6 +2,8 @@
 using System;
 using NUnit.Framework;
 using System.IO;
+using System.Xml;
+using System.Threading;
 
 namespace GreenSense.Index.Tests.Integration
 {
@@ -32,6 +34,8 @@ namespace GreenSense.Index.Tests.Integration
 
             var output = starter.RunBash (cmd);
 
+            Thread.Sleep (1000);
+
             var successfulText = "Finished setting email details";
 
             Assert.IsTrue (output.Contains (successfulText), "Failed");
@@ -42,10 +46,10 @@ namespace GreenSense.Index.Tests.Integration
             var installedMqttBridgeConfigFile = "mock/mqtt-bridge/BridgeArduinoSerialToMqttSplitCsv.exe.config";
             CheckConfigFile (installedMqttBridgeConfigFile, smtpServer, adminEmail);
 
-            var internalUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController.exe.config";
+            var internalUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
             CheckConfigFile (internalUIControllerConfigFile, smtpServer, adminEmail);
 
-            var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController.exe.config";
+            var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
             CheckConfigFile (installedUIControllerConfigFile, smtpServer, adminEmail);
 
             Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
@@ -53,6 +57,9 @@ namespace GreenSense.Index.Tests.Integration
 
         public void CheckConfigFile (string configFileName, string smtpServer, string adminEmail)
         {
+            Console.WriteLine ("Checking config file for email details...");
+            Console.WriteLine ("  " + configFileName);
+
             var configFileContent = File.ReadAllText (configFileName);
 			
             AssertConfigFileContains (configFileContent, "SmtpServer", smtpServer);
@@ -62,14 +69,20 @@ namespace GreenSense.Index.Tests.Integration
 
         public void AssertConfigFileContains (string configFileContent, string key, string value)
         {
-            var pattern = "<add key=\"{0}\" value=\"{1}\"/>";
-            var populatedPattern = String.Format (pattern, key, value);
+        
+            var doc = new XmlDocument ();
+            doc.LoadXml (configFileContent);
 
-            //Console.WriteLine ("Pattern: " + populatedPattern);
+            var configElement = doc.SelectSingleNode ("configuration/appSettings/add[@key='" + key + "']");
 
-            Assert.IsTrue (configFileContent.Contains (populatedPattern),
-                "Config file doesn't contain value with key '" + key + "' and value '" + value + "'.");
-			
+            Assert.IsNotNull (configElement, "Can't find config element for '" + key + "' key.");
+
+            var valueAttribute = configElement.Attributes ["value"];
+
+            var valueInConfigFile = valueAttribute.Value;
+
+            Assert.AreEqual (value, valueInConfigFile, "Value for '" + key + "' wasn't set in config file.");
+
         }
     }
 }

@@ -30,7 +30,9 @@ echo "Admin email: $ADMIN_EMAIL"
 echo ""
 echo "Setting UI controller config file:"
 
-CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config"
+CONFIG_FILE_NAME="Serial1602ShieldSystemUIControllerConsole.exe.config"
+
+CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/$CONFIG_FILE_NAME"
 echo "  $CONFIG_FILE"
 
 if [ ! -f "$CONFIG_FILE.bak" ]; then
@@ -45,7 +47,7 @@ echo "Inserting values"
 xmlstarlet ed -L -u '/configuration/appSettings/add[@key="SmtpServer"]/@value' -v "$SMTP_SERVER" $CONFIG_FILE
 xmlstarlet ed -L -u '/configuration/appSettings/add[@key="EmailAddress"]/@value' -v "$ADMIN_EMAIL" $CONFIG_FILE
 
-CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config"
+CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/$CONFIG_FILE_NAME"
 
 echo "Keeping a backup of the new config file"
 echo "$CONFIG_FILE2"
@@ -57,15 +59,15 @@ if [ $IS_MOCK_UI_CONTROLLER = 0 ]; then
   echo "Real UI Controller"
   INSTALL_DIR="/usr/local/Serial1602ShieldSystemUIController"
   sudo mkdir -p $INSTALL_DIR
-  sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/Serial1602ShieldSystemUIController.exe.config
+  sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/$CONFIG_FILE_NAME
 else
   echo "Mock UI Controller"
   INSTALL_DIR="mock/Serial1602ShieldSystemUIController"
   mkdir -p $INSTALL_DIR
-  cp -f $CONFIG_FILE2 $INSTALL_DIR/Serial1602ShieldSystemUIController.exe.config
+  cp -f $CONFIG_FILE2 $INSTALL_DIR/$CONFIG_FILE_NAME
 fi
 
-echo "$INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config"
+echo "$INSTALL_DIR/$CONFIG_FILE_NAME"
 
 echo ""
 echo "Finished setting email details for 1602 LCD UI controller"
