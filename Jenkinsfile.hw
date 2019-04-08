@@ -43,7 +43,7 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-tests.sh'
+                sh '#sh build-tests.sh'
             }
         }
         stage('Deploy Dev') {
@@ -55,7 +55,7 @@ pipeline {
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test-all.sh'
+                sh '#sh test-all.sh'
             }
         }
         stage('Deploy Master') {
