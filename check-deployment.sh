@@ -77,4 +77,10 @@ echo "Viewing garden status..."
 
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh" || (echo "Error attempting to check garden status." && exit 1)
 
+echo "Viewing garden device versions..."
+
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh" || (echo "Error attempting to check garden device versions." && exit 1)
+
+
+
 echo "Finished checking status of deployment."
