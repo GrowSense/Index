@@ -5,7 +5,7 @@ DEVICES_DIR="devices"
 DIR=$PWD
 
 echo ""
-echo "Garden devices..."
+echo "Uploading all device sketches..."
 echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
