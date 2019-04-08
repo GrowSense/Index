@@ -5,29 +5,25 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
-MQTT_HOST=$(cat mqtt-host.security)
-MQTT_USERNAME=$(cat mqtt-username.security)
-MQTT_PASSWORD=$(cat mqtt-password.security)
-MQTT_PORT=$(cat mqtt-port.security)
 
-echo "  MQTT Data ($MQTT_HOST)"
+GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
-CALIBRATED_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/C" -C 1)
-
-if [ ! $CALIBRATED_VALUE ]; then
-  echo "    No MQTT data detected"  
-else
-  echo "    Soil moisture: $CALIBRATED_VALUE%"
+# Soil moisture monitor
+if [ "$GROUP" = "monitor" ]; then
+  sh check-garden-monitor-device-mqtt.sh $DEVICE_NAME
 fi
 
-#RAW_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/R" -C 1)
+# Irrigator
+if [ "$GROUP" = "irrigator" ]; then
+  sh check-garden-irrigator-device-mqtt.sh $DEVICE_NAME
+fi
 
-#echo "    Raw: $RAW_VALUE"
+# Illuminator
+if [ "$GROUP" = "illuminator" ]; then
+  sh check-garden-illuminator-device-mqtt.sh $DEVICE_NAME
+fi
 
-#DRY_CALIBRATION_VALUE=$(mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/D" -C 1)
-
-#echo "    Dry (calibration): $DRY_CALIBRATION_VALUE"
-
-#WET_CALIBRATION_VALUE=$(mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/W" -C 1)
-
-#echo "    Wet (calibration): $WET_CALIBRATION_VALUE"
+# Ventilator
+if [ "$GROUP" = "ventilator" ]; then
+  sh check-garden-ventilator-device-mqtt.sh $DEVICE_NAME
+fi
