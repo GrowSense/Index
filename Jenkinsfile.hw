@@ -20,6 +20,7 @@ pipeline {
                 sh 'sh init-mock-setup.sh'
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoderCI"'
+                sh 'sh view-version.sh'
             }
         }
         stage('Prepare') {
