@@ -23,7 +23,7 @@ LATEST_VERSION_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/Green
 
 LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
-VERSION=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/V" -C 1)
+VERSION=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/V" -C 1)
 
 if [ ! "$VERSION" ]; then
   echo "  No MQTT data detected"  
