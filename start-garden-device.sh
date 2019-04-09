@@ -1,5 +1,5 @@
 echo ""
-echo "Stopping garden device services"
+echo "Starting garden device services"
 echo ""
 
 DIR=$PWD
@@ -19,14 +19,14 @@ else
   if [ "$DEVICE_GROUP" = "ui" ]; then
   
     echo "Restart UI controller service" && \
-    sh systemctl.sh stop greensense-ui-1602-$DEVICE_NAME.service || exit 1
+    sh systemctl.sh start greensense-ui-1602-$DEVICE_NAME.service || exit 1
     
   else
 
     echo "Restart MQTT bridge service" && \
-    sh systemctl.sh stop greensense-mqtt-bridge-$DEVICE_NAME.service || exit 1
+    sh systemctl.sh start greensense-mqtt-bridge-$DEVICE_NAME.service || exit 1
 
   fi
   
-  echo "Garden device services stopped for '$DEVICE_NAME'"
+  echo "Garden device services started for '$DEVICE_NAME'"
 fi

@@ -60,10 +60,9 @@ else
     if [ "$DEVICE_GROUP" = "ui" ]; then
       SERVICE_NAME="greensense-ui-1602-$DEVICE_NAME.service"  
     fi
-    
 
     # Stop the service so the upgrade can execute
-    sh systemctl.sh stop $SERVICE_NAME || echo "Failed to stop service: $SERVICE_NAME"
+    sh stop-garden-device.sh $DEVICE_NAME
       
     SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
     timeout $UPGRADE_SCRIPT_TIMEOUT sh $SCRIPT_NAME $DEVICE_PORT >> logs/updates/$DEVICE_NAME.txt || \
@@ -88,18 +87,12 @@ else
     
     # If the upgrade script completed successfully
     if [ $STATUS_CODE = 0 ]; then
-      # Restart the service  
-      sh systemctl.sh start $SERVICE_NAME || echo "Failed to restart service: $SERVICE_NAME"
-      
       sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
 
       echo "Upgrade complete" >> logs/updates/$DEVICE_NAME.txt
      
       echo "Device has been upgraded"   
     else # Upgrade failed
-      # Restart the service  
-      sh systemctl.sh start $SERVICE_NAME || echo "Failed to restart service: $SERVICE_NAME"
-      
       sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
       
       echo "Upgrade failed" >> logs/updates/$DEVICE_NAME.txt
@@ -107,7 +100,8 @@ else
       echo "Device upgrade failed" 
     fi
 
-
+    # Start the device again
+    sh start-garden-device.sh $DEVICE_NAME
      
   fi
 fi

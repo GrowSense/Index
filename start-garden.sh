@@ -1,10 +1,10 @@
 echo ""
-echo "Stopping all garden services"
+echo "Starting all garden services"
 echo ""
 
 DIR=$PWD
 
-sh stop-supervisor.sh || exit 1
+sh start-supervisor.sh || exit 1
 
 DEVICES_DIR="devices"
 
@@ -15,7 +15,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         echo "$DEVICE_LABEL"
         
-        sh stop-garden-device.sh $DEVICE_NAME
+        sh start-garden-device.sh $DEVICE_NAME
        
         echo ""
     done
