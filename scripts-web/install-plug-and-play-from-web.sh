@@ -75,67 +75,83 @@ BASE_DIR="$(dirname $GREENSENSE_DIR)"
 
 echo "Creating ArduinoPlugAndPlay dir..."
 PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
-mkdir -p $PNP_INSTALL_DIR || (echo "Failed to create ArduinoPlugAndPlay directory." && exit 1)
+mkdir -p $PNP_INSTALL_DIR || exit 1
 
 cd $PNP_INSTALL_DIR
 
 echo "Importing GreenSense config file into ArduinoPlugAndPlay dir..."
 
-wget -q --no-cache https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O $PNP_INSTALL_DIR/ArduinoPlugAndPlay.exe.config || (echo "Failed downloading GreenSense plug and play config file." && exit 1)
+wget -q --no-cache https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O $PNP_INSTALL_DIR/ArduinoPlugAndPlay.exe.config || exit 1
 
 echo "Setting up GreenSense index..."
 
 if [ ! -d "$INDEX_DIR/.git" ]; then
-  mkdir -p $INDEX_DIR || (echo "Failed to create GreenSense index directory" && exit 1)
+  mkdir -p $INDEX_DIR || exit 1
 
   if [ -d $INDEX_DIR ]; then
+    echo "Moving the existing GreenSense index..."
+  
     mv $INDEX_DIR $INDEX_DIR.old
   fi
+  
+  echo "Cloning the GreenSense index repository..."
   
   git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
   
   if [ -d $INDEX_DIR.old ]; then
+    echo "Importing text files..."
     mv $INDEX_DIR.old/*.txt $INDEX_DIR/
     
-    rm -r $INDEX_DIR.old || (echo "Failed to remove old index directory" && exit 1)
+    echo "Removing old index directory..."
+    rm -r $INDEX_DIR.old
   fi
   
-  cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)  
+  echo "Moving into index directory..."
   
-  bash prepare.sh || (echo "Failed to prepare index" && exit 1)
+  cd $INDEX_DIR || exit 1 
+  
+  echo "Preparing index..."
+  
+  bash prepare.sh || exit 1
 fi
 
-cd $INDEX_DIR || (echo "Failed to move into GreenSense index" && exit 1)
+echo "Moving into the index directory..."
 
-sh update.sh || (echo "Failed to update GreenSense index" && exit 1)
+cd $INDEX_DIR || exit 1
 
-sh init-runtime.sh || (echo "Failed to initialize runtime components" && exit 1)
+echo "Updating the index..."
+
+sh update.sh
+
+echo "Initializing runtime components..."
+
+sh init-runtime.sh
 
 echo "Setting WiFi credentials..."
 
-sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD || (echo "Failed to set WiFi credentials" && exit 1)
+sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
 
 echo "Setting MQTT credentials..."
 
-sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || (echo "Failed to set MQTT credentials" && exit 1)
+sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
 
 echo "Setting email detiails..."
 
-sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to set email details" && exit 1)
+sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 
 echo "Creating garden..."
 
-sh create-garden.sh || (echo "Failed to create garden" && exit 1)
+sh create-garden.sh
 
 echo "Creating system supervisor service..."
 
-sh create-supervisor-service.sh || (echo "Failed to create supervisor service" && exit 1)
+sh create-supervisor-service.sh
 
 echo "Installing plug and play..."
 
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
+wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
 
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
 
-echo "Finished setting up plug and play"
+echo "Finished installing GreenSense plug and play"
