@@ -57,8 +57,9 @@ else
     
     SERVICE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
     
-    if [ "$DEVICE_GROUP" = "ui" ]; then
-      SERVICE_NAME="greensense-ui-1602-$DEVICE_NAME.service"  
+    if [ "$DEVICE_GROUP" = "ui" ]; then  
+      echo "Giving the UI time to display the message..."
+      sleep 5 
     fi
 
     # Stop the service so the upgrade can execute
@@ -72,6 +73,14 @@ else
     STATUS_CODE=$?    
     
     echo "Status code: $STATUS_CODE"
+    
+    # Start the device again
+    sh start-garden-device.sh $DEVICE_NAME
+  
+    if [ "$DEVICE_GROUP" = "ui" ]; then  
+      echo "Giving the UI time to restart..."
+      sleep 10
+    fi
     
     # If the upgrade script timed out
     if [ $STATUS_CODE = 124 ]; then
@@ -100,8 +109,6 @@ else
       echo "Device upgrade failed" 
     fi
 
-    # Start the device again
-    sh start-garden-device.sh $DEVICE_NAME
      
   fi
 fi
