@@ -52,14 +52,14 @@ else
   echo "Publishing status to MQTT..."
   sh mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" || echo "MQTT publish failed."
 
-  echo "Removing all devices and services..."
-  sh remove-garden-devices.sh || (echo "Failed to remove garden devices." && exit 1)
+  echo "Stopping garden..."
+  sh stop-garden.sh || exit 1
 
   echo "Removing all devices and services..."
-  sh remove-garden-devices.sh || (echo "Failed to remove garden devices." && exit 1)
+  sh remove-garden-devices.sh || exit 1
 
   echo "Removing GreenSense directory..."
-  rm $INSTALL_DIR -R || (echo "Failed to remove GreenSense index directory." && exit 1)
+  rm $INSTALL_DIR -R || exit 1
 fi
 
 if [ -d "$BASE_DIR/mqtt-bridge" ]; then

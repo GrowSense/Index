@@ -52,14 +52,17 @@ cd $INDEX_DIR
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
 
+echo "Stopping garden..."
+sh stop-garden.sh || exit 1
+
 echo "Updating index..."
-sh update-all.sh $BRANCH || exit 1
+sh update-all.sh || exit 1
 
 echo "Upgrading..."
-sh upgrade.sh $BRANCH || exit 1
+sh upgrade.sh || exit 1
 
 echo "Reinitializing index..."
-sh init-runtime.sh $BRANCH || exit 1
+sh init-runtime.sh || exit 1
 
 echo "Recreating UI..."
 sh recreate-garden-ui.sh || exit 1
