@@ -4,46 +4,24 @@ DIR=$PWD
 
 git submodule update --init --recursive || "Submodule update failed"
 
-echo "" && \
-echo "Initializing GreenSense monitor (SoilMoistureSensorCalibratedSerial) submodule" && \
-
-cd sketches/monitor/SoilMoistureSensorCalibratedSerial/ && \
-sh init.sh || (echo "Failed to initialize SoilMoistureSensorCalibratedSerial submodule." && exit 1)
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense WiFi/ESP monitor (SoilMoistureSensorCalibratedSerialESP) submodule" && \
-
-cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/ && \
-sh init.sh || (echo "Failed to initialize SoilMoistureSensorCalibratedSerialESP submodule." && exit 1)
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense irrigator (SoilMoistureSensorCalibratedPump) submodule" && \
-
-cd sketches/irrigator/SoilMoistureSensorCalibratedPump/ && \
-sh init.sh || (echo "Failed to initialize SoilMoistureSensorCalibratedPump submodule." && exit 1)
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense WiFi/ESP irrigator (SoilMoistureSensorCalibratedPumpESP) submodule" && \
-
-cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/ && \
-sh init.sh || (echo "Failed to initialize SoilMoistureSensorCalibratedPumpESP submodule." && exit 1)
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense ventilator (TemperatureHumidityDHTSensorFan) submodule" && \
-
-cd sketches/ventilator/TemperatureHumidityDHTSensorFan/ && \
-sh init.sh || (echo "Failed to initialize TemperatureHumidityDHTSensorFan submodule." && exit 1)
-cd $DIR && \
-echo "" && \
-
-echo "Initializing GreenSense illuminator (LightPRSensorCalibratedLight) submodule" && \
-
-cd sketches/illuminator/LightPRSensorCalibratedLight/ && \
-sh init.sh || (echo "Failed to initialize LightPRSensorCalibratedLight submodule." && exit 1)
-cd $DIR && \
+for GROUP_DIR in sketches/*; do
+  echo "Group: $GROUP_DIR"
+  for PROJECT_DIR in $GROUP_DIR/*; do
+    echo "Project: $PROJECT_DIR"
+    
+    cd "$PROJECT_DIR"
+    
+    INIT_SCRIPT="init.sh"
+    
+    if [ -f $INIT_SCRIPT ]; then
+      echo "Running init.sh script..."
+      sh $INIT_SCRIPT
+    else
+      sh "init.sh script not found."
+    fi
+    
+    cd $DIR
+  done
+done
 
 echo "Finished initializing submodules"
