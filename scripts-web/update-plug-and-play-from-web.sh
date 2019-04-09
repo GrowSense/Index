@@ -76,14 +76,14 @@ else
   echo "[mock] systemctl daemon-reload"
 fi
 
-echo "Start garden services..."
-sh start-garden.sh || exit 1
-
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || exit 1
 
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
+
+echo "Start garden services..."
+sh start-garden.sh || exit 1
 
 echo "Giving services time to start..."
 sleep 10
