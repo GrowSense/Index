@@ -33,7 +33,7 @@ if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
-echo "Uploading monitor sketch"
+echo "Uploading UI sketch"
 
 echo "Serial port: $SERIAL_PORT"
 

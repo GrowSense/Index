@@ -83,17 +83,29 @@ else
       exit 1
     fi
     
+    
     # If the upgrade script completed successfully
     if [ $STATUS_CODE = 0 ]; then
       # Restart the service  
       sh systemctl.sh start $SERVICE_NAME || echo "Failed to restart service: $SERVICE_NAME"
       
       sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
+
+      echo "Upgrade complete" >> logs/updates/$DEVICE_NAME.txt
      
       echo "Device has been upgraded"   
+    else # Upgrade faileds
+      # Restart the service  
+      sh systemctl.sh start $SERVICE_NAME || echo "Failed to restart service: $SERVICE_NAME"
+      
+      sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
+      
+      echo "Upgrade failed" >> logs/updates/$DEVICE_NAME.txt
+     
+      echo "Device upgrade failed" 
     fi
 
-  
+
      
   fi
 fi
