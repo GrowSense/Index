@@ -153,7 +153,7 @@ wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/Arduin
 
 
 echo "Giving the UI time to load..."
-sleep 10
+sleep 15
 
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."

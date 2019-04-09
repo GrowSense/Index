@@ -12,7 +12,7 @@ MQTT_PORT=$(cat mqtt-port.security)
 
 GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
-STATUS_MESSAGE=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
+STATUS_MESSAGE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
 
 if [ ! $STATUS_MESSAGE ]; then
   echo "  No MQTT status message detected"  
