@@ -14,7 +14,7 @@ for GROUP_DIR in sketches/*; do
     INIT_SCRIPT="init-sketch.sh"
     
     if [ -f $INIT_SCRIPT ]; then
-      echo "Running init-skectch script..."
+      echo "Running init-sketch.sh script..."
       sh $INIT_SCRIPT
     else
       sh "init-sketch.sh script not found."

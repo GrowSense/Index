@@ -5,6 +5,10 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
+MQTT_HOST=$(cat mqtt-host.security)
+MQTT_USERNAME=$(cat mqtt-username.security)
+MQTT_PASSWORD=$(cat mqtt-password.security)
+MQTT_PORT=$(cat mqtt-port.security)
 
 GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
