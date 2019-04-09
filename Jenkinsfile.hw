@@ -47,16 +47,22 @@ pipeline {
                 sh '#sh build-tests.sh'
             }
         }
+        stage('Test') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh '#sh test-all.sh'
+            }
+        }
         stage('Deploy Dev') {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh deploy-dev.sh'
             }
         }
-        stage('Test') {
+        stage('Deploy Dev Update') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh '#sh test-all.sh'
+               sh 'sh deploy-dev-update.sh'
             }
         }
         stage('Deploy Master') {

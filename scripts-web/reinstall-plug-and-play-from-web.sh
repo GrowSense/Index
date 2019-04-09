@@ -121,7 +121,7 @@ echo "Reinstalling plug and play..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/reinstall-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || (echo "Failed to install ArduinoPlugAndPlay." && exit 1)
 
 # Give the UI controller time to start
-sleep 10s
+sleep 15s
 
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Reinstalled" || echo "MQTT publish failed."
