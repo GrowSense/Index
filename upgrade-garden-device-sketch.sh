@@ -80,6 +80,8 @@ else
       
       echo "Upgrade timed out"
       
+      echo "Upgrade timed out" >> logs/updates/$DEVICE_NAME.txt
+      
       exit 1
     fi
     
@@ -94,7 +96,7 @@ else
       echo "Upgrade complete" >> logs/updates/$DEVICE_NAME.txt
      
       echo "Device has been upgraded"   
-    else # Upgrade faileds
+    else # Upgrade failed
       # Restart the service  
       sh systemctl.sh start $SERVICE_NAME || echo "Failed to restart service: $SERVICE_NAME"
       

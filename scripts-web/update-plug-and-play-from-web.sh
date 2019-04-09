@@ -53,29 +53,33 @@ echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
 
 echo "Updating index..."
-sh update-all.sh $BRANCH || (echo "Failed to update GreenSense index. Script: update-all.sh" && exit 1)
+sh update-all.sh $BRANCH || exit 1
+
+echo "Upgrading..."
+sh upgrade.sh $BRANCH || exit 1
+
 
 echo "Reinitializing index..."
-sh init-runtime.sh $BRANCH || (echo "Failed to update GreenSense index. Script: init-runtime.sh" && exit 1)
+sh init-runtime.sh $BRANCH || exit 1
 
 echo "Recreating UI..."
-sh recreate-garden-ui.sh || (echo "Failed to recreate garden UI. Script: recreate-garden-ui.sh" && exit 1)
+sh recreate-garden-ui.sh || exit 1
 
 echo "Recreating garden services..."
-sh recreate-garden-services.sh || (echo "Failed to recreate garden services. Script: recreate-garden-services.sh" && exit 1)
+sh recreate-garden-services.sh || exit 1
 
 echo "Reloading systemctl..."
 if [ ! -f "is-mock-systemctl.txt" ]; then
-  systemctl daemon-reload  || (echo "Failed to reload systemctl" && exit 1)
+  systemctl daemon-reload  || exit 1
 else
   echo "[mock] systemctl daemon-reload"
 fi
 
 echo "Restarting garden services..."
-sh restart-garden.sh || (echo "Failed to restart garden services. Script: restart-garden.sh" && exit 1)
+sh restart-garden.sh || exit 1
 
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || (echo "Failed to update ArduinoPlugAndPlay. Script: update-from-web.sh" && exit 1)
+wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || exit 1
 
 
 echo "Finished reinstalling GreenSense plug and play!"
