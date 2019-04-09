@@ -58,7 +58,6 @@ sh update-all.sh $BRANCH || exit 1
 echo "Upgrading..."
 sh upgrade.sh $BRANCH || exit 1
 
-
 echo "Reinitializing index..."
 sh init-runtime.sh $BRANCH || exit 1
 
