@@ -21,7 +21,7 @@ git checkout lts && \
 git pull origin lts --quiet && \
 
 # Merge the dev branch
-git merge -q dev && \
+git merge -q master && \
 
 # Push the updates
 git push origin lts --quiet && \
