@@ -23,7 +23,7 @@ echo "Host: $INSTALL_HOST"
 
 echo "Viewing platform.io list..."
 
-PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "pio device list" || (echo "Error attempting to view pio device list." && exit 1))
+PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "pio device list")
 
 echo "${PIO_LIST_RESULT}"
 
@@ -31,7 +31,7 @@ echo "${PIO_LIST_RESULT}"
 
 echo "Viewing arduino plug and play service status..."
 
-PNP_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status arduino-plug-and-play.service" || (echo "Error attempting to view arduino plug and play status." && exit 1))
+PNP_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status arduino-plug-and-play.service")
 
 echo "${PNP_RESULT}"
 
@@ -41,7 +41,7 @@ echo "${PNP_RESULT}"
 
 echo "Viewing GreenSense supervisor service status..."
 
-SUPERVISOR_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-supervisor.service" || (echo "Error attempting to view garden supervisor status." && exit 1))
+SUPERVISOR_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-supervisor.service")
 
 echo "${SUPERVISOR_RESULT}"
 
@@ -51,7 +51,7 @@ echo "${SUPERVISOR_RESULT}"
 
 echo "Viewing GreenSense UI controller service status..."
 
-UI_CONTROLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-ui1.service" || (echo "Error attempting to view UI controller status." && exit 1))
+UI_CONTROLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-ui1.service")
 
 echo "${UI_CONTROLLER_RESULT}"
 
@@ -61,7 +61,7 @@ echo "${UI_CONTROLLER_RESULT}"
 
 echo "Viewing irrigator1 MQTT bridge service status..."
 
-IRRIGATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-irrigator1.service" || (echo "Error attempting to view irrigator1 MQTT bridge status." && exit 1))
+IRRIGATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-irrigator1.service")
 
 echo "${IRRIGATOR_MQTT_BRIDGE_RESULT}"
 
@@ -71,7 +71,7 @@ echo "${IRRIGATOR_MQTT_BRIDGE_RESULT}"
 
 echo "Viewing ventilator1 MQTT bridge service status..."
 
-VENTILATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-ventilator1.service" || (echo "Error attempting to view irrigator1 MQTT bridge status." && exit 1))
+VENTILATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-ventilator1.service")
 
 echo "${VENTILATOR_MQTT_BRIDGE_RESULT}"
 
@@ -91,15 +91,29 @@ echo "${VENTILATOR_MQTT_BRIDGE_RESULT}"
 
 echo "Viewing garden data..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh" || (echo "Error attempting to view garden data." && exit 1)
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh"
 
 echo "Viewing garden status..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh" || (echo "Error attempting to check garden status." && exit 1)
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh"
 
 echo "Viewing garden device versions..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh" || (echo "Error attempting to check garden device versions." && exit 1)
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
+
+echo "Pulling update log files..."
+
+mkdir -p logs/updates
+
+sshpass -p $INSTALL_SSH_PASSWORD scp $INSTALL_SSH_USERNAME@$INSTALL_HOST:/usr/local/GreenSense/Index/logs/updates/*.txt logs/updates/
+
+for LOG_FILE in logs/updates/*.txt; do
+  echo "Log file: $LOG_FILE"
+  LOG_FILE_CONTENT=$(cat $LOG_FILE)
+  
+  [[ $(echo $LOG_FILE_CONTENT) =~ "failed" ]] && echo "Upgrade failed" && exit 1
+  [[ $(echo $LOG_FILE_CONTENT) =~ "error" ]] && echo "Upgrade resulted in error" && exit 1
+done
 
 
 
