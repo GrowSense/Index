@@ -4,46 +4,24 @@ DIR=$PWD
 
 git submodule update --init --recursive || "Submodule update failed"
 
-echo "" && \
-echo "Initializing GreenSense monitor (SoilMoistureSensorCalibratedSerial) submodule" && \
-
-cd sketches/monitor/SoilMoistureSensorCalibratedSerial/ && \
-sh init-sketch.sh && \
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense WiFi/ESP monitor (SoilMoistureSensorCalibratedSerialESP) submodule" && \
-
-cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/ && \
-sh init-sketch.sh && \
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense irrigator (SoilMoistureSensorCalibratedPump) submodule" && \
-
-cd sketches/irrigator/SoilMoistureSensorCalibratedPump/ && \
-sh init-sketch.sh && \
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense WiFi/ESP irrigator (SoilMoistureSensorCalibratedPumpESP) submodule" && \
-
-cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP/ && \
-sh init-sketch.sh && \
-cd $DIR && \
-
-echo "" && \
-echo "Initializing GreenSense ventilator (TemperatureHumidityDHTSensorFan) submodule" && \
-
-cd sketches/ventilator/TemperatureHumidityDHTSensorFan/ && \
-sh init-sketch.sh && \
-cd $DIR && \
-echo "" && \
-
-echo "Initializing GreenSense illuminator (LightPRSensorCalibratedLight) submodule" && \
-
-cd sketches/illuminator/LightPRSensorCalibratedLight/ && \
-sh init-sketch.sh && \
-cd $DIR && \
+for GROUP_DIR in sketches/*; do
+  echo "Group: $GROUP_DIR"
+  for PROJECT_DIR in $GROUP_DIR/*; do
+    echo "Project: $PROJECT_DIR"
+    
+    cd "$PROJECT_DIR"
+    
+    INIT_SCRIPT="init-sketch.sh"
+    
+    if [ -f $INIT_SCRIPT ]; then
+      echo "Running init-skectch script..."
+      sh $INIT_SCRIPT
+    else
+      sh "init-sketch.sh script not found."
+    fi
+    
+    cd $DIR
+  done
+done
 
 echo "Finished initializing submodules"
