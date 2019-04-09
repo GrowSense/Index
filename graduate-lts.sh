@@ -29,5 +29,4 @@ git push origin lts --quiet && \
 # Go back to the original branch
 git checkout $BRANCH && \
 
-echo "The 'master' branch has been graduated to the 'lts' branch"  || \
-
+echo "The 'master' branch has been graduated to the 'lts' branch"
