@@ -29,6 +29,18 @@ echo "${PIO_LIST_RESULT}"
 
 [[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB2" ]] && echo "Not all USB devices are connected" && exit 1
 
+echo "Viewing garden data..."
+
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh"
+
+echo "Viewing garden status..."
+
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh"
+
+echo "Viewing garden device versions..."
+
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
+
 echo "Viewing arduino plug and play service status..."
 
 PNP_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status arduino-plug-and-play.service")
@@ -88,18 +100,6 @@ echo "${VENTILATOR_MQTT_BRIDGE_RESULT}"
 #[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The illuminator1 MQTT bridge service isn't loaded" && exit 1
 #[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The illuminator1 MQTT bridge service isn't active" && exit 1
 #[[ $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The illuminator1 MQTT bridge service wasn't found" && exit 1
-
-echo "Viewing garden data..."
-
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh"
-
-echo "Viewing garden status..."
-
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh"
-
-echo "Viewing garden device versions..."
-
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
 
 echo "Pulling update log files..."
 
