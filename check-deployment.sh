@@ -69,6 +69,26 @@ echo "${IRRIGATOR_MQTT_BRIDGE_RESULT}"
 [[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The irrigator1 MQTT bridge service isn't active" && exit 1
 [[ $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The irrigator1 MQTT bridge service wasn't found" && exit 1
 
+echo "Viewing ventilator1 MQTT bridge service status..."
+
+VENTILATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-ventilator1.service" || (echo "Error attempting to view irrigator1 MQTT bridge status." && exit 1))
+
+echo "${VENTILATOR_MQTT_BRIDGE_RESULT}"
+
+[[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The ventilator1 MQTT bridge service isn't loaded" && exit 1
+[[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The ventilator1 MQTT bridge service isn't active" && exit 1
+[[ $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The ventilator1 MQTT bridge service wasn't found" && exit 1
+
+#echo "Viewing illuminator1 MQTT bridge service status..."
+
+#ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-illuminator1.service" || (echo "Error attempting to view irrigator1 MQTT bridge status." && exit 1))
+
+#echo "${ILLUMINATOR_MQTT_BRIDGE_RESULT}"
+
+#[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The illuminator1 MQTT bridge service isn't loaded" && exit 1
+#[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The illuminator1 MQTT bridge service isn't active" && exit 1
+#[[ $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The illuminator1 MQTT bridge service wasn't found" && exit 1
+
 echo "Viewing garden data..."
 
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh" || (echo "Error attempting to view garden data." && exit 1)
