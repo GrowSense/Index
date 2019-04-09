@@ -48,7 +48,6 @@ fi
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
-
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
 
@@ -82,6 +81,15 @@ sh start-garden.sh || exit 1
 
 echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || exit 1
+
+echo "Moving to GreenSense index dir..."
+cd $INDEX_DIR
+
+echo "Giving services time to start..."
+sleep 10
+
+echo "Publishing status to MQTT..."
+sh mqtt-publish.sh "/garden/StatusMessage" "Update Complete" || echo "MQTT publish failed."
 
 
 echo "Finished reinstalling GreenSense plug and play!"
