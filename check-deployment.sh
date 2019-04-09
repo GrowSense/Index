@@ -107,6 +107,7 @@ mkdir -p logs/updates
 
 sshpass -p $INSTALL_SSH_PASSWORD scp $INSTALL_SSH_USERNAME@$INSTALL_HOST:/usr/local/GreenSense/Index/logs/updates/*.txt logs/updates/
 
+echo "Checking update log files..."
 for LOG_FILE in logs/updates/*.txt; do
   echo "Log file: $LOG_FILE"
   LOG_FILE_CONTENT=$(cat $LOG_FILE)
