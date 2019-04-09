@@ -1,6 +1,6 @@
 echo "Ongoing supervisor..."
 
-SLEEP_TIME=120
+SLEEP_TIME=300
 
 echo "Waiting for $SLEEP_TIME seconds before starting loop..."
 
