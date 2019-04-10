@@ -27,7 +27,7 @@ PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking
 
 echo "${PIO_LIST_RESULT}"
 
-[[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB2" ]] && echo "Not all USB devices are connected" && exit 1
+[[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB" ]] && echo "No USB devices are connected" && exit 1
 
 echo "Viewing garden data..."
 
