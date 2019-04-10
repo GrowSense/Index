@@ -51,6 +51,12 @@ cd $INDEX_DIR
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
 
+echo "Giving the UI time to receive the status update..."
+sleep 10
+
+echo "Stopping arduino plug and play..."
+sh systemctl.sh stop arduino-plug-and-play.service
+
 echo "Stopping garden..."
 sh stop-garden.sh || exit 1
 
@@ -84,6 +90,9 @@ cd $INDEX_DIR
 
 echo "Start garden services..."
 sh start-garden.sh || exit 1
+
+echo "Starting arduino plug and play..."
+sh systemctl.sh start arduino-plug-and-play.service
 
 echo "Giving services time to start..."
 sleep 10
