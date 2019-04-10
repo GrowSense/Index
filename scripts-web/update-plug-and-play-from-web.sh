@@ -69,6 +69,9 @@ sh upgrade.sh || exit 1
 echo "Reinitializing index..."
 sh init-runtime.sh || exit 1
 
+echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
+wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || exit 1
+
 echo "Recreating UI..."
 sh recreate-garden-ui.sh || exit 1
 
@@ -82,8 +85,6 @@ else
   echo "[mock] systemctl daemon-reload"
 fi
 
-echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/update-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || exit 1
 
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
