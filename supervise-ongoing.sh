@@ -1,11 +1,19 @@
 echo "Ongoing supervisor..."
 
-SLEEP_TIME=300
+IS_RUNNING=1
 
-echo "Waiting for $SLEEP_TIME seconds before starting loop..."
+SLEEP_TIME=10
 
-sleep $SLEEP_TIME
+i=1
 
-sh supervise.sh
-
-sh supervise-ongoing.sh
+while [ $IS_RUNNING ]
+do
+  echo "  Loop: $i"
+    
+  bash supervise.sh $i
+  
+  echo "  Sleeping for $SLEEP_TIME seconds..."
+  sleep $SLEEP_TIME
+  
+  ((i++))
+done
