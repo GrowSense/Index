@@ -85,15 +85,17 @@ else
   echo "[mock] systemctl daemon-reload"
 fi
 
-
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
-echo "Start garden services..."
-sh start-garden.sh || exit 1
-
 echo "Starting arduino plug and play..."
 sh systemctl.sh start arduino-plug-and-play.service
+
+echo "Giving plug and play time to start..."
+sleep 10
+
+echo "Start garden services..."
+sh start-garden.sh || exit 1
 
 echo "Giving services time to start..."
 sleep 10
