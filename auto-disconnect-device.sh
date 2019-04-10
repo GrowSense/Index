@@ -45,14 +45,16 @@ if [ $DEVICE_NAME ]; then
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting"
 
   echo "Device name: $DEVICE_NAME"
-
+  
+  echo "Stopping device services..."
+  sh stop-garden-device.sh $DEVICE_NAME
 
   SCRIPT_NAME="disconnect-garden-device.sh"
   echo ""
   echo "Remove device script:"
   echo $SCRIPT_NAME "$DEVICE_NAME"
   echo ""
-  sh $SCRIPT_NAME "$DEVICE_NAME" || (echo "Disconnect script failed." && exit 1)
+  sh $SCRIPT_NAME "$DEVICE_NAME" || exit 1
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
   

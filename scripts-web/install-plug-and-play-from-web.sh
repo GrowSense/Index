@@ -151,9 +151,8 @@ echo "Installing plug and play..."
 
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
 
-
 echo "Giving the UI time to load..."
-sleep 15
+sleep 20 
 
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."

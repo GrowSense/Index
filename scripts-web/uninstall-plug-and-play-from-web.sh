@@ -53,7 +53,7 @@ else
   sh mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" || echo "MQTT publish failed."
 
   echo "Giving the UI time to display the message..."
-  sleep 5
+  sleep 3
 
   echo "Stopping garden..."
   sh stop-garden.sh || exit 1
