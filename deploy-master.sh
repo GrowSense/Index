@@ -20,7 +20,7 @@ if [ "$BRANCH" = "master" ]; then
   sleep 30
   
   echo "Checking deployment..."
-  bash check-deployment.sh
+  bash check-deployment.sh || exit 1
 
   echo "Finished deployment."
 else
