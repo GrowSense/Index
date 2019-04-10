@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "mkdir -p /usr/local/mqtt-bridge/; cd /usr/local/mqtt-bridge/; wget -O start-mqtt-bridge-from-github.sh https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/start-mqtt-bridge-from-github.sh; sh start-mqtt-bridge-from-github.sh --DeviceName=ventilator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=I,F,G,J,R,U,S --SummaryKey=A"
+ ExecStart=/bin/sh -c "mkdir -p /usr/local/mqtt-bridge/; cd /usr/local/mqtt-bridge/; wget -O start-mqtt-bridge-from-github.sh https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/start-mqtt-bridge-from-github.sh; sh start-mqtt-bridge-from-github.sh --DeviceName=ventilator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=I,F,G,J,R,U,S,Q --SummaryKey=A"
 
  [Install]
  WantedBy=multi-user.target
