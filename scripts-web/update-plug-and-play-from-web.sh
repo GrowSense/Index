@@ -52,7 +52,7 @@ echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
 
 echo "Giving the UI time to receive the status update..."
-sleep 10
+sleep 5
 
 echo "Stopping arduino plug and play..."
 sh systemctl.sh stop arduino-plug-and-play.service

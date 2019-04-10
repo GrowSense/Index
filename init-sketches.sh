@@ -17,7 +17,7 @@ for GROUP_DIR in sketches/*; do
       echo "Running init-sketch.sh script..."
       sh $INIT_SCRIPT
     else
-      sh "init-sketch.sh script not found. Skipping."
+      echo "init-sketch.sh script not found. Skipping."
     fi
     
     cd $DIR

@@ -21,7 +21,7 @@ fi
 
 sh install-package.sh BridgeArduinoSerialToMqttSplitCsv 1.0.1.27 || exit 1
 
-echo "Installation complete. Launching bridge."
+echo "Installation complete."
 
 if [ -f $CONFIG_FILE_TMP ]; then
   echo "Preserved config file found. Restoring."

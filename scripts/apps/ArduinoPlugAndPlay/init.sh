@@ -15,7 +15,7 @@ fi
 
 sh install-package.sh ArduinoPlugAndPlay 1.0.0.111 || exit 1
 
-echo "Installation complete. Launching plug and play."
+echo "Installation complete."
 
 if [ -f $CONFIG_FILE_TMP ]; then
   echo "Preserved config file found. Restoring."

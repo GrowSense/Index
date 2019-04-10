@@ -21,7 +21,7 @@ fi
 
 sh install-package.sh Serial1602ShieldSystemUIController 1.0.0.66 || exit 1
 
-echo "Installation complete. Launching bridge."
+echo "Installation complete."
 
 if [ -f $CONFIG_FILE_TMP ]; then
   echo "Preserved config file found. Restoring."
