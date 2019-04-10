@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "mkdir -p /usr/local/GreenSense/Index/; cd /usr/local/GreenSense/Index/; sh supervise-ongoing.sh"
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/GreenSense/Index/; cd /usr/local/GreenSense/Index/; bash supervise-ongoing.sh"
 
  [Install]
  WantedBy=multi-user.target
