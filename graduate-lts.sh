@@ -26,7 +26,7 @@ git merge -q master && \
 # Push the updates
 git push origin lts --quiet && \
 
-# Go back to the master branch
-git checkout master && \
+# Go back to the original branch
+git checkout $BRANCH && \
 
 echo "The 'master' branch has been graduated to the 'lts' branch"
