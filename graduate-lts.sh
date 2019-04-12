@@ -2,9 +2,9 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if [ "$BRANCH" = "dev" ];  then
-  git checkout master
-fi
+#if [ "$BRANCH" = "dev" ];  then
+#  git checkout master
+#fi
 
 echo "Graduating master branch to lts branch"
 
