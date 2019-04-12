@@ -13,9 +13,9 @@ if [ ! -d "remote/$REMOTE_NAME" ]; then
   exit 1
 fi
 
-REMOTE_HOST=$(cat "remote/$REMOTE_NAME/host.txt")
-REMOTE_USERNAME=$(cat "remote/$REMOTE_NAME/username.txt")
-REMOTE_PASSWORD=$(cat "remote/$REMOTE_NAME/password.txt")
+REMOTE_HOST=$(cat "remote/$REMOTE_NAME/host.security")
+REMOTE_USERNAME=$(cat "remote/$REMOTE_NAME/username.security")
+REMOTE_PASSWORD=$(cat "remote/$REMOTE_NAME/password.security")
 
 
 echo "Name: $REMOTE_NAME"

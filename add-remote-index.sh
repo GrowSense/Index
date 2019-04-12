@@ -40,9 +40,9 @@ REMOTE_INFO_PATH="remote/$REMOTE_NAME"
 
 mkdir -p $REMOTE_INFO_PATH
 
-echo $REMOTE_NAME > $REMOTE_INFO_PATH/name.txt
-echo $REMOTE_HOST > $REMOTE_INFO_PATH/host.txt
-echo $REMOTE_USERNAME > $REMOTE_INFO_PATH/username.txt
-echo $REMOTE_PASSWORD > $REMOTE_INFO_PATH/password.txt 
+echo $REMOTE_NAME > $REMOTE_INFO_PATH/name.security
+echo $REMOTE_HOST > $REMOTE_INFO_PATH/host.security
+echo $REMOTE_USERNAME > $REMOTE_INFO_PATH/username.security
+echo $REMOTE_PASSWORD > $REMOTE_INFO_PATH/password.security
 
 echo "Finished creating remote index '$REMOTE_NAME'."

@@ -19,7 +19,7 @@ if [ ! -f "install-package.sh" ]; then
   wget -q --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
 fi
 
-sh install-package.sh Serial1602ShieldSystemUIController 1.0.0.66 || exit 1
+sh install-package.sh Serial1602ShieldSystemUIController 1.0.0.69 || exit 1
 
 echo "Installation complete."
 

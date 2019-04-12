@@ -296,7 +296,7 @@ namespace GreenSense.Index.Tests
         public void PullFileFromProject (string fileName, bool removeDestinationDirectory)
         {
             var sourceFile = Path.Combine (ProjectDirectory, fileName);
-            var destinationFile = Path.Combine (TemporaryDirectory, fileName);
+            var destinationFile = Path.Combine (Environment.CurrentDirectory, fileName);
 
             if (removeDestinationDirectory) {
                 var shortenedFileName = Path.GetFileName (fileName);
