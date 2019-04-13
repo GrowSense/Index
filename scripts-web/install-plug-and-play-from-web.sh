@@ -99,12 +99,13 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
   
   if [ -d $INDEX_DIR.old ]; then
-    echo "Importing pre-existing files..."
+    echo "Importing pre-existing *.txt files..."
     mv $INDEX_DIR.old/*.txt $INDEX_DIR/
     
     
-    if [ -d $INDEX_DIR.old/remote/ ]; then
-      mv $INDEX_DIR.old/remote/ $INDEX_DIR/remote
+    if [ -d $INDEX_DIR.old/remote ]; then
+      echo "Importing pre-existing remote folder..."
+      mv $INDEX_DIR.old/remote $INDEX_DIR/remote
     fi
     
     echo "Removing old index directory..."
