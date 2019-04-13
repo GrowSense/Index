@@ -11,6 +11,14 @@ if [ "$BRANCH" = "lts" ]; then
 
   sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/scripts-web/uninstall-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME" || exit 1
 
+
+  echo "Setting master branch garden as remote index..."
+  echo "'lts' host: $LTS_INSTALL_HOST"
+  echo "'master' host: $MASTER_INSTALL_HOST"
+
+  sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/scripts-web/add-remote-index-from-web | bash -s -- $BRANCH_NAME ? master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD" || exit 1
+
+
   echo "Installing GreenSense plug and play on remote computer..."
   echo "Host: $LTS_INSTALL_HOST"
 

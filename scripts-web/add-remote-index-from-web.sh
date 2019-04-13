@@ -53,22 +53,15 @@ echo "Host: $REMOTE_HOST"
 echo "Username: $REMOTE_USERNAME"
 echo "Password: [hidden]"
 
-
-
 INDEX_DIR="$INSTALL_DIR"
 
-echo "Checking for GreenSense index dir..."
-if [ ! -d $INDEX_DIR ]; then
-  echo "GreenSense Index doesn't appear to be installed at:"
-  echo "  $INDEX_DIR"
-  echo "Can't add remote."
-  exit 1
-fi
+echo "Making the GreenSense index dir (if needed)..."
+mkdir -p $INDEX_DIR
 
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
 echo "Adding remote index..."
-sh add-remote-index.sh $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD
+sh add-remote-index.sh $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD || exit 1
 
-echo "Finished adding remote index!"
+echo "Finished adding remote index"
