@@ -62,6 +62,6 @@ echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
 echo "Adding remote index..."
-sh add-remote-index.sh $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD || exit 1
+wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/add-remote-index.sh | bash -s -- $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD || exit 1
 
 echo "Finished adding remote index"
