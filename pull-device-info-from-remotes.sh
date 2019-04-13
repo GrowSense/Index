@@ -2,7 +2,7 @@ echo "Pulling device info from remote indexes..."
 
 if [ -d "remote" ]; then
   for REMOTE_DIR in remote/*; do
-    REMOTE_NAME=$(cat "$REMOTE_DIR/name.txt")
+    REMOTE_NAME=$(cat "$REMOTE_DIR/name.security")
     
     echo "Remote name: $REMOTE_NAME"
 
