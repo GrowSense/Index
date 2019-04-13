@@ -4,6 +4,13 @@ echo "Checking status of deployment..."
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+if [ "$BRANCH" = "lts" ]; then
+  echo "LTS deployment on live garden..."
+  INSTALL_HOST=$LTS_INSTALL_HOST
+  INSTALL_SSH_USERNAME=$LTS_INSTALL_SSH_USERNAME
+  INSTALL_SSH_PASSWORD=$LTS_INSTALL_SSH_PASSWORD
+  INSTALL_SSH_PORT=$LTS_INSTALL_SSH_PORT
+fi
 if [ "$BRANCH" = "master" ]; then
   echo "Master deployment on live garden..."
   INSTALL_HOST=$MASTER_INSTALL_HOST
