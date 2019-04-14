@@ -61,6 +61,11 @@ if ! type "xmlstarlet" > /dev/null; then
    $SUDO apt-get -y install xmlstarlet
 fi
 
+if ! type "sshpass" > /dev/null; then
+   [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
+   $SUDO apt-get -y install sshpass
+fi
+
 cd scripts/install/ && \
 
 sh install-platformio.sh && \
