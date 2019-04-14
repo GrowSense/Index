@@ -16,7 +16,7 @@ if [ "$BRANCH" = "lts" ]; then
   echo "'lts' host: $LTS_INSTALL_HOST"
   echo "'master' host: $MASTER_INSTALL_HOST"
 
-  sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -v --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD"
+  sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD"
 
 
   echo "Installing GreenSense plug and play on remote computer..."
