@@ -113,7 +113,7 @@ ILLUMINATOR_NAME="illuminator1"
 if [ $BRANCH = "lts" ]; then
   ILLUMINATOR_NAME="illuminator2"
 fi
-ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$ILLUMINATOR_NAME.service" || exit 1
+ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$ILLUMINATOR_NAME.service")
 
 echo "${ILLUMINATOR_MQTT_BRIDGE_RESULT}"
 
