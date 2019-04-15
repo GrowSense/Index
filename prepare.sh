@@ -13,7 +13,7 @@ APT_UPDATE_EXECUTED=0
 
 if ! type "wget" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install wget
+   $SUDO apt-get -y -q install wget
 fi
 
 if ! type "git" > /dev/null; then
@@ -23,47 +23,47 @@ fi
 
 if ! type "zip" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install zip
+   $SUDO apt-get -y -q install zip
 fi
 
 if ! type "unzip" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install unzip
+   $SUDO apt-get -y -q install unzip
 fi
 
 if ! type "curl" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install curl
+   $SUDO apt-get -y -q install curl
 fi
 
 if [[ ! $(dpkg -s software-properties-common) ]]; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install software-properties-common
+   $SUDO apt-get -y -q install software-properties-common
 fi
 
 if [[ ! $(dpkg -s ca-certificates) ]]; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install ca-certificates
+   $SUDO apt-get -y -q install ca-certificates
 fi
 
 if [[ ! $(dpkg -s apt-transport-https) ]]; then
    [ ! $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install apt-transport-https
+   $SUDO apt-get -y -q install apt-transport-https
 fi
 
 if [[ ! $(dpkg -s mosquitto-clients) ]]; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install mosquitto-clients
+   $SUDO apt-get -y -q install mosquitto-clients
 fi
 
 if ! type "xmlstarlet" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install xmlstarlet
+   $SUDO apt-get -y -q install xmlstarlet
 fi
 
 if ! type "sshpass" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y install sshpass
+   $SUDO apt-get -y -q install sshpass
 fi
 
 cd scripts/install/ && \

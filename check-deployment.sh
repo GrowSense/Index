@@ -70,7 +70,11 @@ echo "${SUPERVISOR_RESULT}"
 
 echo "Viewing GreenSense UI controller service status..."
 
-UI_CONTROLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-ui1.service")
+UI_NAME="ui1"
+if [ $BRANCH = "lts" ]; then
+  UI_NAME="ui2"
+fi
+UI_CONTROLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-$UI_NAME.service")
 
 echo "${UI_CONTROLLER_RESULT}"
 
@@ -78,35 +82,44 @@ echo "${UI_CONTROLLER_RESULT}"
 [[ ! $(echo $UI_CONTROLLER_RESULT) =~ "Active: active" ]] && echo "The UI controller service isn't active" && exit 1
 [[ $(echo $UI_CONTROLLER_RESULT) =~ "not found" ]] && echo "The UI controller service wasn't found" && exit 1
 
-echo "Viewing irrigator1 MQTT bridge service status..."
-
-IRRIGATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-irrigator1.service")
+echo "Viewing irrigator MQTT bridge service status..."
+IRRIGATOR_NAME="irrigator1"
+if [ $BRANCH = "lts" ]; then
+  IRRIGATOR_NAME="irrigator2"
+fi
+IRRIGATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$IRRIGATOR_NAME.service")
 
 echo "${IRRIGATOR_MQTT_BRIDGE_RESULT}"
 
-[[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The irrigator1 MQTT bridge service isn't loaded" && exit 1
-[[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The irrigator1 MQTT bridge service isn't active" && exit 1
-[[ $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The irrigator1 MQTT bridge service wasn't found" && exit 1
+[[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The $IRRIGATOR_NAME MQTT bridge service isn't loaded" && exit 1
+[[ ! $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The $IRRIGATOR_NAME MQTT bridge service isn't active" && exit 1
+[[ $(echo $IRRIGATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The $IRRIGATOR_NAME MQTT bridge service wasn't found" && exit 1
 
-echo "Viewing ventilator1 MQTT bridge service status..."
-
-VENTILATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-ventilator1.service")
+echo "Viewing ventilator MQTT bridge service status..."
+VENTILATOR_NAME="ventilator1"
+if [ $BRANCH = "lts" ]; then
+  VENTILATOR_NAME="ventilator2"
+fi
+VENTILATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$VENTILATOR_NAME.service")
 
 echo "${VENTILATOR_MQTT_BRIDGE_RESULT}"
 
-[[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The ventilator1 MQTT bridge service isn't loaded" && exit 1
-[[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The ventilator1 MQTT bridge service isn't active" && exit 1
-[[ $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The ventilator1 MQTT bridge service wasn't found" && exit 1
+[[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The $VENTILATOR_NAME MQTT bridge service isn't loaded" && exit 1
+[[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The $VENTILATOR_NAME MQTT bridge service isn't active" && exit 1
+[[ $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The $VENTILATOR_NAME MQTT bridge service wasn't found" && exit 1
 
-#echo "Viewing illuminator1 MQTT bridge service status..."
+echo "Viewing illuminator MQTT bridge service status..."
+ILLUMINATOR_NAME="illuminator1"
+if [ $BRANCH = "lts" ]; then
+  ILLUMINATOR_NAME="illuminator2"
+fi
+ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$ILLUMINATOR_NAME.service" || exit 1
 
-#ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-illuminator1.service" || (echo "Error attempting to view irrigator1 MQTT bridge status." && exit 1))
+echo "${ILLUMINATOR_MQTT_BRIDGE_RESULT}"
 
-#echo "${ILLUMINATOR_MQTT_BRIDGE_RESULT}"
-
-#[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The illuminator1 MQTT bridge service isn't loaded" && exit 1
-#[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The illuminator1 MQTT bridge service isn't active" && exit 1
-#[[ $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The illuminator1 MQTT bridge service wasn't found" && exit 1
+[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service isn't loaded" && exit 1
+[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service isn't active" && exit 1
+[[ $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service wasn't found" && exit 1
 
 echo "Pulling update log files..."
 
