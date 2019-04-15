@@ -19,7 +19,7 @@ namespace GreenSense.Index.Tests.Hardware
                 Assert.Fail ("No devices added to test helper.");
 
             var starter = GetTestProcessStarter (false);
-            starter.IsMockHardware = false;
+            //starter.IsMockHardware = false;
             starter.Initialize ();
 
             int i = 0;
