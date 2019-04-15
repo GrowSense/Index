@@ -71,7 +71,7 @@ echo "${SUPERVISOR_RESULT}"
 echo "Viewing GreenSense UI controller service status..."
 
 UI_NAME="ui1"
-if [ $BRANCH = "lts" ]; then
+if [ "$BRANCH" = "lts" ]; then
   UI_NAME="ui2"
 fi
 UI_CONTROLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-$UI_NAME.service")
@@ -84,7 +84,7 @@ echo "${UI_CONTROLLER_RESULT}"
 
 echo "Viewing irrigator MQTT bridge service status..."
 IRRIGATOR_NAME="irrigator1"
-if [ $BRANCH = "lts" ]; then
+if [ "$BRANCH" = "lts" ]; then
   IRRIGATOR_NAME="irrigator2"
 fi
 IRRIGATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$IRRIGATOR_NAME.service")
@@ -97,7 +97,7 @@ echo "${IRRIGATOR_MQTT_BRIDGE_RESULT}"
 
 echo "Viewing ventilator MQTT bridge service status..."
 VENTILATOR_NAME="ventilator1"
-if [ $BRANCH = "lts" ]; then
+if [ "$BRANCH" = "lts" ]; then
   VENTILATOR_NAME="ventilator2"
 fi
 VENTILATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$VENTILATOR_NAME.service")
