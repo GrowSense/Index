@@ -108,18 +108,18 @@ echo "${VENTILATOR_MQTT_BRIDGE_RESULT}"
 [[ ! $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The $VENTILATOR_NAME MQTT bridge service isn't active" && exit 1
 [[ $(echo $VENTILATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The $VENTILATOR_NAME MQTT bridge service wasn't found" && exit 1
 
-#echo "Viewing illuminator MQTT bridge service status..."
-#ILLUMINATOR_NAME="illuminator1"
-#if [ $BRANCH = "lts" ]; then
-#  ILLUMINATOR_NAME="illuminator2"
-#fi
-#ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl #status greensense-mqtt-bridge-$ILLUMINATOR_NAME.service")
+echo "Viewing illuminator MQTT bridge service status..."
+ILLUMINATOR_NAME="illuminator1"
+if [ $BRANCH = "lts" ]; then
+  ILLUMINATOR_NAME="illuminator2"
+fi
+ILLUMINATOR_MQTT_BRIDGE_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mqtt-bridge-$ILLUMINATOR_NAME.service")
 
-#echo "${ILLUMINATOR_MQTT_BRIDGE_RESULT}"
+echo "${ILLUMINATOR_MQTT_BRIDGE_RESULT}"
 
-#[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service isn't loaded" && exit 1
-#[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service isn't active" && exit 1
-#[[ $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service wasn't found" && exit 1
+[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Loaded: loaded" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service isn't loaded" && exit 1
+[[ ! $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "Active: active" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service isn't active" && exit 1
+[[ $(echo $ILLUMINATOR_MQTT_BRIDGE_RESULT) =~ "not found" ]] && echo "The $ILLUMINATOR_NAME MQTT bridge service wasn't found" && exit 1
 
 echo "Pulling update log files..."
 
