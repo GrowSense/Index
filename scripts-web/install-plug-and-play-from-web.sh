@@ -133,6 +133,10 @@ echo "Initializing runtime components..."
 
 sh init-runtime.sh
 
+echo "Installing apps (so it's ready to run offline)..."
+
+sh install-apps.sh
+
 echo "Setting WiFi credentials..."
 
 sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
@@ -144,10 +148,6 @@ sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
 echo "Setting email detiails..."
 
 sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
-
-echo "Installing apps (so it's ready to run offline)..."
-
-sh install-apps.sh
 
 echo "Creating garden..."
 
