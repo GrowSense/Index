@@ -50,7 +50,7 @@ xmlstarlet ed -L -u '/configuration/appSettings/add[@key="EmailAddress"]/@value'
 CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/$CONFIG_FILE_NAME"
 
 echo "Keeping a backup of the new config file"
-echo "$CONFIG_FILE2"
+echo "  $CONFIG_FILE2"
 cp -f $CONFIG_FILE $CONFIG_FILE2
 
 echo "Installing config file to"
@@ -67,7 +67,7 @@ else
   cp -f $CONFIG_FILE2 $INSTALL_DIR/$CONFIG_FILE_NAME
 fi
 
-echo "$INSTALL_DIR/$CONFIG_FILE_NAME"
+echo "  $INSTALL_DIR/$CONFIG_FILE_NAME"
 
 echo ""
 echo "Finished setting email details for 1602 LCD UI controller"
