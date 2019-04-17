@@ -145,6 +145,10 @@ echo "Setting email detiails..."
 
 sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 
+echo "Installing apps (so it's ready to run offline)..."
+
+sh install-apps.sh
+
 echo "Creating garden..."
 
 sh create-garden.sh
