@@ -15,5 +15,5 @@ docker run -i \
 	-e MQTT_PASSWORD=pass \
 	-e MQTT_TOPIC=Test \
 	-p 1883:1883 \
-	-p 8080:8080 \
+#	-p 8080:8080 \ # Disabled so jenkins can use the port
 	compulsivecoder/mosquitto-arm
