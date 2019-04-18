@@ -68,12 +68,18 @@ echo "${SUPERVISOR_RESULT}"
 [[ ! $(echo $SUPERVISOR_RESULT) =~ "Active: active" ]] && echo "GreenSense supervisor service isn't active" && exit 1
 [[ $(echo $SUPERVISOR_RESULT) =~ "not found" ]] && echo "GreenSense supervisor service wasn't found" && exit 1
 
-echo "Viewing GreenSense UI controller service status..."
+echo "Viewing GreenSense UI controller service log..."
 
 UI_NAME="ui1"
 if [ "$BRANCH" = "lts" ]; then
   UI_NAME="ui2"
 fi
+UI_CONTROLLER_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u greensense-ui-1602-$UI_NAME.service -b")
+
+echo "${UI_CONTROLLER_LOG}"
+
+echo "Viewing GreenSense UI controller service status..."
+
 UI_CONTROLLER_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-ui-1602-$UI_NAME.service")
 
 echo "${UI_CONTROLLER_RESULT}"
