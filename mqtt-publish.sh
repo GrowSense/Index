@@ -23,6 +23,10 @@ MQTT_PORT=$(cat mqtt-port.security)
 echo "Publishing to MQTT..."
 echo "  Topic: $TOPIC"
 echo "  Message: $MESSAGE"
+echo "  MQTT Host: $MQTT_HOST"
+echo "  MQTT Username: $MQTT_USERNAME"
+echo "  MQTT Password: [hidden]"
+echo "  MQTT Port: $MQTT_PORT"
 
 if [ ! -f "is-mock-mqtt.txt" ]; then
   mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$TOPIC" -m "$MESSAGE" || \
