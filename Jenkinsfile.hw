@@ -44,19 +44,13 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-tests.sh'
+                sh '#sh build-tests.sh'
             }
         }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test-all.sh'
-            }
-        }
-        stage('Deploy Dev Update') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy-dev-update.sh'
+                sh '#sh test-all.sh'
             }
         }
         stage('Deploy Dev') {
@@ -65,16 +59,22 @@ pipeline {
                sh 'sh deploy-dev.sh'
             }
         }
-        stage('Deploy Master Update') {
+        stage('Deploy Dev Update') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh 'sh deploy-master-update.sh'
+               sh 'sh deploy-dev-update.sh'
             }
         }
         stage('Deploy Master') {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh deploy-master.sh'
+            }
+        }
+        stage('Deploy Master Update') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-master-update.sh'
             }
         }
         stage('Deploy LTS') {

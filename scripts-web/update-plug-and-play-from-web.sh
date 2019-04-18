@@ -48,6 +48,22 @@ fi
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
+WIFI_NAME=$(cat wifi-host.security)
+WIFI_PASSWORD=$(cat wifi-password.security)
+
+echo "WiFi Name: $WIFI_NAME"
+echo "WiFi Password: [hidden]"
+
+MQTT_HOST=$(cat mqtt-host.security)
+MQTT_USERNAME=$(cat mqtt-username.security)
+MQTT_PASSWORD=$(cat mqtt-password.security)
+MQTT_PORT=$(cat mqtt-port.security)
+
+echo "MQTT Host: $MQTT_HOST"
+echo "MQTT Username: $MQTT_USERNAME"
+echo "MQTT Password: [hidden]"
+echo "MQTT PORT: $MQTT_PORT"
+
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Updating" || echo "MQTT publish failed."
 
