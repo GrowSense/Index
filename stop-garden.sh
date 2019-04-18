@@ -4,7 +4,7 @@ echo ""
 
 DIR=$PWD
 
-sh stop-supervisor.sh || exit 1
+sh stop-supervisor.sh || echo "Failed to stop supervisor"
 
 DEVICES_DIR="devices"
 
