@@ -56,7 +56,7 @@ else
   sleep 3
 
   echo "Stopping garden..."
-  sh stop-garden.sh || exit 1
+  sh stop-garden.sh || echo "Failed to stop garden"
 
   echo "Removing all devices and services..."
   sh remove-garden-devices.sh || exit 1
