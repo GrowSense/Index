@@ -6,6 +6,8 @@ DIR=$PWD
 
 sh restart-supervisor.sh || exit 1
 
+sh restart-mqtt.sh || exit 1
+
 DEVICES_DIR="devices"
 
 if [ -d "$DEVICES_DIR" ]; then

@@ -1,13 +1,16 @@
 DEVICE_NAME=$1
 
 if [ ! $DEVICE_NAME ]; then
-  echo "Error: Please provode a device name as parameter"
+  echo "Error: Please provide a device name as parameter"
 else
-  LOG_FILE="log.txt"
-  LOG_FILE="$DEVICE_NAME$LOG_FILE"
-  LOG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/$LOG_FILE"
-  echo "Viewing log file:"
-  echo $LOG_FILE
-
-  tail -f $LOG_FILE
+  SERVICE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
+  
+  SUDO=""
+  if [ ! "$(id -u)" -eq 0 ]; then
+    if [ ! -f "is-mock-sudo.txt" ]; then
+      SUDO='sudo'
+    fi
+  fi
+  
+  $SUDO journalctl -u $SERVICE_NAME
 fi

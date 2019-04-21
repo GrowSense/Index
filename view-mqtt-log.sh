@@ -1,1 +1,1 @@
-tail -f scripts/docker/mosquitto/service-log.txt
+sh journalctl.sh -u greensense-mosquitto-docker.service
