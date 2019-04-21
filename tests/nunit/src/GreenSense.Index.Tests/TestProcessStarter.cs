@@ -12,6 +12,7 @@ namespace GreenSense.Index.Tests
 
         public string PreCommand = "sh prepare-for-test.sh";
 
+        public bool IsMockSudo = true;
         public bool IsMockSystemCTL = true;
         public bool IsMockHardware = true;
         public bool IsMockMqttBridge = true;
@@ -28,6 +29,11 @@ namespace GreenSense.Index.Tests
             Console.WriteLine ("Initializing the test");
 
             RunProcess (PreCommand);
+
+            if (IsMockSudo)
+                File.WriteAllText (Path.GetFullPath ("is-mock-sudo.txt"), 1.ToString ());
+            else
+                File.Delete (Path.GetFullPath ("is-mock-sudo.txt"));
 
             if (IsMockHardware)
                 File.WriteAllText (Path.GetFullPath ("is-mock-hardware.txt"), 1.ToString ());
