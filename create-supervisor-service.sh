@@ -19,6 +19,6 @@ echo "Service file:"
 echo "$SERVICE_FILE_PATH"
 
 echo "Installing service..."
-sh install-service.sh $SERVICE_FILE_PATH && \
+bash install-service.sh $SERVICE_FILE_PATH && \
 
 echo "Finished GreenSense system supervisor service"
