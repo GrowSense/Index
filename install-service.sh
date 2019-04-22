@@ -44,6 +44,16 @@ else
   sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
   sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
   sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
+  
+  
+  SERVICE_STATUS=$(sh $SYSTEMCTL_SCRIPT status $SERVICE_FILE)
+
+  echo "${SERVICE_STATUS}"
+
+  [[ ! $(echo $SERVICE_STATUS) =~ "Loaded: loaded" ]] && echo "Service isn't loaded" && exit 1
+  [[ ! $(echo $SERVICE_STATUS) =~ "Active: active" ]] && echo "Service isn't active" && exit 1
+  [[ $(echo $SERVICE_STATUS) =~ "not found" ]] && echo "Service wasn't found" && exit 1
+
 fi
 
 echo "Finished installing service"

@@ -36,12 +36,4 @@ $SUDO chmod 777 $MOSQUITTO_DIR/data && \
 echo "  Installing service file" && \
 sh install-service.sh scripts/docker/mosquitto/greensense-mosquitto-docker.service && \
 
-MOSQUITTO_STATUS=$(systemctl status greensense-mosquitto-docker.service)
-
-echo "${MOSQUITTO_STATUS}"
-
-[[ ! $(echo $MOSQUITTO_STATUS) =~ "Loaded: loaded" ]] && echo "Mosquitto service isn't loaded" && exit 1
-[[ ! $(echo $MOSQUITTO_STATUS) =~ "Active: active" ]] && echo "Mosquitto service isn't active" && exit 1
-[[ $(echo $MOSQUITTO_STATUS) =~ "not found" ]] && echo "Mosquitto service wasn't found" && exit 1
-
 echo "Install complete"
