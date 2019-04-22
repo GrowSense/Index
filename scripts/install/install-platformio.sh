@@ -28,7 +28,6 @@ if ! type "pio" > /dev/null; then
   pip install --ignore-installed --user setuptools wheel
 
   echo "Installing platformio"
-  # pip install --ignore-installed -U platformio
   python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
   
   # Give the user necessary permissions
@@ -38,4 +37,19 @@ if ! type "pio" > /dev/null; then
 else
   echo "Platform.io is already installed. Skipping."
 fi
+
+# If platformio install failed try again via pip
+if ! type "pio" > /dev/null; then
+  echo "Installing platformio via pip"
+  
+  pip install --ignore-installed -U platformio
+  
+  # Give the user necessary permissions
+  $SUDO usermod -a -G tty $USER
+  $SUDO usermod -a -G dialout $USER
+
+fi
+
+echo "Finished installing platformio"
+
 
