@@ -83,8 +83,8 @@ fi
 if [ -d "$BASE_DIR/mosquitto" ]; then
   echo "Removing mosquitto install directory..."
   rm "$BASE_DIR/mosquitto" -R
-  docker stop mosquitto
-  docker rm mosquitto
+  docker stop mosquitto || "Skipping stop mosquitto"
+  docker rm mosquitto || "Skipping remove mosquitto"
 fi
 
 

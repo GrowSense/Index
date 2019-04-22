@@ -1,3 +1,5 @@
+#!/bin/bash
+
 SERVICE_FILE_PATH=$1
 SERVICE_FILE=$(basename -- "$SERVICE_FILE_PATH")
 

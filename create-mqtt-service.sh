@@ -34,6 +34,6 @@ echo "  Setting /data/ permissions" && \
 $SUDO chmod 777 $MOSQUITTO_DIR/data && \
 
 echo "  Installing service file" && \
-sh install-service.sh scripts/docker/mosquitto/greensense-mosquitto-docker.service && \
+bash install-service.sh scripts/docker/mosquitto/greensense-mosquitto-docker.service && \
 
 echo "Install complete"
