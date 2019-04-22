@@ -9,6 +9,8 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
 DOCKER_SCRIPT="docker.sh"
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
@@ -33,7 +35,15 @@ mkdir -p "$MOSQUITTO_DIR/data" && \
 echo "  Setting /data/ permissions" && \
 $SUDO chmod 777 $MOSQUITTO_DIR/data && \
 
-echo "  Installing service file" && \
-bash install-service.sh scripts/docker/mosquitto/greensense-mosquitto-docker.service && \
+SERVICE_FILE_PATH="scripts/docker/mosquitto/greensense-mosquitto-docker.service"
+
+echo "Copying template file..."
+cp $SERVICE_FILE_PATH.template $SERVICE_FILE_PATH
+
+echo "Editing service file..."
+sed -i "s/{BRANCH}/$BRANCH/g" $SERVICE_FILE_PATH && \
+
+echo "Installing service file..." && \
+bash install-service.sh $SERVICE_FILE_PATH && \
 
 echo "Install complete"
