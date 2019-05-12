@@ -41,6 +41,6 @@ sed -i "s/{PORT}/$DEVICE_PORT/g" $SERVICE_FILE_PATH && \
 sed -i "s/{BRANCH}/$BRANCH/g" $SERVICE_FILE_PATH && \
 
 echo "Installing service..."
-sh install-service.sh $SERVICE_FILE_PATH && \
+bash install-service.sh $SERVICE_FILE_PATH && \
 
 echo "Finished creating 1602 LCD shield UI controller service"
