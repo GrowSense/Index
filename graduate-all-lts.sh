@@ -4,6 +4,8 @@ echo "Graduating GreenSense index and all submodules..."
 
 DIR=$PWD
 
+sh graduate-lts.sh
+
 for GROUP_DIR in sketches/*; do
   echo "Group: $GROUP_DIR"
   for PROJECT_DIR in $GROUP_DIR/*; do
