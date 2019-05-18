@@ -48,7 +48,7 @@ fi
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
-WIFI_NAME=$(cat wifi-host.security)
+WIFI_NAME=$(cat wifi-name.security)
 WIFI_PASSWORD=$(cat wifi-password.security)
 
 echo "WiFi Name: $WIFI_NAME"
