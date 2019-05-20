@@ -80,8 +80,10 @@ echo "" && \
 echo "Add device script:" && \
 echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT && \
 echo "" && \
-sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT ||
-(echo "An error occurred when connecting device" && sh remove-garden-device.sh && exit 1)
+sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
+
+# Disabled because the plug and play system should take care of removing the device
+#(echo "An error occurred when connecting device" && sh remove-garden-device.sh && exit 1)
 
 nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected" &
 
