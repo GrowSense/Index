@@ -48,8 +48,7 @@ echo "Viewing garden device versions..."
 
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
 
-
-# Only check the mosquitto server MQTT host is localhost
+# Only check the mosquitto service if the MQTT host is localhost (otherwise it's not installed because it's using a remote MQTT host)
 MQTT_HOST=$(cat mqtt-host.security)
 if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
   echo "Viewing mosquitto service status..."
