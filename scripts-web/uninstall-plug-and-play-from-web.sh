@@ -50,7 +50,7 @@ else
   cd $INDEX_DIR
   
   echo "Publishing status to MQTT..."
-  sh mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" || echo "MQTT publish failed."
+  nohup sh mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" & || echo "MQTT publish failed."
 
   echo "Giving the UI time to display the message..."
   sleep 3
