@@ -16,7 +16,7 @@ GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 STATUS_MESSAGE=$(timeout 3 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
 
 if [ ! $STATUS_MESSAGE ]; then
-  echo "  No MQTT status message detected"  
+  echo "  Status: No MQTT status detected"  
 else
   echo "  Status: $STATUS_MESSAGE"
 fi
