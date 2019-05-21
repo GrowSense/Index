@@ -19,7 +19,7 @@ if [ ! -f "install-package.sh" ]; then
   wget --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
 fi
 
-sh install-package.sh BridgeArduinoSerialToMqttSplitCsv 1.0.1.49 || exit 1
+sh install-package.sh BridgeArduinoSerialToMqttSplitCsv 1.0.1.50 || exit 1
 
 echo "Installation complete."
 
