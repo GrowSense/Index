@@ -23,7 +23,7 @@ if [ "$BRANCH" = "master" ]; then
   echo ""
   
   echo "Giving services time to start..."
-  sleep 200
+  sleep 60
   
   echo ""
   
