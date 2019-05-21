@@ -11,9 +11,9 @@ MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
 # Query the device to force it to output a line of data
-mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q" -m "1"
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
 
-# Give the device time to respond
+# Give the device time to receive the message
 sleep 2
 
 GROUP=$(cat "devices/$DEVICE_NAME/group.txt")

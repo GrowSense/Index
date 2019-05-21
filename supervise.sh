@@ -8,17 +8,23 @@ if [ ! $LOOP_NUMBER ]; then
   LOOP_NUMBER=1
 fi
 
+echo ""
 echo "-----"
-echo "GreenSense Supervisor Loop: $LOOP_NUMBER"
-
+echo "Starting GreenSense Supervisor Loop: $LOOP_NUMBER"
+echo ""
 if [ $(( $LOOP_NUMBER%$UPGRADE_MOD_VALUE )) -eq "0" ]; then
+  echo ""
   echo "  Initiating upgrade."
-  sh upgrade.sh || (echo "Upgrade failed." && exit 1)
+  sh upgrade.sh || exit 1
 else
   echo "  Skipping upgrade this loop."
 fi
 
-sh supervise-devices.sh || (echo "Supervise garden devices failed." && exit 1)
+echo ""
+echo "Supervising devices..."
+sh supervise-devices.sh || exit 1
 
+echo ""
 echo "Finished GreenSense Supervisor Loop: $LOOP_NUMBER"
 echo "-----"
+echo ""

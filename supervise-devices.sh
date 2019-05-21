@@ -23,4 +23,6 @@ else
     echo "No devices have been added."
 fi
 
+echo "Finished supervising garden devices..."
+
 echo ""

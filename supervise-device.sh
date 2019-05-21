@@ -10,11 +10,15 @@ MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
+echo ""
 echo "Querying the device for a line of data..."
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
 
+echo ""
+echo "Giving the device time to receive the message..."
 sleep 5
 
+echo ""
 echo "Getting the time stamp from the device..."
 TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1)
 
@@ -40,3 +44,6 @@ else
   
   echo $TIME > $DEVICE_TIME_FILE
 fi
+
+echo "Finished supervising device"
+echo ""
