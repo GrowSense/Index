@@ -65,7 +65,7 @@ echo "MQTT Password: [hidden]"
 echo "MQTT PORT: $MQTT_PORT"
 
 echo "Publishing status to MQTT..."
-nohup sh mqtt-publish.sh "/garden/StatusMessage" "Updating" & || echo "MQTT publish failed."
+sh mqtt-publish.sh "/garden/StatusMessage" "Updating" &
 
 echo "Giving the UI time to receive the status update..."
 sleep 5
