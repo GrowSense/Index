@@ -2,9 +2,8 @@ echo ""
 echo "Creating GreenSense garden..."
 echo ""
 
-MQTT_HOST=$(cat mqtt-host.security)
-
 # Only create the MQTT broker service if the MQTT host is localhost
+MQTT_HOST=$(cat mqtt-host.security)
 if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
   echo "MQTT broker is local host"
   bash create-mqtt-service.sh
