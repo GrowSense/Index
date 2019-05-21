@@ -39,6 +39,12 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
 
   LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
+  # Query the device to force it to output a line of data
+  mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q" -m "1"
+
+  # Give the device time to respond
+  sleep 2
+
   # Get the version from the device
   VERSION=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/V" -C 1)
 
