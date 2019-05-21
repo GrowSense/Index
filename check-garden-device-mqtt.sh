@@ -13,7 +13,7 @@ MQTT_PORT=$(cat mqtt-port.security)
 GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
 # Query the device to force it to output a line of data
-mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/I" -m "Q1"
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q" -m "1"
 
 # The timeout is short because newly installed devices don't yet have a status
 STATUS_MESSAGE=$(timeout 3 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
@@ -31,7 +31,6 @@ if [ ! $INTERVAL_MESSAGE ]; then
 else
   echo "  Interval: $INTERVAL_MESSAGE"
 fi
-
 
 # Soil moisture monitor
 if [ "$GROUP" = "monitor" ]; then
