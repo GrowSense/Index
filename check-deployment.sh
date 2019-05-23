@@ -12,6 +12,7 @@ if [ "$BRANCH" = "lts" ]; then
   INSTALL_SSH_USERNAME=$LTS_INSTALL_SSH_USERNAME
   INSTALL_SSH_PASSWORD=$LTS_INSTALL_SSH_PASSWORD
   INSTALL_SSH_PORT=$LTS_INSTALL_SSH_PORT
+  INSTALL_MQTT_HOST=$LTS_MQTT_HOST
 fi
 if [ "$BRANCH" = "master" ]; then
   echo "Master deployment on live garden..."
@@ -19,6 +20,7 @@ if [ "$BRANCH" = "master" ]; then
   INSTALL_SSH_USERNAME=$MASTER_INSTALL_SSH_USERNAME
   INSTALL_SSH_PASSWORD=$MASTER_INSTALL_SSH_PASSWORD
   INSTALL_SSH_PORT=$MASTER_INSTALL_SSH_PORT
+  INSTALL_MQTT_HOST=$MASTER_MQTT_HOST
 fi
 if [ "$BRANCH" = "dev" ]; then
   echo "Dev deployment on staging garden..."
@@ -26,6 +28,7 @@ if [ "$BRANCH" = "dev" ]; then
   INSTALL_SSH_USERNAME=$DEV_INSTALL_SSH_USERNAME
   INSTALL_SSH_PASSWORD=$DEV_INSTALL_SSH_PASSWORD
   INSTALL_SSH_PORT=$DEV_INSTALL_SSH_PORT
+  INSTALL_MQTT_HOST=$DEV_MQTT_HOST
 fi
 
 echo "Host: $INSTALL_HOST"
@@ -39,12 +42,13 @@ echo "${PIO_LIST_RESULT}"
 
 [[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB" ]] && echo "No USB devices are connected" && exit 1
 
-# Only check the mosquitto service if the MQTT host is localhost (otherwise it's not installed because it's using a remote MQTT host)
-MQTT_HOST=$(cat mqtt-host.security)
-if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
-  echo ""
-  echo "Viewing mosquitto service status..."
+echo ""
+echo "Viewing mosquitto service status..."
+echo "  MQTT Host: $INSTALL_MQTT_HOST"
 
+# Only check the mosquitto service if the MQTT host is localhost (otherwise it's not installed because it's using a remote MQTT host)
+if [ "$INSTALL_MQTT_HOST" = "localhost" ] || [ "$INSTALL_MQTT_HOST" = "127.0.0.1" ]; then
+  echo "MQTT host is running on the local host"
   MOSQUITTO_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mosquitto-docker.service")
 
   echo "${MOSQUITTO_RESULT}"
@@ -52,6 +56,8 @@ if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
   [[ ! $(echo $MOSQUITTO_RESULT) =~ "Loaded: loaded" ]] && echo "Mosquitto service isn't loaded" && exit 1
   [[ ! $(echo $MOSQUITTO_RESULT) =~ "Active: active" ]] && echo "Mosquitto service isn't active" && exit 1
   [[ $(echo $MOSQUITTO_RESULT) =~ "not found" ]] && echo "Mosquitto service wasn't found" && exit 1
+else
+  echo "Skipping mosquitto service status check. Mosquitto service hasn't been installed because the MQTT host is on another server: $INSTALL_MQTT_HOST"
 fi
 
 echo ""
