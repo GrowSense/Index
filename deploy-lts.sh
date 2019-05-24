@@ -31,7 +31,7 @@ if [ "$BRANCH" = "lts" ]; then
   echo ""
   
   echo "Giving services time to start..."
-  sleep 120
+  sleep 150
   
   echo ""
   
