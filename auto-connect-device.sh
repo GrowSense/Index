@@ -46,7 +46,7 @@ DEVICE_NUMBER=1
 #sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
 
 echo "Pulling device info from remote indexes..."
-sh pull-device-info-from-remotes.sh || "Failed to pull remote device info."
+sh pull-device-info-from-remotes.sh || exit 1
 
 DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
     
