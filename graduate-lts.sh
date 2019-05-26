@@ -2,31 +2,44 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+echo "Graduating master branch to lts branch..."
+
 if [ "$BRANCH" = "dev" ];  then
+  echo "Currently in dev branch. Checking out master branch..."
   git checkout master || exit 1
 fi
 
-echo "Graduating master branch to lts branch"
+echo ""
+echo "Fetching from origin..."
+git fetch origin && \
 
-# Fetch other branches
-git fetch origin --quiet && \
+echo ""
+echo "Pulling the master branch from origin (to update it locally)..."
+git pull origin master && \
 
-# Pull the lts branch into the master branch
-git pull origin lts --quiet && \
+echo ""
+echo "Merging the lts branch into the master branch..."
+git merge lts && \
 
-# Checkout the lts branch
+echo ""
+echo "Checking out the lts branch..."
 git checkout lts && \
 
-# Ensure it's up to date
-git pull origin lts --quiet && \
+echo ""
+echo "Pulling the lts branch from origin (to update it locally)..."
+git pull origin lts && \
 
-# Merge the master branch
-git merge -q master && \
+echo ""
+echo "Merging the master branch into the lts branch..."
+git merge master && \
 
-# Push the updates
-git push origin lts --quiet && \
+echo ""
+echo "Pushing the updated lts branch to origin..."
+git push origin lts && \
 
-# Go back to the original branch
+echo ""
+echo "Checking out the $BRANCH branch again..."
 git checkout $BRANCH && \
 
+echo ""
 echo "The 'master' branch has been graduated to the 'lts' branch"
