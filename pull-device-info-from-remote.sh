@@ -23,6 +23,6 @@ echo "Host: $REMOTE_HOST"
 echo "Username: $REMOTE_USERNAME"
 echo "Password: [hidden]"
 
-sshpass -p $REMOTE_PASSWORD scp -r $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices .
+sshpass -p $REMOTE_PASSWORD scp -r -o StrictHostKeyChecking=no $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices .
 
 
