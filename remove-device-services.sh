@@ -23,12 +23,4 @@ else
   echo "Removing MQTT bridge service" && \
   rm -f scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/greensense-mqtt-bridge-$DEVICE_NAME.service
 
-# TODO: Remove if not needed. Now obsolete
-#echo "Stopping/disabling service" && \
-#sh $SYSTEMCTL_SCRIPT stop greensense-updater-$DEVICE_NAME.service
-#sh $SYSTEMCTL_SCRIPT disable greensense-updater-$DEVICE_NAME.service
-
-#echo "Removing updater service" && \
-#rm -f scripts/apps/GitDeployer/svc/greensense-updater-$DEVICE_NAME.service
-
 fi

@@ -10,4 +10,6 @@ if [ -d "remote" ]; then
   done
 fi
 
+sh recreate-garden-ui.sh
+
 echo "Finished"

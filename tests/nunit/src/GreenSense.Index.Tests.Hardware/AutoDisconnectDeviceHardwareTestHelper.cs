@@ -23,7 +23,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             var deviceInfo = ExampleDevice;
 
-            var deviceName = "TestDevice1";
+            var deviceName = "testIrrigator1";
 
             CreateExampleDevice (deviceName, deviceInfo);
 
@@ -63,6 +63,10 @@ namespace GreenSense.Index.Tests.Hardware
             var boardFile = Path.Combine (deviceDir, "board.txt");
 
             File.WriteAllText (boardFile, deviceInfo.BoardType);
+
+            var group = Path.Combine (deviceDir, "group.txt");
+
+            File.WriteAllText (boardFile, deviceInfo.GroupName);
         }
     }
 }
