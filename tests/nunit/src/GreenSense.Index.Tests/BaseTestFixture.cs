@@ -20,6 +20,8 @@ namespace GreenSense.Index.Tests
         [SetUp]
         public void Initialize ()
         {
+            Console.WriteLine ("Test: " + TestContext.CurrentContext.Test.FullName);
+
             var dir = Environment.CurrentDirectory;
 
             dir = dir.Replace ("/tests/nunit/bin/Release", "");
@@ -30,7 +32,7 @@ namespace GreenSense.Index.Tests
 
             ProjectDirectory = dir;
             Console.WriteLine ("Project directory: ");
-            Console.WriteLine (ProjectDirectory);
+            Console.WriteLine ("  " + ProjectDirectory);
             Console.WriteLine ("");
 
             Directory.SetCurrentDirectory (ProjectDirectory);

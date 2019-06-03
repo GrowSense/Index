@@ -55,19 +55,19 @@ if [ "$INSTALL_DIR" = "?" ]; then
     INSTALL_DIR="/usr/local/GreenSense/Index"
 fi
 
-echo "Branch: $BRANCH"
-echo "Install dir: $INSTALL_DIR"
+echo "  Branch: $BRANCH"
+echo "  Install dir: $INSTALL_DIR"
 
-echo "WiFi Name: $WIFI_NAME"
-echo "WiFi Password: [hidden]"
+echo "  WiFi Name: $WIFI_NAME"
+echo "  WiFi Password: [hidden]"
 
-echo "MQTT Host: $MQTT_HOST"
-echo "MQTT Username: $MQTT_USERNAME"
-echo "MQTT Password: [hidden]"
-echo "MQTT Port: $MQTT_PORT"
+echo "  MQTT Host: $MQTT_HOST"
+echo "  MQTT Username: $MQTT_USERNAME"
+echo "  MQTT Password: [hidden]"
+echo "  MQTT Port: $MQTT_PORT"
 
-echo "SMTP server: $SMTP_SERVER"
-echo "Admin email: $ADMIN_EMAIL"
+echo "  SMTP server: $SMTP_SERVER"
+echo "  Admin email: $ADMIN_EMAIL"
 
 INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
