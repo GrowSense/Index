@@ -56,7 +56,7 @@ WET_CALIBRATION_VALUE=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME
 if [ ! $WET_CALIBRATION_VALUE ]; then
   echo "  Wet (calibration): No MQTT data detected"
 else
-  echo "  Wet (calibration): $WET_CALIBRATION_VALUE seconds"
+  echo "  Wet (calibration): $WET_CALIBRATION_VALUE"
 fi
 
 DRY_CALIBRATION_VALUE=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/D" -C 1)
@@ -64,5 +64,5 @@ DRY_CALIBRATION_VALUE=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME
 if [ ! $DRY_CALIBRATION_VALUE ]; then
   echo "  Dry (calibration): No MQTT data detected"  
 else
-  echo "  Dry (calibration): $DRY_CALIBRATION_VALUE seconds"
+  echo "  Dry (calibration): $DRY_CALIBRATION_VALUE"
 fi
