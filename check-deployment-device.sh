@@ -18,7 +18,7 @@ fi
 DEPLOYMENT_DEVICE_INFO_DIR="tests/deployments/$DEPLOYMENT_NAME/devices/$DEVICE_NAME"
 
 # Detect the deployment details
-. ./detect-deployment-details.sh
+. ./detect-deployment-details.sh || exit 1
 
 DEVICE_GROUP=$(cat "$DEPLOYMENT_DEVICE_INFO_DIR/group.txt")
 

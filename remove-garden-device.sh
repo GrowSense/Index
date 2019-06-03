@@ -1,5 +1,5 @@
 echo ""
-echo "Removing garden device configuration"
+echo "Removing garden device"
 echo ""
 
 DEVICE_NAME=$1
