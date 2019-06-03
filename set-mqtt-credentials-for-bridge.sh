@@ -34,10 +34,10 @@ if [ "$PASSWORD" ]; then
   echo $PASSWORD > "mqtt-password.security"
   echo $PORT > "mqtt-port.security"
 
+  CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+
   echo ""
   echo "Setting mqtt bridge config file:"
-  
-  CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   echo "  $CONFIG_FILE"
   
   if [ ! -f "$CONFIG_FILE.bak" ]; then
@@ -45,7 +45,8 @@ if [ "$PASSWORD" ]; then
     cp $CONFIG_FILE $CONFIG_FILE.bak
   fi
   
-  echo "Restoring blank starter config file"
+  # TODO: Remove if not needed
+  #echo "Restoring blank starter config file"
   #cp -f $CONFIG_FILE.bak $CONFIG_FILE
   
   echo "Inserting values"
@@ -60,15 +61,15 @@ if [ "$PASSWORD" ]; then
   echo "  $CONFIG_FILE2"
   cp -f $CONFIG_FILE $CONFIG_FILE2
 
-  echo "Installing config file to"
+  echo "Installing config file to..."
   
   if [ $IS_MOCK_MQTT_BRIDGE = 0 ]; then
-    echo "Real MQTT bridge"
+    echo "  Real MQTT bridge"
     INSTALL_DIR="/usr/local/mqtt-bridge"
     sudo mkdir -p $INSTALL_DIR
     sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
   else
-    echo "Mock MQTT bridge"
+    echo "  Mock MQTT bridge"
     INSTALL_DIR="mock/mqtt-bridge"
     mkdir -p $INSTALL_DIR
     cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config

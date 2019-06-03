@@ -34,10 +34,11 @@ if [ "$PASSWORD" ]; then
   echo $PASSWORD > "mqtt-password.security"
   echo $PORT > "mqtt-port.security"
 
+  CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+
   echo ""
   echo "Setting UI controller config file:"
   
-  CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config"
   echo "  $CONFIG_FILE"
   
   if [ ! -f "$CONFIG_FILE.bak" ]; then
@@ -63,12 +64,12 @@ if [ "$PASSWORD" ]; then
   echo "Installing config file to"
   
   if [ $IS_MOCK_UI_CONTROLLER = 0 ]; then
-    echo "Real UI Controller"
+    echo "  Real UI Controller"
     INSTALL_DIR="/usr/local/Serial1602ShieldSystemUIController"
     sudo mkdir -p $INSTALL_DIR
     sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config
   else
-    echo "Mock UI Controller"
+    echo "  Mock UI Controller"
     INSTALL_DIR="mock/Serial1602ShieldSystemUIController"
     mkdir -p $INSTALL_DIR
     cp -f $CONFIG_FILE2 $INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config
