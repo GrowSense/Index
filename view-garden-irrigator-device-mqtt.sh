@@ -19,6 +19,14 @@ else
   echo "  Soil moisture: $CALIBRATED_VALUE%"
 fi
 
+THRESHOLD_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/T" -C 1)
+
+if [ ! $THRESHOLD_VALUE ]; then
+  echo "  Threshold: No MQTT data detected"  
+else
+  echo "  Threshold: $THRESHOLD_VALUE%"
+fi
+
 PUMP_BURST_ON_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/B" -C 1)
 
 if [ ! $PUMP_BURST_ON_VALUE ]; then
@@ -34,3 +42,4 @@ if [ ! $PUMP_BURST_OFF_VALUE ]; then
 else
   echo "  Burst off: $PUMP_BURST_OFF_VALUE seconds"
 fi
+
