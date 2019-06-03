@@ -3,6 +3,8 @@ DEVICE_NAME=$2
 
 EXAMPLE="Syntax:\n  *.sh [DeploymentName] [DeviceName]\nExample:\n  *.sh dev irrigator1"  
 
+echo "Checking deployment device..."
+
 if [ ! $DEPLOYMENT_NAME ]; then
   echo "Please provide the name of the deployment as an argument."
   echo "$EXAMPLE"
@@ -20,9 +22,8 @@ DEPLOYMENT_DEVICE_INFO_DIR="tests/deployments/$DEPLOYMENT_NAME/devices/$DEVICE_N
 # Detect the deployment details
 . ./detect-deployment-details.sh || exit 1
 
-DEVICE_GROUP=$(cat "$DEPLOYMENT_DEVICE_INFO_DIR/group.txt")
+DEVICE_GROUP=$(cat "$DEPLOYMENT_DEVICE_INFO_DIR/group.txt") || exit 1
 
-echo "Checking deployment device..."
 echo "  Device name: $DEVICE_NAME"
 echo "  Device group: $DEVICE_GROUP"
 echo "  Device info dir: $DEPLOYMENT_DEVICE_INFO_DIR"
@@ -51,4 +52,7 @@ echo "${MQTT_BRIDGE_SERVICE}"
 [[ ! $(echo $MQTT_BRIDGE_SERVICE) =~ "Loaded: loaded" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't loaded" && exit 1
 [[ ! $(echo $MQTT_BRIDGE_SERVICE) =~ "Active: active" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't active" && exit 1
 [[ $(echo $MQTT_BRIDGE_SERVICE) =~ "not found" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service wasn't found" && exit 1
+
+echo "Finished checking deployment device"
+echo ""
 
