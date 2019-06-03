@@ -8,8 +8,8 @@ if [ -d "remote" ]; then
 
     sh pull-device-info-from-remote.sh $REMOTE_NAME
   done
-fi
 
-sh recreate-garden-ui.sh
+  sh recreate-garden-ui.sh
+fi
 
 echo "Finished"
