@@ -38,7 +38,7 @@ fi
 echo ""
 echo "Viewing $SERVICE_LABEL log..."
 
-MQTT_BRIDGE_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "tail -n 100 journalctl -u $SERVICE_NAME -b")
+MQTT_BRIDGE_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u $SERVICE_NAME -b | tail -n 100")
 
 echo "${MQTT_BRIDGE_LOG}"
 
