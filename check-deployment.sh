@@ -4,10 +4,14 @@ echo ""
 echo "Checking status of deployment..."
 echo ""
 
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
+
 # Detect the deployment details
 . ./detect-deployment-details.sh
 
 echo "Host: $INSTALL_HOST"
+echo "Branch: $BRANCH"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -54,7 +58,10 @@ echo "${PNP_RESULT}"
 [[ ! $(echo $PNP_RESULT) =~ "Active: active" ]] && echo "Arduino Plug and Play service isn't active" && exit 1
 [[ $(echo $PNP_RESULT) =~ "not found" ]] && echo "Arduino Plug and Play service wasn't found" && exit 1
 
-bash check-deployment-devices.sh
+echo ""
+echo "Checking deployment devices..."
+
+bash check-deployment-devices.sh $BRANCH || exit 1
 
 echo ""
 echo "Pulling update log files..."

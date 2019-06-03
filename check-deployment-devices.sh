@@ -1,12 +1,13 @@
 DEPLOYMENT_NAME=$1
 
+echo ""
+echo "Checking deployment devices..."
+
 if [ ! $DEPLOYMENT_NAME ]; then
   echo "Please provide the name of the deployment. Example 'dev', 'master', 'lts'"
   exit 1
 fi
 
-echo ""
-echo "Checking deployment devices..."
 echo "  Deployment name: $DEPLOYMENT_NAME"
 
 DEPLOYMENT_INFO_DIR="tests/deployments/$DEPLOYMENT_NAME"
