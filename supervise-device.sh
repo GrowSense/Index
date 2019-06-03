@@ -16,7 +16,7 @@ mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t
 
 echo ""
 echo "Giving the device time to receive the message..."
-sleep 10
+sleep 3
 
 echo ""
 echo "Getting the time stamp from the device..."

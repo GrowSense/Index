@@ -2,7 +2,7 @@ echo "Ongoing supervisor..."
 
 IS_RUNNING=1
 
-SLEEP_TIME=10
+SLEEP_TIME=3
 
 i=1
 
