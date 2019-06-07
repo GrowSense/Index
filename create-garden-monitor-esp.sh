@@ -35,9 +35,9 @@ sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 # Create device info
 sh create-device-info.sh esp monitor SoilMoistureSensorCalibratedSerialESP $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
-# Skip the MQTT bridge service because it's not needed for the ESP version and the updater service because it won't work when not plugged in via USB
+# Skip the MQTT bridge service because it's not needed for the ESP version
 
 # Uploading sketch
 sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT && \
 
-echo "Garden ESP8266 monitor created with device name '$DEVICE_NAME'"
+echo "Garden ESP8266 soil moisture monitor created with device name '$DEVICE_NAME'"

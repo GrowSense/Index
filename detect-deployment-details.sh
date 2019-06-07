@@ -28,12 +28,10 @@ if [ "$BRANCH" = "dev" ]; then
   INSTALL_MQTT_HOST=$DEV_MQTT_HOST
 fi
 
-# Custom details (for testing)
-#INSTALL_HOST="10.0.0.9"
-#INSTALL_SSH_USERNAME="user"
-#INSTALL_SSH_PASSWORD="pass"
-#INSTALL_SSH_PORT=22
-#INSTALL_MQTT_HOST="10.0.0.9"
+if [ -f "set-deployment-details.sh.security" ]; then
+  echo "  Found set-deployment-details.sh.security script. Executing."
+  . ./set-deployment-details.sh.security
+fi
 
 echo "  Install host: $INSTALL_HOST"
 echo "    SSH username: $INSTALL_SSH_USERNAME"
@@ -41,5 +39,5 @@ echo "    SSH password: [hidden]"
 echo "    SSH port: $INSTALL_SSH_PORT"
 echo "  MQTT host: $INSTALL_MQTT_HOST"
 
-echo "Finished detecting deployment details."
+echo "  Finished detecting deployment details."
 echo ""
