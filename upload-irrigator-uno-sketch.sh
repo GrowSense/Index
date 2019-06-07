@@ -35,14 +35,14 @@ fi
 
 echo "Uploading irrigator sketch"
 
-echo "Serial port: $SERIAL_PORT"
+echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPump"
 
 cd $BASE_PATH
 
-echo "Current directory:"
-echo $BASE_PATH
+echo "  Current directory:"
+echo "    $BASE_PATH"
 
 # Inject version into the sketch
 sh inject-version.sh && \
@@ -74,3 +74,6 @@ cd $DIR
 #else
 #  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
+
+echo "Finished uploading irrigator sketch"
+echo ""

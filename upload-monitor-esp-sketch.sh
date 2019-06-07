@@ -39,10 +39,11 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
+echo ""
 echo "Uploading monitor ESP sketch"
 
-echo "Device name: $DEVICE_NAME"
-echo "Serial port: $SERIAL_PORT"
+echo "  Device name: $DEVICE_NAME"
+echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="sketches/monitor/SoilMoistureSensorCalibratedSerialESP"
 
@@ -90,4 +91,5 @@ cd $DIR && \
 #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
-echo "Finished upload"
+echo "Finished uploading illuminator sketch"
+echo ""

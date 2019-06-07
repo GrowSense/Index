@@ -15,10 +15,11 @@ if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
+echo ""
 echo "Uploading blink sketch"
 
-echo "LED pin: $LED_PIN"
-echo "Serial port: $SERIAL_PORT"
+echo "  LED pin: $LED_PIN"
+echo "  Serial port: $SERIAL_PORT"
 
 BLINK_BASE_PATH="sketches/util/Blink/"
 
@@ -38,3 +39,6 @@ sh upload-uno.sh "/dev/$SERIAL_PORT" && \
 git checkout $BLINK_SKETCH_PATH
 
 cd $DIR
+
+echo "Finished uploading blink sketch"
+echo ""

@@ -20,7 +20,9 @@ namespace GreenSense.Index.Tests
         [SetUp]
         public void Initialize ()
         {
-            Console.WriteLine ("Test: " + TestContext.CurrentContext.Test.FullName);
+            Console.WriteLine ("");
+            Console.WriteLine ("=== Starting test");
+            Console.WriteLine ("  Test: " + TestContext.CurrentContext.Test.FullName);
 
             var dir = Environment.CurrentDirectory;
 
@@ -50,6 +52,8 @@ namespace GreenSense.Index.Tests
         [TearDown]
         public void Finish ()
         {
+            Console.WriteLine ("=== Finished test");
+            Console.WriteLine ("");
         }
 
         public void ClearDevices ()

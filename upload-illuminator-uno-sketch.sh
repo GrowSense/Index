@@ -33,16 +33,17 @@ if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
+echo ""
 echo "Uploading illuminator sketch"
 
-echo "Serial port: $SERIAL_PORT"
+echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="sketches/illuminator/LightPRSensorCalibratedLight"
 
 cd $BASE_PATH
 
-echo "Current directory:"
-echo $BASE_PATH
+echo "  Current directory:"
+echo "    $BASE_PATH"
 
 # Inject version into the sketch
 sh inject-version.sh || exit 1
@@ -79,3 +80,6 @@ cd $DIR
 #else
 #  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
+
+echo "Finished uploading illuminator sketch"
+echo ""

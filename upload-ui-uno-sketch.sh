@@ -33,6 +33,7 @@ if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
+echo ""
 echo "Uploading UI sketch"
 
 echo "Serial port: $SERIAL_PORT"
@@ -69,3 +70,5 @@ cd $DIR
 #   echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
+echo "Finished uploading UI sketch"
+echo ""

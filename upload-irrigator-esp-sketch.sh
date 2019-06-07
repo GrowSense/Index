@@ -40,17 +40,18 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
+echo ""
 echo "Uploading irrigator ESP sketch"
 
-echo "Device name: $DEVICE_NAME"
-echo "Serial port: $SERIAL_PORT"
+echo "  Device name: $DEVICE_NAME"
+echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
 cd "$BASE_PATH"
 
-echo "Current directory:"
-echo "$BASE_PATH"
+echo "  Current directory:"
+echo "    $BASE_PATH"
 
 # Pull the security files from the index into the project
 sh pull-security-files.sh && \
@@ -93,4 +94,5 @@ cd $DIR && \
 #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
-echo "Finished upload"
+echo "Finished uploading irrigator sketch"
+echo ""

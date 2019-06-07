@@ -7,6 +7,8 @@ DEVICE_NAME=$5
 DEVICE_PORT=$6
 DEVICE_HOST=$7
 
+echo ""
+echo "Creating device info..."
 
 EXAMPLE_TEXT="Example: sh create-device-info.sh uno monitor SoilMoistureSensorCalibratedSerial Monitor1 monitor1 ttyUSB0"
 
@@ -50,13 +52,13 @@ if [ ! $DEVICE_HOST ]; then
   DEVICE_HOST=$(cat /etc/hostname)
 fi
 
-echo "Device board: $DEVICE_BOARD"
-echo "Device group: $DEVICE_GROUP"
-echo "Device type: $DEVICE_PROJECT"
-echo "Device label: $DEVICE_LABEL"
-echo "Device name: $DEVICE_NAME"
-echo "Device port: $DEVICE_PORT"
-echo "Device host: $DEVICE_HOST"
+echo "  Board: $DEVICE_BOARD"
+echo "  Group: $DEVICE_GROUP"
+echo "  Type: $DEVICE_PROJECT"
+echo "  Label: $DEVICE_LABEL"
+echo "  Device name: $DEVICE_NAME"
+echo "  Port: $DEVICE_PORT"
+echo "  Host: $DEVICE_HOST"
 
 DEVICE_FAMILY="GreenSense"
 
@@ -77,4 +79,5 @@ echo $DEVICE_GROUP > $DEVICE_DIR/group.txt
 echo $DEVICE_FAMILY > $DEVICE_DIR/family.txt
 echo $DEVICE_HOST > $DEVICE_DIR/host.txt
 
-echo "Device info created"
+echo "Finished creating device info"
+echo ""

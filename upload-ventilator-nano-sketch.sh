@@ -35,9 +35,10 @@ if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
+echo ""
 echo "Uploading ventilator sketch"
 
-echo "Serial port: $SERIAL_PORT"
+echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="sketches/ventilator/TemperatureHumidityDHTSensorFan"
 
@@ -71,3 +72,5 @@ cd $DIR
 #  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
+echo "Finished uploading ventilator sketch"
+echo ""
