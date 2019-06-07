@@ -42,7 +42,7 @@ namespace GreenSense.Index.Tests.Unit
 
             Console.WriteLine ("Checking console output is correct...");
 
-            var successfulText = "Device info created";
+            var successfulText = "Finished creating device info";
 
             Assert.IsTrue (output.Contains (successfulText), "Failed");
 
