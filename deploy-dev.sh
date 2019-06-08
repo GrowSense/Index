@@ -20,7 +20,7 @@ if [ "$BRANCH" = "dev" ]; then
   echo ""
   
   echo "Giving services time to start..."
-  sleep 600
+  sleep 1000
   
   echo ""
   
