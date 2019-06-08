@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "mkdir -p /usr/local/mosquitto; cd /usr/local/mosquitto/; curl --connect-timeout 3 -f https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/run-mosquitto-arm.sh -o run-mosquitto-arm.sh; sh run-mosquitto-arm.sh"
+ ExecStart=/bin/sh -c "mkdir -p /usr/local/mosquitto; cd /usr/local/mosquitto/; curl --connect-timeout 3 -f https://raw.githubusercontent.com/GreenSense/Index/dev/scripts/docker/mosquitto/run-mosquitto-arm.sh -o run-mosquitto-arm.sh; sh run-mosquitto-arm.sh"
 
  [Install]
  WantedBy=multi-user.target
