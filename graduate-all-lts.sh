@@ -24,5 +24,5 @@ done
 
 sh graduate-lts.sh
 
-echo "Finished graduating all"
+echo "Finished graduating all to lts branch"
 cd $DIR
