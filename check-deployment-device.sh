@@ -43,19 +43,24 @@ if [ "$DEVICE_CONNECTION" = "usb" ]; then
   echo ""
   echo "Viewing $SERVICE_LABEL log..."
 
-  MQTT_BRIDGE_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u $SERVICE_NAME -b | tail -n 100")
+  SERVICE_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u $SERVICE_NAME -b")
 
-  echo "${MQTT_BRIDGE_LOG}"
+  echo "${SERVICE_LOG}"
+
+  # Disabled because it doesn't always work
+  #[[ ! $(echo $SERVICE_LOG) =~ "MQTT Host: $INSTALL_MQTT_HOST" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service MQTT host name is incorrect" && exit 1
 
   echo ""
   echo "Viewing $SERVICE_LABEL service status..."
-  MQTT_BRIDGE_SERVICE=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status $SERVICE_NAME")
+  SERVICE_STATUS=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status $SERVICE_NAME")
 
-  echo "${MQTT_BRIDGE_SERVICE}"
+  echo "${SERVICE_STATUS}"
 
-  [[ ! $(echo $MQTT_BRIDGE_SERVICE) =~ "Loaded: loaded" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't loaded" && exit 1
-  [[ ! $(echo $MQTT_BRIDGE_SERVICE) =~ "Active: active" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't active" && exit 1
-  [[ $(echo $MQTT_BRIDGE_SERVICE) =~ "not found" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service wasn't found" && exit 1
+  [[ ! $(echo $SERVICE_STATUS) =~ "Loaded: loaded" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't loaded" && exit 1
+  [[ ! $(echo $SERVICE_STATUS) =~ "Active: active" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't active" && exit 1
+  [[ $(echo $SERVICE_STATUS) =~ "not found" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service wasn't found" && exit 1
+  
+  
 else
   echo "  Connection type is $DEVICE_CONNECTION. Skipping service check."
 fi

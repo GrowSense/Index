@@ -58,6 +58,16 @@ namespace GreenSense.Index.Tests.Integration
         public void CheckConfigFile (string configFileName, string host, string username, string password, int port)
         {
             var configFileContent = File.ReadAllText (configFileName);
+
+            Console.WriteLine ("");
+            Console.WriteLine ("Checking config file...");
+            Console.WriteLine ("");
+            Console.WriteLine ("Config file path:");
+            Console.WriteLine ("  " + configFileName);
+            Console.WriteLine ("");
+            Console.WriteLine ("Config file content:");
+            Console.WriteLine (configFileContent);
+            Console.WriteLine ("");
 			
             AssertConfigFileContains (configFileContent, "Host", host);
             AssertConfigFileContains (configFileContent, "UserId", username);

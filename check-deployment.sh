@@ -66,6 +66,9 @@ bash check-deployment-devices.sh $BRANCH || exit 1
 echo ""
 echo "Pulling update log files..."
 
+if [ -d logs/updates ]; then
+  rm logs/updates -r
+fi
 mkdir -p logs/updates
 
 sshpass -p $INSTALL_SSH_PASSWORD scp $INSTALL_SSH_USERNAME@$INSTALL_HOST:/usr/local/GreenSense/Index/logs/updates/*.txt logs/updates/
@@ -97,6 +100,31 @@ echo "${SUPERVISOR_RESULT}"
 [[ ! $(echo $SUPERVISOR_RESULT) =~ "Loaded: loaded" ]] && echo "GreenSense supervisor service isn't loaded" && exit 1
 [[ ! $(echo $SUPERVISOR_RESULT) =~ "Active: active" ]] && echo "GreenSense supervisor service isn't active" && exit 1
 [[ $(echo $SUPERVISOR_RESULT) =~ "not found" ]] && echo "GreenSense supervisor service wasn't found" && exit 1
+
+echo ""
+echo "Checking MQTT bridge config file..."
+
+MQTT_BRIDGE_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config")
+
+# Disabled because this would expose the MQTT password
+#echo "${MQTT_BRIDGE_CONFIG_CONTENT}"
+
+[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT host" && exit 1
+[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT username" && exit 1
+[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Password\" value=\"$INSTALL_MQTT_PASSWORD\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT password" && exit 1
+
+echo ""
+echo "Checking serial UI controller config file..."
+
+UI_CONTROLLER_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config")
+
+# Disabled because this would expose the MQTT password
+#echo "${UI_CONTROLLER_CONFIG_CONTENT}"
+
+[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT host" && exit 1
+[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT username" && exit 1
+[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Password\" value=\"$INSTALL_MQTT_PASSWORD\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT password" && exit 1
+
 
 echo ""
 echo "Viewing garden data..."
