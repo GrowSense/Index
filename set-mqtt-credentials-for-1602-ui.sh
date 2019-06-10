@@ -2,7 +2,6 @@
 
 echo ""
 echo "Setting MQTT credentials for 1602 LCD shield UI controller..."
-echo ""
 
 HOST=$1
 USERNAME=$2

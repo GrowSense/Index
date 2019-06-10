@@ -2,7 +2,6 @@
 
 echo ""
 echo "Setting MQTT credentials for MQTT bridge..."
-echo ""
 
 HOST=$1
 USERNAME=$2
