@@ -15,7 +15,7 @@ IS_MOCK_MQTT_BRIDGE=0
 
 if [ -f "$MOCK_MQTT_BRIDGE_FLAG_FILE" ]; then
   IS_MOCK_MQTT_BRIDGE=1
-  echo "Is mock setup"
+  echo "  Is mock setup"
 fi
 
 
@@ -25,9 +25,9 @@ fi
 
 if [ "$PASSWORD" ]; then
 
-  echo "Host: $HOST"
-  echo "Username: $USERNAME"
-  echo "Port: $PORT"
+  echo "  Host: $HOST"
+  echo "  Username: $USERNAME"
+  echo "  Port: $PORT"
 
   echo $HOST > "mqtt-host.security"
   echo $USERNAME > "mqtt-username.security"
@@ -37,11 +37,15 @@ if [ "$PASSWORD" ]; then
   CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
 
   echo ""
-  echo "Setting mqtt bridge config file:"
-  echo "  $CONFIG_FILE"
+  echo "  Setting values in mqtt bridge config file:"
+  echo "    $CONFIG_FILE"
   
   if [ ! -f "$CONFIG_FILE.bak" ]; then
-    echo "Backing up the original config file"
+    echo "  Backing up the original config file"
+    echo "    From"
+    echo "      $CONFIG_FILE"
+    echo "    To"
+    echo "      $CONFIG_FILE.bak"
     cp $CONFIG_FILE $CONFIG_FILE.bak
   fi
   
@@ -49,7 +53,8 @@ if [ "$PASSWORD" ]; then
   #echo "Restoring blank starter config file"
   #cp -f $CONFIG_FILE.bak $CONFIG_FILE
   
-  echo "Inserting values"
+  echo ""
+  echo "  Inserting MQTT values into config file"
   xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Host"]/@value' -v "$HOST" $CONFIG_FILE
   xmlstarlet ed -L -u '/configuration/appSettings/add[@key="UserId"]/@value' -v "$USERNAME" $CONFIG_FILE
   xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Password"]/@value' -v "$PASSWORD" $CONFIG_FILE
@@ -57,28 +62,36 @@ if [ "$PASSWORD" ]; then
 
   CONFIG_FILE2="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   
-  echo "Keeping a backup of the new config file"
-  echo "  $CONFIG_FILE2"
+  echo ""
+  echo "  Keeping a backup of the new config file"
+  echo "    From"
+  echo "      $CONFIG_FILE"
+  echo "    To"
+  echo "      $CONFIG_FILE2"
   cp -f $CONFIG_FILE $CONFIG_FILE2
 
-  echo "Installing config file to..."
+  echo ""
+  echo "  Installing config file to..."
   
   if [ $IS_MOCK_MQTT_BRIDGE = 0 ]; then
-    echo "  Real MQTT bridge"
-    INSTALL_DIR="/usr/local/mqtt-bridge"
+    echo "    Real MQTT bridge"
+    INSTALL_DIR="/usr/local/BridgeArduinoSerialToMqttSplitCsv"
     sudo mkdir -p $INSTALL_DIR
     sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
   else
-    echo "  Mock MQTT bridge"
-    INSTALL_DIR="mock/mqtt-bridge"
+    echo "    Mock MQTT bridge"
+    INSTALL_DIR="mock/BridgeArduinoSerialToMqttSplitCsv"
     mkdir -p $INSTALL_DIR
     cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
   fi
   
-  echo "  $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  echo "    Directory:"
+  echo "      $INSTALL_DIR"
+  echo "    File:"
+  echo "      $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
 
   echo ""
-  echo "Finished setting MQTT credentials"
+  echo "Finished setting MQTT credentials for MQTT bridge"
 else
   echo "Please provide username and password as arguments"
 fi

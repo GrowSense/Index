@@ -73,16 +73,19 @@ INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
 BASE_DIR="$(dirname $GREENSENSE_DIR)"
 
+echo ""
 echo "Creating ArduinoPlugAndPlay dir..."
 PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 mkdir -p $PNP_INSTALL_DIR || exit 1
 
 cd $PNP_INSTALL_DIR
 
+echo ""
 echo "Importing GreenSense config file into ArduinoPlugAndPlay dir..."
 
 wget -q --no-cache https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O $PNP_INSTALL_DIR/ArduinoPlugAndPlay.exe.config || exit 1
 
+echo ""
 echo "Setting up GreenSense index..."
 
 if [ ! -d "$INDEX_DIR/.git" ]; then
@@ -94,6 +97,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
     mv $INDEX_DIR $INDEX_DIR.old
   fi
   
+  echo ""
   echo "Cloning the GreenSense index repository..."
   
   git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
@@ -108,63 +112,79 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
       mv $INDEX_DIR.old/remote $INDEX_DIR/remote
     fi
     
+    echo ""
     echo "Removing old index directory..."
     rm -r $INDEX_DIR.old
   fi
   
+  echo ""
   echo "Moving into index directory..."
   
   cd $INDEX_DIR || exit 1 
   
+  echo ""
   echo "Preparing index..."
   
   bash prepare.sh || exit 1
 fi
 
+echo ""
 echo "Moving into the index directory..."
 
 cd $INDEX_DIR || exit 1
 
+echo ""
 echo "Updating the index..."
 
 sh update.sh
 
+echo ""
 echo "Initializing runtime components..."
 
 sh init-runtime.sh
 
+echo ""
 echo "Installing apps (so it's ready to run offline)..."
 
 sh install-apps.sh
 
+echo ""
 echo "Setting WiFi credentials..."
 
 sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
 
+echo ""
 echo "Setting MQTT credentials..."
 
 sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
 
+echo ""
 echo "Setting email detiails..."
 
 sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 
+echo ""
 echo "Creating garden..."
 
 sh create-garden.sh
 
+echo ""
 echo "Creating system supervisor service..."
 
 sh create-supervisor-service.sh
 
+echo ""
 echo "Installing plug and play..."
 
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
 
-echo "Giving the UI time to load..."
+echo ""
+echo "Giving the UI time (20 seconds) to load..."
 sleep 20 
 
+echo ""
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
 
+echo ""
 echo "Finished installing GreenSense plug and play"
