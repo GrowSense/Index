@@ -44,7 +44,7 @@ echo "Checking serial UI controller config file..."
 UI_CONTROLLER_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config")
 
 # Disabled because this would expose the MQTT password
-echo "${UI_CONTROLLER_CONFIG_CONTENT}"
+#echo "${UI_CONTROLLER_CONFIG_CONTENT}"
 
 [[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT host" && exit 1
 [[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT username" && exit 1
