@@ -71,12 +71,14 @@ else
 
   echo ""
   echo "Removing GreenSense directory..."
+  echo "  $INSTALL_DIR"
   rm $INSTALL_DIR -R || exit 1
 fi
 
+echo ""
 echo "Removing MQTT bridge install directory..."
-echo "  $BASE_DIR/BridgeArduinoSerialToMqttCsv"
-if [ -d "$BASE_DIR/BridgeArduinoSerialToMqttCsv" ]; then
+echo "  $BASE_DIR/BridgeArduinoSerialToMqttSplitCsv"
+if [ -d "$BASE_DIR/BridgeArduinoSerialToMqttSplitCsv" ]; then
   rm "$BASE_DIR/BridgeArduinoSerialToMqttCsv" -R
   echo "  Removal complete."
 else
