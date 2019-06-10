@@ -32,8 +32,8 @@ if [ "$PASSWORD" ]; then
   echo "    $CREDENTIALS_FILE"
   echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
 
-  sh set-mqtt-credentials-for-bridge.sh $HOST $USERNAME $PASSWORD $PORT
-  sh set-mqtt-credentials-for-1602-ui.sh $HOST $USERNAME $PASSWORD $PORT
+  bash set-mqtt-credentials-for-bridge.sh $HOST $USERNAME $PASSWORD $PORT
+  bash set-mqtt-credentials-for-1602-ui.sh $HOST $USERNAME $PASSWORD $PORT
 
   echo ""
   echo "Finished setting MQTT credentials."

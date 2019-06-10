@@ -55,6 +55,9 @@ namespace GreenSense.Index.Tests.Integration
             var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
             CheckConfigFile (installedUIControllerConfigFile, host, username, password, port);
 
+            var installedPackageUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
+            CheckConfigFile (installedPackageUIControllerConfigFile, host, username, password, port);
+
             Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
         }
 

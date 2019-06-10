@@ -12,6 +12,10 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 echo "Host: $INSTALL_HOST"
 echo "Branch: $BRANCH"
+echo "MQTT Host: $INSTALL_MQTT_HOST"
+echo "MQTT Username: $INSTALL_MQTT_USERNAME"
+echo "MQTT Password: [hidden]"
+echo "MQTT Port: $INSTALL_MQTT_PORT"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -28,7 +32,7 @@ echo "Checking MQTT bridge config file..."
 MQTT_BRIDGE_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config")
 
 # Disabled because this would expose the MQTT password
-echo "${MQTT_BRIDGE_CONFIG_CONTENT}"
+#echo "${MQTT_BRIDGE_CONFIG_CONTENT}"
 
 [[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT host" && exit 1
 [[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT username" && exit 1
