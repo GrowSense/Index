@@ -77,9 +77,10 @@ fi
 
 echo ""
 echo "Removing MQTT bridge install directory..."
-echo "  $BASE_DIR/BridgeArduinoSerialToMqttSplitCsv"
-if [ -d "$BASE_DIR/BridgeArduinoSerialToMqttSplitCsv" ]; then
-  rm "$BASE_DIR/BridgeArduinoSerialToMqttCsv" -R
+MQTT_BRIDGE_INSTALL_DIR="$BASE_DIR/BridgeArduinoSerialToMqttSplitCsv"
+echo "  $MQTT_BRIDGE_INSTALL_DIR"
+if [ -d "$MQTT_BRIDGE_INSTALL_DIR" ]; then
+  rm "$MQTT_BRIDGE_INSTALL_DIR" -R || exit 1
   echo "  Removal complete."
 else
   echo "  Not found. Skipping removal."
@@ -87,9 +88,10 @@ fi
 
 echo ""
 echo "Removing UI controller install directory..."
-echo "  $BASE_DIR/Serial1602ShieldSystemUIController"
-if [ -d "$BASE_DIR/Serial1602ShieldSystemUIController" ]; then
-  rm "$BASE_DIR/Serial1602ShieldSystemUIController" -R
+UI_CONTROLLER_INSTALL_DIR="$BASE_DIR/Serial1602ShieldSystemUIController"
+echo "  $UI_CONTROLLER_INSTALL_DIR"
+if [ -d "$UI_CONTROLLER_INSTALL_DIR" ]; then
+  rm "$UI_CONTROLLER_INSTALL_DIR" -R || exit 1
   echo "  Removal complete."
 else
   echo "  Not found. Skipping removal."
@@ -97,9 +99,10 @@ fi
 
 echo ""
 echo "Removing mosquitto install directory..."
-echo "  "$BASE_DIR/mosquitto""
-if [ -d "$BASE_DIR/mosquitto" ]; then
-  rm "$BASE_DIR/mosquitto" -R
+MOSQUITTO_INSTALL_DIR="$BASE_DIR/mosquitto"
+echo "  $MOSQUITTO_INSTALL_DIR"
+if [ -d "$MOSQUITTO_INSTALL_DIR" ]; then
+  rm "$MOSQUITTO_INSTALL_DIR" -R || exit 1
   echo "  Removal complete."
 else
   echo "  Not found. Skipping removal."
@@ -107,9 +110,10 @@ fi
 
 echo ""
 echo "Removing mosquitto docker container..."
-docker stop mosquitto || echo "Skipping stop mosquitto"
-docker rm mosquitto || echo "Skipping remove mosquitto"
+docker stop mosquitto || echo "Mosquitto docker container not found. Skipping stop."
+docker rm mosquitto || echo "Mosquitto docker container not found. Skipping remove."
 
+echo ""
 echo "Finished uninstalling GreenSense plug and play!"
   
 

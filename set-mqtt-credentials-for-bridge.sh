@@ -41,6 +41,7 @@ if [ "$PASSWORD" ]; then
   echo "    $CONFIG_FILE"
   
   if [ ! -f "$CONFIG_FILE.bak" ]; then
+    echo ""
     echo "  Backing up the original config file"
     echo "    From"
     echo "      $CONFIG_FILE"
