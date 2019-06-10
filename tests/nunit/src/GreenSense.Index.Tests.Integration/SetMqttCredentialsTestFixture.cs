@@ -46,6 +46,9 @@ namespace GreenSense.Index.Tests.Integration
             var installedMqttBridgeConfigFile = "mock/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config";
             CheckConfigFile (installedMqttBridgeConfigFile, host, username, password, port);
 
+            var installedPackageMqttBridgeConfigFile = "mock/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+            CheckConfigFile (installedPackageMqttBridgeConfigFile, host, username, password, port);
+
             var internalUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
             CheckConfigFile (internalUIControllerConfigFile, host, username, password, port);
 

@@ -34,42 +34,49 @@ if [ "$PASSWORD" ]; then
   echo $PASSWORD > "mqtt-password.security"
   echo $PORT > "mqtt-port.security"
 
-  CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  INDEX_APP_PACKAGE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
 
   echo ""
   echo "  Setting values in mqtt bridge config file:"
-  echo "    $CONFIG_FILE"
+  echo "    $INDEX_APP_PACKAGE_CONFIG_FILE"
   
-  if [ ! -f "$CONFIG_FILE.bak" ]; then
+  if [ ! -f "$INDEX_APP_PACKAGE_CONFIG_FILE.bak" ]; then
     echo ""
     echo "  Backing up the original config file"
     echo "    From"
-    echo "      $CONFIG_FILE"
+    echo "      $INDEX_APP_PACKAGE_CONFIG_FILE"
     echo "    To"
-    echo "      $CONFIG_FILE.bak"
-    cp $CONFIG_FILE $CONFIG_FILE.bak
+    echo "      $INDEX_APP_PACKAGE_CONFIG_FILE.bak"
+    cp $INDEX_APP_PACKAGE_CONFIG_FILE $INDEX_APP_PACKAGE_CONFIG_FILE.bak
   fi
   
   # TODO: Remove if not needed
   #echo "Restoring blank starter config file"
-  #cp -f $CONFIG_FILE.bak $CONFIG_FILE
+  #cp -f $INDEX_APP_PACKAGE_CONFIG_FILE.bak $INDEX_APP_PACKAGE_CONFIG_FILE
   
   echo ""
   echo "  Inserting MQTT values into config file"
-  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Host"]/@value' -v "$HOST" $CONFIG_FILE
-  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="UserId"]/@value' -v "$USERNAME" $CONFIG_FILE
-  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Password"]/@value' -v "$PASSWORD" $CONFIG_FILE
-  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="MqttPort"]/@value' -v "$PORT" $CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Host"]/@value' -v "$HOST" $INDEX_APP_PACKAGE_CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="UserId"]/@value' -v "$USERNAME" $INDEX_APP_PACKAGE_CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="Password"]/@value' -v "$PASSWORD" $INDEX_APP_PACKAGE_CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/appSettings/add[@key="MqttPort"]/@value' -v "$PORT" $INDEX_APP_PACKAGE_CONFIG_FILE
 
-  CONFIG_FILE2="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT=$(cat $INDEX_APP_PACKAGE_CONFIG_FILE)
+
+  [[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$HOST" ]] && echo "The MQTT host wasn't inserted into the config file" && exit 1
+  [[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$USERNAME" ]] && echo "The MQTT username wasn't inserted into the config file" && exit 1
+  [[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$PASSWORD" ]] && echo "The MQTT password wasn't inserted into the config file" && exit 1
+  [[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$PORT" ]] && echo "The MQTT port wasn't inserted into the config file" && exit 1
+
+  INDEX_APP_INDEX_APP_PACKAGE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   
   echo ""
   echo "  Keeping a backup of the new config file"
   echo "    From"
-  echo "      $CONFIG_FILE"
+  echo "      $INDEX_APP_PACKAGE_CONFIG_FILE"
   echo "    To"
-  echo "      $CONFIG_FILE2"
-  cp -f $CONFIG_FILE $CONFIG_FILE2
+  echo "      $INDEX_APP_INDEX_APP_PACKAGE_CONFIG_FILE"
+  cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INDEX_APP_INDEX_APP_PACKAGE_CONFIG_FILE
 
   echo ""
   echo "  Installing config file to..."
@@ -78,18 +85,36 @@ if [ "$PASSWORD" ]; then
     echo "    Real MQTT bridge"
     INSTALL_DIR="/usr/local/BridgeArduinoSerialToMqttSplitCsv"
     sudo mkdir -p $INSTALL_DIR
-    sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
+    sudo cp -f $INDEX_APP_INDEX_APP_PACKAGE_CONFIG_FILE $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
   else
     echo "    Mock MQTT bridge"
     INSTALL_DIR="mock/BridgeArduinoSerialToMqttSplitCsv"
     mkdir -p $INSTALL_DIR
-    cp -f $CONFIG_FILE2 $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
+    cp -f $INDEX_APP_INDEX_APP_PACKAGE_CONFIG_FILE $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
   fi
   
   echo "    Directory:"
   echo "      $INSTALL_DIR"
   echo "    File:"
-  echo "      $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  echo "      $INSTALL_CONFIG_FILE"
+
+  INSTALL_CONFIG_FILE="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  INSTALL_PACKAGE_DIR="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv/lib/net40"
+  INSTALL_PACKAGE_CONFIG_FILE="$INSTALL_PACKAGE_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+  
+  if [ ! -d $INSTALL_PACKAGE_DIR ]; then
+    echo ""
+    echo "  Creating install package directory..."
+    mkdir -p $INSTALL_PACKAGE_DIR
+  fi  
+  
+  echo ""
+  echo "  Copying config file into install package directory..."
+  echo "    From:"
+  echo "      $INSTALL_CONFIG_FILE"
+  echo "    To:"
+  echo "      $INSTALL_PACKAGE_CONFIG_FILE"
+  cp -f $INSTALL_CONFIG_FILE $INSTALL_PACKAGE_CONFIG_FILE
 
   echo ""
   echo "Finished setting MQTT credentials for MQTT bridge"
