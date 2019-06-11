@@ -43,14 +43,20 @@ namespace GreenSense.Index.Tests.Integration
             var internalMqttBridgeConfigFile = "scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config";
             CheckConfigFile (internalMqttBridgeConfigFile, smtpServer, adminEmail);
 
-            var installedMqttBridgeConfigFile = "mock/mqtt-bridge/BridgeArduinoSerialToMqttSplitCsv.exe.config";
-            CheckConfigFile (installedMqttBridgeConfigFile, smtpServer, adminEmail);
+            //var installedMqttBridgeConfigFile = "mock/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+            //CheckConfigFile (installedMqttBridgeConfigFile, smtpServer, adminEmail);
 
-            var internalUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
-            CheckConfigFile (internalUIControllerConfigFile, smtpServer, adminEmail);
+            var installedPackageMqttBridgeConfigFile = "mock/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+            CheckConfigFile (installedPackageMqttBridgeConfigFile, smtpServer, adminEmail);
 
-            var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
-            CheckConfigFile (installedUIControllerConfigFile, smtpServer, adminEmail);
+            //var internalUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
+            //CheckConfigFile (internalUIControllerConfigFile, smtpServer, adminEmail);
+
+            //var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
+            //CheckConfigFile (installedUIControllerConfigFile, smtpServer, adminEmail);
+
+            //var installedPackageUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
+            //CheckConfigFile (installedPackageUIControllerConfigFile, smtpServer, adminEmail);
 
             Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
         }

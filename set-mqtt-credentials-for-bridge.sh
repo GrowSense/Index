@@ -36,7 +36,7 @@ if [ "$PASSWORD" ]; then
   INDEX_APP_PACKAGE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
 
   echo ""
-  echo "  Setting values in mqtt bridge config file:"
+  echo "  Setting MQTT values in mqtt bridge config file:"
   echo "    $INDEX_APP_PACKAGE_CONFIG_FILE"
   
   if [ ! -f "$INDEX_APP_PACKAGE_CONFIG_FILE.bak" ]; then
@@ -72,7 +72,7 @@ if [ "$PASSWORD" ]; then
   INDEX_APP_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   
   echo ""
-  echo "  Keeping a backup of the new config file"
+  echo "  Keeping a backup of the new config file..."
   echo "    From"
   echo "      $INDEX_APP_PACKAGE_CONFIG_FILE"
   echo "    To"
