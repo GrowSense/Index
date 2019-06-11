@@ -39,6 +39,11 @@ else
 fi
 echo "  Value Hidden: $VALUE_HIDDEN"
 
+if [ ! -f $XML_FILE ]; then
+  echo "XML file not found:"
+  echo "  $XML_FILE"
+fi
+
 xmlstarlet ed -L -u "$XML_PATH" -v "$XML_VALUE" $XML_FILE || exit 1
 
 XML_FILE_CONTENT=$(cat "$XML_FILE")

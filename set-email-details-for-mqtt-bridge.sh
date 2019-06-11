@@ -26,7 +26,12 @@ fi
 echo "  SMTP server: $SMTP_SERVER"
 echo "  Admin email: $ADMIN_EMAIL"
 
-INDEX_APP_PACKAGE_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+
+CONFIG_FILE_NAME="BridgeArduinoSerialToMqttSplitCsv.exe.config"
+APP_NAME="BridgeArduinoSerialToMqttSplitCsv"
+
+INDEX_APP_PACKAGE_CONFIG_FILE="scripts/apps/$APP_NAME/$APP_NAME/lib/net40/$CONFIG_FILE_NAME"
+#INDEX_APP_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/$CONFIG_FILE_NAME"
 
 echo ""
 echo "  Setting email values in mqtt bridge config file:"
@@ -46,16 +51,15 @@ echo "  Inserting email values into config file..."
 bash inject-xml-value.sh $INDEX_APP_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
 bash inject-xml-value.sh $INDEX_APP_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
 
-echo ""
-echo "  Checking email values were inserted into config file..."
-INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT=$(cat $INDEX_APP_PACKAGE_CONFIG_FILE)
+#echo ""
+#echo "  Checking email values were inserted into config file..."
+#INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT=$(cat $INDEX_APP_PACKAGE_CONFIG_FILE)
 
-echo "${INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT}"
+#echo "${INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT}"
 
-[[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$SMTP_SERVER" ]] && echo "The SMTP server wasn't inserted into the config file" && exit 1
-[[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$ADMIN_EMAIL" ]] && echo "The admin email wasn't inserted into the config file" && exit 1
+#[[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$SMTP_SERVER" ]] && echo "The SMTP server wasn't inserted into the config file" && exit 1
+#[[ ! $(echo $INDEX_APP_PACKAGE_CONFIG_FILE_CONTENT) =~ "$ADMIN_EMAIL" ]] && echo "The admin email wasn't inserted into the config file" && exit 1
 
-INDEX_APP_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   
 #echo ""
 #echo "  Keeping a backup of the new config file..."
@@ -63,7 +67,7 @@ INDEX_APP_CONFIG_FILE="scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArdu
 #echo "      $INDEX_APP_PACKAGE_CONFIG_FILE"
 #echo "    To"
 #echo "      $INDEX_APP_CONFIG_FILE"
-cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INDEX_APP_CONFIG_FILE || exit 1
+#cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INDEX_APP_CONFIG_FILE || exit 1
 
 
 echo "  Installing config file to..."
@@ -73,17 +77,18 @@ SUDO=""
 
 if [ $IS_MOCK_MQTT_BRIDGE = 0 ]; then
   echo "    Real MQTT bridge"
-  INSTALL_DIR="/usr/local/BridgeArduinoSerialToMqttSplitCsv"
+  INSTALL_BASE="/usr/local"
   SUDO="sudo"  
 else
   echo "    Mock MQTT bridge"
-  INSTALL_DIR="mock/BridgeArduinoSerialToMqttSplitCsv"
+  INSTALL_BASE="mock"
   SUDO=""
 fi
 
-INSTALL_CONFIG_FILE="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
-INSTALL_PACKAGE_DIR="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv/lib/net40"
-INSTALL_PACKAGE_CONFIG_FILE="$INSTALL_PACKAGE_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
+INSTALL_DIR="$INSTALL_BASE/$APP_NAME"
+INSTALL_CONFIG_FILE="$INSTALL_DIR/$CONFIG_FILE_NAME"
+INSTALL_PACKAGE_DIR="$INSTALL_DIR/$APP_NAME/lib/net40"
+INSTALL_PACKAGE_CONFIG_FILE="$INSTALL_PACKAGE_DIR/$CONFIG_FILE_NAME"
 
 echo "    Directory:"
 echo "      $INSTALL_DIR"
@@ -97,7 +102,7 @@ if [ ! -d $INSTALL_PACKAGE_DIR ]; then
 fi  
 
 echo ""
-echo "  Injecting details into install package directory..."
+echo "  Inserting details into install package directory..."
 #echo "    From:"
 #echo "      $INSTALL_CONFIG_FILE"
 #echo "    To:"

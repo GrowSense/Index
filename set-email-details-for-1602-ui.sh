@@ -31,43 +31,63 @@ echo ""
 echo "Setting UI controller config file:"
 
 CONFIG_FILE_NAME="Serial1602ShieldSystemUIControllerConsole.exe.config"
+APP_NAME="Serial1602ShieldSystemUIController"
 
-CONFIG_FILE="scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/$CONFIG_FILE_NAME"
-echo "  $CONFIG_FILE"
+INDEX_APP_PACKAGE_CONFIG_FILE="scripts/apps/$APP_NAME/$APP_NAME/lib/net40/$CONFIG_FILE_NAME"
 
-if [ ! -f "$CONFIG_FILE.bak" ]; then
-  echo "Backing up the original config file"
-  cp $CONFIG_FILE $CONFIG_FILE.bak
-fi
+echo ""
+echo "  Setting email values in serial UI controller config file:"
+echo "    $INDEX_APP_PACKAGE_CONFIG_FILE"
+#if [ ! -f "$CONFIG_FILE.bak" ]; then
+#  echo "Backing up the original config file"
+#  cp $CONFIG_FILE $CONFIG_FILE.bak
+#fi
 
-echo "Restoring blank starter config file"
+#echo "Restoring blank starter config file"
 #cp -f $CONFIG_FILE.bak $CONFIG_FILE
 
-echo "Inserting values"
-xmlstarlet ed -L -u '/configuration/appSettings/add[@key="SmtpServer"]/@value' -v "$SMTP_SERVER" $CONFIG_FILE
-xmlstarlet ed -L -u '/configuration/appSettings/add[@key="EmailAddress"]/@value' -v "$ADMIN_EMAIL" $CONFIG_FILE
+echo "  Inserting email values into config file..."
+bash inject-xml-value.sh $INDEX_APP_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
+bash inject-xml-value.sh $INDEX_APP_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
 
-CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/$CONFIG_FILE_NAME"
+#CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/$CONFIG_FILE_NAME"
 
-echo "Keeping a backup of the new config file"
-echo "  $CONFIG_FILE2"
-cp -f $CONFIG_FILE $CONFIG_FILE2
+#echo "Keeping a backup of the new config file"
+#echo "  $CONFIG_FILE2"
+#cp -f $CONFIG_FILE $CONFIG_FILE2
 
-echo "Installing config file to"
+echo "  Installing config file to..."
 
 if [ $IS_MOCK_UI_CONTROLLER = 0 ]; then
-  echo "Real UI Controller"
-  INSTALL_DIR="/usr/local/Serial1602ShieldSystemUIController"
-  sudo mkdir -p $INSTALL_DIR
-  sudo cp -f $CONFIG_FILE2 $INSTALL_DIR/$CONFIG_FILE_NAME
+  echo "    Real UI Controller"
+  INSTALL_DIR="/usr/local"
+  SUDO="sudo"
 else
-  echo "Mock UI Controller"
-  INSTALL_DIR="mock/Serial1602ShieldSystemUIController"
-  mkdir -p $INSTALL_DIR
-  cp -f $CONFIG_FILE2 $INSTALL_DIR/$CONFIG_FILE_NAME
+  echo "    Mock UI Controller"
+  INSTALL_BASE="mock"
+  SUDO=""
 fi
 
-echo "  $INSTALL_DIR/$CONFIG_FILE_NAME"
+INSTALL_DIR="$INSTALL_BASE/$APP_NAME"
+INSTALL_CONFIG_FILE="$INSTALL_DIR/$CONFIG_FILE_NAME"
+INSTALL_PACKAGE_DIR="$INSTALL_DIR/$APP_NAME/lib/net40"
+INSTALL_PACKAGE_CONFIG_FILE="$INSTALL_PACKAGE_DIR/$CONFIG_FILE_NAME"
+
+echo "    Directory:"
+echo "      $INSTALL_DIR"
+echo "    File:"
+echo "      $INSTALL_CONFIG_FILE"
+
+if [ ! -d $INSTALL_PACKAGE_DIR ]; then
+  echo ""
+  echo "  Creating install package directory..."
+  $SUDO mkdir -p $INSTALL_PACKAGE_DIR || exit 1
+fi  
+
+#echo "  $INSTALL_DIR/$CONFIG_FILE_NAME"
+
+$SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
+$SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
 
 echo ""
 echo "Finished setting email details for 1602 LCD UI controller"
