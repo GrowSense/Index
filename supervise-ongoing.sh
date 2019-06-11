@@ -2,7 +2,7 @@ echo "Ongoing supervisor..."
 
 IS_RUNNING=1
 
-SLEEP_TIME=3
+SLEEP_TIME=$(cat supervisor-sleep-time.txt)
 
 i=1
 
