@@ -77,22 +77,28 @@ if [ "$PASSWORD" ]; then
   echo "      $INDEX_APP_PACKAGE_CONFIG_FILE"
   echo "    To"
   echo "      $INDEX_APP_CONFIG_FILE"
-  cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INDEX_APP_CONFIG_FILE
+  cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INDEX_APP_CONFIG_FILE || exit 1
 
   echo ""
   echo "  Installing config file to..."
   
+  # sudo is used for a real installation, but not used for a mock installation
+  SUDO=""
+  
   if [ $IS_MOCK_MQTT_BRIDGE = 0 ]; then
     echo "    Real MQTT bridge"
     INSTALL_DIR="/usr/local/BridgeArduinoSerialToMqttSplitCsv"
-    sudo mkdir -p $INSTALL_DIR
-    sudo cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
+    # Enable sudo for real installation
+    SUDO="sudo"
   else
     echo "    Mock MQTT bridge"
     INSTALL_DIR="mock/BridgeArduinoSerialToMqttSplitCsv"
-    mkdir -p $INSTALL_DIR
-    cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config
+    # Disable sudo for mock installation
+    SUDO=""
   fi
+  
+  $SUDO mkdir -p $INSTALL_DIR || exit 1
+  $SUDO cp -f $INDEX_APP_PACKAGE_CONFIG_FILE $INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config || exit 1
   
   INSTALL_CONFIG_FILE="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv.exe.config"
   INSTALL_PACKAGE_DIR="$INSTALL_DIR/BridgeArduinoSerialToMqttSplitCsv/lib/net40"
@@ -106,7 +112,7 @@ if [ "$PASSWORD" ]; then
   if [ ! -d $INSTALL_PACKAGE_DIR ]; then
     echo ""
     echo "  Creating install package directory..."
-    mkdir -p $INSTALL_PACKAGE_DIR
+    $SUDO mkdir -p $INSTALL_PACKAGE_DIR || exit 1
   fi  
   
   echo ""
@@ -115,7 +121,7 @@ if [ "$PASSWORD" ]; then
   echo "      $INSTALL_CONFIG_FILE"
   echo "    To:"
   echo "      $INSTALL_PACKAGE_CONFIG_FILE"
-  cp -f $INSTALL_CONFIG_FILE $INSTALL_PACKAGE_CONFIG_FILE
+  $SUDO cp -f $INSTALL_CONFIG_FILE $INSTALL_PACKAGE_CONFIG_FILE || exit 1
 
   echo ""
   echo "Finished setting MQTT credentials for MQTT bridge"

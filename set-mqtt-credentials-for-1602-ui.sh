@@ -81,18 +81,22 @@ if [ "$PASSWORD" ]; then
 
   echo ""
   echo "  Installing config file to..."
-  
+
+  # sudo is used for a real installation, but not used for a mock installation
+  SUDO=""
+    
   if [ $IS_MOCK_UI_CONTROLLER = 0 ]; then
     echo "    Real UI Controller"
     INSTALL_DIR="/usr/local/Serial1602ShieldSystemUIController"
-    sudo mkdir -p $INSTALL_DIR
-    sudo cp -f $INDEX_APP_CONFIG_FILE $INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config
+    SUDO="sudo"
   else
     echo "    Mock UI Controller"
     INSTALL_DIR="mock/Serial1602ShieldSystemUIController"
-    mkdir -p $INSTALL_DIR
-    cp -f $INDEX_APP_CONFIG_FILE $INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config
+    SUDO=""
   fi
+  
+  $SUDO mkdir -p $INSTALL_DIR
+  $SUDO cp -f $INDEX_APP_CONFIG_FILE $INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config
   
   INSTALL_CONFIG_FILE="$INSTALL_DIR/Serial1602ShieldSystemUIControllerConsole.exe.config"
   INSTALL_PACKAGE_DIR="$INSTALL_DIR/Serial1602ShieldSystemUIController/lib/net40"
@@ -106,7 +110,7 @@ if [ "$PASSWORD" ]; then
   if [ ! -d $INSTALL_PACKAGE_DIR ]; then
     echo ""
     echo "  Creating install package directory..."
-    mkdir -p $INSTALL_PACKAGE_DIR
+    $SUDO mkdir -p $INSTALL_PACKAGE_DIR
   fi  
   
   echo ""
@@ -115,7 +119,7 @@ if [ "$PASSWORD" ]; then
   echo "      $INSTALL_CONFIG_FILE"
   echo "    To:"
   echo "      $INSTALL_PACKAGE_CONFIG_FILE"
-  cp -f $INSTALL_CONFIG_FILE $INSTALL_PACKAGE_CONFIG_FILE
+  $SUDO cp -f $INSTALL_CONFIG_FILE $INSTALL_PACKAGE_CONFIG_FILE
   
   echo ""
   echo "Finished setting MQTT credentials for 1602 LCD UI controller"
