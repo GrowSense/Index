@@ -36,8 +36,8 @@ for filename in scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/*.service; do
   [ -f "$filename" ] || break
   shortname=$(basename $filename)
   echo "Removing service: $filename" && \
-  echo "" && \
   rm -v $filename || exit 1
+  echo ""
 done
 
 echo ""
@@ -48,8 +48,8 @@ for filename in scripts/apps/GitDeployer/svc/*.service; do
   [ -f "$filename" ] || break
   shortname=$(basename $filename)
   echo "Removing service: $filename" && \
-  echo "" && \
   rm -v $filename || exit 1
+  echo ""
 done
 
 echo ""
