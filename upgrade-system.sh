@@ -11,7 +11,7 @@ LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
 echo "  Branch: $BRANCH"
 echo "  Installed version: $INSTALLED_VERSION"
-echo "  Latest version: $LATEST_VERSION"
+echo "  Latest version: $LATEST_FULL_VERSION"
 
 if [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  New GreenSense system version available. Upgrading."
