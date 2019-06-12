@@ -65,7 +65,7 @@ echo "MQTT Password: [hidden]"
 echo "MQTT PORT: $MQTT_PORT"
 
 echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "/garden/StatusMessage" "Updating" &
+sh mqtt-publish.sh "/garden/StatusMessage" "Upgrading" &
 
 echo "Giving the UI time to receive the status update..."
 sleep 5
@@ -117,7 +117,7 @@ echo "Giving services time to start..."
 sleep 10
 
 echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "/garden/StatusMessage" "Update Complete" || echo "MQTT publish failed."
+sh mqtt-publish.sh "/garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
 
 
 echo "Finished reinstalling GreenSense plug and play!"

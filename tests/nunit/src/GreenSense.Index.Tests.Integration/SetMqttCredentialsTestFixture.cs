@@ -70,9 +70,10 @@ namespace GreenSense.Index.Tests.Integration
             Console.WriteLine ("");
             Console.WriteLine ("Config file path:");
             Console.WriteLine ("  " + configFileName);
-            Console.WriteLine ("");
-            Console.WriteLine ("Config file content:");
-            Console.WriteLine (configFileContent);
+            // Disabled to reduce log size. Can be enabled for debugging.
+            //Console.WriteLine ("");
+            //Console.WriteLine ("Config file content:");
+            //Console.WriteLine (configFileContent);
             Console.WriteLine ("");
 			
             AssertConfigFileContains (configFileContent, "Host", host);
