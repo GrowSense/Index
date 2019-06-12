@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "mkdir -p /usr/local/mqtt-bridge/; cd /usr/local/mqtt-bridge/; sh start-mqtt-bridge.sh --DeviceName=irrigator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,T,P,I,B,O,F,Q --SummaryKey=C"
+ ExecStart=/bin/sh -c "mkdir -p /usr/local/BridgeArduinoSerialToMqttSplitCsv/; cd /usr/local/BridgeArduinoSerialToMqttSplitCsv/; sh start-mqtt-bridge.sh --DeviceName=irrigator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,T,P,I,B,O,F,Q --SummaryKey=C"
 
  [Install]
  WantedBy=multi-user.target
