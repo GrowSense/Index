@@ -62,12 +62,12 @@ for filename in /lib/systemd/system/greensense-*.service; do
   echo "Removing service: $shortname" && \
   echo "" && \
   sh $SYSTEMCTL_SCRIPT stop "$shortname" && \
-  sh $SYSTEMCTL_SCRIPT disable "$shortname" && \
-  echo "" || exit 1
+  sh $SYSTEMCTL_SCRIPT disable "$shortname" || exit 1
   
   if [ ! -f "is-mock-systemctl.txt" ]; then
     $SUDO rm -v $filename || exit 1
   fi
+  echo "" 
 done
 
 echo "Finished removing garden device services"
