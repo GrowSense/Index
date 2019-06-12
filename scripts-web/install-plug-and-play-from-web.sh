@@ -159,7 +159,7 @@ echo "Setting MQTT credentials..."
 sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
 
 echo ""
-echo "Setting email detiails..."
+echo "Setting email details..."
 
 sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 
