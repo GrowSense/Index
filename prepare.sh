@@ -68,7 +68,7 @@ fi
 
 if ! type "notify-send" > /dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y -q install notify-send
+   $SUDO apt-get -y -q install notify-send || "notify-send install skipped"
 fi
 
 cd scripts/install/ && \

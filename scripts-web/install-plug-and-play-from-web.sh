@@ -179,12 +179,8 @@ echo "Installing plug and play..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/install-from-web.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
 
 echo ""
-echo "Giving the UI time (20 seconds) to load..."
-sleep 20 
-
-echo ""
 echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
+nohup sleep 30 && sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed." &
 
 echo ""
 echo "Finished installing GreenSense plug and play"
