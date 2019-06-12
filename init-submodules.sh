@@ -7,7 +7,6 @@ git submodule update --init --recursive || "Submodule update failed"
 for GROUP_DIR in sketches/*; do
   echo ""
   echo "Group: $GROUP_DIR"
-  echo ""
   for PROJECT_DIR in $GROUP_DIR/*; do
     echo ""
     echo "Project: $PROJECT_DIR"

@@ -22,7 +22,7 @@ namespace GreenSense.Index.Tests
         {
             Console.WriteLine ("");
             Console.WriteLine ("=== Starting test");
-            Console.WriteLine ("  Test: " + TestContext.CurrentContext.Test.FullName);
+            Console.WriteLine ("Test: " + TestContext.CurrentContext.Test.FullName);
 
             var dir = Environment.CurrentDirectory;
 

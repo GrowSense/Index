@@ -9,7 +9,7 @@ CURRENT_HOST=$(cat /etc/hostname)
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
-DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/host.txt")
+DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
 
 if [ "$DEVICE_BOARD" != "esp" ]; then
   if [ "$DEVICE_GROUP" = "ui" ]; then

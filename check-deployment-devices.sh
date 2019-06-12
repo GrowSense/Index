@@ -8,7 +8,7 @@ if [ ! $DEPLOYMENT_NAME ]; then
   exit 1
 fi
 
-echo "  Deployment name: $DEPLOYMENT_NAME"
+echo "Deployment name: $DEPLOYMENT_NAME"
 
 DEPLOYMENT_INFO_DIR="tests/deployments/$DEPLOYMENT_NAME"
 
@@ -17,7 +17,7 @@ DEPLOYMENT_INFO_DEVICES_DIR="$DEPLOYMENT_INFO_DIR/devices"
 for d in $DEPLOYMENT_INFO_DEVICES_DIR/* ; do
     echo ""
     DEVICE_NAME="${d##*/}"
-    echo "  Device name: $DEVICE_NAME"
+    echo "Device name: $DEVICE_NAME"
     echo ""
     bash check-deployment-device.sh $DEPLOYMENT_NAME $DEVICE_NAME || exit 1
 done
