@@ -28,9 +28,9 @@ namespace GreenSense.Index.Tests.Integration
 
             var output = starter.RunBash ("sh " + scriptName + " " + arguments);
 
-            var successfulText = "Garden ESP8266 soil moisture monitor created with device name '" + deviceName + "'";
+            var successfulText = "Garden ESP/WiFi soil moisture monitor created with device name '" + deviceName + "'";
 
-            Assert.IsTrue (output.Contains (successfulText), "Failed");
+            Assert.IsTrue (output.Contains (successfulText), "Failed. Didn't find expected result text in script output.");
 
             CheckDeviceInfoWasCreated (board, group, project, label, deviceName, port);
 

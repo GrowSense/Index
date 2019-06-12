@@ -48,6 +48,5 @@ else
   echo "Uploading sketch..."
   sh upload-irrigator-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
 fi
-sh upload-irrigator-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT && \
 
 echo "Garden ESP/WiFi irrigator created with device name '$DEVICE_NAME'"
