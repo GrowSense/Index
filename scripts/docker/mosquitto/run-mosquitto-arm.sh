@@ -1,5 +1,5 @@
-docker stop mosquitto || echo "Skipping stop"
-docker rm mosquitto || echo "Skipping remove" 
+#docker stop mosquitto || echo "Skipping stop"
+#docker rm mosquitto || echo "Skipping remove" 
 
 MOSQUITTO_DIR="/usr/local/mosquitto"
 
