@@ -49,7 +49,7 @@ xmlstarlet ed -L -u "$XML_PATH" -v "$XML_VALUE" $XML_FILE || exit 1
 XML_FILE_CONTENT=$(cat "$XML_FILE")
 
 # Disabled. Only used for debugging.
-#echo "${XML_FILE_CONTENT}"
+echo "${XML_FILE_CONTENT}"
 
 [[ ! $(echo "$XML_FILE_CONTENT") =~ "$XML_VALUE" ]] && echo "The value wasn't inserted into the XML file" && exit 1
 
