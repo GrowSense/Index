@@ -13,12 +13,14 @@ if [ -d "$DEVICES_DIR" ]; then
         DEVICE_LABEL=$(cat $d/label.txt)
         DEVICE_PORT=$(cat $d/port.txt)
         DEVICE_HOST=$(cat $d/host.txt)
+        DEVICE_BOARD=$(cat $d/board.txt)
         
         
         echo "$DEVICE_LABEL"
         echo "  Name: $DEVICE_NAME"
         echo "  Group: $DEVICE_GROUP"
         echo "  Port: $DEVICE_PORT"
+        echo "  Board: $DEVICE_BOARD"
         echo "  Host: $DEVICE_HOST"
         
         sh check-garden-device.sh $DEVICE_NAME
