@@ -41,18 +41,6 @@ for filename in scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/*.service; do
 done
 
 echo ""
-echo "Updater Services"
-echo ""
-
-for filename in scripts/apps/GitDeployer/svc/*.service; do
-  [ -f "$filename" ] || break
-  shortname=$(basename $filename)
-  echo "Removing service: $filename" && \
-  rm -v $filename || exit 1
-  echo ""
-done
-
-echo ""
 echo "Installed services"
 echo ""
 

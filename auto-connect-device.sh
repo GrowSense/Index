@@ -48,8 +48,14 @@ DEVICE_NUMBER=1
 echo "Pulling device info from remote indexes..."
 sh pull-device-info-from-remotes.sh || exit 1
 
-DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
-    
+DEVICE_POSTFIX=""
+
+if [ $BOARD_TYPE = "esp" ]; then
+  DEVICE_POSTFIX="W"
+fi
+
+DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
+
 if [ -d "$DEVICE_INFO_DIR" ]; then
 
   echo "Device exists"
@@ -57,17 +63,12 @@ if [ -d "$DEVICE_INFO_DIR" ]; then
   until [ ! -d "$DEVICE_INFO_DIR" ]; do
     echo "Increasing device number"
     DEVICE_NUMBER=$((DEVICE_NUMBER+1))
-    DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_NUMBER"
+    DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
     echo "Device info dir:"
     echo $DEVICE_INFO_DIR
   done
 fi
 
-DEVICE_POSTFIX=""
-
-if [ $BOARD_TYPE = "esp" ]; then
-  DEVICE_POSTFIX="W"
-fi
 
 DEVICE_NAME="$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
 

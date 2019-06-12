@@ -73,6 +73,7 @@ else
   echo "Removing GreenSense directory..."
   echo "  $INSTALL_DIR"
   rm $INSTALL_DIR -R || exit 1
+  echo ""
 fi
 
 echo ""
