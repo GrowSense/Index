@@ -4,8 +4,8 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 INSTALLED_VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 
-LATEST_BUILD_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt" -q -O -)
-LATEST_VERSION_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt" -q -O -)
+LATEST_BUILD_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/buildnumber.txt" -q -O -)
+LATEST_VERSION_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/version.txt" -q -O -)
 
 LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
