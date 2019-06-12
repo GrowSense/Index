@@ -70,17 +70,24 @@ nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting" &
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
 
+# FAST argument tells the create device script to execute long running processes in the background.
+# This speeds up the plug and play system for WiFi/ESP based devices which require the sketch to be uploaded to set the WiFi details
+FAST=""
+if [ $BOARD_TYPE = "esp" ]; then
+  FAST="fast"
+fi
+
 echo "Device info dir:"
-echo $DEVICE_INFO_DIR
+echo "  $DEVICE_INFO_DIR"
 
-DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" && \
+DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
 
-SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh && \
+SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh || exit 1
 echo "" && \
 echo "Add device script:" && \
-echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT && \
+echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT $FAST || exit 1
 echo "" && \
-sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
+sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT $FAST || exit 1
 
 # Disabled because the plug and play system should take care of removing the device
 #(echo "An error occurred when connecting device" && sh remove-garden-device.sh && exit 1)

@@ -66,6 +66,11 @@ if ! type "sshpass" > /dev/null; then
    $SUDO apt-get -y -q install sshpass
 fi
 
+if ! type "notify-send" > /dev/null; then
+   [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
+   $SUDO apt-get -y -q install notify-send
+fi
+
 cd scripts/install/ && \
 
 sh install-platformio.sh && \
