@@ -12,5 +12,5 @@ cp -v BridgeArduinoSerialToMqttSplitCsv*.nupkg $INSTALL_DIR/
 cp -v *.config $INSTALL_DIR/
 cp -v init.sh $INSTALL_DIR/
 cp -v install-package.sh $INSTALL_DIR/
-cp -v start-mqtt-bridge-from-github.sh $INSTALL_DIR/
+cp -v start-mqtt-bridge.sh $INSTALL_DIR/
 
