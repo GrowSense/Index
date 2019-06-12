@@ -91,9 +91,9 @@ cd $DIR && \
 #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
-sh notify-send.sh "$DEVICE_NAME" "Soil moisture monitor ESP sketch uploaded"
+sh notify-send.sh "$DEVICE_NAME" "Soil moisture monitor ESP/WiFi sketch uploaded"
 
 nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" &
 
-echo "Finished uploading soil moisture monitor ESP sketch"
+echo "Finished uploading soil moisture monitor ESP/WiFi sketch"
 echo ""

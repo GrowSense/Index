@@ -63,7 +63,13 @@ if [ -d "$DEVICE_INFO_DIR" ]; then
   done
 fi
 
-DEVICE_NAME="$GROUP_NAME$DEVICE_NUMBER"
+DEVICE_POSTFIX=""
+
+if [ $BOARD_TYPE = "esp" ]; then
+  DEVICE_POSTFIX="W"
+fi
+
+DEVICE_NAME="$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
 
 nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting" &
 

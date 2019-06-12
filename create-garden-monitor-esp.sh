@@ -1,5 +1,5 @@
 echo ""
-echo "Creating garden monitor configuration"
+echo "Creating garden ESP/WiFi soil moisture monitor configuration"
 echo ""
 
 # Example:
@@ -14,11 +14,11 @@ DEVICE_PORT=$3
 FAST=$4
 
 if [ ! $DEVICE_LABEL ]; then
-  DEVICE_LABEL="WiFiMonitor1"
+  DEVICE_LABEL="monitorW1"
 fi
 
 if [ ! $DEVICE_NAME ]; then
-  DEVICE_NAME="wifiMonitor1"
+  DEVICE_NAME="monitorW1"
 fi
 
 if [ ! $DEVICE_PORT ]; then
@@ -40,6 +40,7 @@ sh create-device-info.sh esp monitor SoilMoistureSensorCalibratedSerialESP $DEVI
 
 # Skip the MQTT bridge service because it's not needed for the ESP version
 
+# Upload sketch
 if [ "$FAST" = "fast" ]; then
   echo "Uploading sketch in background..."
   nohup sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT >/dev/null 2>&1 &
@@ -49,4 +50,4 @@ else
 fi
 
 echo ""
-echo "Garden ESP8266 soil moisture monitor created with device name '$DEVICE_NAME'"
+echo "Garden ESP/WiFi soil moisture monitor created with device name '$DEVICE_NAME'"
