@@ -13,7 +13,7 @@ MQTT_PORT=$(cat mqtt-port.security)
 GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
 # Query the device for a line of data...
-sh mqtt-publish-device.sh "$DEVICE_NAME" "Q/in" "1"
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
 
 # Give the device time to receive the message
 sleep 2
