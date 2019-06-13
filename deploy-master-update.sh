@@ -10,7 +10,7 @@ if [ "$BRANCH" = "master" ]; then
 
   sshpass -p $MASTER_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $MASTER_INSTALL_SSH_USERNAME@$MASTER_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH"
   
-  START_WAIT_TIME=150
+  START_WAIT_TIME=220
   
   echo "Giving services time to start ($START_WAIT_TIME seconds)..."
   sleep $START_WAIT_TIME
