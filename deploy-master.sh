@@ -22,8 +22,10 @@ if [ "$BRANCH" = "master" ]; then
 
   echo ""
   
-  echo "Giving services time to start..."
-  sleep 120
+  START_WAIT_TIME=150
+  
+  echo "Giving services time to start ($START_WAIT_TIME seconds)..."
+  sleep $START_WAIT_TIME
   
   echo ""
   

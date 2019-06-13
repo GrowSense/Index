@@ -29,9 +29,11 @@ if [ "$BRANCH" = "lts" ]; then
   sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $LTS_MQTT_HOST $LTS_MQTT_USERNAME $LTS_MQTT_PASSWORD $LTS_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS"
 
   echo ""
+
+  START_WAIT_TIME=90
   
-  echo "Giving services time to start..."
-  sleep 150
+  echo "Giving services time to start ($START_WAIT_TIME seconds)..."
+  sleep $START_WAIT_TIME
   
   echo ""
   
