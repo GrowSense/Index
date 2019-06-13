@@ -24,6 +24,10 @@ if [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "Publishing status to MQTT..."
   sh mqtt-publish.sh "/garden/StatusMessage" "Upgrading" &
   
+  $SUDO apt update && $SUDO apt -y upgrade
+  
+  $SUDO pio upgrade
+  
   sh clean-all.sh
 
   sh update-all.sh
