@@ -19,7 +19,7 @@ mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t
 sleep 2
 
 # The timeout is short because newly installed devices don't yet have a status
-STATUS_MESSAGE=$(timeout 3 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
+STATUS_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
 
 if [ ! $STATUS_MESSAGE ]; then
   echo "  Status: No MQTT status detected"  
