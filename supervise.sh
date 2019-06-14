@@ -28,7 +28,7 @@ fi
 
 echo ""
 echo "Pulling device info from remote garden computers..."
-pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
+sh pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
 
 echo ""
 echo "Supervising devices..."
