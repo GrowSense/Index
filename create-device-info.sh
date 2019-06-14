@@ -78,6 +78,7 @@ echo $DEVICE_PORT > $DEVICE_DIR/port.txt
 echo $DEVICE_GROUP > $DEVICE_DIR/group.txt
 echo $DEVICE_FAMILY > $DEVICE_DIR/family.txt
 echo $DEVICE_HOST > $DEVICE_DIR/host.txt
+echo "1" > $DEVICE_DIR/is-usb-connected.txt
 
 echo "Finished creating device info"
 echo ""

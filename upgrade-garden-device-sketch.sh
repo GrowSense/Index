@@ -21,6 +21,7 @@ DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
+DEVICE_IS_USB_CONNECTED=$(cat "devices/$DEVICE_NAME/is-usb-connected.txt")
 
 CURRENT_HOST=$(cat /etc/hostname)
 
@@ -29,7 +30,7 @@ echo "  Device project: $DEVICE_PROJECT"
 echo "  Device host: $DEVICE_HOST"
 echo "  Current host: $CURRENT_HOST"
 
-if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
+if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
 
   # Get the latest version from the GitHub repository
   #LATEST_BUILD_NUMBER=$(curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt)
