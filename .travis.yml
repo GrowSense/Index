@@ -14,5 +14,5 @@ install:
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
 script:
-  - sh build-tests.sh
+  - sh build-all.sh
   - sh test.sh
