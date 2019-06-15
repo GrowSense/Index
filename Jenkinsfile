@@ -60,6 +60,11 @@ pipeline {
                 sh 'sh clean.sh'
             }
         }
+        stage('CleanWS') {
+            steps {
+                deleteDir()
+            }
+        }
     }
     post {
         success() {

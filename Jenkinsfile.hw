@@ -107,6 +107,11 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         }
+        stage('CleanWS') {
+            steps {
+                deleteDir()
+            }
+        }
     }
     post {
         success() {
