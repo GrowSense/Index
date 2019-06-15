@@ -4,7 +4,7 @@ pipeline {
       skipDefaultCheckout true
     }
     stages {
-        stage('CleanWS') {
+        stage('CleanWSStart') {
             steps {
                 deleteDir()
             }
@@ -60,7 +60,7 @@ pipeline {
                 sh 'sh clean.sh'
             }
         }
-        stage('CleanWS') {
+        stage('CleanWSEnd') {
             steps {
                 deleteDir()
             }
