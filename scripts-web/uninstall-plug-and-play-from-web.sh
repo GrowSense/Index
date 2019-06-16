@@ -67,7 +67,7 @@ else
 
   echo ""
   echo "Removing all devices and services..."
-  sh remove-garden-devices.sh || exit 1
+  sh remove-garden-devices.sh || echo "Failed to remove garden devices"
 
   echo ""
   echo "Removing GreenSense directory..."
