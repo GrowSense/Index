@@ -77,6 +77,7 @@ pipeline {
         }
         failure() {
           sh 'sh rollback.sh'
+          deleteDir()
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
@@ -92,6 +93,7 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
+ 
  
  
  
