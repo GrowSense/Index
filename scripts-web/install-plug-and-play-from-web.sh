@@ -164,6 +164,11 @@ echo "Setting email details..."
 sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 
 echo ""
+echo "Installing plug and play..."
+
+wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
+
+echo ""
 echo "Creating garden..."
 
 sh create-garden.sh
@@ -172,11 +177,6 @@ echo ""
 echo "Creating system supervisor service..."
 
 sh create-supervisor-service.sh
-
-echo ""
-echo "Installing plug and play..."
-
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
 
 echo ""
 echo "Publishing status to MQTT..."
