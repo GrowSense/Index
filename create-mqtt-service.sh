@@ -28,15 +28,22 @@ fi
 echo ""
 echo "  Creating mosquitto install dir..."
 echo "    $MOSQUITTO_INSTALL_DIR"
-$SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR"
+$SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR" || exit 1
 
 echo ""
-echo "  Creating /data/" && \
-$SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR/data" && \
+echo "  Creating $MOSQUITTO_INSTALL_DIR/data/"
+$SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR/data" || exit 1
 
 echo ""
-echo "  Setting /data/ permissions" && \
-$SUDO chmod 777 $MOSQUITTO_INSTALL_DIR/data && \
+echo "  Creating $MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
+MQTT_USERNAME=$(cat mqtt-username.security)
+MQTT_PASSWORD=$(cat mqtt-password.security)
+CREDENTIALS_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
+$SUDO echo "$MQTT_USERNAME:$MQTT_PASSWORD" > $CREDENTIALS_FILE || exit 1
+
+echo ""
+echo "  Setting $MOSQUITTO_INSTALL_DIR/data/ permissions"
+$SUDO chmod 777 $MOSQUITTO_INSTALL_DIR/data || exit 1
 
 INTERNAL_MOSQUITTO_DIRECTORY="scripts/docker/mosquitto"
 
@@ -46,18 +53,19 @@ echo ""
 echo "  Copying run script into install dir..."
 START_SCRIPT_NAME="run-mosquitto-arm.sh"
 START_SCRIPT_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/$START_SCRIPT_NAME"
-sudo cp -f $START_SCRIPT_PATH "$MOSQUITTO_INSTALL_DIR/$START_SCRIPT_NAME" || exit 1
+$SUDO cp -f $START_SCRIPT_PATH "$MOSQUITTO_INSTALL_DIR/$START_SCRIPT_NAME" || exit 1
 
 echo ""
 echo "  Copying template file..."
-cp $SERVICE_FILE_PATH.template $SERVICE_FILE_PATH
+cp $SERVICE_FILE_PATH.template $SERVICE_FILE_PATH || exit 1
 
 echo ""
 echo "  Editing service file..."
-sed -i "s/{BRANCH}/$BRANCH/g" $SERVICE_FILE_PATH && \
+sed -i "s/{BRANCH}/$BRANCH/g" $SERVICE_FILE_PATH || exit 1
 
 echo ""
-echo "  Installing service file..." && \
-bash install-service.sh $SERVICE_FILE_PATH && \
+echo "  Installing service file..."
+bash install-service.sh $SERVICE_FILE_PATH || exit 1
 
-echo "Install complete"
+echo ""
+echo "Finished installing mosquitto docker service"

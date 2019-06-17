@@ -27,6 +27,15 @@ echo "${PIO_LIST_RESULT}"
 [[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB" ]] && echo "No USB devices are connected" && exit 1
 
 echo ""
+echo "Viewing docker ps result..."
+
+DOCKER_PS_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "docker ps")
+
+echo "${DOCKER_PS_RESULT}"
+
+[[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]] && echo "Mosquitto docker container not detected" && exit 1
+
+echo ""
 echo "Checking MQTT bridge config file..."
 
 MQTT_BRIDGE_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config")
