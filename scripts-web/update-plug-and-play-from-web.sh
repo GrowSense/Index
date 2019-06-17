@@ -85,7 +85,7 @@ sh upgrade.sh || exit 1
 echo "Reinitializing index..."
 sh init-runtime.sh || exit 1
 
-echo "Updating ArduinoPlugAndPlay (by downloading update-from-web.sh file)..."
+echo "Updating ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR || exit 1
 
 echo "Recreating UI..."

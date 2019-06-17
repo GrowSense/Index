@@ -100,7 +100,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   echo ""
   echo "Cloning the GreenSense index repository..."
   
-  git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || (echo "Failed to set up GreenSense index." && exit 1)
+  git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
   
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
