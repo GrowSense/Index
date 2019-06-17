@@ -19,7 +19,7 @@ if [ "$BRANCH" = "dev" ]; then
   
   echo ""
   
-  START_WAIT_TIME=130
+  START_WAIT_TIME=160
   echo "Giving services time to start ($START_WAIT_TIME seconds)..."
   sleep $START_WAIT_TIME
   
