@@ -34,7 +34,7 @@ if [ -d $PNP_INSTALL_DIR ]; then
 
   echo ""
   echo "Uninstalling the plug and play application (by downloading uninstall-from-web.sh file)..."
-  wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-web/uninstall-from-web.sh | bash -s $BRANCH $PNP_INSTALL_DIR
+  wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/uninstall.sh | bash -s $BRANCH $PNP_INSTALL_DIR
 else
   echo ""
   echo "ArduinoPlugAndPlay doesn't seem to be installed. Skipping."
