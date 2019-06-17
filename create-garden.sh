@@ -7,12 +7,12 @@ echo ""
 #MQTT_HOST=$(cat mqtt-host.security)
 #if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
 #  echo "MQTT broker is local host"
-  bash create-mqtt-service.sh
+  bash create-mqtt-service.sh || exit 1
 #else
 #  echo "MQTT broker is on another host"
 #fi
 
-sh expose-ui-config-via-http.sh
+sh expose-ui-config-via-http.sh || exit 1
 
 echo ""
 echo "Setup complete"
