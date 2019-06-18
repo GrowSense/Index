@@ -48,63 +48,96 @@ echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
-sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+IS_ALREADY_UPLOADING=0
 
-cd "$BASE_PATH"
-
-echo "  Current directory:"
-echo "    $BASE_PATH"
-
-# Pull the security files from the index into the project
-sh pull-security-files.sh && \
-
-# Inject security details
-sh inject-security-settings.sh && \
-
-# Inject device name
-sh inject-device-name.sh "$DEVICE_NAME" && \
-
-# Inject version into the sketch
-sh inject-version.sh || exit 1
-
-# TODO: Remove if not needed. Build is performed during upload.
-
-# Build the sketch
-#if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
-#    sh build.sh || exit 1
-#else
-#    echo "[mock] sh build.sh"
-#fi
-
-# Upload the sketch
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-    sh upload.sh "/dev/$SERIAL_PORT" || exit 1
-else
-    echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
+if [ -f "devices/$DEVICE_NAME/is-uploading.txt" ]; then
+  IS_ALREADY_UPLOADING=$(cat "devices/$DEVICE_NAME/is-uploading.txt")
 fi
 
-# Note: Clean disabled because it messes with tests
-# Clean all settings
-#sh clean-settings.sh && \
+echo "  Is already uploading: $IS_ALREADY_UPLOADING"
 
-cd $DIR && \
+if [ "$IS_ALREADY_UPLOADING" = "0" ]; then
 
-# TODO: Clean up. Disabled because it's causing problems with plug and play
-#if [ $IS_MOCK_HARDWARE = 0 ]; then
-#    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-#else
-#    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-#fi
+  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading" || echo "Failed to publish status to MQTT"
 
-if [ -d "devices/$DEVICE_NAME" ]; then
+  if [ -d "devices/$DEVICE_NAME" ]; then
+    echo ""
+    echo "  Setting device is-uploading.txt flag file to 1 (true)..."
+    echo "1" > "devices/$DEVICE_NAME/is-uploading.txt"
+  fi
+
+  cd "$BASE_PATH"
+
+  echo "  Current directory:"
+  echo "    $BASE_PATH"
+
+  # Pull the security files from the index into the project
+  sh pull-security-files.sh && \
+
+  # Inject security details
+  sh inject-security-settings.sh && \
+
+  # Inject device name
+  sh inject-device-name.sh "$DEVICE_NAME" && \
+
+  # Inject version into the sketch
+  sh inject-version.sh && \
+
+  # TODO: Remove if not needed. Build is performed during upload.
+
+  # Build the sketch
+  #if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
+  #    sh build.sh || exit 1
+  #else
+  #    echo "[mock] sh build.sh"
+  #fi
+
+  # Upload the sketch
+  if [ $IS_MOCK_HARDWARE = 0 ]; then
+      sh upload.sh "/dev/$SERIAL_PORT"
+  else
+      echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
+  fi
+
+  # Note: Clean disabled because it messes with tests
+  # Clean all settings
+  #sh clean-settings.sh && \
+
+  cd $DIR && \
+
+  # TODO: Clean up. Disabled because it's causing problems with plug and play
+  #if [ $IS_MOCK_HARDWARE = 0 ]; then
+  #    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
+  #else
+  #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
+  #fi
+
+
+  if [ -d "devices/$DEVICE_NAME" ]; then
+    if [ $? = 0 ]; then
+      echo ""
+      echo "  Setting device is-uploaded.txt flag file to 1 (true)..."
+      echo "1" > "devices/$DEVICE_NAME/is-uploaded.txt"
+    fi
+    echo ""
+    echo "  Setting device is-uploading.txt flag file to 0 (false)..."
+    echo "0" > "devices/$DEVICE_NAME/is-uploading.txt"
+  fi
+
+  if [ $? = 0 ]; then
+    sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch uploaded"
+
+    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
+  else
+    sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch upload failed"
+
+    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upload failed"
+    
+    exit 1
+  fi
+
+  echo "Finished uploading irrigator ESP/WiFi sketch"
   echo ""
-  echo "  Setting device is-uploaded.txt flag file..."
-  echo "1" > "devices/$DEVICE_NAME/is-uploaded.txt"
+else
+  echo "Sketch is already uploading. Skipping."
 fi
-
-sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch uploaded"
-
-sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
-
-echo "Finished uploading irrigator ESP/WiFi sketch"
-echo ""
