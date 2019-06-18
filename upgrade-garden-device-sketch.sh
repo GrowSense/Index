@@ -7,7 +7,7 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
-UPGRADE_SCRIPT_TIMEOUT="5m"
+UPGRADE_SCRIPT_TIMEOUT="10m"
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
