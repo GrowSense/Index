@@ -45,7 +45,7 @@ DEVICE_NUMBER=1
 # TODO: Remove if not needed. It shouldn't be needed. Only if plug and play isn't reliable enough at removing devices
 #sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
 
-echo "Pulling device info from remote indexes..."
+echo "Pulling device info from remote garden computer..."
 sh pull-device-info-from-remotes.sh || exit 1
 
 DEVICE_POSTFIX=""
@@ -101,6 +101,7 @@ sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT $FAST || exit 1
 
 nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected" &
 
+echo ""
 echo "Finished auto connecting device."
 
 # Disabled because it's causing problems with tests
