@@ -37,13 +37,13 @@ if [ "$DEVICE_BOARD" = "esp" ]; then
       sh supervise-device-status.sh $DEVICE_NAME
     fi
   else
-    echo "  ESP board sketch hasn't been uploaded. Uploading in background..."
+    echo "  ESP board sketch hasn't been uploaded. Uploading..."
     DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
     DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
     
     echo "    Group: $DEVICE_GROUP"
     
-    sh run-background.sh sh upload-$DEVICE_GROUP-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
+    sh upload-$DEVICE_GROUP-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
   fi
 else
   if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
