@@ -20,6 +20,9 @@ fi
 echo "  Loop number: $LOOP_NUMBER"
 echo "  Device name: $DEVICE_NAME"
 
+
+STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
+
 DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
 
 if [ "$DEVICE_BOARD" = "esp" ]; then

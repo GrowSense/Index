@@ -22,7 +22,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         echo "$DEVICE_LABEL"
         
-        sh supervise-device.sh $LOOP_NUMBER $DEVICE_NAME
+        bash supervise-device.sh $LOOP_NUMBER $DEVICE_NAME
        
         echo ""
     done
