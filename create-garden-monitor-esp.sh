@@ -40,14 +40,15 @@ sh create-device-info.sh esp monitor SoilMoistureSensorCalibratedSerialESP $DEVI
 
 # Skip the MQTT bridge service because it's not needed for the ESP version
 
+# TODO: Remove if not needed. Should be obsolete. Supervisor takes care of uploading ESP sketches now.
 # Upload sketch
-if [ "$FAST" = "fast" ]; then
-  echo "Uploading sketch in background..."
-  nohup sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT >/dev/null 2>&1 &
-else
-  echo "Uploading sketch..."
-  sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
-fi
+#if [ "$FAST" = "fast" ]; then
+#  echo "Uploading sketch in background..."
+#  nohup sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT >/dev/null 2>&1 &
+#else
+#  echo "Uploading sketch..."
+#  sh upload-monitor-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
+#fi
 
 echo ""
 echo "Garden ESP/WiFi soil moisture monitor created with device name '$DEVICE_NAME'"

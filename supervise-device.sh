@@ -1,49 +1,49 @@
-DEVICE_NAME=$1
+LOOP_NUMBER=$1
+DEVICE_NAME=$2
 
-if [ ! $DEVICE_NAME ]; then
-  echo "Please provide a device name as an argument."
+EXAMPLE="Example:\n\tsh supervise-device.sh [LoopNumber] [DeviceName]"
+
+echo "Supervising garden device..."
+
+if [ ! $LOOP_NUMBER ]; then
+  echo "Please provide a loop number as an argument."
+  echo $EXAMPLE
   exit 1
 fi
 
-MQTT_HOST=$(cat mqtt-host.security)
-MQTT_USERNAME=$(cat mqtt-username.security)
-MQTT_PASSWORD=$(cat mqtt-password.security)
-MQTT_PORT=$(cat mqtt-port.security)
-
-echo ""
-echo "Querying the device for a line of data..."
-mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
-
-echo ""
-echo "Giving the device time to receive the message..."
-sleep 3
-
-echo ""
-echo "Getting the time stamp from the device..."
-TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1)
-
-echo "Time: $TIME"
-
-DEVICE_TIME_FILE="devices/$DEVICE_NAME/time-last-published.txt"
-
-PREVIOUS_TIME=""
-if [ -f $DEVICE_TIME_FILE ]; then
-  PREVIOUS_TIME=$(cat $DEVICE_TIME_FILE)
+if [ ! $DEVICE_NAME ]; then
+  echo "Please provide a device name as an argument."
+  echo $EXAMPLE
+  exit 1
 fi
 
-echo "Previous time: $PREVIOUS_TIME"
+echo "  Loop number: $LOOP_NUMBER"
+echo "  Device name: $DEVICE_NAME"
 
-if [ "$TIME" = "$PREVIOUS_TIME" ]; then
-  echo "  No MQTT data. Device is offline."  
-  
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
+DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
+
+if [ "$DEVICE_BOARD" = "esp" ]; then
+  if [ -f "devices/$DEVICE_NAME/is-uploaded.txt" ]; then
+    IS_UPLOADED=$(cat "devices/$DEVICE_NAME/is-uploaded.txt")
+  else
+    IS_UPLOADED=0
+  fi
+
+  if [ "$IS_UPLOADED" = "1" ]; then
+    if [ $(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY )) -eq "0" ]; then
+      sh supervise-device-status.sh $DEVICE_NAME
+    fi
+  else
+    echo "  ESP board sketch hasn't been uploaded. Uploading in background..."
+    DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+    DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
+    
+    echo "    Group: $DEVICE_GROUP"
+    
+    sh run-background.sh sh upload-$DEVICE_GROUP-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
+  fi
 else
-  echo "  Device is online."
-  
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Online" -r
-  
-  echo $TIME > $DEVICE_TIME_FILE
+  if [ $(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY )) -eq "0" ]; then
+    sh supervise-device-status.sh $DEVICE_NAME
+  fi
 fi
-
-echo "Finished supervising device"
-echo ""

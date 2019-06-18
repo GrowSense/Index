@@ -50,6 +50,8 @@ BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
 cd "$BASE_PATH"
 
+sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+
 echo "  Current directory:"
 echo "    $BASE_PATH"
 
@@ -94,9 +96,15 @@ cd $DIR && \
 #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
+if [ -d "devices/$DEVICE_NAME" ]; then
+  echo ""
+  echo "  Setting device is-uploaded.txt flag file..."
+  echo "1" > "devices/$DEVICE_NAME/is-uploaded.txt"
+fi
+
 sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch uploaded"
 
-nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" &
+sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
 
 echo "Finished uploading irrigator ESP/WiFi sketch"
 echo ""

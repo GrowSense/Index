@@ -1,5 +1,12 @@
 #!/bin/bash
 
+LOOP_NUMBER=$1
+
+if [ ! $LOOP_NUMBER ]; then
+  echo "Please provide a loop number as an argument."
+  exit 1
+fi
+
 DEVICES_DIR="devices"
 
 DIR=$PWD
@@ -15,7 +22,7 @@ if [ -d "$DEVICES_DIR" ]; then
         
         echo "$DEVICE_LABEL"
         
-        sh supervise-device.sh $DEVICE_NAME
+        sh supervise-device.sh $LOOP_NUMBER $DEVICE_NAME
        
         echo ""
     done

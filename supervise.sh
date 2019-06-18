@@ -2,7 +2,7 @@
 
 LOOP_NUMBER=$1
 
-UPGRADE_MOD_VALUE=100
+UPGRADE_FREQUENCY=$(cat supervisor-upgrade-frequency.txt)
 
 if [ ! $LOOP_NUMBER ]; then
   LOOP_NUMBER=1
@@ -15,7 +15,7 @@ echo "-----"
 echo "Starting GreenSense Supervisor Loop: $LOOP_NUMBER"
 echo ""
 if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
-  if [ $(( $LOOP_NUMBER%$UPGRADE_MOD_VALUE )) -eq "0" ]; then
+  if [ $(( $LOOP_NUMBER%$UPGRADE_FREQUENCY )) -eq "0" ]; then
     echo ""
     echo "  Initiating upgrade."
     sh upgrade.sh || exit 1
@@ -32,7 +32,7 @@ sh pull-device-info-from-remotes.sh || echo "Failed to pull device info from rem
 
 echo ""
 echo "Supervising devices..."
-sh supervise-devices.sh || echo "Supervise devices failed"
+sh supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
 
 echo ""
 echo "Finished GreenSense Supervisor Loop: $LOOP_NUMBER"

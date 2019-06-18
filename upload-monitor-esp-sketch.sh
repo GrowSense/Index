@@ -49,14 +49,16 @@ BASE_PATH="sketches/monitor/SoilMoistureSensorCalibratedSerialESP"
 
 cd $BASE_PATH
 
+sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+
 # Pull the security files from the index into the project
-sh pull-security-files.sh && \
+sh pull-security-files.sh || exit 1
 
 # Inject security details
-sh inject-security-settings.sh && \
+sh inject-security-settings.sh || exit 1
 
 # Inject device name
-sh inject-device-name.sh "$DEVICE_NAME" && \
+sh inject-device-name.sh "$DEVICE_NAME" || exit 1
 
 # Inject version into the sketch
 sh inject-version.sh
@@ -82,7 +84,7 @@ fi
 # Clean all settings
 #sh clean-settings.sh && \
 
-cd $DIR && \
+cd $DIR
 
 # TODO: Clean up. Disabled because it's causing problems with plug and play
 #if [ $IS_MOCK_HARDWARE = 0 ]; then
@@ -91,9 +93,15 @@ cd $DIR && \
 #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
 #fi
 
+if [ -d "devices/$DEVICE_NAME" ]; then
+  echo ""
+  echo "  Setting device is-uploaded.txt flag file..."
+  echo "1" > "devices/$DEVICE_NAME/is-uploaded.txt"
+fi
+
 sh notify-send.sh "$DEVICE_NAME" "Soil moisture monitor ESP/WiFi sketch uploaded"
 
-nohup sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" &
+sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
 
 echo "Finished uploading soil moisture monitor ESP/WiFi sketch"
 echo ""
