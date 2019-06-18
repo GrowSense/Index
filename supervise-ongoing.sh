@@ -4,7 +4,7 @@ IS_RUNNING=1
 
 SLEEP_TIME=$(cat supervisor-sleep-time.txt)
 
-i=1
+i=0
 
 while [ $IS_RUNNING ]
 do
