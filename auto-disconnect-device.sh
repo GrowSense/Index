@@ -3,10 +3,10 @@
 
 DEVICE_PORT=$1
 
-EXAMPLE="Example:\n\t...sh [Port]"
+EXAMPLE="Example:\n\tauto-disconnect-device.sh [Port]"
 
 if [ ! $DEVICE_PORT ]; then
-  echo "Provide a port as an argument."
+  echo "Please provide a port as an argument."
   echo $EXAMPLE
   exit 1
 fi

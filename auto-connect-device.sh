@@ -4,7 +4,7 @@ GROUP_NAME=$3
 PROJECT_NAME=$4
 PORT=$5
 
-EXAMPLE="Example:\n\t...sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [Port]"
+EXAMPLE="Example:\n\tauto-connect-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [Port]"
 
 if [ ! $FAMILY_NAME ]; then
   echo "Provide a family name as an argument."
