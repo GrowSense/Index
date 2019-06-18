@@ -129,6 +129,11 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 fi
 
 echo ""
+echo "Installing plug and play..."
+
+wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
+
+echo ""
 echo "Moving into the index directory..."
 
 cd $INDEX_DIR || exit 1
@@ -162,11 +167,6 @@ echo ""
 echo "Setting email details..."
 
 sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
-
-echo ""
-echo "Installing plug and play..."
-
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
 
 echo ""
 echo "Creating garden..."
