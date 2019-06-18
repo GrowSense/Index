@@ -8,6 +8,16 @@ if [ ! $LOOP_NUMBER ]; then
   LOOP_NUMBER=1
 fi
 
+
+echo ""
+echo "Pulling device info from remote garden computers..."
+sh pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
+
+echo ""
+echo "Supervising devices..."
+sh supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
+
+
 AUTO_UPGRADE_ENABLED=$(cat auto-upgrade-enabled.txt)
 
 echo ""
@@ -25,15 +35,6 @@ if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
 else
   echo "  Auto upgrade disabled. Skipping."
 fi
-
-echo ""
-echo "Pulling device info from remote garden computers..."
-sh pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
-
-echo ""
-echo "Supervising devices..."
-sh supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
-
 echo ""
 echo "Finished GreenSense Supervisor Loop: $LOOP_NUMBER"
 echo "-----"
