@@ -127,7 +127,7 @@ done
 echo ""
 echo "Viewing GreenSense supervisor service log..."
 
-SUPERVISOR_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u greensense-supervisor.service -b | tail -n 100")
+SUPERVISOR_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u greensense-supervisor.service -b | tail -n 200")
 
 echo "${SUPERVISOR_LOG}"
 
