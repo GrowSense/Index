@@ -114,6 +114,9 @@ if [ "$IS_ALREADY_UPLOADING" = "0" ]; then
       echo ""
       echo "  Setting device is-uploaded.txt flag file to 1 (true)..."
       echo "1" > "devices/$DEVICE_NAME/is-uploaded.txt"
+    else
+      echo "  Setting device is-uploaded.txt flag file to 0 (false)..."
+      echo "0" > "devices/$DEVICE_NAME/is-uploaded.txt"
     fi
     echo ""
     echo "  Setting device is-uploading.txt flag file to 0 (false)..."
