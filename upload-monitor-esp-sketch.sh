@@ -47,9 +47,9 @@ echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="sketches/monitor/SoilMoistureSensorCalibratedSerialESP"
 
-cd $BASE_PATH
-
 sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+
+cd $BASE_PATH
 
 # Pull the security files from the index into the project
 sh pull-security-files.sh || exit 1

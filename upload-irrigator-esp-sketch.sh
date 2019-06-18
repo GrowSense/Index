@@ -48,9 +48,9 @@ echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
-cd "$BASE_PATH"
-
 sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+
+cd "$BASE_PATH"
 
 echo "  Current directory:"
 echo "    $BASE_PATH"
