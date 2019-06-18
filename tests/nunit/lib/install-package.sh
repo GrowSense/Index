@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PACKAGE_NAME=$1
 PACKAGE_VERSION=$2
 
@@ -18,10 +20,48 @@ PACKAGE_FILE_EXT="$PACKAGE_NAME.$PACKAGE_VERSION.nupkg"
 
 #echo "  Package file: $PACKAGE_FILE"
 
+# If the package isn't found
 if [ ! -d "$PACKAGE_FILE" ]; then
-	wget -q "https://github.com/GreenSense/libs/raw/master/$PACKAGE_FILE.nupkg" -O $PACKAGE_FILE_EXT || (echo "Failed to download library package file." && exit 1)
 
-	unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FILE/" || (echo "Failed to unzip library package file." && exit 1)
+  # Check if the project exists within the GreenSense index
+	[[ $(echo $PWD) =~ "GreenSense/Index" ]] && IS_IN_INDEX=1 || IS_IN_INDEX=0
+	
+	if [ $IS_IN_INDEX ]; then
+	  # Get the path to the GreenSense index lib directory
+	  INDEX_LIB_DIR=$(readlink -f "../../../lib")
+	  
+	  #echo "  GreenSense index lib directory:"
+	  #echo "    $INDEX_LIB_DIR"
+	  
+	  # Check if the package exists in the GreenSense inject lib directory
+    if [ -d "$INDEX_LIB_DIR/$PACKAGE_FILE" ]; then
+      echo "  From GreenSense index lib directory"
+      # Copy the package from the GreenSense index lib directory
+      cp -r $INDEX_LIB_DIR/$PACKAGE_FILE .
+    fi
+  fi
+  
+  # If the package still isn't found
+  if [ ! -d "$PACKAGE_FILE" ]; then
+    echo "  From the web"
+    
+    # Download the package from the web
+  	wget -q "https://github.com/GreenSense/libs/raw/master/$PACKAGE_FILE.nupkg" -O $PACKAGE_FILE_EXT
+
+    # Unzip the package
+	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FILE/"
+	  
+	  if [ $IS_IN_INDEX ]; then
+      # Make the GreenSense index lib directory if necessary
+	    mkdir -p $INDEX_LIB_DIR
+	    
+	    # Copy the package into the GreenSense index lib directory
+	    cp -r "$PACKAGE_FILE" $INDEX_LIB_DIR/$PACKAGE_FILE/
+	  fi
+  fi
+	
 else
-	echo "$PACKAGE_FILE library already exists. Skipping download."
+	echo "  Already exists. Skipping download."
 fi
+
+

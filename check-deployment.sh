@@ -33,7 +33,8 @@ DOCKER_PS_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyCheckin
 
 echo "${DOCKER_PS_RESULT}"
 
-[[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]] && echo "Mosquitto docker container not detected" && exit 1
+# Disabled because mosquitto is only installed when MQTT is running on localhost
+#[[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]] && echo "Mosquitto docker container not detected" && exit 1
 
 echo ""
 echo "Checking MQTT bridge config file..."
