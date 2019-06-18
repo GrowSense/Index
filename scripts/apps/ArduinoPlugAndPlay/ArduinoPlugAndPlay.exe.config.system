@@ -5,5 +5,6 @@
         <add key="DeviceRemovedCommand" value="cd /usr/local/GreenSense/Index; sh auto-disconnect-device.sh {PORT}" />
         <add key="SmtpServer" value="mail.example.com" />
         <add key="EmailAddress" value="user@example.com" />
+        <add key="SleepTime" value="2" />
     </appSettings>
 </configuration>
