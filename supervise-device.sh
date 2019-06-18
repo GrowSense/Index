@@ -30,7 +30,7 @@ if [ "$DEVICE_BOARD" = "esp" ]; then
   fi
 
   if [ "$IS_UPLOADED" = "1" ]; then
-    if [ $(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY )) -eq "0" ]; then
+    if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
       sh supervise-device-status.sh $DEVICE_NAME
     fi
   else
@@ -43,7 +43,7 @@ if [ "$DEVICE_BOARD" = "esp" ]; then
     sh run-background.sh sh upload-$DEVICE_GROUP-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
   fi
 else
-  if [ $(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY )) -eq "0" ]; then
+  if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
     sh supervise-device-status.sh $DEVICE_NAME
   fi
 fi
