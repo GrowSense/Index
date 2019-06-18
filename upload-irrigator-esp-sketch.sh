@@ -130,11 +130,11 @@ if [ "$IS_ALREADY_UPLOADING" = "0" ]; then
   if [ $? = 0 ]; then
     sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch uploaded"
 
-    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
+    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" || echo "Failed to publish status to MQTT"
   else
     sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch upload failed"
 
-    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upload failed"
+    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upload failed" || echo "Failed to publish status to MQTT"
     
     exit 1
   fi
@@ -143,4 +143,5 @@ if [ "$IS_ALREADY_UPLOADING" = "0" ]; then
   echo ""
 else
   echo "Sketch is already uploading. Skipping."
+  echo ""
 fi
