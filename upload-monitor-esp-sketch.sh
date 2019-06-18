@@ -49,7 +49,7 @@ BASE_PATH="sketches/monitor/SoilMoistureSensorCalibratedSerialESP"
 
 cd $BASE_PATH
 
-sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
 
 # Pull the security files from the index into the project
 sh pull-security-files.sh || exit 1
@@ -101,7 +101,7 @@ fi
 
 sh notify-send.sh "$DEVICE_NAME" "Soil moisture monitor ESP/WiFi sketch uploaded"
 
-sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
 
 echo "Finished uploading soil moisture monitor ESP/WiFi sketch"
 echo ""

@@ -82,8 +82,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
       sh stop-garden-device.sh $DEVICE_NAME
         
       SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
-      timeout $UPGRADE_SCRIPT_TIMEOUT sh $SCRIPT_NAME $DEVICE_PORT >> logs/updates/$DEVICE_NAME.txt || \
-        (sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade failed" && echo "Upgrade failed" && exit 1)
+      timeout $UPGRADE_SCRIPT_TIMEOUT sh $SCRIPT_NAME $DEVICE_PORT >> logs/updates/$DEVICE_NAME.txt || exit 1
 
       
       STATUS_CODE=$?    

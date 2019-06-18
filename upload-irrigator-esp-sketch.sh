@@ -50,7 +50,7 @@ BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
 cd "$BASE_PATH"
 
-sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading"
 
 echo "  Current directory:"
 echo "    $BASE_PATH"
@@ -104,7 +104,7 @@ fi
 
 sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch uploaded"
 
-sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
+sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded"
 
 echo "Finished uploading irrigator ESP/WiFi sketch"
 echo ""
