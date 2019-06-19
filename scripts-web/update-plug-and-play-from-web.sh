@@ -79,8 +79,9 @@ sh stop-garden.sh || exit 1
 echo "Updating index..."
 sh update-all.sh || exit 1
 
-echo "Upgrading..."
-sh upgrade.sh || exit 1
+echo "Upgrading system..."
+# Upgrade the system only. The supervisor will upgrade the device sketches.
+sh upgrade-system.sh || exit 1
 
 echo "Reinitializing index..."
 sh init-runtime.sh || exit 1
