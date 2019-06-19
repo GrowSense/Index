@@ -28,7 +28,7 @@ echo "  Password: [hidden]"
 echo "  Port: $REMOTE_PORT"
 
 # rsync is faster
-rsync -rvz -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices/ devices/ || exit 1
+rsync -rz -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices/ devices/ || exit 1
 
 # scp is slower
 #sshpass -p $REMOTE_PASSWORD scp -r -o StrictHostKeyChecking=no $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices .
