@@ -2,6 +2,7 @@ REMOTE_NAME=$1
 REMOTE_HOST=$2
 REMOTE_USERNAME=$3
 REMOTE_PASSWORD=$4
+REMOTE_PORT=$5
 
 EXAMPLE_COMMAND="Example:\n...sh [Name] [Host] [Username] [Password]"
 
@@ -29,10 +30,15 @@ if [ ! $REMOTE_PASSWORD ]; then
   exit 1
 fi
 
+if [ ! $REMOTE_PORT ]; then
+  REMOTE_PORT="22"
+fi
+
 echo "Name: $REMOTE_NAME"
 echo "Host: $REMOTE_HOST"
 echo "Username: $REMOTE_USERNAME"
 echo "Password: [hidden]"
+echo "Port: $REMOTE_PORT"
 
 mkdir -p "remote"
 
@@ -44,5 +50,6 @@ echo $REMOTE_NAME > $REMOTE_INFO_PATH/name.security
 echo $REMOTE_HOST > $REMOTE_INFO_PATH/host.security
 echo $REMOTE_USERNAME > $REMOTE_INFO_PATH/username.security
 echo $REMOTE_PASSWORD > $REMOTE_INFO_PATH/password.security
+echo $REMOTE_PORT > $REMOTE_INFO_PATH/port.security
 
 echo "Finished creating remote index '$REMOTE_NAME'."

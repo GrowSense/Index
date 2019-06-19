@@ -18,15 +18,17 @@ fi
 REMOTE_HOST=$(cat "remote/$REMOTE_NAME/host.security")
 REMOTE_USERNAME=$(cat "remote/$REMOTE_NAME/username.security")
 REMOTE_PASSWORD=$(cat "remote/$REMOTE_NAME/password.security")
+REMOTE_PORT=$(cat "remote/$REMOTE_NAME/port.security")
 
 
 echo "  Name: $REMOTE_NAME"
 echo "  Host: $REMOTE_HOST"
 echo "  Username: $REMOTE_USERNAME"
 echo "  Password: [hidden]"
+echo "  Port: $REMOTE_PORT"
 
 # rsync is faster
-rsync -rvz -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p 22" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices/ devices/ || exit 1
+rsync -rvz -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices/ devices/ || exit 1
 
 # scp is slower
 #sshpass -p $REMOTE_PASSWORD scp -r -o StrictHostKeyChecking=no $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices .
