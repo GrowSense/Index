@@ -8,6 +8,11 @@ if [ "$BRANCH" = "master" ]; then
 
   echo ""
   
+  echo "Waiting for deployment to unlock..."
+  bash "wait-for-deployment-to-unlock.sh" # In quotes to resolve editor color coding issue
+  
+  echo ""
+  
   echo "Uninstalling GreenSense plug and play on remote computer..."
   echo "Host: $MASTER_INSTALL_HOST"
 

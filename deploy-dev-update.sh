@@ -7,6 +7,11 @@ if [ "$BRANCH" = "dev" ]; then
 
   echo ""
   
+  echo "Waiting for deployment to unlock..."
+  bash "wait-for-deployment-to-unlock.sh" # In quotes to resolve editor color coding issue
+  
+  echo ""
+  
   echo "Updating GreenSense plug and play on remote computer..."
   
   echo "Host: $DEV_INSTALL_HOST"

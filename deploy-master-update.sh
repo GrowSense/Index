@@ -6,6 +6,11 @@ if [ "$BRANCH" = "master" ]; then
   echo "Deploying master branch update..."
   echo "Host: $MASTER_INSTALL_HOST"
 
+  echo ""
+  
+  echo "Waiting for deployment to unlock..."
+  bash "wait-for-deployment-to-unlock.sh" # In quotes to resolve editor color coding issue
+  
   echo "Updating GreenSense plug and play on remote host..."
 
   sshpass -p $MASTER_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $MASTER_INSTALL_SSH_USERNAME@$MASTER_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH"
