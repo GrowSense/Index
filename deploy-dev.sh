@@ -9,7 +9,7 @@ if [ "$BRANCH" = "dev" ]; then
   
   echo "Waiting for deployment to unlock..."
   . ./detect-deployment-details.sh
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-unlock.sh"
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-unlock.sh" || exit 1
   
   echo ""
 

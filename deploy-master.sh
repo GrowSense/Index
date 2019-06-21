@@ -9,7 +9,8 @@ if [ "$BRANCH" = "master" ]; then
   echo ""
   
   echo "Waiting for deployment to unlock..."
-  bash "wait-for-deployment-to-unlock.sh" # In quotes to resolve editor color coding issue
+  . ./detect-deployment-details.sh
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-unlock.sh" || exit 1
   
   echo ""
   
