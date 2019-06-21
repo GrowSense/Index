@@ -5,7 +5,7 @@ using ArduinoPlugAndPlay;
 namespace GreenSense.Index.Tests.Hardware
 {
     [TestFixture (Category = "Hardware")]
-    public class AutoConnectDeviceHardwareTestFixture : BaseHardwareTestFixture
+    public class AutoConnectUSBDeviceHardwareTestFixture : BaseHardwareTestFixture
     {
         [Test]
         public void Test_AutoConnectDevices ()
@@ -38,7 +38,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo4.BoardType = "esp";
             deviceInfo4.Port = GetIrrigatorESPPort ();
 
-            using (var helper = new AutoConnectDeviceHardwareTestHelper (ProjectDirectory)) {
+            using (var helper = new AutoConnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
                 helper.Devices.Add (deviceInfo);
                 helper.Devices.Add (deviceInfo2);
                 helper.Devices.Add (deviceInfo3);

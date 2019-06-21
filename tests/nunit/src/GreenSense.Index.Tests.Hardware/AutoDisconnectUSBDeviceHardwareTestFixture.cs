@@ -6,7 +6,7 @@ using System.IO;
 namespace GreenSense.Index.Tests.Hardware
 {
     [TestFixture (Category = "Hardware")]
-    public class AutoDisconnectDeviceHardwareTestFixture : BaseHardwareTestFixture
+    public class AutoDisconnectUSBDeviceHardwareTestFixture : BaseHardwareTestFixture
     {
         [Test]
         public void Test_AutoDisconnectDevice ()
@@ -18,7 +18,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.BoardType = "uno";
             deviceInfo.Port = GetIrrigatorPort ();
 
-            using (var helper = new AutoDisconnectDeviceHardwareTestHelper (ProjectDirectory)) {
+            using (var helper = new AutoDisconnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
                 helper.ExampleDevice = deviceInfo;
                 helper.TestDisconnectDevice ();
             }

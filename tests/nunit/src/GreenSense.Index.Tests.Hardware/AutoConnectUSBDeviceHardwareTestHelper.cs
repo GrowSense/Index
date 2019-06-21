@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace GreenSense.Index.Tests.Hardware
 {
-    public class AutoConnectDeviceHardwareTestHelper : BaseTestHelper
+    public class AutoConnectUSBDeviceHardwareTestHelper : BaseTestHelper
     {
         public List<DeviceInfo> Devices = new List<DeviceInfo> ();
 
-        public AutoConnectDeviceHardwareTestHelper (string projectDirectory) : base (projectDirectory)
+        public AutoConnectUSBDeviceHardwareTestHelper (string projectDirectory) : base (projectDirectory)
         {
         }
 
@@ -27,7 +27,7 @@ namespace GreenSense.Index.Tests.Hardware
             foreach (var deviceInfo in Devices) {
 
                 i++;
-                var cmd = String.Format ("sh auto-connect-device.sh {0} {1} {2} {3} {4}",
+                var cmd = String.Format ("sh auto-connect-usb-device.sh {0} {1} {2} {3} {4}",
                               deviceInfo.BoardType,
                               deviceInfo.FamilyName,
                               deviceInfo.GroupName,

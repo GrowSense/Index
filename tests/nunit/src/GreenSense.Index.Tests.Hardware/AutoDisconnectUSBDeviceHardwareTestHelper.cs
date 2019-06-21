@@ -6,11 +6,11 @@ using System.IO;
 
 namespace GreenSense.Index.Tests.Hardware
 {
-    public class AutoDisconnectDeviceHardwareTestHelper : BaseTestHelper
+    public class AutoDisconnectUSBDeviceHardwareTestHelper : BaseTestHelper
     {
         public DeviceInfo ExampleDevice;
 
-        public AutoDisconnectDeviceHardwareTestHelper (string projectDirectory) : base (projectDirectory)
+        public AutoDisconnectUSBDeviceHardwareTestHelper (string projectDirectory) : base (projectDirectory)
         {
         }
 
@@ -27,7 +27,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             CreateExampleDevice (deviceName, deviceInfo);
 
-            var cmd = String.Format ("sh auto-disconnect-device.sh {0}",
+            var cmd = String.Format ("sh auto-disconnect-usb-device.sh {0}",
                           deviceInfo.Port.Replace ("/dev/", "")
                       );
 

@@ -27,8 +27,8 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.Platformio = mockPlatformio;
             deviceManager.ReaderWriter = mockReaderWriter;
 
-            deviceManager.DeviceAddedCommand = "sh auto-connect-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
-            deviceManager.DeviceRemovedCommand = "sh auto-disconnect-device.sh {PORT}";
+            deviceManager.USBDeviceConnectedCommand = "sh auto-connect-usb-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
+            deviceManager.USBDeviceDisconnectedCommand = "sh auto-disconnect-usb-device.sh {PORT}";
 
             var shortPortName = GetIrrigatorPort ().Replace ("/dev/", "");
 
