@@ -166,7 +166,7 @@ sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 echo ""
 echo "Installing plug and play..."
 
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL
+wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || exit 1
 
 echo ""
 echo "Creating garden..."
