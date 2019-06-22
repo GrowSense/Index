@@ -19,7 +19,7 @@ do
   echo "  Loop number: $LOOP_NUMBER"
   
   echo "  Executing check lock script on deployment host..."
-  CHECK_LOCK_RESULT=$(sh check-lock.sh)
+  CHECK_LOCK_RESULT=$(bash check-lock.sh) || exit 1
       
   echo ""
   echo "${CHECK_LOCK_RESULT}"
