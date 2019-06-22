@@ -1,13 +1,4 @@
-
-# Detect the deployment details
-#. ./detect-deployment-details.sh
-
-echo "  Host: $INSTALL_HOST"
-echo "  Branch: $BRANCH"
-echo "  MQTT Host: $INSTALL_MQTT_HOST"
-echo "  MQTT Username: $INSTALL_MQTT_USERNAME"
-echo "  MQTT Password: [hidden]"
-echo "  MQTT Port: $INSTALL_MQTT_PORT"
+echo "Waiting for system to unlock..."
 
 MAX_RETRIES=1000
 
