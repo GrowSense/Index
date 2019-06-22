@@ -4,6 +4,6 @@ echo "  Dir: $PWD"
 bash install-package.sh NUnit 2.6.4
 bash install-package.sh NUnit.Runners 2.6.4
 bash install-package.sh Newtonsoft.Json 11.0.2
-bash install-package.sh ArduinoPlugAndPlay 1.0.0.181
+bash install-package.sh ArduinoPlugAndPlay 1.0.0.184
 
 echo "Finished getting library files."
