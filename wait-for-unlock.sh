@@ -2,7 +2,7 @@ echo "Waiting for system to unlock..."
 
 MAX_RETRIES=1000
 
-SLEEP_TIME=1
+SLEEP_TIME=3
 
 echo "  Max retries: $MAX_RETRIES"
 echo "  Sleep time: $SLEEP_TIME"
