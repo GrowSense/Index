@@ -53,28 +53,28 @@ pipeline {
                 sh '#sh test-all.sh'
             }
         }
-        stage('Deploy Dev') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy-dev.sh'
-            }
-        }
         stage('Deploy Dev Update') {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh deploy-dev-update.sh'
             }
         }
-        stage('Deploy Master') {
+        stage('Deploy Dev') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh 'sh deploy-master.sh'
+               sh 'sh deploy-dev.sh'
             }
         }
         stage('Deploy Master Update') {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh deploy-master-update.sh'
+            }
+        }
+        stage('Deploy Master') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-master.sh'
             }
         }
         stage('Deploy LTS') {
