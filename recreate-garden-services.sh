@@ -22,17 +22,15 @@ if [ -d "$DEVICES_DIR" ]; then
         echo "  Device port: $DEVICE_PORT"
         DEVICE_BOARD=$(cat $d/port.txt)
         echo "  Device board: $DEVICE_BOARD"
-        
-        if [ "$DEVICE_GROUP" = "ui" ]; then
+
+        if [ "$DEVICE_BOARD" = "esp" ]; then
+          echo "ESP/WiFi device. No services need to be created."     
+        elif [ "$DEVICE_GROUP" = "ui" ]; then
           echo "Recreating UI controller service..."
           sh create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || (echo "Failed to recreate UI controller service for: $DEVICE_NAME" && exit 1)
         else
-        
           echo "Recreating MQTT bridge service..."
           sh create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || (echo "Failed to recreate MQTT bridge service for: $DEVICE_NAME" && exit 1)
-           
-          #TODO: Remove if not needed. Former updater service is now obsolete     
-          #sh create-updater-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || (echo "Failed to recreate updater service for: $DEVICE_NAME" && exit 1)
         fi
       fi
     done
