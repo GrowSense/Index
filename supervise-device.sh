@@ -23,30 +23,6 @@ echo "  Device name: $DEVICE_NAME"
 
 STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
 
-DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
-
-if [ "$DEVICE_BOARD" = "esp" ]; then
-  if [ -f "devices/$DEVICE_NAME/is-uploaded.txt" ]; then
-    IS_UPLOADED=$(cat "devices/$DEVICE_NAME/is-uploaded.txt")
-  else
-    IS_UPLOADED=0
-  fi
-
-  if [ "$IS_UPLOADED" = "1" ]; then
-    if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
-      sh supervise-device-status.sh $DEVICE_NAME
-    fi
-  else
-    echo "  ESP board sketch hasn't been uploaded. Uploading..."
-    DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
-    DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
-    
-    echo "    Group: $DEVICE_GROUP"
-    
-    sh upload-$DEVICE_GROUP-esp-sketch.sh $DEVICE_NAME $DEVICE_PORT
-  fi
-else
-  if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
-    sh supervise-device-status.sh $DEVICE_NAME
-  fi
+if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
+  sh supervise-device-status.sh $DEVICE_NAME
 fi
