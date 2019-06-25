@@ -18,6 +18,10 @@ echo "MQTT Password: [hidden]"
 echo "MQTT Port: $INSTALL_MQTT_PORT"
 
 echo ""
+echo "Waiting for plug and play..."
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-plug-and-play.sh"
+
+echo ""
 echo "Viewing platform.io list..."
 
 PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "pio device list")

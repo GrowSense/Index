@@ -25,11 +25,11 @@ if [ "$BRANCH" = "dev" ]; then
   
   echo ""
   
-  START_WAIT_TIME=40
-  echo "Giving services time to start ($START_WAIT_TIME seconds)..."
-  sleep $START_WAIT_TIME
+#  START_WAIT_TIME=40
+#  echo "Giving services time to start ($START_WAIT_TIME seconds)..."
+#  sleep $START_WAIT_TIME
   
-  echo ""
+#  echo ""
   
   echo "Checking deployment..."
   bash check-deployment.sh || exit 1
