@@ -20,13 +20,7 @@ if [ "$BRANCH" = "dev" ]; then
   sshpass -p $DEV_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $DEV_INSTALL_SSH_USERNAME@$DEV_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH" || exit 1
 
   echo ""
-  
-#  START_WAIT_TIME=40
-#  echo "Giving services time to start ($START_WAIT_TIME seconds)..."
-#  sleep $START_WAIT_TIME
-  
-#  echo ""
-  
+    
   echo "Checking deployment..."
   bash check-deployment.sh || exit 1
   
