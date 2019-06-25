@@ -89,9 +89,9 @@ fi
 echo ""
 echo "Viewing GreenSense Plug and Play service log..."
 
-PNP_CONTROLLER_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u arduino-plug-and-play.service -b | tail -n 200")
+PNP_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u arduino-plug-and-play.service -b | tail -n 200")
 
-echo "${PNP_CONTROLLER_LOG}"
+echo "${PNP_LOG}"
 
 echo ""
 echo "Viewing arduino plug and play service status..."
@@ -103,6 +103,7 @@ echo "${PNP_RESULT}"
 [[ ! $(echo $PNP_RESULT) =~ "Loaded: loaded" ]] && echo "Arduino Plug and Play service isn't loaded" && exit 1
 [[ ! $(echo $PNP_RESULT) =~ "Active: active" ]] && echo "Arduino Plug and Play service isn't active" && exit 1
 [[ $(echo $PNP_RESULT) =~ "not found" ]] && echo "Arduino Plug and Play service wasn't found" && exit 1
+[[ $(echo $PNP_RESULT) =~ "(unusable)" ]] && echo "Arduino Plug and Play detected an unusable device when it shouldn't" && exit 1
 
 echo ""
 echo "Checking deployment devices..."
