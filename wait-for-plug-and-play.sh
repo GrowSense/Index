@@ -28,6 +28,8 @@ while [ $IS_FINISHED = 0 ]; do
 
   echo "  Is finished: $IS_FINISHED"
   echo ""
+  
+  [[ $IS_FINISHED = 0 ]] && echo "Sleeping for $SLEEP_TIME seconds..." && sleep $SLEEP_TIME
 done
 
 echo "Finished waiting for plug and play to register all devices"
