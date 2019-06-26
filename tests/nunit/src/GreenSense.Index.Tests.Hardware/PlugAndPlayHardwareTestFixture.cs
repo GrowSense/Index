@@ -19,7 +19,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             // Set up the mock objects
             var mockPlatformio = new MockPlatformioWrapper ();
-            var mockReaderWriter = new MockDeviceReaderWriter ();
+            var mockReaderWriter = new MockSerialDeviceReaderWriter ();
             var mockOutputs = new MockDeviceOutputs ();
 
             // Set up the device manager with the mock dependencies
