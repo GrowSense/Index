@@ -37,26 +37,26 @@ if [ ! -d "$PACKAGE_FILE" ]; then
     if [ -d "$INDEX_LIB_DIR/$PACKAGE_FILE" ]; then
       echo "  From GreenSense index lib directory"
       # Copy the package from the GreenSense index lib directory
-      cp -r $INDEX_LIB_DIR/$PACKAGE_FILE . || exit 1
+      cp -r $INDEX_LIB_DIR/$PACKAGE_FILE $PACKAGE_NAME || exit 1
     fi
   fi
   
   # If the package still isn't found
-  if [ ! -d "$PACKAGE_FILE" ]; then
+  if [ ! -d "$PACKAGE_NAME" ]; then
     echo "  From the web"
     
     # Download the package from the web
   	wget -q "https://github.com/GreenSense/libs/raw/master/$PACKAGE_FILE.nupkg" -O $PACKAGE_FILE_EXT || exit 1
 
     # Unzip the package
-	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FILE/" || exit 1
+	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_NAME/" || exit 1
 	  
 	  if [ $IS_IN_INDEX ]; then
       # Make the GreenSense index lib directory if necessary
 	    mkdir -p $INDEX_LIB_DIR
 	    
 	    # Copy the package into the GreenSense index lib directory
-	    cp -r "$PACKAGE_FILE" $INDEX_LIB_DIR/$PACKAGE_FILE/ || exit 1
+	    cp -r "$PACKAGE_NAME" $INDEX_LIB_DIR/$PACKAGE_FILE/ || exit 1
 	  fi
   fi
 	
