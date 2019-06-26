@@ -43,7 +43,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.Port = shortPortName;
 
             mockPlatformio.ConnectDevice (shortPortName);
-            mockReaderWriter.SetMockOutput (mockOutputs.GetDeviceSerialOutput (deviceInfo));
+            mockReaderWriter.SetMockOutput (shortPortName, mockOutputs.GetDeviceSerialOutput (deviceInfo));
 
             Console.WriteLine ("");
             Console.WriteLine ("Performing add device test...");
