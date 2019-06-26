@@ -8,4 +8,4 @@ echo "Testing project"
 echo "  Dir: $PWD"
 echo "  Category: $CATEGORY"
 
-mono lib/NUnit.Runners.2.6.4/tools/nunit-console.exe bin/Release/*.dll --include=$CATEGORY
+mono lib/NUnit.Runners/tools/nunit-console.exe bin/Release/*.dll --include=$CATEGORY
