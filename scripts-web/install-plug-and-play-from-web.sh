@@ -181,7 +181,7 @@ sh create-supervisor-service.sh
 echo ""
 echo "Publishing status to MQTT..."
 # Sleep for 30 seconds to give the UI controller time to load before publishing
-nohup sleep 30 && sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed." &
+sh run-background.sh sleep 30 && sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
 
 echo ""
 echo "Finished installing GreenSense plug and play"
