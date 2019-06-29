@@ -56,7 +56,7 @@ pipeline {
         stage('Deploy Dev') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh 'sh deploy-dev.sh'
+               sh '#sh deploy-dev.sh'
             }
         }
         stage('Deploy Dev Update') {

@@ -99,7 +99,7 @@ echo "Recreating UI..."
 sh recreate-garden-ui.sh || exit 1
 
 echo "Recreating garden services..."
-sh recreate-garden-servicess.sh || exit 1
+sh recreate-garden-services.sh || exit 1
 
 # TODO: Remove if not needed. Likely causing problems with plug and play starting after garden services have started
 #echo "Reloading systemctl..."
