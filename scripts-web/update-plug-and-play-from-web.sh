@@ -74,7 +74,7 @@ echo "Giving the UI time to receive the status update..."
 sleep 5
 
 echo "Stopping arduino plug and play..."
-sh systemctl.sh stop arduino-plug-and-play.service
+#sh systemctl.sh stop arduino-plug-and-play.service # TODO: Remove if not needed. Causing problems because if ArduinoPlugAndPlay is already up to date the service doesn't restart
 
 echo "Stopping garden..."
 sh stop-garden.sh || exit 1
@@ -90,7 +90,7 @@ echo "Reinitializing index..."
 sh init-runtime.sh || exit 1
 
 echo "Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
-wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR" || exit 1
+curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR" || exit 1
 
 echo "Waiting for the plug and play system to load."
 bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
@@ -99,7 +99,7 @@ echo "Recreating UI..."
 sh recreate-garden-ui.sh || exit 1
 
 echo "Recreating garden services..."
-sh recreate-garden-services.sh || exit 1
+sh recreate-garden-servicess.sh || exit 1
 
 # TODO: Remove if not needed. Likely causing problems with plug and play starting after garden services have started
 #echo "Reloading systemctl..."

@@ -23,7 +23,7 @@ echo "  Device name: $DEVICE_NAME"
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
 
-# If it's not a UI device then create the Linear MQTT Dashboard UI configuration if it hasn't been created already
+# If it's not a UI device then create the Linear MQTT Dashboard UI configuration if it hasn't been created alreadys
 if [ "$DEVICE_GROUP" != "ui" ]; then  
   DEVICE_UI_IS_CREATED=0
   if [ -f "devices/$DEVICE_NAME/is-ui-created.txt" ]; then 
