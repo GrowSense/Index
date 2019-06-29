@@ -95,18 +95,16 @@ sh recreate-garden-ui.sh || exit 1
 echo "Recreating garden services..."
 sh recreate-garden-services.sh || exit 1
 
-echo "Reloading systemctl..."
-if [ ! -f "is-mock-systemctl.txt" ]; then
-  systemctl daemon-reload  || exit 1
-else
-  echo "[mock] systemctl daemon-reload"
-fi
+# TODO: Remove if not needed. Likely causing problems with plug and play starting after garden services have started
+#echo "Reloading systemctl..."
+#if [ ! -f "is-mock-systemctl.txt" ]; then
+#  systemctl daemon-reload  || exit 1
+#else
+#  echo "[mock] systemctl daemon-reload"
+#fi
 
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
-
-echo "Starting arduino plug and play..."
-sh systemctl.sh start arduino-plug-and-play.service
 
 echo "Giving plug and play time to start..."
 sleep 10
