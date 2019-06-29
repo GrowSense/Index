@@ -41,13 +41,29 @@ if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
   cp $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE
 else
   if [ -f $SERVICES_DIR/$SERVICE_FILE ]; then  
+    echo ""
+    echo "  Service already exists. Stopping it..." 
     sh $SYSTEMCTL_SCRIPT stop $SERVICE_FILE || echo "Failed to stop service. It likely doesn't exist."
   fi
-  $SUDO cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE && \
-  $SUDO chmod 644 $SERVICES_DIR/$SERVICE_FILE && \
+  
+  echo ""
+  echo "  Copying service file into services directory..." 
+  $SUDO cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE || exit 1
+  
+  echo ""
+  echo "  Setting permissions on service file..." 
+  $SUDO chmod 644 $SERVICES_DIR/$SERVICE_FILE || exit 1
+  
   #sh $SYSTEMCTL_SCRIPT daemon-reload && \ # TODO: Remove if not needed
-  sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
-  sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
+  
+  echo ""
+  echo "  Enabling service..." 
+  sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE || exit 1
+  
+  echo ""
+  echo "  Starting service..." 
+  sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE || exit 1
+  
   #sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE # TODO: Remove if not needed
   
   
