@@ -64,6 +64,9 @@ echo "MQTT Username: $MQTT_USERNAME"
 echo "MQTT Password: [hidden]"
 echo "MQTT PORT: $MQTT_PORT"
 
+echo "Waiting for the installation to unlock..."
+bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
+
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Upgrading" &
 

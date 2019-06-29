@@ -52,6 +52,9 @@ if [ ! -d $INDEX_DIR ]; then
 else
   echo "Moving to GreenSense index dir..."
   cd $INDEX_DIR
+  
+  echo "Waiting for the installation to unlock..."
+  bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
 
   echo ""
   echo "Publishing status to MQTT..."
