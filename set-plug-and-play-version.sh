@@ -23,7 +23,7 @@ echo "  Tests get-libs.sh script:"
 TESTS_GET_LIBS_SCRIPT="tests/nunit/lib/get-libs.sh"
 echo "    $TESTS_GET_LIBS_SCRIPT"
 
-sed -i "s/bash install-package.sh ArduinoPlugAndPlay .*/bash install-package.sh ArduinoPlugAndPlay $VERSION /" $TESTS_GET_LIBS_SCRIPT || exit 1
+sed -i "s/ArduinoPlugAndPlay .* |/ArduinoPlugAndPlay $VERSION |/" $TESTS_GET_LIBS_SCRIPT || exit 1
 
 echo ""
 
