@@ -29,7 +29,8 @@ echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
 # Set up mobile UI
-sh create-garden-ventilator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+# TODO: Remove if not needed. Supervisor now takes care of creating the Linear MQTT Dashboard UI
+#sh create-garden-ventilator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
 sh create-device-info.sh uno ventilator TemperatureHumidityDHTSensorFan $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \

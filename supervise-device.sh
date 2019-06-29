@@ -20,6 +20,20 @@ fi
 echo "  Loop number: $LOOP_NUMBER"
 echo "  Device name: $DEVICE_NAME"
 
+DEVICE_UI_IS_CREATED=0
+if [ -f "devices/$DEVICE_NAME/is-ui-created.txt" ]; then 
+  DEVICE_UI_IS_CREATED=$(cat "devices/$DEVICE_NAME/is-ui-created.txt");
+fi
+
+if [ "$DEVICE_UI_IS_CREATED" = "0" ]; then
+  echo "  Device Linear MQTT Dashboard UI hasn't been created. Creating now..."
+
+  DEVICE_LABEL=$(cat "devices/$DEVICE_NAME/label.txt");
+  DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
+  
+  sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME || echo "  Failed to create device Linear MQTT Dashboard UI"  
+fi
+
 
 STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
 

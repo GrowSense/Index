@@ -31,7 +31,8 @@ echo ""
 
 # Set up mobile UI
 echo "Setting up Linear MQTT Dashboard UI..."
-sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+# TODO: Remove if not needed. Supervisor now takes care of creating the Linear MQTT Dashboard UI
+#sh create-garden-irrigator-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
 sh create-device-info.sh esp irrigator SoilMoistureSensorCalibratedPumpESP $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \

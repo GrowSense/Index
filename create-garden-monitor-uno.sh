@@ -29,8 +29,9 @@ echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
 # Set up mobile UI
-echo "Setting up Linear MQTT Dashboard UI..." && \
-sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+#echo "Setting up Linear MQTT Dashboard UI..." && \
+# TODO: Remove if not needed. Supervisor now takes care of creating the Linear MQTT Dashboard UI
+#sh create-garden-monitor-ui.sh $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
 
 # Create device info
 sh create-device-info.sh uno monitor SoilMoistureSensorCalibratedSerial $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
