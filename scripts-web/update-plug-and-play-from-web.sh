@@ -89,6 +89,9 @@ sh init-runtime.sh || exit 1
 echo "Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR" || exit 1
 
+echo "Waiting for the plug and play system to load."
+bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
+
 echo "Recreating UI..."
 sh recreate-garden-ui.sh || exit 1
 

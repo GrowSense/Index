@@ -40,12 +40,15 @@ if [ $IS_MOCK_SYSTEMCTL = 1 ]; then
   echo "Is mock systemctl. Installing to mock directory."
   cp $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE
 else
+  if [ -f $SERVICES_DIR/$SERVICE_FILE ]; then  
+    sh $SYSTEMCTL_SCRIPT stop $SERVICE_FILE || echo "Failed to stop service. It likely doesn't exist."
+  fi
   $SUDO cp -fv $SERVICE_FILE_PATH $SERVICES_DIR/$SERVICE_FILE && \
   $SUDO chmod 644 $SERVICES_DIR/$SERVICE_FILE && \
-  sh $SYSTEMCTL_SCRIPT daemon-reload && \
+  #sh $SYSTEMCTL_SCRIPT daemon-reload && \ # TODO: Remove if not needed
   sh $SYSTEMCTL_SCRIPT enable $SERVICE_FILE && \
   sh $SYSTEMCTL_SCRIPT start $SERVICE_FILE && \
-  sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE
+  #sh $SYSTEMCTL_SCRIPT restart $SERVICE_FILE # TODO: Remove if not needed
   
   
   SERVICE_STATUS=$(sh $SYSTEMCTL_SCRIPT status $SERVICE_FILE)
