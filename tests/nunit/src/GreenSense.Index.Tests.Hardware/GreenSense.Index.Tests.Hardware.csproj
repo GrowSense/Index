@@ -46,7 +46,6 @@
     <Compile Include="AutoConnectUSBDeviceHardwareTestHelper.cs" />
     <Compile Include="AutoDisconnectUSBDeviceHardwareTestFixture.cs" />
     <Compile Include="AutoDisconnectUSBDeviceHardwareTestHelper.cs" />
-    <Compile Include="PlugAndPlayHardwareTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

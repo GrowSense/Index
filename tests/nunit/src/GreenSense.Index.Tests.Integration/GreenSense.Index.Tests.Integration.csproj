@@ -34,6 +34,12 @@
       <HintPath>..\..\lib\NUnit\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="ArduinoPlugAndPlay">
+      <HintPath>..\..\lib\ArduinoPlugAndPlay\lib\net40\ArduinoPlugAndPlay.dll</HintPath>
+    </Reference>
+    <Reference Include="ArduinoPlugAndPlay.Tests">
+      <HintPath>..\..\lib\ArduinoPlugAndPlay\lib\net40\ArduinoPlugAndPlay.Tests.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +57,7 @@
     <Compile Include="SetMqttCredentialsTestFixture.cs" />
     <Compile Include="InstallPlugAndPlayTestFixture.cs" />
     <Compile Include="SetEmailDetailsTestFixture.cs" />
+    <Compile Include="PlugAndPlayTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreenSense.Index.Tests\GreenSense.Index.Tests.csproj">

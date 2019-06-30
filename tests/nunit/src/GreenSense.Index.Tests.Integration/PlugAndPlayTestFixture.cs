@@ -5,10 +5,10 @@ using ArduinoPlugAndPlay.Tests;
 using System.IO;
 using System.Threading;
 
-namespace GreenSense.Index.Tests.Hardware
+namespace GreenSense.Index.Tests.Integration
 {
     [TestFixture (Category = "Hardware")]
-    public class PlugAndPlayHardwareTestFixture : BaseHardwareTestFixture
+    public class PlugAndPlayTestFixture : BaseTestFixture
     {
         [Test]
         public void Test_PlugAndPlay ()
@@ -30,7 +30,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.USBDeviceConnectedCommand = "sh auto-connect-usb-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
             deviceManager.USBDeviceDisconnectedCommand = "sh auto-disconnect-usb-device.sh {PORT}";
 
-            var shortPortName = GetIrrigatorPort ().Replace ("/dev/", "");
+            var shortPortName = "ttyUSB0";
 
             var deviceInfo = new DeviceInfo ();
 
