@@ -1,89 +1,23 @@
 
 # Example:
-# sh upload-illuminator-sketch.sh ttyUSB0
+# bash upload-illuminator-nano-sketch.sh "myIlluminator" ttyUSB0
 
 DIR=$PWD
 
+DEVICE_NAME=$1
+SERIAL_PORT=$2
 
-MOCK_FLAG_FILE="is-mock-setup.txt"
-MOCK_HARDWARE_FLAG_FILE="is-mock-hardware.txt"
-MOCK_SUBMODULE_BUILDS_FLAG_FILE="is-mock-submodule-builds.txt"
+DEFAULT_DEVICE_NAME="NewIlluminator"
 
-IS_MOCK_SETUP=0
-IS_MOCK_HARDWARE=0
-IS_MOCK_SUBMODULE_BUILDS=0
-
-IS_MOCK_SETUP=0
-if [ -f "$MOCK_FLAG_FILE" ]; then
-  IS_MOCK_SETUP=1
-  echo "Is mock setup"
+if [ ! $DEVICE_NAME ]; then
+  DEVICE_NAME="$DEFAULT_DEVICE_NAME"
 fi
-
-if [ -f "$MOCK_HARDWARE_FLAG_FILE" ]; then
-  IS_MOCK_HARDWARE=1
-  echo "Is mock hardware"
-fi
-
-if [ -f "$MOCK_SUBMODULE_BUILDS_FLAG_FILE" ]; then
-  IS_MOCK_SUBMODULE_BUILDS=1
-  echo "Is mock submodule builds"
-fi
-
-SERIAL_PORT=$1
 
 if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
-echo ""
-echo "Uploading illuminator sketch"
+# If the serial port was provided as an argument but not the device name then use it
+[[ $(echo $DEVICE_NAME) =~ "tty" ]] && SERIAL_PORT="$DEVICE_NAME" && DEVICE_NAME="$DEFAULT_DEVICE_NAME"
 
-echo "  Serial port: $SERIAL_PORT"
-
-BASE_PATH="sketches/illuminator/LightPRSensorCalibratedLight"
-
-cd $BASE_PATH
-
-# Inject version into the sketch
-sh inject-version.sh && \
-
-# TODO: Remove if not needed. Build is performed during upload.
-
-# Build the sketch
-#if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
-#    sh build-nano.sh || exit 1
-#else
-#    echo "[mock] sh build-nano.sh"
-#fi
-
-# Upload the sketch
-if [ $IS_MOCK_HARDWARE = 0 ]; then
-    sh upload-nano.sh "/dev/$SERIAL_PORT" || exit 1
-else
-    echo "[mock] sh upload-nano.sh /dev/$SERIAL_PORT"
-fi
-
-# TODO: Remove if not needed. Currently failing, so it's skipped to use the sketch build time as the current RTC time
-# Set the device clock
-#if [ $IS_MOCK_HARDWARE = 0 ]; then
-    # Set the clock in a background process so it fires after the serial monitor opens
-#    sleep 4s && sh set-clock.sh "/dev/$SERIAL_PORT" &
-#else
-
-#    echo "[mock] timeout 10s sh $BASE_PATH/monitor-serial.sh \"/dev/$SERIAL_PORT\""
-#    echo "[mock] sh set-clock.sh /dev/$SERIAL_PORT"
-#fi
-
-
-cd $DIR
-
-# TODO: Clean up. Disabled because it's causing problems with plug and play
-#if [ $IS_MOCK_HARDWARE = 0 ]; then
-#  sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-#else
-#  echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-#fi
-
-echo "Finished uploading illuminator sketch"
-echo ""
-
+bash upload-device-sketch-arduino.sh "nano" "illuminator" "LightPRSensorCalibratedLight" $DEVICE_NAME $SERIAL_PORT
