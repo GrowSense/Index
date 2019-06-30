@@ -28,11 +28,10 @@ namespace GreenSense.Index.Tests.Integration
 
             CheckDeviceInfoWasCreated (deviceBoard, deviceGroup, deviceProject, deviceLabel, deviceName, devicePort);
 
-            CheckDeviceUIWasCreated (deviceLabel, deviceName, "Light", "L");
+            // Disabled because the UI is created by the supervisor script now
+            //CheckDeviceUIWasCreated (deviceLabel, deviceName, "Light", "L");
 
             CheckMqttBridgeServiceFileWasCreated (deviceName);
-
-            CheckUpdaterServiceFileWasCreated (deviceName);
         }
     }
 }

@@ -9,7 +9,7 @@ if [ -d "remote" ]; then
       DEVICE_HOST=$(cat "$DEVICE_DIR/host.txt")
       
       if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
-        echo "    Device name: $DEVICE_NAME"
+        echo "    $DEVICE_NAME"
         rm -r $DEVICE_DIR
       fi
     done

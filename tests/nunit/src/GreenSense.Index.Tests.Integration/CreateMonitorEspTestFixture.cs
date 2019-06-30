@@ -34,7 +34,8 @@ namespace GreenSense.Index.Tests.Integration
 
             CheckDeviceInfoWasCreated (board, group, project, label, deviceName, port);
 
-            CheckDeviceUIWasCreated (label, deviceName, "Soil Moisture", "C");
+            // Disabled because the UI is created by the supervisor script now
+            //CheckDeviceUIWasCreated (label, deviceName, "Soil Moisture", "C");
         }
     }
 }

@@ -38,11 +38,15 @@ echo ""
 sh create-device-info.sh esp monitor SoilMoistureSensorCalibratedSerialESP $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
 
 # Set the WiFi and MQTT settings on the device
-cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/ && \
-sh pull-security-files.sh && \
-sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
-sh send-mqtt-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1
-cd $DIR
+if [ ! -f "is-mock-hardware.txt" ]; then
+  cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/ && \
+  sh pull-security-files.sh && \
+  sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
+  sh send-mqtt-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1
+  cd $DIR
+else
+  echo "  [mock] sh sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT"
+fi
 
 # Skip the MQTT bridge service because it's not needed for the ESP version
 
