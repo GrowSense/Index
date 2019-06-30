@@ -36,8 +36,7 @@ if [ ! $SERIAL_PORT ]; then
 fi
 
 if [ ! $DEVICE_NAME ]; then
-  echo "Specify the device name as an argument."
-  exit 1
+  DEVICE_NAME="NewWiFiIrrigator"
 fi
 
 echo ""
@@ -48,23 +47,11 @@ echo "  Serial port: $SERIAL_PORT"
 
 BASE_PATH="$PWD/sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"
 
-IS_ALREADY_UPLOADING=0
+[[ -f "devices/$DEVICE_NAME/is-uploading.txt" ]] && IS_ALREADY_UPLOADING=$(cat "devices/$DEVICE_NAME/is-uploading.txt")
 
-if [ -f "devices/$DEVICE_NAME/is-uploading.txt" ]; then
-  IS_ALREADY_UPLOADING=$(cat "devices/$DEVICE_NAME/is-uploading.txt")
-fi
+if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
 
-echo "  Is already uploading: $IS_ALREADY_UPLOADING"
-
-if [ "$IS_ALREADY_UPLOADING" = "0" ]; then
-
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading" || echo "Failed to publish status to MQTT"
-
-  if [ -d "devices/$DEVICE_NAME" ]; then
-    echo ""
-    echo "  Setting device is-uploading.txt flag file to 1 (true)..."
-    echo "1" > "devices/$DEVICE_NAME/is-uploading.txt"
-  fi
+  sh report-device-uploading.sh $DEVICE_NAME
 
   cd "$BASE_PATH"
 
@@ -83,58 +70,20 @@ if [ "$IS_ALREADY_UPLOADING" = "0" ]; then
   # Inject version into the sketch
   sh inject-version.sh && \
 
-  # TODO: Remove if not needed. Build is performed during upload.
-
-  # Build the sketch
-  #if [ $IS_MOCK_SUBMODULE_BUILDS = 0 ]; then
-  #    sh build.sh || exit 1
-  #else
-  #    echo "[mock] sh build.sh"
-  #fi
-
   # Upload the sketch
   if [ $IS_MOCK_HARDWARE = 0 ]; then
-      sh upload.sh "/dev/$SERIAL_PORT"
+      echo "  Uploading (please wait)..."
+      RESULT=$(bash upload.sh "/dev/$SERIAL_PORT")
   else
       echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
   fi
 
-  # Note: Clean disabled because it messes with tests
-  # Clean all settings
-  #sh clean-settings.sh && \
-
-  cd $DIR && \
-
-  # TODO: Clean up. Disabled because it's causing problems with plug and play
-  #if [ $IS_MOCK_HARDWARE = 0 ]; then
-  #    sh $BASE_PATH/monitor-serial.sh "/dev/$SERIAL_PORT" || exit 1
-  #else
-  #    echo "[mock] sh monitor-serial.sh /dev/$SERIAL_PORT"
-  #fi
-
-
-  if [ -d "devices/$DEVICE_NAME" ]; then
-    if [ $? = 0 ]; then
-      echo ""
-      echo "  Setting device is-uploaded.txt flag file to 1 (true)..."
-      echo "1" > "devices/$DEVICE_NAME/is-uploaded.txt"
-    else
-      echo "  Setting device is-uploaded.txt flag file to 0 (false)..."
-      echo "0" > "devices/$DEVICE_NAME/is-uploaded.txt"
-    fi
-    echo ""
-    echo "  Setting device is-uploading.txt flag file to 0 (false)..."
-    echo "0" > "devices/$DEVICE_NAME/is-uploading.txt"
-  fi
-
-  if [ $? = 0 ]; then
-    sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch uploaded"
-
-    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" || echo "Failed to publish status to MQTT"
+  cd $DIR
+  
+  if [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
+    sh report-device-uploaded.sh $DEVICE_NAME
   else
-    sh notify-send.sh "$DEVICE_NAME" "Irrigator ESP/WiFi sketch upload failed"
-
-    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upload failed" || echo "Failed to publish status to MQTT"
+    sh report-device-upload-failed.sh $DEVICE_NAME
     
     exit 1
   fi
