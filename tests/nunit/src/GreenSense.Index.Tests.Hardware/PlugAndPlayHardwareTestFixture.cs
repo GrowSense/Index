@@ -52,7 +52,6 @@ namespace GreenSense.Index.Tests.Hardware
             deviceManager.RunLoop ();
             Console.WriteLine (ProjectDirectory);
 
-            // Wait while the process runs
             var addProcessKey = "add-" + deviceInfo.Port;
 
             Assert.AreEqual (1, deviceManager.BackgroundStarter.QueuedProcesses.Count, "Invalid process count.");
@@ -61,6 +60,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             Assert.AreEqual (addProcessKey, addProcessWrapper.Key, "Can't find add device process.");
 
+            // Wait while the process runs
             while (addProcessWrapper != null && !addProcessWrapper.HasExited)
                 Thread.Sleep (200);
 
@@ -81,16 +81,10 @@ namespace GreenSense.Index.Tests.Hardware
             Console.WriteLine ("Performing remove device test...");
             Console.WriteLine ("");
 
-            // Run a loop to detect the removed device
+            // Run a loop to detecte the removed device
             deviceManager.RunLoop ();
 
-            // Run a loop to let the device removal complete
-            deviceManager.RunLoop ();
-
-            // Wait while the process runs
             var removeProcessKey = "remove-" + deviceInfo.Port;
-
-            Assert.AreEqual (addProcessKey, addProcessWrapper.Key, "Can't find add device process.");
 
             Assert.AreEqual (1, deviceManager.BackgroundStarter.QueuedProcesses.Count, "Invalid process count.");
 
@@ -98,7 +92,8 @@ namespace GreenSense.Index.Tests.Hardware
 
             Assert.AreEqual (removeProcessKey, removeProcessWrapper.Key, "Can't find remove device process.");
 
-            while (addProcessWrapper != null && !addProcessWrapper.HasExited)
+            // Wait while the process runs
+            while (removeProcessWrapper != null && !removeProcessWrapper.HasExited)
                 Thread.Sleep (200);
 
             var deviceRemovedText = "Garden device removed: " + deviceName;
