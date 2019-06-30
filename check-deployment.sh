@@ -22,7 +22,7 @@ echo "Waiting for plug and play..."
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-plug-and-play.sh"
 
 echo ""
-echo "Settings supervisor status check frequency to 1 so it gets updated quickly..."
+echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt")
 
@@ -169,7 +169,7 @@ echo "Viewing garden device versions..."
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
 
 echo ""
-echo "Settings supervisor status check frequency back to default..."
+echo "Setting supervisor status check frequency back to default..."
 
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt")
 

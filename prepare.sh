@@ -66,9 +66,11 @@ if ! type "sshpass" > /dev/null; then
    $SUDO apt-get -y -q install sshpass
 fi
 
-if ! type "notify-send" > /dev/null; then
-   [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-   $SUDO apt-get -y -q install notify-send || "notify-send install skipped"
+if type xhost > /dev/null; then
+  if ! type "notify-send" > /dev/null; then
+    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
+    $SUDO apt-get -y -q install notify-send || "notify-send install skipped"
+  fi
 fi
 
 cd scripts/install/ && \
