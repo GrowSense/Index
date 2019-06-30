@@ -81,6 +81,10 @@ namespace GreenSense.Index.Tests.Hardware
             Console.WriteLine ("Performing remove device test...");
             Console.WriteLine ("");
 
+            // Run a loop to detect the removed device
+            deviceManager.RunLoop ();
+
+            // Run a loop to let the device removal complete
             deviceManager.RunLoop ();
 
             // Wait while the process runs
@@ -101,7 +105,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             output = ReadPlugAndPlayLogFile ();
 
-            Assert.IsTrue (output.Contains (deviceRemovedText));
+            Assert.IsTrue (output.Contains (deviceRemovedText), "Output doesn't contain expected text: " + deviceRemovedText);
 
             Assert.IsFalse (deviceManager.Starter.IsError, "An error occurred.");
 
