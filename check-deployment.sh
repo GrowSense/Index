@@ -24,7 +24,7 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 echo ""
 echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt")
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -171,7 +171,7 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 echo ""
 echo "Setting supervisor status check frequency back to default..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt")
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt"
 
 echo "Finished checking status of deployment."
 echo ""
