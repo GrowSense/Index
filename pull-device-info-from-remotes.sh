@@ -1,20 +1,6 @@
 echo "Pulling device info from remote indexes..."
 
 if [ -d "remote" ]; then
-  if [ -d "devices" ]; then
-    echo "  Removing existing remote devices..."
-    CURRENT_HOST=$(cat /etc/hostname)
-    for DEVICE_DIR in devices/*; do
-      DEVICE_NAME=$(cat "$DEVICE_DIR/name.txt")
-      DEVICE_HOST=$(cat "$DEVICE_DIR/host.txt")
-      
-      if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
-        echo "    $DEVICE_NAME"
-        rm -r $DEVICE_DIR
-      fi
-    done
-  fi
-
   echo ""
   echo "  Pulling device info..."
   for REMOTE_DIR in remote/*; do
@@ -23,6 +9,7 @@ if [ -d "remote" ]; then
     echo "    Remote name: $REMOTE_NAME"
 
     sh pull-device-info-from-remote.sh $REMOTE_NAME
+    echo ""
   done
 
   echo ""
