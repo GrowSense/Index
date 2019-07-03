@@ -9,7 +9,7 @@ install:
   - git pull origin $TRAVIS_BRANCH
   - git submodule update --depth 50
   - sh init-mock-setup.sh
-  - sudo sh prepare.sh
+  - sudo bash prepare.sh
   - sh init-all.sh
   - git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/Index.git
 
