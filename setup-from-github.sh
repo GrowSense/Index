@@ -12,28 +12,37 @@ if [ "$BRANCH" = "" ]; then
   fi
 fi
 
-echo "Branch: $BRANCH"
+echo "  Branch: $BRANCH"
 
 if ! type "git" > /dev/null; then
   sudo apt-get update && sudo apt-get install -y git
 fi
 
-git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index -b $BRANCH || (echo "Git clone failed." && exit 1)
+echo ""
+echo "  Launching git clone..."
+git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index -b $BRANCH || exit 1
 
-echo "Current directory:"
-echo "  $PWD"
+echo ""
+echo "  Current directory:"
+echo "    $PWD"
 
 INDEX_DIR="GreenSense/Index" && \
 
-echo "GreenSense index directory:" && \
+echo ""
+echo "  GreenSense index directory:" && \
 echo "  $INDEX_DIR" && \
 
 cd $INDEX_DIR && \
 
-sudo bash prepare.sh || (echo "Prepare script failed." && exit 1)
-sh init-runtime.sh || (echo "Init runtime script failed." && exit 1)
+echo ""
+echo "  Launching prepare.sh script..."
+sudo bash prepare.sh || exit 1
 
-echo "" && \
+echo ""
+echo "  Launching init-runtime.sh script..."
+sh init-runtime.sh || exit 1
+
+echo ""
 echo "The GreenSense index is initialized and ready to use."
 
 
