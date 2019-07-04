@@ -5,7 +5,7 @@ matrix:
     - language: python
       python: 2.7
       before_script:
-        - bash prepare.sh
+        - sudo bash prepare.sh
         - sh init-sketches.sh
       script:
         - sh build-sketches.sh
@@ -13,7 +13,7 @@ matrix:
     - language: csharp
       before_script:
         - git checkout $TRAVIS_BRANCH
-        - bash prepare.sh
+        - sudo bash prepare.sh
         - sh init-tests.sh
       script:
         - sh build-tests.sh
