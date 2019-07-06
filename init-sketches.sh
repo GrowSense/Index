@@ -1,4 +1,4 @@
-echo "Initializing GreenSense index submodules"
+echo "Initializing GreenSense index sketches"
 
 DIR=$PWD
 
@@ -24,4 +24,4 @@ for GROUP_DIR in sketches/*; do
   done
 done
 
-echo "Finished initializing submodules"
+echo "Finished initializing sketches"

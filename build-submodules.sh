@@ -1,39 +1,25 @@
-INDEX_DIR=$PWD
+echo "Building GreenSense index submodules"
 
-echo "Building monitor" && \
-cd sketches/monitor/SoilMoistureSensorCalibratedSerial && \
-sh build-all.sh && \
-cd $INDEX_DIR && \
-echo "" && \
+DIR=$PWD
 
-echo "Building monitor ESP" && \
-cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP && \
-sh build-all.sh && \
-cd $INDEX_DIR && \
-echo "" && \
+for GROUP_DIR in sketches/*; do
+  echo "Group: $GROUP_DIR"
+  for PROJECT_DIR in $GROUP_DIR/*; do
+    echo "Project: $PROJECT_DIR"
+    
+    cd "$PROJECT_DIR"
+    
+    BUILD_SCRIPT="build-all.sh"
+    
+    if [ -f "$BUILD_SCRIPT" ]; then
+      echo "Running build-all.sh script..."
+      sh $BUILD_SCRIPT
+    else
+      echo "build-all.sh script not found. Skipping."
+    fi
+    
+    cd $DIR
+  done
+done
 
-echo "Building irrigator" && \
-cd sketches/irrigator/SoilMoistureSensorCalibratedPump && \
-sh build-all.sh && \
-cd $INDEX_DIR && \
-echo "" && \
-
-echo "Building irrigator ESP" && \
-cd sketches/irrigator/SoilMoistureSensorCalibratedPumpESP && \
-sh build-all.sh && \
-cd $INDEX_DIR && \
-echo "" && \
-
-echo "Building illuminator" && \
-cd sketches/illuminator/LightPRSensorCalibratedLight && \
-sh build-all.sh && \
-cd $INDEX_DIR && \
-echo "" && \
-
-echo "Building ventilator" && \
-cd sketches/ventilator/TemperatureHumidityDHTSensorFan && \
-sh build-all.sh && \
-cd $INDEX_DIR && \
-echo "" && \
-
-echo "Submodules were built successfully."
+echo "Finished building submodules"
