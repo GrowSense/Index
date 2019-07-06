@@ -76,6 +76,7 @@ fi
 cd scripts/install/ && \
 
 sh install-platformio.sh && \
+sh install-udev-rules.sh && \
 sh install-jq.sh && \
 sh install-systemd.sh && \
 sh install-docker.sh && \
