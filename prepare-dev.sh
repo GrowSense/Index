@@ -96,9 +96,9 @@ bash install-systemd.sh || exit 1
 #echo "Installing docker..."
 #bash install-docker.sh || exit 1
 
-echo ""
-echo "Installing mono..."
-bash install-mono.sh || exit 1
+#echo ""
+#echo "Installing mono..."
+#bash install-mono.sh || exit 1
 #sh install-hub.sh && \
 
 cd $DIR
