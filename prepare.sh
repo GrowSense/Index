@@ -75,12 +75,29 @@ fi
 
 cd scripts/install/ && \
 
-sh install-platformio.sh && \
-sh install-udev-rules.sh && \
-sh install-jq.sh && \
-sh install-systemd.sh && \
-sh install-docker.sh && \
-sh install-mono.sh && \
+echo ""
+echo "Installing platform.io..."
+bash install-platformio.sh || exit 1
+
+echo ""
+echo "Installing udev rules..."
+bash install-udev-rules.sh || exit 1
+
+echo ""
+echo "Installing jq..."
+bash install-jq.sh || exit 1
+
+echo ""
+echo "Installing systemd..."
+bash install-systemd.sh || exit 1
+
+echo ""
+echo "Installing docker..."
+bash install-docker.sh || exit 1
+
+echo ""
+echo "Installing mono..."
+bash install-mono.sh || exit 1
 #sh install-hub.sh && \
 
 cd $DIR
