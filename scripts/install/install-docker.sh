@@ -5,7 +5,7 @@ if ! type "docker" > /dev/null; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     chmod u+x get-docker.sh    
     
-    BOARD_MODEL="$( cat /proc/device-tree/model )"
+    [[ -f "/proc/device-tree/model" ]] && BOARD_MODEL="$( cat /proc/device-tree/model )"
 
     [[ $(echo $BOARD_MODEL) =~ "Raspberry Pi" ]] && IS_RPI=1 || IS_RPI=0
 
