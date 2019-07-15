@@ -184,21 +184,24 @@ cd GreenSense/Index
 
 ### Prepare Host Computer
 ```
-sudo sh prepare.sh
+sudo bash prepare.sh
 ```
 
 ### Initialize Libraries
 ```
-sh init.sh
+bash init.sh
 ```
 
-## Set Up Garden
+## Manually Set Up Garden
+These script are for a manual GreenSense setup when not using plug nd play, such as for a custom setup or for a dev workspace.
+You shouldn't need to use these scripts if you've installed the plug and play system, unless you need to debug the system.
+
 ### Set MQTT Credentials
 Set the username and password used by the MQTT broker and MQTT bridge.
 ```
-sh set-mqtt-credentials.sh [Host] [Username] [Password] [Port]
+bash set-mqtt-credentials.sh [Host] [Username] [Password] [Port]
 
-sh set-mqtt-credentials.sh 10.0.0.20 myuser mypass
+bash set-mqtt-credentials.sh 10.0.0.20 myuser mypass
 ```
 Note: The Port argument is optional and defaults to 1883.
 
@@ -206,131 +209,212 @@ Note: The Port argument is optional and defaults to 1883.
 Set up the mosquitto MQTT broker.
 Note: Set the MQTT credentials above first.
 ```
-sh create-garden.sh
+bash create-garden.sh
 ```
 
 ### Disable Garden Services
 Disable the mosquitto MQTT broker if it needs to be stopped.
 ```
-sh disable-garden.sh
+bash disable-garden.sh
 ```
 
 ### Reset Garden Cache
-Removes the MQTT bridge and updater service cache and temporary files. This is useful if a service isn't running properly.
-Note: This will force the updater to re-update the connected devices.
+Removes the MQTT bridge service cache and temporary files. This is useful if a service isn't running properly.
 ```
-sh remove-cache.sh
+bash remove-cache.sh
 ```
 
-## Create and Manage Garden Devices
-### Create monitor device
-Set up a GreenSense monitor device including MQTT bridge and automatic updater.
+## Upload Garden Device Sketches
+
+### Upload system UI device sketch
+Upload the GreenSense system UI sketch to a device.
+Note: Ensure the device is connected
+
+#### Arduino Uno
+```
+bash upload-ui-uno-sketch.sh [Port]
+
+bash upload-ui-uno-sketch.sh ttyUSB0
+
+bash upload-ui-uno-sketch.sh
+```
+
+### Upload soil moisture monitor device sketch
+Upload the GreenSense soil moisture monitor sketch to a device.
 Note: Ensure the device is connected
 
 #### Arduino Nano
 ```
-sh create-garden-monitor-nano.sh [DeviceLabel] [DeviceName] [Port]
+bash upload-monitor-nano-sketch.sh [DeviceName] [Port]
 
-sh create-garden-monitor-nano.sh Monitor1 monitor1 ttyUSB0
+bash upload-monitor-nano-sketch.sh monitor1 ttyUSB0
+
+bash upload-monitor-nano-sketch.sh
 ```
 
 #### Arduino Uno
 ```
-sh create-garden-monitor-uno.sh [DeviceLabel] [DeviceName] [Port]
+bash upload-monitor-uno-sketch.sh [DeviceName] [Port]
 
-sh create-garden-monitor-uno.sh Monitor1 monitor1 ttyUSB0
+bash upload-monitor-uno-sketch.sh monitor1 ttyUSB0
+
+bash upload-monitor-uno-sketch.sh
 ```
 
 #### ESP12 WiFi Board
 ```
-sh create-garden-monitor-esp.sh [DeviceLabel] [DeviceName] [Port]
+bash upload-monitor-esp-sketch.sh [DeviceName] [Port]
 
-sh create-garden-monitor-esp.sh Monitor1 monitor1 ttyUSB0
+bash upload-monitor-esp-sketch.sh monitor1 ttyUSB0
+
+bash upload-monitor-esp-sketch.sh
+```
+
+### Upload irrigator device sketch
+Upload the GreenSense irrigator sketch to a device.
+Note: Ensure the device is connected
+
+#### Arduino Nano
+```
+bash upload-irrigator-nano-sketch.sh [DeviceName] [Port]
+
+bash upload-irrigator-nano-sketch.sh irrigator1 ttyUSB0
+
+bash upload-irrigator-nano-sketch.sh
+```
+
+#### Arduino Uno
+```
+bash upload-irrigator-uno-sketch.sh [DeviceName] [Port]
+
+bash upload-irrigator-uno-sketch.sh irrigator1 ttyUSB0
+
+bash upload-irrigator-uno-sketch.sh
+```
+
+#### ESP12 WiFi Board
+```
+bash upload-irrigator-esp-sketch.sh [DeviceName] [Port]
+
+bash upload-irrigator-esp-sketch.sh irrigator1 ttyUSB0
+
+bash upload-irrigator-esp-sketch.sh
+```
+
+
+## Create and Manage Garden Devices
+The plug and play system will automatically take care of calling these scripts. You should only need to use them if you are setting up a custom installation without plug and play.
+
+### Create soil moisture monitor device
+Set up a GreenSense soil moisture monitor device.
+Note: Ensure the device is connected
+
+#### Arduino Nano
+```
+bash create-garden-monitor-nano.sh [DeviceLabel] [DeviceName] [Port]
+
+bash create-garden-monitor-nano.sh Monitor1 monitor1 ttyUSB0
+```
+
+#### Arduino Uno
+```
+bash create-garden-monitor-uno.sh [DeviceLabel] [DeviceName] [Port]
+
+bash create-garden-monitor-uno.sh Monitor1 monitor1 ttyUSB0
+```
+
+#### ESP12 WiFi Board
+```
+bash create-garden-monitor-esp.sh [DeviceLabel] [DeviceName] [Port]
+
+bash create-garden-monitor-esp.sh Monitor1 monitor1 ttyUSB0
 ```
 
 ### Create irrigator device
-Set up a GreenSense irrigator device including MQTT bridge and automatic updater.
+Set up a GreenSense irrigator device.
 Note: Ensure the device is connected
 
 #### Arduino Nano
 ```
-sh create-garden-irrigator-nano.sh [DeviceLabel] [DeviceName] [Port]
+bash create-garden-irrigator-nano.sh [DeviceLabel] [DeviceName] [Port]
 
-sh create-garden-irrigator-nano.sh Irrigator1 irrigator1 ttyUSB1
+bash create-garden-irrigator-nano.sh Irrigator1 irrigator1 ttyUSB1
 ```
 
 #### Arduino Uno
 ```
-sh create-garden-irrigator-uno.sh [DeviceLabel] [DeviceName] [Port]
+bash create-garden-irrigator-uno.sh [DeviceLabel] [DeviceName] [Port]
 
-sh create-garden-irrigator-uno.sh Irrigator1 irrigator1 ttyUSB1
+bash create-garden-irrigator-uno.sh Irrigator1 irrigator1 ttyUSB1
 ```
 
 #### ESP12 WiFi Board
 ```
-sh create-garden-irrigator-esp.sh [DeviceLabel] [DeviceName] [Port]
+bash create-garden-irrigator-esp.sh [DeviceLabel] [DeviceName] [Port]
 
-sh create-garden-irrigator-esp.sh Irrigator1 irrigator1 ttyUSB1
+bash create-garden-irrigator-esp.sh Irrigator1 irrigator1 ttyUSB1
 ```
 
-### View device updater service log
-Display the log from the automatic updater service for a device.
+### View MQTT bridge service status
+Display the status of the MQTT bridge service for a device.
 ```
-sh view-updater-log.sh [DeviceName]
+bash view-mqtt-bridge-status.sh [DeviceName]
 
-sh view-updater-log.sh monitor1
+bash view-mqtt-bridge-status.sh monitor1
 
-sh view-updater-log.sh irrigator1
+bash view-mqtt-bridge-status.sh irrigator1
 ```
-Note: Press CTRL+C to exit back to terminal.
 
 ### View MQTT bridge service log
 Display the log from the MQTT bridge service for a device.
 ```
-sh view-mqtt-bridge-log.sh [DeviceName]
+bash view-mqtt-bridge-log.sh [DeviceName]
 
-sh view-mqtt-bridge-log.sh monitor1
+bash view-mqtt-bridge-log.sh monitor1
 
-sh view-mqtt-bridge-log.sh irrigator1
+bash view-mqtt-bridge-log.sh irrigator1
 ```
-Note: Press CTRL+C to exit back to terminal.
 
 ### Restart Garden Device
-Restart MQTT bridge and updater services for a device.
+Restart MQTT bridge service or UI controller service for a device (depending on the device type).
 ```
-sh restart-garden-device.sh [DeviceName]
+bash restart-garden-device.sh [DeviceName]
 
-sh restart-garden-device.sh monitor1
+bash restart-garden-device.sh monitor1
 
-sh restart-garden-device.sh irrigator1
+bash restart-garden-device.sh irrigator1
+
+bash restart-garden-device.sh ui1
 ```
 
 ### Disable Garden Device
-Disable the MQTT bridge and automatic updater for a device.
+Disable the MQTT bridge service or UI controller service for a device (depending on the device type).
 Note: This doesn't remove the device only temporarily disables it.
 ```
-sh disable-garden-device.sh [DeviceName]
+bash disable-garden-device.sh [DeviceName]
 
-sh disable-garden-device.sh monitor1
+bash disable-garden-device.sh monitor1
 
-sh disable-garden-device.sh irrigator1
+bash disable-garden-device.sh irrigator1
+
+bash disable-garden-device.sh ui1
 ```
 
 ### Remove Garden Device
-Remove the MQTT bridge and automatic updater service files for a device.
+Remove the MQTT bridge service or UI controller service files for a device (depending on the device type).
 Note: This disables and completely removes the device service files.
 ```
-sh remove-garden-device.sh [DeviceName]
+bash remove-garden-device.sh [DeviceName]
 
-sh remove-garden-device.sh monitor1
+bash remove-garden-device.sh monitor1
 
-sh remove-garden-device.sh irrigator1
+bash remove-garden-device.sh irrigator1
 ```
 
 ### Remove All Garden Devices
 Remove all services for all garden devices found.
 ```
-sh remove-garden-devices.sh
+bash remove-garden-devices.sh
 ```
 
 ## Mosquitto MQTT Broker
