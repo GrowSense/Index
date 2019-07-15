@@ -20,7 +20,7 @@ if [ -d "$DEVICES_DIR" ]; then
         echo "  Device label: $DEVICE_LABEL"
         DEVICE_PORT=$(cat $d/port.txt)
         echo "  Device port: $DEVICE_PORT"
-        DEVICE_BOARD=$(cat $d/port.txt)
+        DEVICE_BOARD=$(cat $d/board.txt)
         echo "  Device board: $DEVICE_BOARD"
 
         if [ "$DEVICE_BOARD" = "esp" ]; then
