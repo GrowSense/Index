@@ -105,7 +105,9 @@ Use either wget or curl to download and launch the setup process...
 ### wget
 ```
 # syntax
-sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/[BRANCH]/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+# lts
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/lts/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- lts ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
 # master
 sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
 # dev
@@ -115,7 +117,9 @@ sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/dev
 ### curl
 ```
 # syntax
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+curl https://raw.githubusercontent.com/GreenSense/Index/[BRANCH]/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+# lts
+curl https://raw.githubusercontent.com/GreenSense/Index/lts/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- lts ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 # master
 curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 # dev
