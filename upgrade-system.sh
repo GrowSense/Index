@@ -28,11 +28,13 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
   
   $SUDO pio upgrade
   
-  sh clean-all.sh
+  bash clean-all.sh
 
-  sh update-all.sh
+  bash update-all.sh
 
-  sh init-runtime.sh
+  bash init-runtime.sh
+  
+  bash upgrade-mqtt-service.sh
   
   $SUDO sh install-apps.sh
   
