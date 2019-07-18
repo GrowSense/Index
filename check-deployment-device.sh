@@ -47,8 +47,7 @@ if [ "$DEVICE_CONNECTION" = "usb" ]; then
 
   echo "${SERVICE_LOG}"
 
-  # Disabled because it doesn't always work
-  #[[ ! $(echo $SERVICE_LOG) =~ "MQTT Host: $INSTALL_MQTT_HOST" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service MQTT host name is incorrect" && exit 1
+  [[ $(echo $SERVICE_LOG) =~ "Failed to connect" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service failed to connect to MQTT broker" && exit 1
 
   echo ""
   echo "Viewing $SERVICE_LABEL service status..."
