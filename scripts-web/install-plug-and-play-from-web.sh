@@ -85,22 +85,29 @@ echo "Importing GreenSense config file into ArduinoPlugAndPlay dir..."
 
 wget -q --no-cache https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O $PNP_INSTALL_DIR/ArduinoPlugAndPlay.exe.config || exit 1
 
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+  if [ ! -f "is-mock-sudo.txt" ]; then
+    SUDO='sudo'
+  fi
+fi
+
 echo ""
 echo "Setting up GreenSense index..."
 
 if [ ! -d "$INDEX_DIR/.git" ]; then
-  mkdir -p $INDEX_DIR || exit 1
+  $SUDO mkdir -p $INDEX_DIR || exit 1
 
   if [ -d $INDEX_DIR ]; then
     echo "Moving the existing GreenSense index..."
   
-    mv $INDEX_DIR $INDEX_DIR.old
+    $SUDO mv $INDEX_DIR $INDEX_DIR.old
   fi
   
   echo ""
   echo "Cloning the GreenSense index repository..."
   
-  git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
+  $SUDO git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
   
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
@@ -125,7 +132,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   echo ""
   echo "Preparing index..."
   
-  bash prepare.sh || exit 1
+  $SUDO bash prepare.sh || exit 1
 fi
 
 echo ""
@@ -136,47 +143,47 @@ cd $INDEX_DIR || exit 1
 echo ""
 echo "Updating the index..."
 
-sh update.sh
+$SUDO sh update.sh
 
 echo ""
 echo "Initializing runtime components..."
 
-sh init-runtime.sh
+$SUDO sh init-runtime.sh
 
 echo ""
 echo "Installing apps (so it's ready to run offline)..."
 
-sh install-apps.sh
+$SUDO sh install-apps.sh
 
 echo ""
 echo "Setting WiFi credentials..."
 
-sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
+$SUDO sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
 
 echo ""
 echo "Setting MQTT credentials..."
 
-sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
+$SUDO sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
 
 echo ""
 echo "Setting email details..."
 
-sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
+$SUDO sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
 
 echo ""
 echo "Installing plug and play..."
 
-wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || exit 1
+$SUDO wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || exit 1
 
 echo ""
 echo "Creating garden..."
 
-sh create-garden.sh
+$SUDO sh create-garden.sh
 
 echo ""
 echo "Creating system supervisor service..."
 
-sh create-supervisor-service.sh
+$SUDO sh create-supervisor-service.sh
 
 echo ""
 echo "Publishing status to MQTT..."
