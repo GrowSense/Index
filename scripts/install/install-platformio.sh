@@ -24,11 +24,11 @@ if ! type "pio" > /dev/null; then
   echo "Upgrading pip"
   $SUDO pip install --ignore-installed --upgrade pip
 
-  echo "Installing pip extras"
-  pip install --ignore-installed --user setuptools wheel
+  echo "Installing/upgrading pip extras"
+  $SUDO pip install --ignore-installed --upgrade setuptools wheel
 
   echo "Installing platformio"
-  python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
+  $SUDO python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
   
 
 else
@@ -39,7 +39,7 @@ fi
 if ! type "pio" > /dev/null; then
   echo "Installing platformio via pip"
   
-  pip install --ignore-installed -U platformio
+  $SUDO pip install --ignore-installed -U platformio
 fi
 
 # Give the user necessary permissions
