@@ -43,7 +43,7 @@ if [ "$DEVICE_CONNECTION" = "usb" ]; then
   echo ""
   echo "Viewing $SERVICE_LABEL log..."
 
-  SERVICE_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u $SERVICE_NAME -b | tail -n 100")
+  SERVICE_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u $SERVICE_NAME -b | tail -n 300")
 
   echo "${SERVICE_LOG}"
 
