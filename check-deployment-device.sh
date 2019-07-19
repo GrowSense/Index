@@ -47,7 +47,7 @@ if [ "$DEVICE_CONNECTION" = "usb" ]; then
 
   echo "${SERVICE_LOG}"
 
-  [[ $(echo $SERVICE_LOG) =~ "Connected to MQTT" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service failed to connect to MQTT broker" && exit 1
+  [[ ! $(echo $SERVICE_LOG) =~ "Connected to MQTT" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service failed to connect to MQTT broker" && exit 1
 
   echo ""
   echo "Viewing $SERVICE_LABEL service status..."
