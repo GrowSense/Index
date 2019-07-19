@@ -20,7 +20,7 @@ if [ ! -f "install-package.sh" ]; then
   wget -q --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
 fi
 
-bash install-package-from-github-release.sh GreenSense Serial1602ShieldSystemUIController 1.0.0.82 || exit 1
+bash install-package-from-github-release.sh GreenSense Serial1602ShieldSystemUIController 1.0.0.84 || exit 1
 
 # Disabled because it's overwriting valid settings with blank ones. Should be obsolete. Remove if not needed
 #if [ -f $CONFIG_FILE_TMP ]; then
