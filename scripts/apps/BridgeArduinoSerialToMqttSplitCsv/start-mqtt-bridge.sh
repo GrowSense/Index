@@ -1,3 +1,4 @@
+# Disabled because it shouldn't be needed. The package should already be initialised.
 #sh init.sh
 
 echo "Starting mqtt bridge..."

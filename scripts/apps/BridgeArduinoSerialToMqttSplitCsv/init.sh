@@ -13,12 +13,6 @@ if [ -f $CONFIG_FILE ]; then
   fi
 fi
 
-# TODO: Clean up. This check is disabled to allow the install package script to be overwritten
-if [ ! -f "install-package.sh" ]; then
-  INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/install-package.sh"
-  wget --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
-fi
-
 bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv 1.0.1.51 || exit 1
 
 echo "Installation complete."

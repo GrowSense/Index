@@ -15,10 +15,10 @@ CONFIG_FILE_TMP="Serial1602ShieldSystemUIControllerConsole.exe.config";
 #fi
 
 # TODO: Clean up. This check is disabled to allow the install package script to be overwritten
-if [ ! -f "install-package.sh" ]; then
-  INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/Serial1602ShieldSystemUIController/install-package.sh"
-  wget -q --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
-fi
+#if [ ! -f "install-package.sh" ]; then
+#  INSTALL_SCRIPT_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/Serial1602ShieldSystemUIController/install-package.sh"
+#  wget -q --no-cache -O install-package.sh $INSTALL_SCRIPT_FILE_URL
+#fi
 
 bash install-package-from-github-release.sh GreenSense Serial1602ShieldSystemUIController 1.0.0.84 || exit 1
 

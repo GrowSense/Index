@@ -1,4 +1,5 @@
-sh init.sh
+# Disabled because it shouldn't be needed. The package should already be initialised.
+#sh init.sh
 
 echo "Launching UI controller."
 

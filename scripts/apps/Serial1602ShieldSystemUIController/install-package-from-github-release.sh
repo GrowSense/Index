@@ -22,7 +22,11 @@ fi
 
 INCLUDE_VERSION_IN_FOLDER="false"
 
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+if [ -d ".git" ]; then
+  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+else
+  BRANCH="lts"
+fi
 
 echo "Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
 
