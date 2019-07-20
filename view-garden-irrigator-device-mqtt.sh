@@ -10,8 +10,10 @@ MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
+# Query the device for a line of data...
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
 
-CALIBRATED_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/C" -C 1)
+CALIBRATED_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/C" -C 1)
 
 if [ ! $CALIBRATED_VALUE ]; then
   echo "  Soil moisture: No MQTT data detected"  
@@ -19,7 +21,7 @@ else
   echo "  Soil moisture: $CALIBRATED_VALUE%"
 fi
 
-THRESHOLD_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/T" -C 1)
+THRESHOLD_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/T" -C 1)
 
 if [ ! $THRESHOLD_VALUE ]; then
   echo "  Threshold: No MQTT data detected"  
@@ -27,7 +29,7 @@ else
   echo "  Threshold: $THRESHOLD_VALUE%"
 fi
 
-PUMP_BURST_ON_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/B" -C 1)
+PUMP_BURST_ON_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/B" -C 1)
 
 if [ ! $PUMP_BURST_ON_VALUE ]; then
   echo "  Burst on: No MQTT data detected"
@@ -35,7 +37,7 @@ else
   echo "  Burst on: $PUMP_BURST_ON_VALUE seconds"
 fi
 
-PUMP_BURST_OFF_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/O" -C 1)
+PUMP_BURST_OFF_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/O" -C 1)
 
 if [ ! $PUMP_BURST_OFF_VALUE ]; then
   echo "  Burst off: No MQTT data detected"  
