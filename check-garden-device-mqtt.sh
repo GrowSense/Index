@@ -37,20 +37,20 @@ fi
 
 # Soil moisture monitor
 if [ "$GROUP" = "monitor" ]; then
-  sh check-garden-monitor-device-mqtt.sh $DEVICE_NAME
+  bash check-garden-monitor-device-mqtt.sh $DEVICE_NAME
 fi
 
 # Irrigator
 if [ "$GROUP" = "irrigator" ]; then
-  sh check-garden-irrigator-device-mqtt.sh $DEVICE_NAME
+  bash check-garden-irrigator-device-mqtt.sh $DEVICE_NAME
 fi
 
 # Illuminator
 if [ "$GROUP" = "illuminator" ]; then
-  sh check-garden-illuminator-device-mqtt.sh $DEVICE_NAME
+  bash check-garden-illuminator-device-mqtt.sh $DEVICE_NAME
 fi
 
 # Ventilator
 if [ "$GROUP" = "ventilator" ]; then
-  sh check-garden-ventilator-device-mqtt.sh $DEVICE_NAME
+  bash check-garden-ventilator-device-mqtt.sh $DEVICE_NAME
 fi
