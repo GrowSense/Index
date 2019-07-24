@@ -5,29 +5,31 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
+echo "Install platform.io..."
+
 # python
 if ! type "python" > /dev/null; then
-  echo "Installing python"
+  echo "  Installing python"
 
   $SUDO apt-get install -y python
 fi
 
 # pip
 if ! type "pip" > /dev/null; then
-  echo "Installing python-pip"
+  echo "  Installing python-pip"
 
   $SUDO apt-get install -y python-pip
 fi
 
 # platform.io
 if ! type "pio" > /dev/null; then
-  echo "Upgrading pip"
+  echo "  Upgrading pip"
   $SUDO pip install --ignore-installed --upgrade pip
 
-  echo "Installing/upgrading pip extras"
+  echo "  Installing/upgrading pip extras"
   $SUDO pip install --ignore-installed --upgrade setuptools wheel
 
-  echo "Installing platformio"
+  echo "  Installing platformio"
   $SUDO python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
   
 
@@ -37,10 +39,13 @@ fi
 
 # If platformio install failed try again via pip
 if ! type "pio" > /dev/null; then
-  echo "Installing platformio via pip"
+  echo "  Installing platformio via pip"
   
   $SUDO pip install --ignore-installed -U platformio
 fi
+
+echo "  Upgrading platform.io"
+$SUDO pio upgrade
 
 # Give the user necessary permissions
 $SUDO usermod -a -G tty $USER
