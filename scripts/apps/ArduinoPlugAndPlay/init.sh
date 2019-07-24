@@ -13,7 +13,7 @@ if [ -f $CONFIG_FILE ]; then
   fi
 fi
 
-sh install-package.sh ArduinoPlugAndPlay 1.0.1.23 || exit 1
+sh install-package.sh ArduinoPlugAndPlay 1.0.1.28 || exit 1
 
 echo "Installation complete."
 
