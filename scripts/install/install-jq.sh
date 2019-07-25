@@ -1,4 +1,4 @@
-if ! type "jq" > /dev/null; then
+if ! type "jq" &>/dev/null; then
   apt-get -y install jq
 else
   echo "jq is already installed. Skipping install."

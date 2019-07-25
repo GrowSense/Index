@@ -1,6 +1,6 @@
 MOCK_FLAG_FILE="../../is-mock-setup.txt"
 
-if ! type "systemd" > /dev/null; then
+if ! type "systemd" &>/dev/null; then
   if [ ! -f "$MOCK_FLAG_FILE" ]; then
     sudo apt-get install -y systemd
   else

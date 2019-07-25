@@ -11,27 +11,27 @@ fi
 
 APT_UPDATE_EXECUTED=0
 
-if ! type "wget" > /dev/null; then
+if ! type "wget" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install wget
 fi
 
-if ! type "git" > /dev/null; then
+if ! type "git" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y install git
 fi
 
-if ! type "zip" > /dev/null; then
+if ! type "zip" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install zip
 fi
 
-if ! type "unzip" > /dev/null; then
+if ! type "unzip" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install unzip
 fi
 
-if ! type "curl" > /dev/null; then
+if ! type "curl" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install curl
 fi
@@ -56,17 +56,17 @@ if [[ ! $(dpkg -s mosquitto-clients) ]]; then
    $SUDO apt-get -y -q install mosquitto-clients
 fi
 
-if ! type "xmlstarlet" > /dev/null; then
+if ! type "xmlstarlet" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install xmlstarlet
 fi
 
-if ! type "sshpass" > /dev/null; then
+if ! type "sshpass" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install sshpass
 fi
 
-if type xhost > /dev/null; then
+if type xhost &>/dev/null; then
   if ! type "notify-send" > /dev/null; then
     [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
     $SUDO apt-get -y -q install notify-send || "notify-send install skipped"

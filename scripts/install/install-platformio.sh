@@ -15,14 +15,14 @@ if ! type "python" > /dev/null; then
 fi
 
 # pip
-if ! type "pip" > /dev/null; then
+if ! type "pip" &>/dev/null; then
   echo "  Installing python-pip"
 
   $SUDO apt-get install -y python-pip
 fi
 
 # platform.io
-if ! type "pio" > /dev/null; then
+if ! type "pio" &>/dev/null; then
   echo "  Upgrading pip"
   $SUDO pip install --ignore-installed --upgrade pip
 
@@ -38,7 +38,7 @@ else
 fi
 
 # If platformio install failed try again via pip
-if ! type "pio" > /dev/null; then
+if ! type "pio" &>/dev/null; then
   echo "  Installing platformio via pip"
   
   $SUDO pip install --ignore-installed -U platformio

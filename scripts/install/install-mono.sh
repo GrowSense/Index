@@ -1,6 +1,6 @@
 echo "Installing mono..."
 
-if ! type "xbuild" > /dev/null; then
+if ! type "xbuild" &>/dev/null; then
 #  if [ ! $USE_MONO4 ]; then
 #    echo "  Environment variable USE_MONO4 not set. Checking for use-mono4.txt file..."
 #    if [ -f "use-mono4.txt" ]; then

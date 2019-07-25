@@ -2,7 +2,7 @@ echo "Installing docker...."
 
 MOCK_FLAG_FILE="../../is-mock-docker.txt"
 
-if ! type "docker" > /dev/null; then
+if ! type "docker" &>/dev/null; then
   if [ ! -f $MOCK_FLAG_FILE ]; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     chmod u+x get-docker.sh    
