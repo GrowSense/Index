@@ -36,6 +36,11 @@ if ! type "curl" &>/dev/null; then
    $SUDO apt-get -y -q install curl
 fi
 
+if ! type "sendemail" &>/dev/null; then
+   [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
+   $SUDO apt-get -y -q install sendemail
+fi
+
 if [[ ! $(dpkg -s software-properties-common) ]]; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install software-properties-common
