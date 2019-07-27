@@ -55,6 +55,8 @@ if [ -d "devices" ]; then
       fi
     fi
   done
+else
+  mkdir -p devices
 fi
 
 # Copy all the devices from the tmp dir to the devices dir
