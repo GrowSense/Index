@@ -6,6 +6,8 @@ SLEEP_TIME=$(cat supervisor-sleep-time.txt)
 
 i=1
 
+bash wait-for-plug-and-play.sh
+
 while [ $IS_RUNNING ]
 do
   echo "  Loop: $i"
