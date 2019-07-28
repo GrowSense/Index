@@ -80,12 +80,13 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
 
       # Stop the service so the upgrade can execute
       sh stop-garden-device.sh $DEVICE_NAME
+      
+      LOG_FILE="logs/updates/$DEVICE_NAME.txt"
         
       SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
-      timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_NAME $DEVICE_PORT >> logs/updates/$DEVICE_NAME.txt || exit 1
+      timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE || exit 1
 
-      
-      STATUS_CODE=$?    
+      STATUS_CODE=$?
       
       echo "Status code: $STATUS_CODE"
       
@@ -103,28 +104,37 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
         
         echo "Upgrade timed out"
         
-        echo "Upgrade timed out" >> logs/updates/$DEVICE_NAME.txt
+        echo "Upgrade timed out" >> $LOG_FILE
+        
+        LOG_OUTPUT=$(cat $LOG_FILE)
+        
+        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\n$LOG_OUTPUT"
         
         exit 1
       fi
-      
       
       # If the upgrade script completed successfully
       if [ $STATUS_CODE = 0 ]; then
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
 
-        echo "Upgrade complete" >> logs/updates/$DEVICE_NAME.txt
+        echo "Upgrade complete" >> $LOG_FILE
        
         echo "Device has been upgraded"   
+        
+        LOG_OUTPUT=$(cat $LOG_FILE)
+        
+        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\n$LOG_OUTPUT"
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
-        echo "Upgrade failed" >> logs/updates/$DEVICE_NAME.txt
+        echo "Upgrade failed" >> $LOG_FILE
        
         echo "Device upgrade failed" 
-      fi
 
-       
+        LOG_OUTPUT=$(cat $LOG_FILE)
+        
+        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\n$LOG_OUTPUT"
+      fi
     fi
   fi
 else

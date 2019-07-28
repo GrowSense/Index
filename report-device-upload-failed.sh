@@ -12,13 +12,12 @@ fi
 
 echo "  Device name: $DEVICE_NAME"
 
-sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upload failed" || echo "Failed to publish status to MQTT"
-
 if [ -d "devices/$DEVICE_NAME" ]; then
 
   DEVICE_GROUP=$(cat devices/$DEVICE_NAME/group.txt)
   DEVICE_BOARD=$(cat devices/$DEVICE_NAME/board.txt)
   SERIAL_PORT=$(cat devices/$DEVICE_NAME/port.txt)
+  DEVICE_HOST=$(cat devices/$DEVICE_NAME/host.txt)
   
   echo "  Device group: $DEVICE_GROUP"
   echo "  Device board: $DEVICE_BOARD"
