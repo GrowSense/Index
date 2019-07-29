@@ -2,6 +2,8 @@ echo "Upgrading system..."
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+HOST=$(cat /etc/hostname)
+
 INSTALLED_VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 
 LATEST_BUILD_NUMBER=$(curl -s -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/buildnumber.txt")
@@ -21,8 +23,8 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
       SUDO='sudo'
   fi
     
-  echo "Publishing status to MQTT..."
-  sh mqtt-publish.sh "/garden/StatusMessage" "Upgrading" &
+  echo "  Publishing status to MQTT..."
+  bash mqtt-publish.sh "/garden/StatusMessage" "Upgrading"
   
   $SUDO apt update && $SUDO apt -y upgrade
   
@@ -38,10 +40,13 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
   
   $SUDO sh install-apps.sh
   
-  echo "Publishing status to MQTT..."
-  sh mqtt-publish.sh "/garden/StatusMessage" "Upgraded" &
+  echo "  Publishing status to MQTT..."
+  bash mqtt-publish.sh "/garden/StatusMessage" "Upgraded"
+  
+  echo "  Sending email report..."
+  bash send-email.sh "GreenSense system upgraded on $HOST" "The GreenSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+  
+  echo "Finished upgrading system"
 else
   echo "  GreenSense system is up to date. Skipping upgrade."
 fi
-
-echo "Finished upgrading system"

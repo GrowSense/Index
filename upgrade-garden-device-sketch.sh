@@ -108,7 +108,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade timed out: $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\n$LOG_OUTPUT"
         
         exit 1
       fi
@@ -123,7 +123,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\n$LOG_OUTPUT"
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
@@ -133,7 +133,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
 
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\n$LOG_OUTPUT"
       fi
     fi
   fi
