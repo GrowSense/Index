@@ -27,7 +27,7 @@ namespace GreenSense.Index.Tests.Integration
             deviceManager.Platformio = mockPlatformio;
             deviceManager.ReaderWriter = mockReaderWriter;
 
-            deviceManager.USBDeviceConnectedCommand = "sh auto-connect-usb-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {PORT}";
+            deviceManager.USBDeviceConnectedCommand = "sh auto-connect-usb-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {SCRIPTCODE} {PORT}";
             deviceManager.USBDeviceDisconnectedCommand = "sh auto-disconnect-usb-device.sh {PORT}";
 
             var shortPortName = "ttyUSB0";
@@ -40,6 +40,7 @@ namespace GreenSense.Index.Tests.Integration
             deviceInfo.GroupName = "irrigator";
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
             deviceInfo.BoardType = "uno";
+            deviceInfo.ScriptCode = "irrigator";
             deviceInfo.Port = shortPortName;
 
             mockPlatformio.ConnectDevice (shortPortName);
