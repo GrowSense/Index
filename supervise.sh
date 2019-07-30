@@ -14,6 +14,10 @@ echo "Pulling device info from remote garden computers..."
 sh pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
 
 echo ""
+echo "Supervising docker services..."
+sh supervise-docker.sh $LOOP_NUMBER || echo "Supervise docker failed"
+
+echo ""
 echo "Supervising devices..."
 sh supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
 
