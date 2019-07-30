@@ -73,8 +73,10 @@ sh mqtt-publish.sh "/garden/StatusMessage" "Upgrading" &
 echo "Giving the UI time to receive the status update..."
 sleep 5
 
-echo "Stopping arduino plug and play..."
+#echo "Stopping arduino plug and play..."
 #sh systemctl.sh stop arduino-plug-and-play.service # TODO: Remove if not needed. Causing problems because if ArduinoPlugAndPlay is already up to date the service doesn't restart
+
+bash "wait-for-plug-and-play.sh" # Quotes are to prevent color coding issues in editor
 
 echo "Stopping garden..."
 sh stop-garden.sh || exit 1
