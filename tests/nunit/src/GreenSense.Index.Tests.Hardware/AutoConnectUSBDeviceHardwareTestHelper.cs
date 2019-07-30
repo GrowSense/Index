@@ -26,7 +26,7 @@ namespace GreenSense.Index.Tests.Hardware
 
             foreach (var deviceInfo in Devices) {
                 i++;
-                var cmd = String.Format ("sh auto-connect-usb-device.sh {0} {1} {2} {3} {4}",
+                var cmd = String.Format ("sh auto-connect-usb-device.sh {0} {1} {2} {3} {4} {5}",
                               deviceInfo.BoardType,
                               deviceInfo.FamilyName,
                               deviceInfo.GroupName,
