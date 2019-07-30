@@ -69,7 +69,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
       cd $DIR
       
       # Publish the status. The device is being upgraded.
-      sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || (echo "Failed to publish device status 'Updgrading'." && exit 1)
+      sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
       
       SERVICE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
       
