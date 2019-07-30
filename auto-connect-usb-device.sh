@@ -2,9 +2,10 @@ BOARD_TYPE=$1
 FAMILY_NAME=$2
 GROUP_NAME=$3
 PROJECT_NAME=$4
-PORT=$5
+SCRIPT_CODE=$5
+PORT=$6
 
-EXAMPLE="Example:\n\tauto-connect-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [Port]"
+EXAMPLE="Example:\n\tauto-connect-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [ScriptCode] [Port]"
 
 if [ ! $FAMILY_NAME ]; then
   echo "Provide a family name as an argument."
@@ -24,6 +25,11 @@ if [ ! $PROJECT_NAME ]; then
 fi
 if [ ! $BOARD_TYPE ]; then
   echo "Provide a board type as an argument."
+  echo $EXAMPLE
+  exit 1
+fi
+if [ ! $SCRIPT_CODE ]; then
+  echo "Provide a script code as an argument."
   echo $EXAMPLE
   exit 1
 fi
@@ -82,7 +88,7 @@ echo "  $DEVICE_INFO_DIR"
 
 DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
 
-SCRIPT_NAME="create-garden-$GROUP_NAME-$BOARD_TYPE".sh || exit 1
+SCRIPT_NAME="create-garden-$SCRIPT_CODE-$BOARD_TYPE".sh || exit 1
 echo "" && \
 echo "Add device script:" && \
 echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
