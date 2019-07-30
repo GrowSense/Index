@@ -84,7 +84,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
       LOG_FILE="logs/updates/$DEVICE_NAME.txt"
         
       SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
-      timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE || exit 1
+      timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
 
       STATUS_CODE=$?
       
