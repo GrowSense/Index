@@ -31,6 +31,7 @@ namespace GreenSense.Index.Tests.Hardware
                               deviceInfo.FamilyName,
                               deviceInfo.GroupName,
                               deviceInfo.ProjectName,
+                              deviceInfo.ScriptCode,
                               deviceInfo.Port.Replace ("/dev/", "")
                           );
 

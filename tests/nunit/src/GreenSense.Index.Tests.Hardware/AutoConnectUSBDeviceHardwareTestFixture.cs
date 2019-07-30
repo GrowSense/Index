@@ -15,6 +15,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo.GroupName = "irrigator";
             deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
             deviceInfo.BoardType = "uno";
+            deviceInfo.ScriptCode = "irrigator";
             deviceInfo.Port = GetIrrigatorPort ();
 
             var deviceInfo2 = new DeviceInfo ();
@@ -22,6 +23,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo2.GroupName = "illuminator";
             deviceInfo2.ProjectName = "LightPRSensorCalibratedLight";
             deviceInfo2.BoardType = "uno";
+            deviceInfo2.ScriptCode = "illuminator";
             deviceInfo2.Port = GetIlluminatorPort ();
 
             var deviceInfo3 = new DeviceInfo ();
@@ -29,6 +31,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo3.GroupName = "ventilator";
             deviceInfo3.ProjectName = "TemperatureHumidityDHTSensorFan";
             deviceInfo3.BoardType = "uno";
+            deviceInfo3.ScriptCode = "ventilator";
             deviceInfo3.Port = GetVentilatorPort ();
 
             var deviceInfo4 = new DeviceInfo ();
@@ -36,6 +39,7 @@ namespace GreenSense.Index.Tests.Hardware
             deviceInfo4.GroupName = "irrigator";
             deviceInfo4.ProjectName = "SoilMoistureSensorCalibratedPumpESP";
             deviceInfo4.BoardType = "esp";
+            deviceInfo4.ScriptCode = "irrigator";
             deviceInfo4.Port = GetIrrigatorESPPort ();
 
             using (var helper = new AutoConnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
