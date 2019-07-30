@@ -5,6 +5,8 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
-bash "wait-for-plug-and-play.sh" && \ # In quotes to avoid color coding issue in editor
+bash mqtt-publish.sh "/garden/StatusMessage" "Shutting down" || echo "MQTT publish failed."
+
+#bash "wait-for-plug-and-play.sh" && \ # In quotes to avoid color coding issue in editor
 bash "wait-for-unlock.sh" && \ # In quotes to avoid color coding issue in editor
 $SUDO shutdown now

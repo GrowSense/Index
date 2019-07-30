@@ -13,7 +13,7 @@ if ! type "docker" &>/dev/null; then
 
     if [ "$IS_RPI" = "1" ]; then
       echo "  Is Raspberry Pi. Installing docker version 18.06.3"
-      VERSION=18.06.3 ./get-docker.sh
+      VERSION=18.06.1 ./get-docker.sh
     else
       ./get-docker.sh
     fi
