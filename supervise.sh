@@ -11,15 +11,15 @@ fi
 
 echo ""
 echo "Pulling device info from remote garden computers..."
-sh pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
+bash pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
 
 echo ""
 echo "Supervising docker services..."
-sh supervise-docker.sh $LOOP_NUMBER || echo "Supervise docker failed"
+bash supervise-docker.sh $LOOP_NUMBER || echo "Supervise docker failed"
 
 echo ""
 echo "Supervising devices..."
-sh supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
+bash supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
 
 
 AUTO_UPGRADE_ENABLED=$(cat auto-upgrade-enabled.txt)
