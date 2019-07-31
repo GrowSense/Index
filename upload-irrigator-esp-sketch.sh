@@ -18,4 +18,7 @@ fi
 # If the serial port was provided as an argument but not the device name then use it
 [[ $(echo $DEVICE_NAME) =~ "tty" ]] && SERIAL_PORT="$DEVICE_NAME" && DEVICE_NAME="$DEFAULT_DEVICE_NAME"
 
-bash upload-device-sketch-esp.sh "irrigator" "SoilMoistureSensorCalibratedPumpESP" $DEVICE_NAME $DEVICE_PORT
+#echo "  Serial port: $SERIAL_PORT"
+#echo "  Device name: $DEVICE_NAME"
+
+bash upload-device-sketch-esp.sh "irrigator" "SoilMoistureSensorCalibratedPumpESP" $DEVICE_NAME $SERIAL_PORT
