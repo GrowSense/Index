@@ -10,6 +10,8 @@ MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
+HOST=$(cat /etc/hostname)
+
 echo ""
 echo "Querying the device for a line of data..."
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
@@ -34,9 +36,11 @@ fi
 echo "Previous time: $PREVIOUS_TIME"
 
 if [ "$TIME" = "$PREVIOUS_TIME" ]; then
-  echo "  No MQTT data. Device is offline."  
+  echo "  Latest MQTT data time hasn't been updated. Device is offline."  
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
+  
+  bash send-email.sh "$DEVICE_NAME on $HOST is offline" " The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
 else
   echo "  Device is online."
   
