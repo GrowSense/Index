@@ -55,10 +55,12 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   echo "    $PROJECT_PATH"
 
   # Inject version into the sketch
-  sh inject-version.sh && \
+  sh inject-version.sh || exit 1
 
   # Inject board type into the sketch (used for device discovery)
-  sh inject-board-type.sh "$DEVICE_BOARD" && \
+  if [ -f "inject-board-type.sh" ]; then
+    sh inject-board-type.sh "$DEVICE_BOARD" || exit 1
+  fi
 
   # Upload the sketch
   if [ "$IS_MOCK_HARDWARE" != "1" ]; then
