@@ -35,7 +35,11 @@ fi
 
 echo "Previous time: $PREVIOUS_TIME"
 
-if [ "$TIME" = "$PREVIOUS_TIME" ]; then
+if [ ! "$TIME" ]; then
+  echo "  No time has been retrieved from MQTT data. Skipping check."
+#elif [ ! "$PREVIOUS_TIME" ]; then
+#  echo "  No previous MQTT data time has been found in file. Skipping check."
+elif [ "$TIME" = "$PREVIOUS_TIME" ]; then
   echo "  Latest MQTT data time hasn't been updated. Device is offline."  
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
