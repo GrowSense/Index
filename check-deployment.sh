@@ -24,7 +24,7 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 echo ""
 echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -110,12 +110,12 @@ echo "${PNP_RESULT}"
 [[ $(echo $PNP_RESULT) =~ "not found" ]] && echo "Arduino Plug and Play service wasn't found" && exit 1
 [[ $(echo $PNP_RESULT) =~ "(unusable)" ]] && echo "Arduino Plug and Play detected an unusable device when it shouldn't" && exit 1
 
-echo ""
-echo "Supervising devices..."
+#echo ""
+#echo "Supervising devices..."
+# Disabled because it conflicts with the supervisor service
+#SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index/ && bash supervise-devices.sh 1")
 
-SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index/ && bash supervise-devices.sh 1")
-
-echo "${SUPERVISE_DEVICES_RESULT}"
+#echo "${SUPERVISE_DEVICES_RESULT}"
 
 echo ""
 echo "Checking deployment devices..."
@@ -183,7 +183,7 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 echo ""
 echo "Setting supervisor status check frequency back to default..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
 
 echo "Finished checking status of deployment."
 echo ""
