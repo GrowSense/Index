@@ -21,10 +21,10 @@ echo ""
 echo "Waiting for plug and play..."
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-plug-and-play.sh"
 
-echo ""
-echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
+#echo ""
+#echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -109,6 +109,13 @@ echo "${PNP_RESULT}"
 [[ ! $(echo $PNP_RESULT) =~ "Active: active" ]] && echo "Arduino Plug and Play service isn't active" && exit 1
 [[ $(echo $PNP_RESULT) =~ "not found" ]] && echo "Arduino Plug and Play service wasn't found" && exit 1
 [[ $(echo $PNP_RESULT) =~ "(unusable)" ]] && echo "Arduino Plug and Play detected an unusable device when it shouldn't" && exit 1
+
+echo ""
+echo "Supervising devices..."
+
+SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index/ && bash supervise-devices.sh")
+
+echo "${SUPERVISE_DEVICES_RESULT}"
 
 echo ""
 echo "Checking deployment devices..."
