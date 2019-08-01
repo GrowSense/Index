@@ -16,9 +16,9 @@ echo ""
 echo "Querying the device for a line of data..."
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
 
-echo ""
-echo "Giving the device time to receive the message..."
-sleep 3
+#echo ""
+#echo "Giving the device time to receive the message..."
+#sleep 3
 
 echo ""
 echo "Getting the time stamp from the device..."
