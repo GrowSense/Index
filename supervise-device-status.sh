@@ -16,15 +16,15 @@ echo ""
 echo "Querying the device for a line of data..."
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
 
-#echo ""
-#echo "Giving the device time to receive the message..."
-#sleep 3
+echo ""
+echo "Giving the device time to receive the message..."
+sleep 5
 
 echo ""
 echo "Getting the time stamp from the device..."
 TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1)
 
-echo "Time: $TIME"
+echo "  Time: $TIME"
 
 DEVICE_TIME_FILE="devices/$DEVICE_NAME/time-last-published.txt"
 
@@ -33,13 +33,9 @@ if [ -f $DEVICE_TIME_FILE ]; then
   PREVIOUS_TIME=$(cat $DEVICE_TIME_FILE)
 fi
 
-echo "Previous time: $PREVIOUS_TIME"
+echo "  Previous time: $PREVIOUS_TIME"
 
-if [ ! "$TIME" ]; then
-  echo "  No time has been retrieved from MQTT data. Skipping check."
-#elif [ ! "$PREVIOUS_TIME" ]; then
-#  echo "  No previous MQTT data time has been found in file. Skipping check."
-elif [ "$TIME" = "$PREVIOUS_TIME" ]; then
+if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
   echo "  Latest MQTT data time hasn't been updated. Device is offline."  
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
