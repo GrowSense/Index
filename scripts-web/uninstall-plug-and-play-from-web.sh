@@ -118,6 +118,11 @@ docker stop mosquitto || echo "Mosquitto docker container not found. Skipping st
 docker rm mosquitto || echo "Mosquitto docker container not found. Skipping remove."
 
 echo ""
+echo "Removing nginx linear MQTT config HTTP docker container..."
+docker stop greensense-ui-http || echo "GreenSense nginx linear MQTT config HTTP docker container not found. Skipping stop."
+docker rm greensense-ui-http || echo "GreenSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
+
+echo ""
 echo "Finished uninstalling GreenSense plug and play!"
   
 
