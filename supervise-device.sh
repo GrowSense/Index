@@ -3,7 +3,7 @@ DEVICE_NAME=$2
 
 EXAMPLE="Example:\n\tsh supervise-device.sh [LoopNumber] [DeviceName]"
 
-echo "Supervising garden device..."
+#echo "Supervising garden device..."
 
 if [ ! $LOOP_NUMBER ]; then
   echo "Please provide a loop number as an argument."
@@ -17,9 +17,8 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
-echo "  Loop number: $LOOP_NUMBER"
-echo "  Device name: $DEVICE_NAME"
-
+#echo "  Loop number: $LOOP_NUMBER"
+#echo "  Device name: $DEVICE_NAME"
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
 
