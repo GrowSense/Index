@@ -21,10 +21,10 @@ echo ""
 echo "Waiting for plug and play..."
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-plug-and-play.sh"
 
-#echo ""
-#echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
+echo ""
+echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -113,7 +113,7 @@ echo "${PNP_RESULT}"
 echo ""
 echo "Supervising devices..."
 
-SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index/ && bash supervise-devices.sh")
+SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index/ && bash supervise-devices.sh 1")
 
 echo "${SUPERVISE_DEVICES_RESULT}"
 
