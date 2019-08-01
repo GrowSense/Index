@@ -13,9 +13,16 @@ echo ""
 echo "Pulling device info from remote garden computers..."
 bash pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
 
-echo ""
-echo "Supervising docker services..."
-bash supervise-docker.sh $LOOP_NUMBER || echo "Supervise docker failed"
+
+DOCKER_CHECK_FREQUENCY=$(cat supervisor-docker-check-frequency.txt)
+
+if [ "$(( $LOOP_NUMBER%$DOCKER_CHECK_FREQUENCY ))" -eq "0" ]; then
+  echo ""
+  echo "Supervising docker services..."
+  bash supervise-docker.sh $LOOP_NUMBER || echo "Supervise docker failed"
+else
+  echo "Skipping docker check this loop..."
+fi
 
 echo ""
 echo "Supervising devices..."
