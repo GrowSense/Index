@@ -14,7 +14,7 @@ HOST=$(cat /etc/hostname)
 
 echo ""
 echo "Querying the device for a line of data..."
-mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1" -q 2
 
 echo ""
 echo "Giving the device time to receive the message..."
@@ -22,7 +22,7 @@ sleep 10
 
 echo ""
 echo "Getting the time stamp from the device..."
-TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1)
+TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
 
 echo "  Time: $TIME"
 
