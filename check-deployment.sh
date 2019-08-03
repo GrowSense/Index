@@ -21,10 +21,10 @@ echo ""
 echo "Waiting for plug and play..."
 sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-plug-and-play.sh"
 
-echo ""
-echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
+#echo ""
+#echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -180,10 +180,10 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 
 #sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
 
-echo ""
-echo "Setting supervisor status check frequency back to default..."
+#echo ""
+#echo "Setting supervisor status check frequency back to default..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
 
 echo "Finished checking status of deployment."
 echo ""
