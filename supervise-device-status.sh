@@ -24,6 +24,8 @@ echo ""
 echo "Getting the time stamp from the device..."
 PREVIOUS_TIME=$(timeout 60 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
 
+echo "  First time: $PREVIOUS_TIME"
+
 echo ""
 echo "Waiting for the device to run for a while..."
 sleep 60
@@ -50,7 +52,6 @@ echo "  Latest time: $TIME"
 #  PREVIOUS_TIME=$(cat $DEVICE_TIME_FILE)
 #fi
 
-echo "  Previous time: $PREVIOUS_TIME"
 
 if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
   echo "  Latest MQTT data time hasn't been updated. Device is offline."  
