@@ -75,8 +75,8 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
   if [ ! -d "$PACKAGE_NAME" ]; then
     echo "  From the web (GitHub release)"
     
-    # Download the package from the web    
-  	curl -L https://github.com/$PACKAGE_OWNER/$PACKAGE_NAME/releases/download/v$PACKAGE_VERSION$POSTFIX/$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX.zip --output $PACKAGE_FILE_EXT || exit 1
+    # Download the package from the web
+  	curl -v -L https://github.com/$PACKAGE_OWNER/$PACKAGE_NAME/releases/download/v$PACKAGE_VERSION$POSTFIX/$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX.zip --output $PACKAGE_FILE_EXT || exit 1
 
     # Unzip the package
 	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FOLDER/" || exit 1
