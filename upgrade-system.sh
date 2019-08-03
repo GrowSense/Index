@@ -29,6 +29,8 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
 # Disabled because it can potentially break the system by causing conflicts with docker containers 
 #  $SUDO apt-get update && $SUDO apt-get -y upgrade
   
+  bash stop-garden.sh
+  
   $SUDO pio upgrade
   
   bash clean-all.sh
@@ -40,6 +42,8 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
   bash upgrade-mqtt-service.sh
   
   $SUDO sh install-apps.sh
+  
+  bash start-garden.sh
   
   echo "  Publishing status to MQTT..."
   bash mqtt-publish.sh "/garden/StatusMessage" "Upgraded"
