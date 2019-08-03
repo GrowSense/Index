@@ -22,16 +22,29 @@ sleep 10
 
 echo ""
 echo "Getting the time stamp from the device..."
+PREVIOUS_TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
+
+echo ""
+echo "Querying the device for a line of data for a second time..."
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1" -q 2
+
+echo ""
+echo "Giving the device time to receive the message..."
+sleep 10
+
+echo ""
+echo "Getting the second time stamp from the device..."
 TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
 
-echo "  Time: $TIME"
+echo "  Latest time: $TIME"
 
-DEVICE_TIME_FILE="devices/$DEVICE_NAME/time-last-published.txt"
+# TODO: Remove if not needed. Should be obsolete
+#DEVICE_TIME_FILE="devices/$DEVICE_NAME/time-last-published.txt"
 
-PREVIOUS_TIME=""
-if [ -f $DEVICE_TIME_FILE ]; then
-  PREVIOUS_TIME=$(cat $DEVICE_TIME_FILE)
-fi
+#PREVIOUS_TIME=""
+#if [ -f $DEVICE_TIME_FILE ]; then
+#  PREVIOUS_TIME=$(cat $DEVICE_TIME_FILE)
+#fi
 
 echo "  Previous time: $PREVIOUS_TIME"
 
@@ -46,7 +59,8 @@ else
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Online" -r
   
-  echo $TIME > $DEVICE_TIME_FILE
+  # TODO: Remove if not needed. Should be obsolete
+  #echo $TIME > $DEVICE_TIME_FILE
 fi
 
 echo "Finished supervising device"
