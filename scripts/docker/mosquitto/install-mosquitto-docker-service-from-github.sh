@@ -21,7 +21,10 @@ if ! type "docker" > /dev/null; then
   sudo wget -O - $DOCKER_INSTALL_SCRIPT | bash -s || exit 1
 fi
 
-echo "  Creating mosquitto directory"
+echo "  Pulling mosquitto docker container..."
+docker pull compulsivecoder/mosquitto-arm
+
+echo "  Creating mosquitto directory..."
 
 MOSQUITTO_DIR="/usr/local/mosquitto"
 DATA_DIR="$MOSQUITTO_DIR/data"
