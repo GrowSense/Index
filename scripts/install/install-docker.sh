@@ -7,9 +7,15 @@ if ! type "docker" &>/dev/null; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     chmod u+x get-docker.sh    
     
-    [[ -f "/proc/device-tree/model" ]] && BOARD_MODEL="$( cat /proc/device-tree/model )"
+    if [ -f "/proc/device-tree/model" ]; then
+      BOARD_MODEL="$( cat /proc/device-tree/model )"
+    fi
 
-    [[ $(echo $BOARD_MODEL) =~ "Raspberry Pi" ]] && IS_RPI=1 || IS_RPI=0
+    if [ $(echo $BOARD_MODEL) =~ "Raspberry Pi" ]; then
+      IS_RPI=1
+    else
+      IS_RPI=0
+    fi
 
     if [ "$IS_RPI" = "1" ]; then
       echo "  Is Raspberry Pi. Installing docker version 18.06.3"

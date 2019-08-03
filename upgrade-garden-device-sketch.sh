@@ -44,7 +44,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
   mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1" -q 2
 
   # Give the device time to respond
-  sleep 10
+  sleep 20
 
   # Get the version from the device
   VERSION=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/V" -C 1 -q 2)

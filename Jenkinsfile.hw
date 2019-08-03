@@ -13,8 +13,6 @@ pipeline {
         stage('Setup') {
             steps {
                 shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/Index.git .' )
-                sh '#git checkout $BRANCH_NAME'
-                sh '#git pull origin $BRANCH_NAME'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
