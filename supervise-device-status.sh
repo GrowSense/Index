@@ -16,29 +16,29 @@ echo ""
 echo "Querying the device for a line of data..."
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1" -q 2
 
-echo ""
-echo "Giving the device time to receive the message..."
-sleep 10
+#echo ""
+#echo "Giving the device time to receive the message..."
+#sleep 10
 
 echo ""
 echo "Getting the time stamp from the device..."
-PREVIOUS_TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
+PREVIOUS_TIME=$(timeout 60 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
 
 echo ""
 echo "Waiting for the device to run for a while..."
-sleep 30
+sleep 60
 
 echo ""
 echo "Querying the device for a line of data for a second time..."
 mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1" -q 2
 
-echo ""
-echo "Giving the device time to receive the message..."
-sleep 10
+#echo ""
+#echo "Giving the device time to receive the message..."
+#sleep 10
 
 echo ""
 echo "Getting the second time stamp from the device..."
-TIME=$(timeout 30 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
+TIME=$(timeout 60 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Time" -C 1 -q 2)
 
 echo "  Latest time: $TIME"
 
