@@ -111,14 +111,14 @@ sh recreate-garden-services.sh || exit 1
 echo "Moving to GreenSense index dir..."
 cd $INDEX_DIR
 
-echo "Giving plug and play time to start..."
-sleep 10
-
 echo "Start garden services..."
 sh start-garden.sh || exit 1
 
-echo "Giving services time to start..."
-sleep 10
+echo "Waiting for plug and play..."
+bash "wait-for-plug-and-play.sh"
+
+#echo "Giving services time to start..."
+#sleep 10
 
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
