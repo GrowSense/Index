@@ -28,7 +28,7 @@ echo "  First time: $PREVIOUS_TIME"
 
 echo ""
 echo "Waiting for the device to run for a while..."
-sleep 30
+sleep 60
 
 echo ""
 echo "Querying the device for a line of data for a second time..."
