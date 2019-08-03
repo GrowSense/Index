@@ -15,13 +15,13 @@ fi
 
 # Install docker if not found
 if ! type "docker" > /dev/null; then
-  echo "Installing docker"
+  echo "  Installing docker"
   
   DOCKER_INSTALL_SCRIPT="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/install/install-docker.sh"
-  sudo wget -O - $DOCKER_INSTALL_SCRIPT | sh -s || exit 1
+  sudo wget -O - $DOCKER_INSTALL_SCRIPT | bash -s || exit 1
 fi
 
-echo "Creating mosquitto directory"
+echo "  Creating mosquitto directory"
 
 MOSQUITTO_DIR="/usr/local/mosquitto"
 DATA_DIR="$MOSQUITTO_DIR/data"
@@ -31,11 +31,17 @@ sudo mkdir -p $MOSQUITTO_DIR && \
 sudo mkdir -p $DATA_DIR && \
 sudo chmod 777 $DATA_DIR && \
 
-echo "Creating credentials file" && \
+echo "  Creating credentials file" && \
 
 echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE && \
 
-echo "Install mosquitto service file"
+echo "  Installing mosquitto start script..."
+
+START_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/run-mosquitto-arm.sh"
+
+sudo wget $START_SCRIPT_URL -O "$MOSQUITTO_DIR/run-mosquitto-arm.sh"
+
+echo "  Installing mosquitto service file..."
 
 SERVICE_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/greensense-mosquitto-docker.service"
 
