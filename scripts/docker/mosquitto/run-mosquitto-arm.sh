@@ -3,7 +3,7 @@
 
 MOSQUITTO_DIR="/usr/local/mosquitto"
 
-docker pull compulsivecoder/mosquitto-arm
+#docker pull compulsivecoder/mosquitto-arm
 
 docker run -i \
   --restart=always \

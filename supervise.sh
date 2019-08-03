@@ -24,6 +24,16 @@ else
   echo "Skipping docker check this loop..."
 fi
 
+MQTT_CHECK_FREQUENCY=$(cat supervisor-mqtt-check-frequency.txt)
+
+if [ "$(( $LOOP_NUMBER%$MQTT_CHECK_FREQUENCY ))" -eq "0" ]; then
+  echo ""
+  echo "Supervising MQTT broker..."
+  bash supervise-mqtt.sh $LOOP_NUMBER || echo "Supervise MQTT failed"
+else
+  echo "Skipping MQTT check this loop..."
+fi
+
 echo ""
 echo "Supervising devices..."
 bash supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
