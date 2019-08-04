@@ -6,14 +6,15 @@ echo "Graduating master branch to lts branch..."
 
 sh clean.sh || exit 1
 
+echo ""
+echo "Fetching from origin..."
+git fetch origin || exit 1
+
+
 if [ "$BRANCH" = "dev" ];  then
   echo "Currently in dev branch. Checking out master branch..."
   git checkout master || exit 1
 fi
-
-echo ""
-echo "Fetching from origin..."
-git fetch origin || exit 1
 
 #echo ""
 #echo "Pulling the master branch from origin (to update it locally)..."
