@@ -2,7 +2,7 @@
 pipeline {
     agent any
     options {
-      skipDefaultCheckout()
+      skipDefaultCheckout(true)
     }
     stages {
         stage('CleanWSStart') {
