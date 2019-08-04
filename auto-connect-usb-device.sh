@@ -51,8 +51,9 @@ DEVICE_NUMBER=1
 # TODO: Remove if not needed. It shouldn't be needed. Only if plug and play isn't reliable enough at removing devices
 #sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
 
-echo "Pulling device info from remote garden computer..."
-sh pull-device-info-from-remotes.sh || exit 1
+# Disabled to speed up plug and play. But might cause problems if it's disabled
+#echo "Pulling device info from remote garden computer..."
+#sh pull-device-info-from-remotes.sh || exit 1
 
 DEVICE_POSTFIX=""
 
