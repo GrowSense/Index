@@ -13,7 +13,7 @@ if [ -f $CONFIG_FILE ]; then
   fi
 fi
 
-bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv 1.0.1.58 || exit 1
+bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv 1.0.1.59 || exit 1
 
 echo "Installation complete."
 
