@@ -70,7 +70,9 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
       echo "[mock] sh upload-$DEVICE_BOARD.sh /dev/$SERIAL_PORT"
   fi
 
+  echo ""
   echo "${RESULT}"
+  echo ""
 
   cd $DIR
 

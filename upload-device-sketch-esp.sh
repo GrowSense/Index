@@ -71,6 +71,10 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
       echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
   fi
 
+  echo ""
+  echo "${RESULT}"
+  echo ""
+
   cd $DIR
   
   if [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
