@@ -64,12 +64,13 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
 
   # Upload the sketch
   if [ "$IS_MOCK_HARDWARE" != "1" ]; then
-  
       echo "  Uploading (please wait)..."
       RESULT=$(bash upload-$DEVICE_BOARD.sh "/dev/$SERIAL_PORT")
   else
       echo "[mock] sh upload-$DEVICE_BOARD.sh /dev/$SERIAL_PORT"
   fi
+
+  echo "${RESULT}"
 
   cd $DIR
 
