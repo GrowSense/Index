@@ -33,6 +33,8 @@ rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $R
 # scp is slower
 #sshpass -p $REMOTE_PASSWORD scp -r -o StrictHostKeyChecking=no $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GreenSense/Index/devices .
 
+DEVICE_WAS_REMOVED=0
+
 if [ -d "devices" ]; then
   echo ""
   echo "  Removing device info for remote devices which have been removed..."
@@ -43,6 +45,9 @@ if [ -d "devices" ]; then
     #echo "  Device name: $DEVICE_NAME"
     DEVICE_HOST=$(cat "$DEVICE_DIR/host.txt")
     
+    # Remove the is-ui-create.txt flag so the UI can be recreated locally by the supervisor scripts
+    rm $DEVICE_DIR/is-ui-created.txt || echo "Failed to remove the is-ui-create.txt flag file"
+    
     # If the device host matches the remote host
     if [ "$DEVICE_HOST" = "$REMOTE_HOST" ]; then
       TMP_DEVICE_DIR="devices.tmp/$DEVICE_NAME"
@@ -52,6 +57,7 @@ if [ -d "devices" ]; then
         echo "    $DEVICE_NAME ($DEVICE_HOST)"
         # Remove the device info because it's been removed from the remote host
         rm -r $DEVICE_DIR || exit 1
+        DEVICE_WAS_REMOVED=1
       fi
     fi
   done
@@ -64,5 +70,11 @@ cp devices.tmp/* devices/ -fr || exit 1
 
 # Delete the tmp dir
 rm devices.tmp -r || exit 1
+
+if [ "$DEVICE_WAS_REMOVED" = "1" ]; then
+  echo ""
+  echo "  Recreating Linear MQTT Dashboard UI configuration..."
+  sh recreate-garden-ui.sh
+fi
 
 echo "Finished pull device info from remote"

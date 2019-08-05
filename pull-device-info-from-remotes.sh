@@ -12,9 +12,10 @@ if [ -d "remote" ]; then
     echo ""
   done
 
-  echo ""
-  echo "  Recreating Linear MQTT Dashboard UI configuration..."
-  sh recreate-garden-ui.sh
+# Disabled because the supervisor script should take care of this
+#  echo ""
+#  echo "  Recreating Linear MQTT Dashboard UI configuration..."
+#  sh recreate-garden-ui.sh
 fi
 
 echo "Finished pulling device info from remote indexes."
