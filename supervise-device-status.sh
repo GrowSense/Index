@@ -61,7 +61,7 @@ if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
   
-  bash send-email.sh "$DEVICE_NAME on $HOST is offline" " The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
+  bash send-email.sh "$DEVICE_NAME on $HOST is offline" "The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
 else
   echo "  Device is online."
   
