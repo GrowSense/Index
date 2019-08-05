@@ -38,8 +38,15 @@ if [ "$DEVICE_GROUP" != "ui" ]; then
   fi
 fi
 
-STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
+CURRENT_HOST=$(cat "/etc/hostname")
+DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
 
-if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
-  sh supervise-device-status.sh $DEVICE_NAME
+if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
+    STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
+
+	if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
+	  sh supervise-device-status.sh $DEVICE_NAME
+	fi
+else
+    echo "  Device is on another host. Skipping status check."
 fi
