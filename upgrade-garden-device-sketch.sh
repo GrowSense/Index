@@ -65,6 +65,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
       
       cd "sketches/$DEVICE_GROUP/$DEVICE_PROJECT"
       sh clean.sh
+      git checkout $BRANCH
       git pull origin $BRANCH
       cd $DIR
       
