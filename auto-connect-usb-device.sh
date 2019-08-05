@@ -98,7 +98,12 @@ sh run-background.sh sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exi
 
 sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
+sh run-background.sh sh notify-send.sh "Finished adding $GROUP_NAME device"
+
+HOST=$(cat /etc/hostname)
+
+sh run-background.sh sh send-email.sh "Device $DEVICE_NAME detected by plug and play on $HOST." "The $DEVICE_NAME device was detected and configured by plug and play on host $HOST."
+
 echo ""
 echo "Finished auto connecting device."
 
-sh notify-send.sh "Finished adding $GROUP_NAME device"
