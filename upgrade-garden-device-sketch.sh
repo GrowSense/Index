@@ -81,6 +81,9 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
 
       # Stop the service so the upgrade can execute
       sh stop-garden-device.sh $DEVICE_NAME
+
+      # Give the services time to stop
+      sleep 2
       
       LOG_FILE="logs/updates/$DEVICE_NAME.txt"
         
