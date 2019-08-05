@@ -29,7 +29,7 @@ echo "  First time: $PREVIOUS_TIME"
 
 echo ""
 echo "Waiting for the device to run for a while..."
-sleep 30
+sleep 100
 #sleep 100
 
 echo ""
