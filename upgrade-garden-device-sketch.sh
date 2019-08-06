@@ -94,11 +94,14 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
       
       echo "Status code: $STATUS_CODE"
       
+      echo "Giving the device time to restart..."
+      sleep 5
+      
       # Start the device again
       sh start-garden-device.sh $DEVICE_NAME
     
       if [ "$DEVICE_GROUP" = "ui" ]; then  
-        echo "Giving the UI time to restart..."
+        echo "Giving the UI controller time to restart..."
         sleep 10
       fi
       
@@ -108,11 +111,11 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
         
         echo "Upgrade timed out"
         
-        echo "Upgrade timed out" >> $LOG_FILE
+        echo "Upgrade timed out\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade timed out: $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n$BRANCH\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade timed out: $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nStatus code: $?\n\n$LOG_OUTPUT"
         
         exit 1
       fi
@@ -121,23 +124,23 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
       if [ $STATUS_CODE = 0 ]; then
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
 
-        echo "Upgrade complete" >> $LOG_FILE
+        echo "Upgrade complete\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
        
         echo "Device has been upgraded"   
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n$BRANCH\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nStatus code: $?\n\n$LOG_OUTPUT"
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
-        echo "Upgrade failed" >> $LOG_FILE
+        echo "Upgrade failed\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
        
         echo "Device upgrade failed" 
 
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n$BRANCH\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nStatus code: $?\n\n$LOG_OUTPUT"
       fi
     fi
   fi
