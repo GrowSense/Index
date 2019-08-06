@@ -30,7 +30,10 @@ echo "  Device project: $DEVICE_PROJECT"
 echo "  Device host: $DEVICE_HOST"
 echo "  Current host: $CURRENT_HOST"
 
-if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
+if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
+  echo "  Device is on another host. Skipping upgrade."
+  exit 0
+elif [ $DEVICE_IS_USB_CONNECTED ]; then
 
   # Get the latest version from the GitHub repository
   #LATEST_BUILD_NUMBER=$(curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt)
@@ -115,7 +118,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade timed out: $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade timed out: $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
         
         exit 1
       fi
@@ -130,7 +133,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
@@ -140,11 +143,11 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ] & [ $DEVICE_IS_USB_CONNECTED ]; then
 
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
       fi
     fi
   fi
 else
-  echo "Device is on a remote host. Skipping upgrade."
+  echo "  Device is not connected via USB. Skipping upgrade."
 fi
 
