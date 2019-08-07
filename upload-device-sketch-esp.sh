@@ -70,6 +70,9 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   else
       echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
   fi
+  
+  sleep 10
+  bash send-wifi-mqtt-commands.sh /dev/$SERIAL_PORT || exit 1
 
   echo ""
   echo "${RESULT}"
