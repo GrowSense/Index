@@ -41,6 +41,10 @@ sh create-device-info.sh esp monitor SoilMoistureSensorCalibratedSerialESP $DEVI
 if [ ! -f "is-mock-hardware.txt" ]; then
   cd sketches/monitor/SoilMoistureSensorCalibratedSerialESP/ && \
   sh pull-security-files.sh && \
+  
+  # Give the device time to load
+  sleep 3
+  
   sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
   sh send-mqtt-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1
   cd $DIR
