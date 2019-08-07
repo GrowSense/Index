@@ -44,7 +44,7 @@ if [ ! -f "is-mock-hardware.txt" ]; then
   sh pull-security-files.sh || exit 1
   
   # Give the device time to load
-  sleep 3
+  sleep 5
   
   sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
   
