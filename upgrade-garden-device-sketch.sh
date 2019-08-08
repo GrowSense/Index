@@ -118,7 +118,7 @@ elif [ $DEVICE_IS_USB_CONNECTED ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade timed out: $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Error: Upgrade timed out for $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
         
         exit 1
       fi
@@ -133,7 +133,7 @@ elif [ $DEVICE_IS_USB_CONNECTED ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade successful: $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade successful for $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
@@ -143,7 +143,7 @@ elif [ $DEVICE_IS_USB_CONNECTED ]; then
 
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade failed: $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
       fi
     fi
   fi
