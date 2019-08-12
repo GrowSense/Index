@@ -8,7 +8,7 @@ if ! type "docker" &>/dev/null; then
     chmod u+x get-docker.sh    
     
     if [ -f "/proc/device-tree/model" ]; then
-      BOARD_MODEL="$( cat /proc/device-tree/model )"
+      BOARD_MODEL=$(tr -d '\0' </proc/device-tree/model)
     fi
 
     if [ $(echo $BOARD_MODEL) =~ "Raspberry Pi" ]; then
