@@ -62,10 +62,23 @@ if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
   
   bash send-email.sh "Error: $DEVICE_NAME on $HOST is offline" "The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
+  
+  echo "1" > "devices/$DEVICE_NAME/is-device-offline.txt"
 else
   echo "  Device is online."
   
+  if [ -f "devices/$DEVICE_NAME/is-device-offline.txt" ]; then
+    WAS_DEVICE_OFFLINE=$(cat "devices/$DEVICE_NAME/is-device-offline.txt")
+  fi
+  
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Online" -r
+  
+  # If the device was previously online then report that it's back online
+  if [ "$WAS_DEVICE_OFFLINE" = "1" ]; then
+    bash send-email.sh "$DEVICE_NAME on $HOST is back online" "The $DEVICE_NAME device on $HOST is back online.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
+  fi
+  
+  echo "0" > "devices/$DEVICE_NAME/is-device-offline.txt"
   
   # TODO: Remove if not needed. Should be obsolete
   #echo $TIME > $DEVICE_TIME_FILE
