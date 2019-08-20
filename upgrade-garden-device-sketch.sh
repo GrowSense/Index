@@ -36,10 +36,10 @@ if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
 elif [ $DEVICE_IS_USB_CONNECTED ]; then
 
   # Get the latest version from the GitHub repository
-  #LATEST_BUILD_NUMBER=$(curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt)
-  #LATEST_VERSION_NUMBER=$(curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt)
-  LATEST_BUILD_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt" -q -O -)
-  LATEST_VERSION_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt" -q -O -)
+  LATEST_BUILD_NUMBER=$(curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt)
+  LATEST_VERSION_NUMBER=$(curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt)
+  #LATEST_BUILD_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/buildnumber.txt" -q -O -)
+  #LATEST_VERSION_NUMBER=$(wget --no-cache "https://raw.githubusercontent.com/GreenSense/$DEVICE_PROJECT/$BRANCH/version.txt" -q -O -)
 
   LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
