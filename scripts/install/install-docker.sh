@@ -4,9 +4,6 @@ MOCK_FLAG_FILE="../../is-mock-docker.txt"
 
 if ! type "docker" &>/dev/null; then
   if [ ! -f $MOCK_FLAG_FILE ]; then
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    chmod u+x get-docker.sh    
-    
     if [ -f "/proc/device-tree/model" ]; then
       BOARD_MODEL=$(tr -d '\0' </proc/device-tree/model)
     fi
@@ -18,9 +15,11 @@ if ! type "docker" &>/dev/null; then
     fi
 
     if [ "$IS_RPI" = "1" ]; then
-      echo "  Is Raspberry Pi. Installing docker version 18.06.3"
-      VERSION=18.06.1 ./get-docker.sh
+      echo "  Is Raspberry Pi. Installing docker version 18.06.1 for raspbian"
+      apt-get install docker-ce=18.06.1~ce~3-0~raspbian
     else
+      curl -fsSL https://get.docker.com -o get-docker.sh
+      chmod u+x get-docker.sh    
       ./get-docker.sh
     fi
     
