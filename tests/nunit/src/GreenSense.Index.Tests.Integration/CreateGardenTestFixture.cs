@@ -23,7 +23,7 @@ namespace GreenSense.Index.Tests.Integration
 
             var successfulText = "Setup complete";
 
-            Assert.IsTrue (output.Contains (successfulText), "Failed");
+            Assert.IsTrue (output.Contains (successfulText), "Script output doesn't contain the text: " + successfulText);
 
             var serviceFileName = "greensense-mosquitto-docker.service";
 
@@ -42,7 +42,7 @@ namespace GreenSense.Index.Tests.Integration
 
             var serviceFileExists = File.Exists (serviceFilePath);
 
-            Assert.IsTrue (serviceFileExists, "Service file not found.");
+            Assert.IsTrue (serviceFileExists, "Service file not found: " + serviceFilePath);
         }
     }
 }
