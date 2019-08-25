@@ -43,13 +43,13 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh '#sh build-tests.sh'
+                sh 'sh build-tests.sh'
             }
         }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh '#sh test-all.sh'
+                sh 'sh test-all.sh'
             }
         }
         stage('Deploy') {
@@ -63,8 +63,8 @@ pipeline {
         stage('Deploy Update') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh '#sh deploy-dev-update.sh'
-               sh '#sh deploy-master-update.sh'
+               sh 'sh deploy-dev-update.sh'
+               sh 'sh deploy-master-update.sh'
             }
         }
         stage('Clean') {
