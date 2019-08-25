@@ -68,4 +68,22 @@ echo "  Installing service file..."
 bash install-service.sh $SERVICE_FILE_PATH || exit 1
 
 echo ""
+echo "  Waiting for docker container to start..."
+sleep 2
+
+echo ""
+echo "  Checking mosquitto docker container started..."
+DOCKER_PS_RESULT="$(docker ps)"
+
+if [[ $(echo $DOCKER_PS_RESULT) =~ "Cannot connect to the Docker daemon" ]]; then
+  echo "Error: Docker service isn't running"
+  exit 1
+fi
+
+if [[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]]; then
+  echo "Error: mosquitto docker container isn't running"
+  exit 1
+fi
+
+echo ""
 echo "Finished installing mosquitto docker service"
