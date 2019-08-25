@@ -143,32 +143,32 @@ cd $INDEX_DIR || exit 1
 echo ""
 echo "Updating the index..."
 
-$SUDO sh update.sh
+$SUDO sh update.sh || exit 1
 
 echo ""
 echo "Initializing runtime components..."
 
-$SUDO sh init-runtime.sh
+$SUDO sh init-runtime.sh || exit 1
 
 echo ""
 echo "Installing apps (so it's ready to run offline)..."
 
-$SUDO sh install-apps.sh
+$SUDO sh install-apps.sh || exit 1
 
 echo ""
 echo "Setting WiFi credentials..."
 
-$SUDO sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
+$SUDO sh set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
 
 echo ""
 echo "Setting MQTT credentials..."
 
-$SUDO sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
+$SUDO sh set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || exit 1
 
 echo ""
 echo "Setting email details..."
 
-$SUDO sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
+$SUDO sh set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL || exit 1
 
 echo ""
 echo "Installing plug and play..."
@@ -178,12 +178,12 @@ $SUDO wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder
 echo ""
 echo "Creating garden..."
 
-$SUDO sh create-garden.sh
+$SUDO sh create-garden.sh || exit 1
 
 echo ""
 echo "Creating system supervisor service..."
 
-$SUDO sh create-supervisor-service.sh
+$SUDO sh create-supervisor-service.sh || exit 1
 
 echo ""
 echo "Publishing status to MQTT..."
@@ -191,4 +191,4 @@ echo "Publishing status to MQTT..."
 sh run-background.sh sleep 30 && sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
 
 echo ""
-echo "Finished installing GreenSense plug and play"
+echo "Finished installing GreenSense plug and play."
