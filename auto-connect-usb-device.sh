@@ -90,10 +90,14 @@ DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
 
 SCRIPT_NAME="create-garden-$SCRIPT_CODE-$BOARD_TYPE".sh || exit 1
 echo "" && \
-echo "Add device script:" && \
+echo "Create device script:" && \
 echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
 echo "" && \
 sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
+
+echo ""
+echo "Marking device as connected..."
+echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"
 
 sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
