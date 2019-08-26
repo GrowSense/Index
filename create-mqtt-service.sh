@@ -70,21 +70,21 @@ bash install-service.sh $SERVICE_FILE_PATH || exit 1
 if [ ! -f "is-mock-mqtt.txt" ]; then
 	echo ""
 	echo "  Waiting for docker container to start..."
-	sleep 4
+	bash wait-for-mqtt-service.sh
 	
-	echo ""
-	echo "  Checking mosquitto docker container started..."
-	DOCKER_PS_RESULT="$(docker ps)"
+#	echo ""
+#	echo "  Checking mosquitto docker container started..."
+#	DOCKER_PS_RESULT="$(docker ps)"
 	
-	if [[ $(echo $DOCKER_PS_RESULT) =~ "Cannot connect to the Docker daemon" ]]; then
-	  echo "Error: Docker service isn't running"
-	  exit 1
-	fi
+#	if [[ $(echo $DOCKER_PS_RESULT) =~ "Cannot connect to the Docker daemon" ]]; then
+#	  echo "Error: Docker service isn't running"
+#	  exit 1
+#	fi
 	
-	if [[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]]; then
-	  echo "Error: mosquitto docker container isn't running"
-	  exit 1
-	fi
+#	if [[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]]; then
+#	  echo "Error: mosquitto docker container isn't running"
+#	  exit 1
+#	fi
 fi
 
 echo ""
