@@ -31,7 +31,7 @@ if ! type "docker" &>/dev/null; then
 
        apt-get update
 
-       apt-get install docker-ce=18.06.2~ce~3-0~raspbian containerd.io
+       apt-get install -y docker-ce=18.06.2~ce~3-0~raspbian containerd.io
     else
       echo "  Installing latest version of docker..."
       curl -fsSL https://get.docker.com -o get-docker.sh
