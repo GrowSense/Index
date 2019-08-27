@@ -1,1 +1,0 @@
-pio run --environment uno
