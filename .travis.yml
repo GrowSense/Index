@@ -1,0 +1,23 @@
+sudo: required
+
+matrix:
+  include:
+    - language: python
+      python: 2.7
+      install:
+        - sudo bash prepare.sh
+      before_script:
+        - sh init-sketches.sh
+      script:
+        - sh build-sketches.sh
+
+    - language: csharp
+      install:
+        - git checkout $TRAVIS_BRANCH
+        - sudo bash prepare.sh
+      before_script:
+        - sh init-tests.sh
+      script:
+        - sh build-tests.sh
+        - sh test-software.sh
+

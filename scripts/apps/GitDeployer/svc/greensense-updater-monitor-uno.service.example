@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GreenSense Monitor Update Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/git-deployer/ && cd /usr/local/git-deployer/ && wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/GitDeployer/start-git-deployer-from-github.sh | bash -s 120 https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git /usr/local/GreenSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial sh pull-build-and-upload-uno.sh ttyUSB0"
+
+ [Install]
+ WantedBy=multi-user.target
