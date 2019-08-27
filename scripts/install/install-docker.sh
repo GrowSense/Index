@@ -15,8 +15,21 @@ if ! type "docker" &>/dev/null; then
     fi
 
     if [ "$IS_RPI" = "1" ]; then
-      echo "  Is Raspberry Pi. Installing docker version 18.06.1 for raspbian"
-      apt-get install docker-ce=18.06.1~ce~3-0~raspbian
+      echo "  Is Raspberry Pi. Installing docker version 18.06.2 for raspbian"
+      apt-get -y install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg2 \
+        software-properties-common
+
+       curl -fsSL https://download.docker.com/linux/raspbian/gpg | apt-key add -
+
+       echo "deb [arch=armhf] https://download.docker.com/linux/raspbian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
+
+       apt-get update
+
+       apt-get install docker-ce=18.06.2~ce~3-0~raspbian containerd.io
     else
       curl -fsSL https://get.docker.com -o get-docker.sh
       chmod u+x get-docker.sh    
