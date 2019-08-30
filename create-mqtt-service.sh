@@ -16,7 +16,11 @@ SYSTEMCTL_SCRIPT="systemctl.sh"
 
 echo ""
 echo "  Pulling the mosquitto docker image"
-sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm || exit 1
+if [ ! -f "is-mock-mqtt.txt" ]; then
+  sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm || exit 1
+else
+  echo "[mock] sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm"
+fi
 
 MOSQUITTO_INSTALL_DIR="/usr/local/mosquitto"
 
@@ -71,16 +75,16 @@ if [ ! -f "is-mock-mqtt.txt" ]; then
 	echo ""
 	echo "  Waiting for docker container to start..."
 	bash wait-for-mqtt-service.sh
-	
+
 #	echo ""
 #	echo "  Checking mosquitto docker container started..."
 #	DOCKER_PS_RESULT="$(docker ps)"
-	
+
 #	if [[ $(echo $DOCKER_PS_RESULT) =~ "Cannot connect to the Docker daemon" ]]; then
 #	  echo "Error: Docker service isn't running"
 #	  exit 1
 #	fi
-	
+
 #	if [[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]]; then
 #	  echo "Error: mosquitto docker container isn't running"
 #	  exit 1
