@@ -31,12 +31,12 @@ if ! type "docker" &>/dev/null; then
 
        apt-get update
 
-       apt-get install -y docker-ce=18.06.2~ce~3-0~raspbian containerd.io
+       apt-get install -y docker-ce=18.06.2~ce~3-0~raspbian containerd.io || exit 1
     else
       echo "  Installing latest version of docker..."
       curl -fsSL https://get.docker.com -o get-docker.sh
       chmod u+x get-docker.sh    
-      ./get-docker.sh
+      ./get-docker.sh || exit 1
     fi
     
     usermod -aG docker $USER || "Failed to add user to docker group."

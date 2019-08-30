@@ -4,6 +4,8 @@ DIR=$PWD
 
 git submodule update --init --recursive || "Submodule update failed"
 
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
 for GROUP_DIR in sketches/*; do
   echo ""
   echo "Group: $GROUP_DIR"
@@ -17,7 +19,8 @@ for GROUP_DIR in sketches/*; do
     
     if [ -f $INIT_SCRIPT ]; then
       echo "Running init.sh script..."
-      sh $INIT_SCRIPT
+      git checkout $BRANCH || exit 1
+      sh $INIT_SCRIPT || exit 1
     else
       echo "init.sh script not found. Skipping."
     fi

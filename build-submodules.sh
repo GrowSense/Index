@@ -13,7 +13,7 @@ for GROUP_DIR in sketches/*; do
     
     if [ -f "$BUILD_SCRIPT" ]; then
       echo "Running build-all.sh script..."
-      sh $BUILD_SCRIPT
+      sh $BUILD_SCRIPT || exit 1
     else
       echo "build-all.sh script not found. Skipping."
     fi
