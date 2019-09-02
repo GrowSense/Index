@@ -100,38 +100,42 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 
   if [ -d $INDEX_DIR ]; then
     echo "Moving the existing GreenSense index..."
-  
+
     $SUDO mv $INDEX_DIR $INDEX_DIR.old
   fi
-  
+
+  echo ""
+  echo "Installing git"
+  sudo apt-get install -y git || exit 1
+
   echo ""
   echo "Cloning the GreenSense index repository..."
-  
+
   $SUDO git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
-  
+
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
     mv $INDEX_DIR.old/*.txt $INDEX_DIR/
-    
-    
+
+
     if [ -d $INDEX_DIR.old/remote ]; then
       echo "Importing pre-existing remote folder..."
       mv $INDEX_DIR.old/remote $INDEX_DIR/remote
     fi
-    
+
     echo ""
     echo "Removing old index directory..."
     rm -r $INDEX_DIR.old
   fi
-  
+
   echo ""
   echo "Moving into index directory..."
-  
-  cd $INDEX_DIR || exit 1 
-  
+
+  cd $INDEX_DIR || exit 1
+
   echo ""
   echo "Preparing index..."
-  
+
   $SUDO bash prepare.sh || exit 1
 fi
 
