@@ -11,6 +11,11 @@ fi
 
 APT_UPDATE_EXECUTED=0
 
+if ! type "gcc" &>/dev/null; then
+   [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
+   $SUDO apt-get -y -q install build-essential
+fi
+
 if ! type "wget" &>/dev/null; then
    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
    $SUDO apt-get -y -q install wget
@@ -72,7 +77,7 @@ if ! type "sshpass" &>/dev/null; then
 fi
 
 if type xhost &>/dev/null; then
-  if ! type "notify-send" > /dev/null; then
+  if [[ ! $(dpkg -s notify-send) ]]; then
     [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
     $SUDO apt-get -y -q install notify-send || "notify-send install skipped"
   fi
