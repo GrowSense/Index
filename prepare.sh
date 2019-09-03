@@ -11,7 +11,7 @@ fi
 
 $SUDO apt-get update
 
-$SUDO apt-get install -y build-essential wget git zip unzip curl sendemail software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass notify-send
+$SUDO apt-get install -y build-essential wget git zip unzip curl sendemail software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass
 
 #APT_UPDATE_EXECUTED=0
 
@@ -80,12 +80,12 @@ $SUDO apt-get install -y build-essential wget git zip unzip curl sendemail softw
 #   $SUDO apt-get -y -q install sshpass
 #fi
 
-#if type xhost &>/dev/null; then
-#  if [[ ! $(dpkg -s notify-send) ]]; then
+if type xhost &>/dev/null; then
+  if [[ ! $(dpkg -s notify-send) ]]; then
 #    [ $APT_UPDATE_EXECUTED = 0 ] && $SUDO apt-get update && APT_UPDATE_EXECUTED=1
-#    $SUDO apt-get -y -q install notify-send || "notify-send install skipped"
-#  fi
-#fi
+    $SUDO apt-get -y -q install notify-send || "notify-send install skipped"
+  fi
+fi
 
 cd scripts/install/ && \
 
