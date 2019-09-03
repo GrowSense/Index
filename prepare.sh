@@ -11,7 +11,7 @@ fi
 
 $SUDO apt-get update
 
-$SUDO apt-get install -y build-essential wget git zip unzip curl sendemail software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass
+$SUDO apt-get install -y build-essential wget git zip unzip curl sendemail software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients
 
 #APT_UPDATE_EXECUTED=0
 
