@@ -12,7 +12,7 @@ echo ""
 #  echo "MQTT broker is on another host"
 #fi
 
-sh expose-ui-config-via-http.sh || exit 1
+bash expose-ui-config-via-http.sh || exit 1
 
 echo ""
 echo "Setup complete"
