@@ -8,5 +8,6 @@
         <add key="SleepTime" value="1" />
         <add key="TimeoutReadingDeviceInfo" value="30" />
         <add key="CommandTimeout" value="120" />
+        <add key="IgnoredSerialPorts" value="/dev/ttyAMA0" />
     </appSettings>
 </configuration>
