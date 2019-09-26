@@ -19,21 +19,22 @@ fi
 echo "  Services directory: $SERVICES_DIR"
 
 if [ "$DEVICE_GROUP" = "ui" ]; then
-  echo "  Stopping/disabling UI controller service.." && \
+  echo "  Stopping/disabling UI controller service.."
   sh $SYSTEMCTL_SCRIPT stop greensense-ui-1602-$DEVICE_NAME.service || echo "Failed to stop service. It may not exist."
   sh $SYSTEMCTL_SCRIPT disable greensense-ui-1602-$DEVICE_NAME.service || echo "Failed to disable service. It may not exist."
-  
-  echo "  Removing UI controller service..." && \
+
+  echo "  Removing UI controller service..."
   SERVICE_FILE_NAME="greensense-ui-1602-$DEVICE_NAME.service"
   rm -f "scripts/apps/Serial1602ShieldSystemUIController/svc/$SERVICE_FILE_NAME" || echo "Failed to remove internal service file. It may not exist."
   rm -f "$SERVICES_DIR/$SERVICE_FILE_NAME" || echo "Failed to remove system level service file. It may not exist."
 else
-  echo "  Stopping/disabling MQTT bridge service..." && \
+  echo "  Stopping/disabling MQTT bridge service..."
   sh $SYSTEMCTL_SCRIPT stop greensense-mqtt-bridge-$DEVICE_NAME.service || echo "Failed to stop service. It may not exist."
   sh $SYSTEMCTL_SCRIPT disable greensense-mqtt-bridge-$DEVICE_NAME.service || echo "Failed to disable service. It may not exist."
 
-  echo "  Removing MQTT bridge service file..." && \
-  rm -f scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/greensense-mqtt-bridge-$DEVICE_NAME.service || echo "Failed to remove internal service file. It may not exist."
+  echo "  Removing MQTT bridge service file..."
+  SERVICE_FILE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
+  rm -f scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc/$SERVICE_FILE_NAME || echo "Failed to remove internal service file. It may not exist."
   rm -f "$SERVICES_DIR/$SERVICE_FILE_NAME" || echo "Failed to remove system level service file. It may not exist."
 fi
 
