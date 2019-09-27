@@ -111,7 +111,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   echo ""
   echo "Cloning the GreenSense index repository..."
 
-  $SUDO git clone --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
+  $SUDO git clone --depth 1 --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
 
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
