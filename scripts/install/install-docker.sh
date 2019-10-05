@@ -10,13 +10,25 @@ if ! type "docker" &>/dev/null; then
       RASPBIAN_INFO=""
     fi
 
-    if [ "$RASPBIAN_INFO" != "" ]; then
-      IS_RPI=1
+    if [ -f "/etc/os-release" ]; then
+      RASPBIAN_STRETCH_INFO="$(cat /etc/os-release | grep -w stretch)"
     else
-      IS_RPI=0
+      RASPBIAN_STRETCH_INFO=""
     fi
-    
-    if [ "$IS_RPI" = "1" ]; then
+
+    if [ "$RASPBIAN_INFO" != "" ]; then
+      IS_RASPBIAN=1
+    else
+      IS_RASPBIAN=0
+    fi
+
+    if [ "$RASPBIAN_STRETCH_INFO" != "" ]; then
+      IS_RASPBIAN_STRETCH=1
+    else
+      IS_RASPBIAN_STRETCH=0
+    fi
+
+    if [ "$IS_RASPBIAN" = "1" ] && [ "$IS_RASPBIAN_STRETCH" = "1" ]; then
       echo "  Is Raspberry Pi. Installing docker version 18.06.2 for raspbian"
       apt-get -y install \
         apt-transport-https \
@@ -35,10 +47,10 @@ if ! type "docker" &>/dev/null; then
     else
       echo "  Installing latest version of docker..."
       curl -fsSL https://get.docker.com -o get-docker.sh
-      chmod u+x get-docker.sh    
+      chmod u+x get-docker.sh
       ./get-docker.sh || exit 1
     fi
-    
+
     usermod -aG docker $USER || "Failed to add user to docker group."
   else
     echo "  Is mock docker. Skipping docker install."
