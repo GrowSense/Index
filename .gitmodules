@@ -1,21 +1,21 @@
 [submodule "sketches/monitor/SoilMoistureSensorCalibratedSerial"]
 	path = sketches/monitor/SoilMoistureSensorCalibratedSerial
-	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git
+	url = https://github.com/GrowSense/SoilMoistureSensorCalibratedSerial.git
 [submodule "sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"]
 	path = sketches/irrigator/SoilMoistureSensorCalibratedPumpESP
-	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedPumpESP
+	url = https://github.com/GrowSense/SoilMoistureSensorCalibratedPumpESP
 [submodule "sketches/irrigator/SoilMoistureSensorCalibratedPump"]
 	path = sketches/irrigator/SoilMoistureSensorCalibratedPump
-	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedPump.git
+	url = https://github.com/GrowSense/SoilMoistureSensorCalibratedPump.git
 [submodule "sketches/monitor/SoilMoistureSensorCalibratedSerialESP"]
 	path = sketches/monitor/SoilMoistureSensorCalibratedSerialESP
-	url = https://github.com/GreenSense/SoilMoistureSensorCalibratedSerialESP.git
+	url = https://github.com/GrowSense/SoilMoistureSensorCalibratedSerialESP.git
 [submodule "sketches/ventilator/TemperatureHumidityDHTSensorFan"]
 	path = sketches/ventilator/TemperatureHumidityDHTSensorFan
-	url = https://github.com/GreenSense/TemperatureHumidityDHTSensorFan.git
+	url = https://github.com/GrowSense/TemperatureHumidityDHTSensorFan.git
 [submodule "sketches/illuminator/LightPRSensorCalibratedLight"]
 	path = sketches/illuminator/LightPRSensorCalibratedLight
-	url = https://github.com/GreenSense/LightPRSensorCalibratedLight.git
+	url = https://github.com/GrowSense/LightPRSensorCalibratedLight.git
 [submodule "sketches/ui/Serial1602ShieldSystemUI"]
 	path = sketches/ui/Serial1602ShieldSystemUI
-	url = https://github.com/GreenSense/Serial1602ShieldSystemUI.git
+	url = https://github.com/GrowSense/Serial1602ShieldSystemUI.git

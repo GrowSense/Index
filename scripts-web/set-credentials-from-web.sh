@@ -1,4 +1,4 @@
-echo "Installing GreenSense plug and play..."
+echo "Installing GrowSense plug and play..."
 
 BRANCH=$1
 INSTALL_DIR=$2
@@ -59,7 +59,7 @@ echo "MQTT Password: [hidden]"
 echo "MQTT Port: $MQTT_PORT"
 
 
-echo "Setting up GreenSense index credentials..."
+echo "Setting up GrowSense index credentials..."
 
 
 if [ ! -d "$INSTALL_DIR" ]; then
@@ -71,8 +71,8 @@ cd $INSTALL_DIR || (echo "Failed to move into install directory." && exit 1)
 
 echo "Downloading and running the set-wifi-credentials.sh script..."
 
-wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/set-wifi-credentials-from-web.sh | bash -s $BRANCH "$INSTALL_DIR" $WIFI_NAME $WIFI_PASSWORD  || (echo "Failed to set WiFi credentials." && exit 1)
+wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/set-wifi-credentials-from-web.sh | bash -s $BRANCH "$INSTALL_DIR" $WIFI_NAME $WIFI_PASSWORD  || (echo "Failed to set WiFi credentials." && exit 1)
 
-wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts-web/set-mqtt-credentials-from-web.sh | bash -s $BRANCH "$INSTALL_DIR" $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT  || (echo "Failed to set MQTT credentials." && exit 1)
+wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/set-mqtt-credentials-from-web.sh | bash -s $BRANCH "$INSTALL_DIR" $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT  || (echo "Failed to set MQTT credentials." && exit 1)
 
 echo "Finished setting credentials."

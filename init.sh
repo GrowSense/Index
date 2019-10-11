@@ -1,4 +1,4 @@
-echo "Initializing GreenSense index"
+echo "Initializing GrowSense index"
 
 # Disabled to prevent slow builds
 # sh init-all.sh

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Graduating GreenSense index and all submodules..."
+echo "Graduating GrowSense index and all submodules..."
 
 DIR=$PWD
 

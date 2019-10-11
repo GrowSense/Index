@@ -17,7 +17,7 @@ if [ ! $BRANCH ]; then
 fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 
@@ -61,6 +61,6 @@ cd $INSTALL_DIR || (echo "Failed to move into install directory." && exit 1)
 
 echo "Downloading and running the set-mqtt-credentials.sh script..."
 
-wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/set-mqtt-credentials.sh | bash -s $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT  || (echo "Failed to set MQTT credentials." && exit 1)
+wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/set-mqtt-credentials.sh | bash -s $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT  || (echo "Failed to set MQTT credentials." && exit 1)
 
 echo "Finished setting WiFi credentials."

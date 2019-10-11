@@ -1,10 +1,10 @@
  [Unit]
- Description=GreenSense Irrigator MQTT Bridge Service
+ Description=GrowSense Irrigator MQTT Bridge Service
  After=multi-user.target
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "bash /usr/local/GreenSense/Index/wait-for-plug-and-play.sh && cd /usr/local/BridgeArduinoSerialToMqttSplitCsv/; bash start-mqtt-bridge.sh --DeviceName=irrigator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,T,P,I,B,O,F,Q --SummaryKey=C"
+ ExecStart=/bin/bash -c "bash /usr/local/GrowSense/Index/wait-for-plug-and-play.sh && cd /usr/local/BridgeArduinoSerialToMqttSplitCsv/; bash start-mqtt-bridge.sh --DeviceName=irrigator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics=D,W,T,P,I,B,O,F,Q --SummaryKey=C"
 
  [Install]
  WantedBy=multi-user.target

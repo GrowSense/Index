@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appSettings>
-        <add key="USBDeviceConnectedCommand" value="cd /usr/local/GreenSense/Index; sh auto-connect-usb-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {SCRIPTCODE} {PORT}" />
-        <add key="USBDeviceDisconnectedCommand" value="cd /usr/local/GreenSense/Index; sh auto-disconnect-usb-device.sh {PORT}" />
+        <add key="USBDeviceConnectedCommand" value="cd /usr/local/GrowSense/Index; sh auto-connect-usb-device.sh {BOARD} {FAMILY} {GROUP} {PROJECT} {SCRIPTCODE} {PORT}" />
+        <add key="USBDeviceDisconnectedCommand" value="cd /usr/local/GrowSense/Index; sh auto-disconnect-usb-device.sh {PORT}" />
         <add key="SmtpServer" value="mail.example.com" />
         <add key="EmailAddress" value="user@example.com" />
         <add key="SleepTime" value="1" />

@@ -13,6 +13,6 @@ if [[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]]; then
 fi
 
 if [[ ! $(echo $DOCKER_PS_RESULT) =~ "greensense-ui-http" ]]; then
-  echo "GreenSense UI HTTP access docker container isn't running"
-  bash send-email.sh "GreenSense UI HTTP access docker container isn't running on $HOST" "The nginx docker container which exposes the Linear MQTT Dashboard config file via HTTP isn't running on $HOST\n\nResult from 'docker ps' command: $DOCKER_PS_RESULT"
+  echo "GrowSense UI HTTP access docker container isn't running"
+  bash send-email.sh "GrowSense UI HTTP access docker container isn't running on $HOST" "The nginx docker container which exposes the Linear MQTT Dashboard config file via HTTP isn't running on $HOST\n\nResult from 'docker ps' command: $DOCKER_PS_RESULT"
 fi

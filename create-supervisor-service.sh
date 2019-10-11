@@ -1,4 +1,4 @@
-echo "Creating GreenSense system supervisor service..."
+echo "Creating GrowSense system supervisor service..."
 
 SERVICE_EXAMPLE_FILE="greensense-supervisor.service.example"
 SERVICE_FILE="greensense-supervisor.service"
@@ -21,4 +21,4 @@ echo "$SERVICE_FILE_PATH"
 echo "Installing service..."
 bash install-service.sh $SERVICE_FILE_PATH && \
 
-echo "Finished GreenSense system supervisor service"
+echo "Finished GrowSense system supervisor service"

@@ -1,5 +1,5 @@
  [Unit]
- Description=GreenSense Mosquitto Docker Service
+ Description=GrowSense Mosquitto Docker Service
  After=multi-user.target
 
  [Service]

@@ -4,7 +4,7 @@ USERNAME=$1
 HOST=$2
 INDEX_PATH=$3
 
-EXAMPLE_TEXT="Syntax:\nsh pull-device-info.sh [Username] [Host] [IndexPath]\nExample:\nsh pull-device-info.sh j 10.0.0.81 ~/workspace/GreenSense/Index"
+EXAMPLE_TEXT="Syntax:\nsh pull-device-info.sh [Username] [Host] [IndexPath]\nExample:\nsh pull-device-info.sh j 10.0.0.81 ~/workspace/GrowSense/Index"
 
 if [ ! $USERNAME ]; then
   echo "Username not provided as an argument."

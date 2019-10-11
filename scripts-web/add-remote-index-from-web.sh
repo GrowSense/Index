@@ -1,4 +1,4 @@
-echo "Adding remote GreenSense index..."
+echo "Adding remote GrowSense index..."
 
 BRANCH=$1
 INSTALL_DIR=$2
@@ -15,10 +15,10 @@ if [ ! $BRANCH ]; then
 fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 if [ ! "$INSTALL_DIR" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 if [ ! $REMOTE_NAME ]; then
@@ -55,13 +55,13 @@ echo "Password: [hidden]"
 
 INDEX_DIR="$INSTALL_DIR"
 
-echo "Making the GreenSense index dir (if needed)..."
+echo "Making the GrowSense index dir (if needed)..."
 mkdir -p $INDEX_DIR
 
-echo "Moving to GreenSense index dir..."
+echo "Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
 echo "Adding remote index..."
-wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/add-remote-index.sh | bash -s -- $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD
+wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/add-remote-index.sh | bash -s -- $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD
 
 echo "Finished adding remote index"

@@ -1,4 +1,4 @@
-echo "Building GreenSense index device sketches"
+echo "Building GrowSense index device sketches"
 
 DIR=$PWD
 

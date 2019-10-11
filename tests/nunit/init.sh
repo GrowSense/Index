@@ -1,4 +1,4 @@
-echo "Initializing nunit tests for GreenSense index"
+echo "Initializing nunit tests for GrowSense index"
 
 DIR=$PWD
 

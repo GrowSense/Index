@@ -15,7 +15,7 @@ if [ ! $BRANCH ]; then
 fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 
@@ -46,7 +46,7 @@ cd $INSTALL_DIR || (echo "Failed to move into install directory." && exit 1)
 
 echo "Downloading and running the set-wifi-credentials.sh script..."
 
-wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/set-wifi-credentials.sh | bash -s $WIFI_NAME $WIFI_PASSWORD  || (echo "Failed to set WiFi credentials." && exit 1)
+wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/set-wifi-credentials.sh | bash -s $WIFI_NAME $WIFI_PASSWORD  || (echo "Failed to set WiFi credentials." && exit 1)
 
 
 echo "Finished setting WiFi credentials."
