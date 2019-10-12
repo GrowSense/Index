@@ -1,5 +1,5 @@
 echo ""
-echo "Creating GreenSense garden..."
+echo "Creating GrowSense garden..."
 echo ""
 
 # Only create the MQTT broker service if the MQTT host is localhost

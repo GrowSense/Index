@@ -1,38 +1,38 @@
-# GreenSense Project Index
-GreenSense provides garden/farm/agriculture related monitoring and automation solutions.
+# GrowSense Project Index
+GrowSense provides garden/farm/agriculture related monitoring and automation solutions.
 
 ## Automated Builds/Tests
 
 | Project       |               | lts | master | dev |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | **Index**  |               |               |               |
-| | Travis CI Tests  | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=lts)](https://travis-ci.org/GreenSense/Index) | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=master)](https://travis-ci.org/GreenSense/Index) | [![Build Status](https://travis-ci.org/GreenSense/Index.svg?branch=dev)](https://travis-ci.org/GreenSense/Index) |
-| | Jenkins Software Tests  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FIndex%2Flts&subject=tests)](http://growsense.io:8090/job/GreenSense/job/Index/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FIndex%2Fmaster&subject=tests)](http://growsense.io:8090/job/GreenSense/job/Index/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FIndex%2Fdev&subject=tests)](http://growsense.io:8090/job/GreenSense/job/Index/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FIndex%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/Index/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FIndex%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/Index/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FIndex%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/Index/job/dev/) |
+| | Travis CI Tests  | [![Build Status](https://travis-ci.org/GrowSense/Index.svg?branch=lts)](https://travis-ci.org/GrowSense/Index) | [![Build Status](https://travis-ci.org/GrowSense/Index.svg?branch=master)](https://travis-ci.org/GrowSense/Index) | [![Build Status](https://travis-ci.org/GrowSense/Index.svg?branch=dev)](https://travis-ci.org/GrowSense/Index) |
+| | Jenkins Software Tests  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FIndex%2Flts&subject=tests)](http://growsense.io:8090/job/GrowSense/job/Index/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FIndex%2Fmaster&subject=tests)](http://growsense.io:8090/job/GrowSense/job/Index/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FIndex%2Fdev&subject=tests)](http://growsense.io:8090/job/GrowSense/job/Index/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FIndex%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/Index/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FIndex%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/Index/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FIndex%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/Index/job/dev/) |
 | **Soil Moisture Monitor**  |               |               |               |
-| | Travis CI Tests  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial.svg?branch=lts)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial) | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial.svg?branch=master)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial) | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial.svg?branch=dev)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial) |
-| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerial%2Flts)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerial%2Fmaster)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerial%2Fdev)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerial%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerial%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerial%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/dev/) |
+| | Travis CI Tests  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial.svg?branch=lts)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial) | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial.svg?branch=master)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial) | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial.svg?branch=dev)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial) |
+| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerial%2Flts)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerial%2Fmaster)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerial%2Fdev)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerial%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerial%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerial%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/dev/) |
 | **WiFi Soil Moisture Monitor**  |               |               |               | |
-| | Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerialESP.svg?branch=lts)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerialESP) | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerialESP.svg?branch=master)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerialESP) | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerialESP.svg?branch=dev)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerialESP)  |
-| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerialESP%2Flts)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedSerialESP/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerialESP%2Fmaster)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedSerialESP/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerialESP%2Fdev)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedSerialESP/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerialESP%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedSerialESP/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerialESP%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedSerialESP/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedSerialESP%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedSerialESP/job/dev/) |
+| | Travis CI Build  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerialESP.svg?branch=lts)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerialESP) | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerialESP.svg?branch=master)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerialESP) | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerialESP.svg?branch=dev)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerialESP)  |
+| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerialESP%2Flts)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedSerialESP/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerialESP%2Fmaster)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedSerialESP/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerialESP%2Fdev)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedSerialESP/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerialESP%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedSerialESP/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerialESP%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedSerialESP/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedSerialESP%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedSerialESP/job/dev/) |
 | **Irrigator**  |               |               |               |
-| | Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPump.svg?branch=lts)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPump)  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPump.svg?branch=master)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPump)  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPump.svg?branch=dev)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPump)  |
-| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPump%2Flts)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedPump/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPump%2Fmaster)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedPump/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPump%2Fdev)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedPump/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPump%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedPump/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPump%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedPump/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPump%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedPump/job/dev/) |
+| | Travis CI Build  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPump.svg?branch=lts)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPump)  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPump.svg?branch=master)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPump)  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPump.svg?branch=dev)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPump)  |
+| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPump%2Flts)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedPump/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPump%2Fmaster)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedPump/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPump%2Fdev)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedPump/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPump%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedPump/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPump%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedPump/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPump%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedPump/job/dev/) |
 | **WiFi Irrigator**  |               |               |               |
-| | Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPumpESP.svg?branch=lts)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPumpESP)  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPumpESP.svg?branch=master)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPumpESP)  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPumpESP.svg?branch=dev)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedPumpESP)  |
-| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPumpESP%2Flts)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedPumpESP/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPumpESP%2Fmaster)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedPumpESP/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPumpESP%2Fdev)](http://growsense.io:8090/job/GreenSense/job/SoilMoistureSensorCalibratedPumpESP/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPumpESP%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedPumpESP/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPumpESP%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedPumpESP/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FSoilMoistureSensorCalibratedPumpESP%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/SoilMoistureSensorCalibratedPumpESP/job/dev/) |
+| | Travis CI Build  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPumpESP.svg?branch=lts)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPumpESP)  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPumpESP.svg?branch=master)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPumpESP)  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPumpESP.svg?branch=dev)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedPumpESP)  |
+| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPumpESP%2Flts)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedPumpESP/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPumpESP%2Fmaster)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedPumpESP/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPumpESP%2Fdev)](http://growsense.io:8090/job/GrowSense/job/SoilMoistureSensorCalibratedPumpESP/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPumpESP%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedPumpESP/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPumpESP%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedPumpESP/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FSoilMoistureSensorCalibratedPumpESP%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/SoilMoistureSensorCalibratedPumpESP/job/dev/) |
 | **Illuminator**  |               |               |               |
-| | Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/LightPRSensorCalibratedLight.svg?branch=lts)](https://travis-ci.org/GreenSense/LightPRSensorCalibratedLight)  | [![Build Status](https://travis-ci.org/GreenSense/LightPRSensorCalibratedLight.svg?branch=master)](https://travis-ci.org/GreenSense/LightPRSensorCalibratedLight)  | [![Build Status](https://travis-ci.org/GreenSense/LightPRSensorCalibratedLight.svg?branch=dev)](https://travis-ci.org/GreenSense/LightPRSensorCalibratedLight)  |
-| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FLightPRSensorCalibratedLight%2Flts)](http://growsense.io:8090/job/GreenSense/job/LightPRSensorCalibratedLight/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FLightPRSensorCalibratedLight%2Fmaster)](http://growsense.io:8090/job/GreenSense/job/LightPRSensorCalibratedLight/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FLightPRSensorCalibratedLight%2Fdev)](http://growsense.io:8090/job/GreenSense/job/LightPRSensorCalibratedLight/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FLightPRSensorCalibratedLight%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/LightPRSensorCalibratedLight/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FLightPRSensorCalibratedLight%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/LightPRSensorCalibratedLight/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FLightPRSensorCalibratedLight%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/LightPRSensorCalibratedLight/job/dev/) |
+| | Travis CI Build  | [![Build Status](https://travis-ci.org/GrowSense/LightPRSensorCalibratedLight.svg?branch=lts)](https://travis-ci.org/GrowSense/LightPRSensorCalibratedLight)  | [![Build Status](https://travis-ci.org/GrowSense/LightPRSensorCalibratedLight.svg?branch=master)](https://travis-ci.org/GrowSense/LightPRSensorCalibratedLight)  | [![Build Status](https://travis-ci.org/GrowSense/LightPRSensorCalibratedLight.svg?branch=dev)](https://travis-ci.org/GrowSense/LightPRSensorCalibratedLight)  |
+| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FLightPRSensorCalibratedLight%2Flts)](http://growsense.io:8090/job/GrowSense/job/LightPRSensorCalibratedLight/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FLightPRSensorCalibratedLight%2Fmaster)](http://growsense.io:8090/job/GrowSense/job/LightPRSensorCalibratedLight/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FLightPRSensorCalibratedLight%2Fdev)](http://growsense.io:8090/job/GrowSense/job/LightPRSensorCalibratedLight/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FLightPRSensorCalibratedLight%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/LightPRSensorCalibratedLight/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FLightPRSensorCalibratedLight%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/LightPRSensorCalibratedLight/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FLightPRSensorCalibratedLight%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/LightPRSensorCalibratedLight/job/dev/) |
 | **Ventilator**  |               |               |               |
-| | Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/TemperatureHumidityDHTSensorFan.svg?branch=lts)](https://travis-ci.org/GreenSense/TemperatureHumidityDHTSensorFan)  | [![Build Status](https://travis-ci.org/GreenSense/TemperatureHumidityDHTSensorFan.svg?branch=master)](https://travis-ci.org/GreenSense/TemperatureHumidityDHTSensorFan)  | [![Build Status](https://travis-ci.org/GreenSense/TemperatureHumidityDHTSensorFan.svg?branch=dev)](https://travis-ci.org/GreenSense/TemperatureHumidityDHTSensorFan)  |
-| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FTemperatureHumidityDHTSensorFan%2Flts)](http://growsense.io:8090/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FTemperatureHumidityDHTSensorFan%2Fmaster)](http://growsense.io:8090/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GreenSense%2FTemperatureHumidityDHTSensorFan%2Fdev)](http://growsense.io:8090/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/) |
-| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FTemperatureHumidityDHTSensorFan%2Flts&subject=tests)](http://growsense.io:8100/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FTemperatureHumidityDHTSensorFan%2Fmaster&subject=tests)](http://growsense.io:8100/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GreenSense%2FTemperatureHumidityDHTSensorFan%2Fdev&subject=tests)](http://growsense.io:8100/job/GreenSense/job/TemperatureHumidityDHTSensorFan/job/dev/) |
+| | Travis CI Build  | [![Build Status](https://travis-ci.org/GrowSense/TemperatureHumidityDHTSensorFan.svg?branch=lts)](https://travis-ci.org/GrowSense/TemperatureHumidityDHTSensorFan)  | [![Build Status](https://travis-ci.org/GrowSense/TemperatureHumidityDHTSensorFan.svg?branch=master)](https://travis-ci.org/GrowSense/TemperatureHumidityDHTSensorFan)  | [![Build Status](https://travis-ci.org/GrowSense/TemperatureHumidityDHTSensorFan.svg?branch=dev)](https://travis-ci.org/GrowSense/TemperatureHumidityDHTSensorFan)  |
+| | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FTemperatureHumidityDHTSensorFan%2Flts)](http://growsense.io:8090/job/GrowSense/job/TemperatureHumidityDHTSensorFan/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FTemperatureHumidityDHTSensorFan%2Fmaster)](http://growsense.io:8090/job/GrowSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=GrowSense%2FTemperatureHumidityDHTSensorFan%2Fdev)](http://growsense.io:8090/job/GrowSense/job/TemperatureHumidityDHTSensorFan/job/dev/) |
+| | Jenkins Hardware Tests | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FTemperatureHumidityDHTSensorFan%2Flts&subject=tests)](http://growsense.io:8100/job/GrowSense/job/TemperatureHumidityDHTSensorFan/job/lts/) | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FTemperatureHumidityDHTSensorFan%2Fmaster&subject=tests)](http://growsense.io:8100/job/GrowSense/job/TemperatureHumidityDHTSensorFan/job/master/)  | [![Build Status](http://growsense.io:8100/buildStatus/icon?job=GrowSense%2FTemperatureHumidityDHTSensorFan%2Fdev&subject=tests)](http://growsense.io:8100/job/GrowSense/job/TemperatureHumidityDHTSensorFan/job/dev/) |
 | **MQTT Bridge** |               |               |               |
 | | Travis CI Build  | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=lts)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv) | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=master)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv)  | [![Build Status](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv.svg?branch=dev)](https://travis-ci.org/CompulsiveCoder/BridgeArduinoSerialToMqttSplitCsv)  |
 | | Jenkins Software Build  | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=CompulsiveCoder%2FBridgeArduinoSerialToMqttSplitCsv%2Flts)](http://growsense.io:8090/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/lts/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=CompulsiveCoder%2FBridgeArduinoSerialToMqttSplitCsv%2Fmaster)](http://growsense.io:8090/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/master/) | [![Build Status](http://growsense.io:8090/buildStatus/icon?job=CompulsiveCoder%2FBridgeArduinoSerialToMqttSplitCsv%2Fdev)](http:/growsense.io:8090/job/CompulsiveCoder/job/BridgeArduinoSerialToMqttSplitCsv/job/dev/)
@@ -49,70 +49,70 @@ GreenSense provides garden/farm/agriculture related monitoring and automation so
 
 
 ## Uptime Monitor
-Monitors the GreenSense infrastructure and live test systems.
+Monitors the GrowSense infrastructure and live test systems.
 - [Uptime Robot](https://stats.uptimerobot.com/OPj6DfM61)
 
-# GreenSense Plug and Play
-The recommended way to use the GreenSense devices is via plug and play.
+# GrowSense Plug and Play
+The recommended way to use the GrowSense devices is via plug and play.
 
 Notes:
 - A branch is specified as an argument. By default you can use the "master" branch. Developers can use the "dev" branch.
 - An installation directory can be specified as an argument. Provide a question mark '?' as an argument to use the default location.
 
-## Install GreenSense and Plug and Play
+## Install GrowSense and Plug and Play
 
 Use either wget or curl to download and launch the setup process...
 
 ### wget
 ```
 # syntax
-sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/[BRANCH]/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/[BRANCH]/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 # lts
-sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/lts/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- lts ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/lts/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- lts ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
 # master
-sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
 # dev
-sudo wget --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/dev/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- dev ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
+sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/dev/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- dev ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] 1883 [SmtpServer] [AdminEmail]
 ```
 
 ### curl
 ```
 # syntax
-curl https://raw.githubusercontent.com/GreenSense/Index/[BRANCH]/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+curl https://raw.githubusercontent.com/GrowSense/Index/[BRANCH]/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 # lts
-curl https://raw.githubusercontent.com/GreenSense/Index/lts/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- lts ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+curl https://raw.githubusercontent.com/GrowSense/Index/lts/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- lts ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 # master
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+curl https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- master ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 # dev
-curl https://raw.githubusercontent.com/GreenSense/Index/dev/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- dev ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
+curl https://raw.githubusercontent.com/GrowSense/Index/dev/scripts-web/install-plug-and-play-from-web.sh | sudo bash -s -- dev ? [WiFiName] [WiFiPassword] [MqttHost] [MqttUser] [MqttPass] [MqttPort] [SmtpServer] [AdminEmail]
 ```
 
 Notes:
 - Specifying ? as the install path will install to the default locations.
 - The above script will take a long time to run to be patient.
 
-## Update GreenSense and Plug and Play
+## Update GrowSense and Plug and Play
 
 ```
 # Use either wget or curl to download and launch the setup process...
 
 # wget
-sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+sudo wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 
 # curl
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+curl https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 ```
 
-## Uninstall GreenSense and Plug and Play
+## Uninstall GrowSense and Plug and Play
 
 ```
 # Use either wget or curl to download and launch the setup process...
 
 # wget
-sudo wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+sudo wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 
 # curl
-curl https://raw.githubusercontent.com/GreenSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+curl https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 ```
 
 
@@ -128,12 +128,12 @@ cd ~/workspace
 # Use either wget or curl to download and launch the setup process...
 
 # wget
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh
-cd GreenSense/Index
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/setup-from-github.sh | sh
+cd GrowSense/Index
 
 # curl
-curl https://raw.githubusercontent.com/GreenSense/Index/master/setup-from-github.sh | sh
-cd GreenSense/Index
+curl https://raw.githubusercontent.com/GrowSense/Index/master/setup-from-github.sh | sh
+cd GrowSense/Index
 
 ```
 Note: The above script will automatically run the prepare.sh and init.sh scripts so they don't need to be run again.
@@ -142,9 +142,9 @@ After it completes, skip past the "Manual Clone and Initialize" section down to 
 ## Manual Clone and Initialize
 ### Clone Index with Submodules
 ```
-git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index
+git clone --recursive https://github.com/GrowSense/Index.git GrowSense/Index
 
-cd GreenSense/Index
+cd GrowSense/Index
 ```
 
 ### Prepare Host Computer
@@ -158,7 +158,7 @@ bash init.sh
 ```
 
 ## Manually Set Up Garden
-These script are for a manual GreenSense setup when not using plug nd play, such as for a custom setup or for a dev workspace.
+These script are for a manual GrowSense setup when not using plug nd play, such as for a custom setup or for a dev workspace.
 You shouldn't need to use these scripts if you've installed the plug and play system, unless you need to debug the system.
 
 ### Set MQTT Credentials
@@ -192,7 +192,7 @@ bash remove-cache.sh
 ## Upload Garden Device Sketches
 
 ### Upload system UI device sketch
-Upload the GreenSense system UI sketch to a device.
+Upload the GrowSense system UI sketch to a device.
 Note: Ensure the device is connected
 
 #### Arduino Uno
@@ -205,7 +205,7 @@ bash upload-ui-uno-sketch.sh
 ```
 
 ### Upload soil moisture monitor device sketch
-Upload the GreenSense soil moisture monitor sketch to a device.
+Upload the GrowSense soil moisture monitor sketch to a device.
 Note: Ensure the device is connected
 
 #### Arduino Nano
@@ -236,7 +236,7 @@ bash upload-monitor-esp-sketch.sh
 ```
 
 ### Upload irrigator device sketch
-Upload the GreenSense irrigator sketch to a device.
+Upload the GrowSense irrigator sketch to a device.
 Note: Ensure the device is connected
 
 #### Arduino Nano
@@ -271,7 +271,7 @@ bash upload-irrigator-esp-sketch.sh
 The plug and play system will automatically take care of calling these scripts. You should only need to use them if you are setting up a custom installation without plug and play.
 
 ### Create soil moisture monitor device
-Set up a GreenSense soil moisture monitor device.
+Set up a GrowSense soil moisture monitor device.
 Note: Ensure the device is connected
 
 #### Arduino Nano
@@ -296,7 +296,7 @@ bash create-garden-monitor-esp.sh Monitor1 monitor1 ttyUSB0
 ```
 
 ### Create irrigator device
-Set up a GreenSense irrigator device.
+Set up a GrowSense irrigator device.
 Note: Ensure the device is connected
 
 #### Arduino Nano
@@ -383,64 +383,64 @@ bash remove-garden-devices.sh
 ```
 
 ## Mosquitto MQTT Broker
-Set up mosquitto MQTT broker without setting up the entire GreenSense index:
+Set up mosquitto MQTT broker without setting up the entire GrowSense index:
 ```
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/install-mosquitto-docker-service-from-github.sh | sh -s mqttUsername mqttPassword
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/install-mosquitto-docker-service-from-github.sh | sh -s mqttUsername mqttPassword
 ```
 Note: Change mqttUsername and mqttPassword to the desired MQTT username and password.
 
 ## Jenkins Continuous Integration
-Set up jenkins continous integration server for GreenSense projects:
+Set up jenkins continous integration server for GrowSense projects:
 
 ### No Attached USB Devices
 For use when no USB devices are attached.
-This is used for running GreenSense tests that aren't hardware related, or don't need hardware to be attached to the same machine, such as sanity tests.
+This is used for running GrowSense tests that aren't hardware related, or don't need hardware to be attached to the same machine, such as sanity tests.
 ```
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-from-github.sh | sh -s
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-from-github.sh | sh -s
 ```
 
 ### 2 Attached USB Devices
 For use when 4 USB devices are attached.
-This is used on the GreenSense test server with the following attached:
+This is used on the GrowSense test server with the following attached:
 - A test monitor/irrigator (combined) device and corresponding test simulation device
 ```
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-2-from-github.sh | sh -s
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-2-from-github.sh | sh -s
 ```
 
 ### 4 Attached USB Devices
 For use when 4 USB devices are attached.
-This is used on the GreenSense test server with the following attached:
+This is used on the GrowSense test server with the following attached:
 - A test monitor device and corresponding test simulation device
 - A test irrigator device and corresponding test simulation device
 ```
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-4-from-github.sh | sh -s
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-4-from-github.sh | sh -s
 ```
 
 ### 6 Attached USB Devices
 For use when 6 USB devices are attached.
-This is used on the GreenSense test server with the following attached:
+This is used on the GrowSense test server with the following attached:
 - A test monitor device and corresponding test simulation device
 - A test irrigator device and corresponding test simulation device
 - A test illuminator device and corresponding test simulation device
 ```
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-6-from-github.sh | sh -s
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-6-from-github.sh | sh -s
 ```
 
 ### 8 Attached USB Devices
 For use when 8 USB devices are attached.
-This is used on the GreenSense test server with the following attached:
+This is used on the GrowSense test server with the following attached:
 - A test monitor device and corresponding test simulation device
 - A test irrigator device and corresponding test simulation device
 - A test illuminator device and corresponding test simulation device
 - A test ventilator device and corresponding test simulation device
 ```
-wget -O - https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-8-from-github.sh | sh -s
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/install-jenkins-docker-service-8-from-github.sh | sh -s
 ```
 
 ## Mobile UI
 
 ### Install Linear MQTT Dashboard 
-The Linear MQTT Dashboard application will be the user interface for the GreenSense projects.
+The Linear MQTT Dashboard application will be the user interface for the GrowSense projects.
 - Go to the play store
 - Search for "linear mqtt"
 - Install the "Linear MQTT Dashboard" application.
@@ -460,9 +460,9 @@ pkg install -y openssh
 - Import the config.linear file (automatically generated when creating garden devices using the steps above).
 ```
 # Format:
-scp [user]@[host]:~/workspace/GreenSense/Index/mobile/linearmqtt/output/config.linear config.linear
+scp [user]@[host]:~/workspace/GrowSense/Index/mobile/linearmqtt/output/config.linear config.linear
 # Example:
-scp j@garden:~/workspace/GreenSense/Index/mobile/linearmqtt/output/config.linear config.linear
+scp j@garden:~/workspace/GrowSense/Index/mobile/linearmqtt/output/config.linear config.linear
 ```
 - Open the config.linear file
 ```
@@ -470,4 +470,4 @@ termux-open config.linear
 ```
 - The Linear MQTT Dashboard should open and ask if you want to import the configuration.
 - Select YES
-- The GreenSense user interface should now be displayed.
+- The GrowSense user interface should now be displayed.

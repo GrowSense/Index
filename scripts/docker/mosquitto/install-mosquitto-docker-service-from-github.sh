@@ -17,7 +17,7 @@ fi
 if ! type "docker" > /dev/null; then
   echo "  Installing docker"
   
-  DOCKER_INSTALL_SCRIPT="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/install/install-docker.sh"
+  DOCKER_INSTALL_SCRIPT="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/install/install-docker.sh"
   sudo wget -O - $DOCKER_INSTALL_SCRIPT | bash -s || exit 1
 fi
 
@@ -40,13 +40,13 @@ echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE && \
 
 echo "  Installing mosquitto start script..."
 
-START_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/run-mosquitto-arm.sh"
+START_SCRIPT_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/run-mosquitto-arm.sh"
 
 sudo wget $START_SCRIPT_URL -O "$MOSQUITTO_DIR/run-mosquitto-arm.sh"
 
 echo "  Installing mosquitto service file..."
 
-SERVICE_FILE_URL="https://raw.githubusercontent.com/GreenSense/Index/master/scripts/docker/mosquitto/greensense-mosquitto-docker.service"
+SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/greensense-mosquitto-docker.service"
 
 sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/greensense-mosquitto-docker.service
 

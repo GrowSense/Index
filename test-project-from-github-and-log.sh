@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ""
-echo "Starting test of GreenSense project"
+echo "Starting test of GrowSense project"
 echo ""
 
 echo "Project number: $1"
@@ -14,7 +14,7 @@ USER=j
 WORKSPACE_PATH=/home/$USER/workspace
 #WORKSPACE_PATH=/media/$USER/store/workspace
 
-GREENSENSE_INDEX_PATH="$WORKSPACE_PATH/GreenSense/Index"
+GREENSENSE_INDEX_PATH="$WORKSPACE_PATH/GrowSense/Index"
 
 TIMESTAMP=$(date +"%Y_%m_%d_%I_%M_%p")
 
@@ -26,7 +26,7 @@ echo "Git branch: $PROJECT_BRANCH"
 PROJECT_PATH="$GREENSENSE_INDEX_PATH/$2"
 PROJECT_LOGS_PATH="$PROJECT_PATH/logs/$PROJECT_BRANCH"
 PROJECT_LOG_PATH="$PROJECT_LOGS_PATH/$TIMESTAMP.log"
-PROJECT_GIT_URL="https://raw.githubusercontent.com/GreenSense/$PROJECT_NAME"
+PROJECT_GIT_URL="https://raw.githubusercontent.com/GrowSense/$PROJECT_NAME"
 mkdir -p $PROJECT_LOGS_PATH
 echo "Logging to: $PROJECT_LOG_PATH"
 
@@ -73,7 +73,7 @@ echo "  $LATEST_LOG_PATH"
 curl -H 'Cache-Control: no-cache' -s $SCRIPT_URL | bash -s $PROJECT_BRANCH > $LATEST_LOG_PATH 2>&1
 
 # Check the output
-ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GreenSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
+ANALYSE_SCRIPT_URL="https://raw.githubusercontent.com/GrowSense/Index/$PROJECT_BRANCH/analyse-test-log.sh"
 
 echo ""
 echo "Getting analysis script from git..."
@@ -90,5 +90,5 @@ cp $PROJECT_LOG_PATH $PROJECT_LOGS_PUBLISH_PATH
 
 
 echo ""
-echo "Finished test of GreenSense project"
+echo "Finished test of GrowSense project"
 echo ""

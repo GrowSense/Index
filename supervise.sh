@@ -43,7 +43,7 @@ AUTO_UPGRADE_ENABLED=$(cat auto-upgrade-enabled.txt)
 
 echo ""
 echo "-----"
-echo "Starting GreenSense Supervisor Loop: $LOOP_NUMBER"
+echo "Starting GrowSense Supervisor Loop: $LOOP_NUMBER"
 echo ""
 if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
   if [ $(( $LOOP_NUMBER%$UPGRADE_FREQUENCY )) -eq "0" ]; then
@@ -60,6 +60,6 @@ else
   echo "  Auto upgrade disabled. Skipping."
 fi
 echo ""
-echo "Finished GreenSense Supervisor Loop: $LOOP_NUMBER"
+echo "Finished GrowSense Supervisor Loop: $LOOP_NUMBER"
 echo "-----"
 echo ""

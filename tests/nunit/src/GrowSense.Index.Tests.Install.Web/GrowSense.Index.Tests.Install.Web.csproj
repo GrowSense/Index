@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C508CEA4-44F9-4B29-A15C-A06A4F8FCA5F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GrowSense.Index.Tests.Install.Web</RootNamespace>
+    <AssemblyName>GrowSense.Index.Tests.Install.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\lib\NUnit\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="InstallPlugAndPlayFromWebTestFixture.cs" />
+    <Compile Include="SetWiFiCredentialsFromWebTestFixture.cs" />
+    <Compile Include="SetMqttCredentialsFromWebTestFixture.cs" />
+    <Compile Include="SetCredentialsFromWebTestFixture.cs" />
+    <Compile Include="UpdatePlugAndPlayFromWebTestFixture.cs" />
+    <Compile Include="UninstallPlugAndPlayFromWebTestFixture.cs" />
+    <Compile Include="UpgradeTestFixture.cs" />
+    <Compile Include="AddRemoteIndexFromWebTestFixture.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\GrowSense.Index.Tests\GrowSense.Index.Tests.csproj">
+      <Project>{5F680715-2487-4569-9E21-E0D6D8936CDC}</Project>
+      <Name>GrowSense.Index.Tests</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

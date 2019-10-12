@@ -1,3 +1,3 @@
-echo "Starting GreenSense supervisor service..."
+echo "Starting GrowSense supervisor service..."
 
 sh systemctl.sh start greensense-supervisor.service

@@ -1,5 +1,5 @@
 echo ""
-echo "Setting up GreenSense index from GitHub"
+echo "Setting up GrowSense index from GitHub"
 echo ""
 
 BRANCH=$1
@@ -20,16 +20,16 @@ fi
 
 echo ""
 echo "  Launching git clone..."
-git clone --recursive https://github.com/GreenSense/Index.git GreenSense/Index -b $BRANCH || exit 1
+git clone --recursive https://github.com/GrowSense/Index.git GrowSense/Index -b $BRANCH || exit 1
 
 echo ""
 echo "  Current directory:"
 echo "    $PWD"
 
-INDEX_DIR="GreenSense/Index" && \
+INDEX_DIR="GrowSense/Index" && \
 
 echo ""
-echo "  GreenSense index directory:" && \
+echo "  GrowSense index directory:" && \
 echo "  $INDEX_DIR" && \
 
 cd $INDEX_DIR && \
@@ -43,7 +43,7 @@ echo "  Launching init-runtime.sh script..."
 sh init-runtime.sh || exit 1
 
 echo ""
-echo "The GreenSense index is initialized and ready to use."
+echo "The GrowSense index is initialized and ready to use."
 
 
 

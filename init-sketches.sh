@@ -1,4 +1,4 @@
-echo "Initializing GreenSense index sketches"
+echo "Initializing GrowSense index sketches"
 
 DIR=$PWD
 

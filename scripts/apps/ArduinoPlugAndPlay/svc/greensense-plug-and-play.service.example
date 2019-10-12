@@ -1,10 +1,10 @@
  [Unit]
- Description=GreenSense Plug and Play Service
+ Description=GrowSense Plug and Play Service
  After=multi-user.target
 
  [Service]
  Type=idle
- ExecStart=/bin/sh -c "mkdir -p /usr/local/ArduinoPlugAndPlay/; cd /usr/local/ArduinoPlugAndPlay/; curl -f https://raw.githubusercontent.com/GreenSense/Index/master/scripts/apps/ArduinoPlugAndPlay/start-plug-and-play-from-github.sh -o start-plug-and-play-from-github.sh; sh start-plug-and-play-from-github.sh"
+ ExecStart=/bin/sh -c "mkdir -p /usr/local/ArduinoPlugAndPlay/; cd /usr/local/ArduinoPlugAndPlay/; curl -f https://raw.githubusercontent.com/GrowSense/Index/master/scripts/apps/ArduinoPlugAndPlay/start-plug-and-play-from-github.sh -o start-plug-and-play-from-github.sh; sh start-plug-and-play-from-github.sh"
 
  [Install]
  WantedBy=multi-user.target

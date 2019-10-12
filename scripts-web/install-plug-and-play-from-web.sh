@@ -1,4 +1,4 @@
-echo "Installing GreenSense plug and play..."
+echo "Installing GrowSense plug and play..."
 
 
 BRANCH=$1
@@ -52,7 +52,7 @@ if [ ! $MQTT_PORT ]; then
 fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 echo "  Branch: $BRANCH"
@@ -81,9 +81,9 @@ mkdir -p $PNP_INSTALL_DIR || exit 1
 cd $PNP_INSTALL_DIR
 
 echo ""
-echo "Importing GreenSense config file into ArduinoPlugAndPlay dir..."
+echo "Importing GrowSense config file into ArduinoPlugAndPlay dir..."
 
-wget -q --no-cache https://raw.githubusercontent.com/GreenSense/Index/$BRANCH/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O $PNP_INSTALL_DIR/ArduinoPlugAndPlay.exe.config || exit 1
+wget -q --no-cache https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system -O $PNP_INSTALL_DIR/ArduinoPlugAndPlay.exe.config || exit 1
 
 SUDO=""
 if [ ! "$(id -u)" -eq 0 ]; then
@@ -93,13 +93,13 @@ if [ ! "$(id -u)" -eq 0 ]; then
 fi
 
 echo ""
-echo "Setting up GreenSense index..."
+echo "Setting up GrowSense index..."
 
 if [ ! -d "$INDEX_DIR/.git" ]; then
   $SUDO mkdir -p $INDEX_DIR || exit 1
 
   if [ -d $INDEX_DIR ]; then
-    echo "Moving the existing GreenSense index..."
+    echo "Moving the existing GrowSense index..."
 
     $SUDO mv $INDEX_DIR $INDEX_DIR.old
   fi
@@ -109,9 +109,9 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   sudo apt-get install -y git || exit 1
 
   echo ""
-  echo "Cloning the GreenSense index repository..."
+  echo "Cloning the GrowSense index repository..."
 
-  $SUDO git clone --depth 1 --recursive https://github.com/GreenSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
+  $SUDO git clone --depth 1 --recursive https://github.com/GrowSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
 
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
@@ -195,4 +195,4 @@ echo "Publishing status to MQTT..."
 sh run-background.sh sleep 30 && sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
 
 echo ""
-echo "Finished installing GreenSense plug and play."
+echo "Finished installing GrowSense plug and play."

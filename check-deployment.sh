@@ -19,12 +19,12 @@ echo "MQTT Port: $INSTALL_MQTT_PORT"
 
 echo ""
 echo "Waiting for plug and play..."
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && bash wait-for-plug-and-play.sh"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-plug-and-play.sh"
 
 #echo ""
 #echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -92,7 +92,7 @@ else
 fi
 
 echo ""
-echo "Viewing GreenSense Plug and Play service log..."
+echo "Viewing GrowSense Plug and Play service log..."
 
 PNP_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u arduino-plug-and-play.service -b")
 
@@ -113,7 +113,7 @@ echo "${PNP_RESULT}"
 #echo ""
 #echo "Supervising devices..."
 # Disabled because it conflicts with the supervisor service
-#SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index/ && bash supervise-devices.sh 1")
+#SUPERVISE_DEVICES_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index/ && bash supervise-devices.sh 1")
 
 #echo "${SUPERVISE_DEVICES_RESULT}"
 
@@ -130,7 +130,7 @@ if [ -d logs/updates ]; then
 fi
 mkdir -p logs/updates
 
-sshpass -p $INSTALL_SSH_PASSWORD scp $INSTALL_SSH_USERNAME@$INSTALL_HOST:/usr/local/GreenSense/Index/logs/updates/*.txt logs/updates/
+sshpass -p $INSTALL_SSH_PASSWORD scp $INSTALL_SSH_USERNAME@$INSTALL_HOST:/usr/local/GrowSense/Index/logs/updates/*.txt logs/updates/
 
 echo ""
 echo "Checking update log files..."
@@ -143,47 +143,47 @@ for LOG_FILE in logs/updates/*.txt; do
 done
 
 echo ""
-echo "Viewing GreenSense supervisor service log..."
+echo "Viewing GrowSense supervisor service log..."
 
 SUPERVISOR_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u greensense-supervisor.service -b | tail -n 200")
 
 echo "${SUPERVISOR_LOG}"
 
 echo ""
-echo "Viewing GreenSense supervisor service status..."
+echo "Viewing GrowSense supervisor service status..."
 
 SUPERVISOR_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-supervisor.service")
 
 echo "${SUPERVISOR_RESULT}"
 
-[[ ! $(echo $SUPERVISOR_RESULT) =~ "Loaded: loaded" ]] && echo "GreenSense supervisor service isn't loaded" && exit 1
-[[ ! $(echo $SUPERVISOR_RESULT) =~ "Active: active" ]] && echo "GreenSense supervisor service isn't active" && exit 1
-[[ $(echo $SUPERVISOR_RESULT) =~ "not found" ]] && echo "GreenSense supervisor service wasn't found" && exit 1
+[[ ! $(echo $SUPERVISOR_RESULT) =~ "Loaded: loaded" ]] && echo "GrowSense supervisor service isn't loaded" && exit 1
+[[ ! $(echo $SUPERVISOR_RESULT) =~ "Active: active" ]] && echo "GrowSense supervisor service isn't active" && exit 1
+[[ $(echo $SUPERVISOR_RESULT) =~ "not found" ]] && echo "GrowSense supervisor service wasn't found" && exit 1
 
 echo ""
 echo "Listing device info directories..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; ls devices"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index; ls devices"
 
 echo ""
 echo "Viewing garden data..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh view-garden.sh"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index; sh view-garden.sh"
 
 echo ""
 echo "Checking garden status..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden.sh"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index; sh check-garden.sh"
 
 echo ""
 echo "Viewing garden device versions..."
 
-sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index; sh check-garden-device-versions.sh"
+sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index; sh check-garden-device-versions.sh"
 
 #echo ""
 #echo "Setting supervisor status check frequency back to default..."
 
-#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GreenSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
 
 echo "Finished checking status of deployment."
 echo ""

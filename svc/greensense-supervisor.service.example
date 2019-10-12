@@ -1,10 +1,10 @@
  [Unit]
- Description=GreenSense System Supervisor Service
+ Description=GrowSense System Supervisor Service
  After=multi-user.target
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "mkdir -p /usr/local/GreenSense/Index/; cd /usr/local/GreenSense/Index/; bash supervise-ongoing.sh"
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/GrowSense/Index/; cd /usr/local/GrowSense/Index/; bash supervise-ongoing.sh"
 
  [Install]
  WantedBy=multi-user.target

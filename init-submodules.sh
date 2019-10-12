@@ -1,4 +1,4 @@
-echo "Initializing GreenSense index submodules"
+echo "Initializing GrowSense index submodules"
 
 DIR=$PWD
 

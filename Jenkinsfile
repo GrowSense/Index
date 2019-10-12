@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/Index.git .' )
+                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )

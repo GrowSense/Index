@@ -1,7 +1,7 @@
 DIR=$PWD
 
 echo "" && \
-echo "Initializing GreenSense index unit tests" && \
+echo "Initializing GrowSense index unit tests" && \
 
 sh init-apps.sh && \
 

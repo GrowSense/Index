@@ -56,20 +56,20 @@ fi
 # If the package isn't found
 if [ ! -f "$PACKAGE_FILE_EXT" ]; then
 
-  # Check if the project exists within the GreenSense index
-	[[ $(echo $PWD) =~ "GreenSense/Index" ]] && IS_IN_INDEX=1 || IS_IN_INDEX=0
+  # Check if the project exists within the GrowSense index
+	[[ $(echo $PWD) =~ "GrowSense/Index" ]] && IS_IN_INDEX=1 || IS_IN_INDEX=0
 	
 	if [ $IS_IN_INDEX ]; then
-	  # Get the path to the GreenSense index lib directory
+	  # Get the path to the GrowSense index lib directory
 	  INDEX_LIB_DIR=$(readlink -f "../../../lib")
 	  
-	  #echo "  GreenSense index lib directory:"
+	  #echo "  GrowSense index lib directory:"
 	  #echo "    $INDEX_LIB_DIR"
 	  
-	  # Check if the package exists in the GreenSense inject lib directory
+	  # Check if the package exists in the GrowSense inject lib directory
     if [ -d "$INDEX_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION" ]; then
-      echo "  From GreenSense index lib directory"
-      # Copy the package from the GreenSense index lib directory
+      echo "  From GrowSense index lib directory"
+      # Copy the package from the GrowSense index lib directory
       cp -r $INDEX_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION $PACKAGE_FOLDER || exit 1
       cp -r $INDEX_LIB_DIR/$PACKAGE_FILE_EXT $PACKAGE_FILE_EXT || exit 1
     fi
@@ -86,10 +86,10 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
 	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FOLDER/" || exit 1
 	  
 	  if [ $IS_IN_INDEX ]; then
-      # Make the GreenSense index lib directory if necessary
+      # Make the GrowSense index lib directory if necessary
 	    mkdir -p $INDEX_LIB_DIR
 	    
-	    # Copy the package into the GreenSense index lib directory
+	    # Copy the package into the GrowSense index lib directory
 	    cp -r "$PACKAGE_NAME" $INDEX_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION/ || exit 1
 	    cp -r "$PACKAGE_FILE_EXT" $INDEX_LIB_DIR/$PACKAGE_FILE_EXT || exit 1
 	  fi

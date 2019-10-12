@@ -60,7 +60,7 @@ echo "  Device name: $DEVICE_NAME"
 echo "  Port: $DEVICE_PORT"
 echo "  Host: $DEVICE_HOST"
 
-DEVICE_FAMILY="GreenSense"
+DEVICE_FAMILY="GrowSense"
 
 DEVICES_DIR=$PWD/devices
 

@@ -11,7 +11,7 @@
     <add key="SmtpServer" value="mail.example.com"/>
     <add key="EmailAddress" value="user@example.com"/>
     <add key="WaitTimeBeforeRetry" value="120"/>
-    <add key="DevicesDirectory" value="../GreenSense/Index/devices"/>
-    <add key="TargetDirectory" value="../GreenSense/Index"/>
+    <add key="DevicesDirectory" value="../GrowSense/Index/devices"/>
+    <add key="TargetDirectory" value="../GrowSense/Index"/>
   </appSettings>
 </configuration>

@@ -1,4 +1,4 @@
-echo "Reinstalling GreenSense plug and play..."
+echo "Reinstalling GrowSense plug and play..."
 
 
 BRANCH=$1
@@ -18,11 +18,11 @@ ADMIN_EMAIL=${10}
 EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUsername] [MqttPassword] [MqttPort] [SmtpServer] [AdminEmail]"
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 if [ "$INSTALL_DIR" = "" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 
@@ -33,7 +33,7 @@ BASE_DIR="$(dirname $GREENSENSE_DIR)"
 PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 
 if [ ! -d "$INDEX_DIR" ]; then
-  echo "Can't reinstall because GreenSense index wasn't found."
+  echo "Can't reinstall because GrowSense index wasn't found."
   exit 1
 fi
 
@@ -107,13 +107,13 @@ sh mqtt-publish.sh "/garden/StatusMessage" "Reinstalling" || echo "MQTT publish 
 # Give the MQTT status time to be displayed
 sleep 5s
 
-echo "Uninstalling GreenSense plug and play on remote computer..."
+echo "Uninstalling GrowSense plug and play on remote computer..."
 
-wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/scripts-web/uninstall-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME || exit 1
+wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH_NAME/scripts-web/uninstall-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME || exit 1
 
-echo "Installing GreenSense plug and play on remote computer..."
+echo "Installing GrowSense plug and play on remote computer..."
 
-wget -q --no-cache -O - https://raw.githubusercontent.com/GreenSense/Index/$BRANCH_NAME/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME ? $WIFI_NAME $WIFI_PASSWORD $MASTER_MQTT_HOST $MASTER_MQTT_USERNAME $MASTER_MQTT_PASSWORD $MASTER_MQTT_PORT $SMTP_SERVER $ADMIN_EMAIL || exit 1
+wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH_NAME/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH_NAME ? $WIFI_NAME $WIFI_PASSWORD $MASTER_MQTT_HOST $MASTER_MQTT_USERNAME $MASTER_MQTT_PASSWORD $MASTER_MQTT_PORT $SMTP_SERVER $ADMIN_EMAIL || exit 1
 
 
 echo "Reinstalling plug and play..."
@@ -126,4 +126,4 @@ sleep 15s
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Reinstalled" || echo "MQTT publish failed."
 
-echo "Finished reinstalling GreenSense plug and play"
+echo "Finished reinstalling GrowSense plug and play"

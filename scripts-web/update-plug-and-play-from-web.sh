@@ -1,4 +1,4 @@
-echo "Updating GreenSense plug and play..."
+echo "Updating GrowSense plug and play..."
 
 BRANCH=$1
 INSTALL_DIR=$2
@@ -10,10 +10,10 @@ if [ ! $BRANCH ]; then
 fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 if [ ! "$INSTALL_DIR" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 echo "Branch: $BRANCH"
@@ -37,15 +37,15 @@ fi
 
 INDEX_DIR=$INSTALL_DIR
 
-echo "Checking for GreenSense index dir..."
+echo "Checking for GrowSense index dir..."
 if [ ! -d $INDEX_DIR ]; then
-  echo "GreenSense Index doesn't appear to be installed at:"
+  echo "GrowSense Index doesn't appear to be installed at:"
   echo "  $INDEX_DIR"
   echo "Use the install-plug-and-play-from-web-sh script instead."
   exit 1
 fi
 
-echo "Moving to GreenSense index dir..."
+echo "Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
 WIFI_NAME=$(cat wifi-name.security)
@@ -108,7 +108,7 @@ sh recreate-garden-services.sh || exit 1
 #  echo "[mock] systemctl daemon-reload"
 #fi
 
-echo "Moving to GreenSense index dir..."
+echo "Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
 echo "Start garden services..."
@@ -124,4 +124,4 @@ echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "/garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
 
 
-echo "Finished reinstalling GreenSense plug and play!"
+echo "Finished reinstalling GrowSense plug and play!"

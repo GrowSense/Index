@@ -1,4 +1,4 @@
-echo "Uninstalling GreenSense plug and play..."
+echo "Uninstalling GrowSense plug and play..."
 
 BRANCH=$1
 INSTALL_DIR=$2
@@ -10,10 +10,10 @@ if [ ! $BRANCH ]; then
 fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 if [ ! "$INSTALL_DIR" ]; then
-    INSTALL_DIR="/usr/local/GreenSense/Index"
+    INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
 echo "Branch: $BRANCH"
@@ -44,13 +44,13 @@ fi
 INDEX_DIR="$INSTALL_DIR"
 
 echo ""
-echo "Checking for GreenSense index dir..."
+echo "Checking for GrowSense index dir..."
 if [ ! -d $INDEX_DIR ]; then
-  echo "GreenSense Index doesn't appear to be installed at:"
+  echo "GrowSense Index doesn't appear to be installed at:"
   echo "  $INDEX_DIR"
   echo "Aborting uninstall."
 else
-  echo "Moving to GreenSense index dir..."
+  echo "Moving to GrowSense index dir..."
   cd $INDEX_DIR
   
   echo "Waiting for the installation to unlock..."
@@ -73,7 +73,7 @@ else
   sh remove-garden-devices.sh || echo "Failed to remove garden devices"
 
   echo ""
-  echo "Removing GreenSense directory..."
+  echo "Removing GrowSense directory..."
   echo "  $INSTALL_DIR"
   rm $INSTALL_DIR -R || exit 1
   echo ""
@@ -119,10 +119,10 @@ docker rm mosquitto || echo "Mosquitto docker container not found. Skipping remo
 
 echo ""
 echo "Removing nginx linear MQTT config HTTP docker container..."
-docker stop greensense-ui-http || echo "GreenSense nginx linear MQTT config HTTP docker container not found. Skipping stop."
-docker rm greensense-ui-http || echo "GreenSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
+docker stop greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping stop."
+docker rm greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
 
 echo ""
-echo "Finished uninstalling GreenSense plug and play!"
+echo "Finished uninstalling GrowSense plug and play!"
   
 

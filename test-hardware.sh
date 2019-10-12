@@ -1,4 +1,4 @@
-echo "Testing the GreenSense index project..."
+echo "Testing the GrowSense index project..."
 
 DIR=$PWD
 
