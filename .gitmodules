@@ -19,3 +19,9 @@
 [submodule "sketches/ui/Serial1602ShieldSystemUI"]
 	path = sketches/ui/Serial1602ShieldSystemUI
 	url = https://github.com/GrowSense/Serial1602ShieldSystemUI.git
+[submodule "sketches/monitor/TemperatureHumidityDHTSensorSerial"]
+	path = sketches/monitor/TemperatureHumidityDHTSensorSerial
+	url = https://github.com/GrowSense/TemperatureHumidityDHTSensorSerial.git
+[submodule "sketches/monitor/LightPRSensorCalibratedSerial"]
+	path = sketches/monitor/LightPRSensorCalibratedSerial
+	url = https://github.com/GrowSense/LightPRSensorCalibratedSerial.git
