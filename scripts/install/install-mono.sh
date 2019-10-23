@@ -39,6 +39,14 @@ else
   echo "  Mono is already installed. Skipping install."
 fi
 
+if ! type "xsp4" &>/dev/null; then
+    echo "  Installing mono xsp4"
+    sudo apt-get install -y tzdata mono-xsp4 || exit 1
+else
+  echo "  Mono xsp4 is already installed. Skipping install."
+fi
+
+
 echo ""
 echo "  Checking mono version..."
 mono --version
