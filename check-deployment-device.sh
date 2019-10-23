@@ -30,11 +30,11 @@ echo "  Device group: $DEVICE_GROUP"
 echo "  Device connection: $DEVICE_CONNECTION"
 echo "  Device info dir: $DEPLOYMENT_DEVICE_INFO_DIR"
 
-SERVICE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
+SERVICE_NAME="growsense-mqtt-bridge-$DEVICE_NAME.service"
 SERVICE_LABEL="MQTT bridge"
 
 if [ "$DEVICE_GROUP" = "ui" ]; then
-  SERVICE_NAME="greensense-ui-1602-$DEVICE_NAME.service"
+  SERVICE_NAME="growsense-ui-1602-$DEVICE_NAME.service"
   SERVICE_LABEL="UI controller"
 fi
 

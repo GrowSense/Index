@@ -23,10 +23,10 @@ else
   else
     if [ "$DEVICE_GROUP" = "ui" ]; then
       echo "  Starting UI controller service..." && \
-      sh systemctl.sh start greensense-ui-1602-$DEVICE_NAME.service || exit 1
+      sh systemctl.sh start growsense-ui-1602-$DEVICE_NAME.service || exit 1
     else
       echo "  Starting MQTT bridge service..." && \
-      sh systemctl.sh start greensense-mqtt-bridge-$DEVICE_NAME.service || exit 1
+      sh systemctl.sh start growsense-mqtt-bridge-$DEVICE_NAME.service || exit 1
     fi
     echo "Garden device services started for '$DEVICE_NAME'"
   fi  

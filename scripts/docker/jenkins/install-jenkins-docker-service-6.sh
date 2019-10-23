@@ -1,8 +1,8 @@
-sudo cp -f greensense-jenkins-docker-6.service /lib/systemd/system/greensense-jenkins-docker.service
-sudo chmod 644 /lib/systemd/system/greensense-jenkins-docker.service
+sudo cp -f growsense-jenkins-docker-6.service /lib/systemd/system/growsense-jenkins-docker.service
+sudo chmod 644 /lib/systemd/system/growsense-jenkins-docker.service
 
 #sudo systemctl daemon-reload
-sudo systemctl enable greensense-jenkins-docker.service
-sudo systemctl restart greensense-jenkins-docker.service
+sudo systemctl enable growsense-jenkins-docker.service
+sudo systemctl restart growsense-jenkins-docker.service
 
 echo "Finished installing service"

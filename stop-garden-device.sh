@@ -24,12 +24,12 @@ else
     if [ "$DEVICE_GROUP" = "ui" ]; then
     
       echo "  Stopping UI controller service" && \
-      sh systemctl.sh stop greensense-ui-1602-$DEVICE_NAME.service || exit 1
+      sh systemctl.sh stop growsense-ui-1602-$DEVICE_NAME.service || exit 1
       
     else
 
       echo "  Stopping MQTT bridge service" && \
-      sh systemctl.sh stop greensense-mqtt-bridge-$DEVICE_NAME.service || exit 1
+      sh systemctl.sh stop growsense-mqtt-bridge-$DEVICE_NAME.service || exit 1
 
     fi
     

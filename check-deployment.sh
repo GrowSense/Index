@@ -24,7 +24,7 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 #echo ""
 #echo "Setting supervisor status check frequency to 1 so it gets updated quickly..."
 
-#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart growsense-supervisor.service"
 
 echo ""
 echo "Viewing platform.io list..."
@@ -80,7 +80,7 @@ echo "  MQTT Host: $INSTALL_MQTT_HOST"
 # Only check the mosquitto service if the MQTT host is localhost (otherwise it's not installed because it's using a remote MQTT host)
 if [ "$INSTALL_MQTT_HOST" = "localhost" ] || [ "$INSTALL_MQTT_HOST" = "127.0.0.1" ]; then
   echo "MQTT host is running on the local host"
-  MOSQUITTO_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-mosquitto-docker.service")
+  MOSQUITTO_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status growsense-mosquitto-docker.service")
 
   echo "${MOSQUITTO_RESULT}"
 
@@ -145,14 +145,14 @@ done
 echo ""
 echo "Viewing GrowSense supervisor service log..."
 
-SUPERVISOR_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u greensense-supervisor.service -b | tail -n 200")
+SUPERVISOR_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u growsense-supervisor.service -b | tail -n 200")
 
 echo "${SUPERVISOR_LOG}"
 
 echo ""
 echo "Viewing GrowSense supervisor service status..."
 
-SUPERVISOR_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status greensense-supervisor.service")
+SUPERVISOR_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status growsense-supervisor.service")
 
 echo "${SUPERVISOR_RESULT}"
 
@@ -183,7 +183,7 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 #echo ""
 #echo "Setting supervisor status check frequency back to default..."
 
-#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart greensense-supervisor.service"
+#sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && git checkout supervisor-status-check-frequency.txt && sudo systemctl restart growsense-supervisor.service"
 
 echo "Finished checking status of deployment."
 echo ""

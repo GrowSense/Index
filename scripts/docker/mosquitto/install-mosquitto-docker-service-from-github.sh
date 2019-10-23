@@ -46,13 +46,13 @@ sudo wget $START_SCRIPT_URL -O "$MOSQUITTO_DIR/run-mosquitto-arm.sh"
 
 echo "  Installing mosquitto service file..."
 
-SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/greensense-mosquitto-docker.service"
+SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/growsense-mosquitto-docker.service"
 
-sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/greensense-mosquitto-docker.service
+sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/growsense-mosquitto-docker.service
 
-sudo chmod 644 /lib/systemd/system/greensense-mosquitto-docker.service
+sudo chmod 644 /lib/systemd/system/growsense-mosquitto-docker.service
 
-sudo systemctl enable greensense-mosquitto-docker.service
-sudo systemctl restart greensense-mosquitto-docker.service
+sudo systemctl enable growsense-mosquitto-docker.service
+sudo systemctl restart growsense-mosquitto-docker.service
 
 echo "Finished installing service"

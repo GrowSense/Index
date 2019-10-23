@@ -12,7 +12,7 @@ fi
 DOCKER_SCRIPT="docker.sh"
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
-MOSQUITTO_SERVICE="greensense-mosquitto-docker.service"
+MOSQUITTO_SERVICE="growsense-mosquitto-docker.service"
 
 echo ""
 echo "  Stopping the mosquitto docker service..."

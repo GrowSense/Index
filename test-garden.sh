@@ -9,7 +9,7 @@ echo "----------" && \
 echo "Checking results" && \
 echo "----------" && \
 
-SERVICE_FILE="/lib/systemd/system/greensense-mosquitto-docker.service" && \
+SERVICE_FILE="/lib/systemd/system/growsense-mosquitto-docker.service" && \
 
 if [ ! -f "$SERVICE_FILE" ]; then
     echo "Mosquitto docker service file not found at:" && \

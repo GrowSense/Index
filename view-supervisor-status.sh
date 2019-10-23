@@ -1,1 +1,1 @@
-sh systemctl.sh status greensense-supervisor.service
+sh systemctl.sh status growsense-supervisor.service

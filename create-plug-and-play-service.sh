@@ -1,7 +1,7 @@
 echo "Creating Plug and Play service file..."
 
-SERVICE_EXAMPLE_FILE="greensense-plug-and-play.service.example"
-SERVICE_FILE="greensense-plug-and-play.service"
+SERVICE_EXAMPLE_FILE="growsense-plug-and-play.service.example"
+SERVICE_FILE="growsense-plug-and-play.service"
 SERVICE_PATH="scripts/apps/ArduinoPlugAndPlay/svc"
 SERVICE_FILE_PATH="$SERVICE_PATH/$SERVICE_FILE"
 SERVICE_EXAMPLE_FILE_PATH="$SERVICE_PATH/$SERVICE_EXAMPLE_FILE"

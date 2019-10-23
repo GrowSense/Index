@@ -1,1 +1,1 @@
-sh systemctl.sh status greensense-mosquitto-docker.service
+sh systemctl.sh status growsense-mosquitto-docker.service

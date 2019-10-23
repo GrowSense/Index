@@ -16,8 +16,8 @@ fi
 echo "Device name: $DEVICE_NAME"
 echo "Device port: $DEVICE_PORT"
 
-SERVICE_EXAMPLE_FILE="greensense-ui-1602.service.template"
-SERVICE_FILE="greensense-ui-1602-$DEVICE_NAME.service"
+SERVICE_EXAMPLE_FILE="growsense-ui-1602.service.template"
+SERVICE_FILE="growsense-ui-1602-$DEVICE_NAME.service"
 SERVICE_PATH="scripts/apps/Serial1602ShieldSystemUIController/svc"
 SERVICE_FILE_PATH="$SERVICE_PATH/$SERVICE_FILE"
 SERVICE_EXAMPLE_FILE_PATH="$SERVICE_PATH/$SERVICE_EXAMPLE_FILE"

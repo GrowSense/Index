@@ -44,7 +44,7 @@ echo ""
 echo "Installed services"
 echo ""
 
-for filename in /lib/systemd/system/greensense-*.service; do
+for filename in /lib/systemd/system/growsense-*.service; do
   [ -f "$filename" ] || break
   shortname=$(basename $filename)
   echo "Removing service: $shortname" && \

@@ -1,1 +1,1 @@
-sh journalctl.sh -u greensense-mosquitto-docker.service
+sh journalctl.sh -u growsense-mosquitto-docker.service

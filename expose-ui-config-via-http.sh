@@ -14,7 +14,7 @@ if [ ! -f "is-mock-docker.txt" ]; then
   sleep 3
 
   echo ""
-  echo "  Checking greensense-ui-http docker container started..."
+  echo "  Checking growsense-ui-http docker container started..."
   DOCKER_PS_RESULT="$(docker ps)"
 
   if [[ $(echo $DOCKER_PS_RESULT) =~ "Cannot connect to the Docker daemon" ]]; then
@@ -22,8 +22,8 @@ if [ ! -f "is-mock-docker.txt" ]; then
     exit 1
   fi
 
-  if [[ ! $(echo $DOCKER_PS_RESULT) =~ "greensense-ui-http" ]]; then
-    echo "Error: greensense-ui-http docker container isn't running"
+  if [[ ! $(echo $DOCKER_PS_RESULT) =~ "growsense-ui-http" ]]; then
+    echo "Error: growsense-ui-http docker container isn't running"
     exit 1
   fi
 

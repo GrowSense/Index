@@ -1,8 +1,8 @@
 
 echo "Starting nginx to expose the Linear MQTT Dashboard UI config file via HTTP"
 
-#docker stop greensense-ui-http
-#docker rm greensense-ui-http
+#docker stop growsense-ui-http
+#docker rm growsense-ui-http
 
 PORT="81"
 
@@ -16,8 +16,8 @@ PUBLIC_DIR="$PWD/../../../mobile/linearmqtt/output/"
 docker pull tobi312/rpi-nginx
 
 # compulsivecoder/nginx-arm is disabled because it doesn't work on Raspbian
-#docker run -d --restart always --name greensense-ui-http -p $PORT:80 -v $PUBLIC_DIR:/usr/share/nginx/html:ro -v $PWD/nginx.conf:/etc/nginx/nginx.conf:ro -i compulsivecoder/nginx-arm
-docker run --name greensense-ui-http -d --restart always -p $PORT:80 -p 443:443 -v $PWD/config:/etc/nginx/conf.d:ro -v $PUBLIC_DIR:/var/www/html tobi312/rpi-nginx
+#docker run -d --restart always --name growsense-ui-http -p $PORT:80 -v $PUBLIC_DIR:/usr/share/nginx/html:ro -v $PWD/nginx.conf:/etc/nginx/nginx.conf:ro -i compulsivecoder/nginx-arm
+docker run --name growsense-ui-http -d --restart always -p $PORT:80 -p 443:443 -v $PWD/config:/etc/nginx/conf.d:ro -v $PUBLIC_DIR:/var/www/html tobi312/rpi-nginx
 
 echo "View it at:"
 echo "Syntax:"

@@ -74,7 +74,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       # Publish the status. The device is being upgraded.
       sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
       
-      SERVICE_NAME="greensense-mqtt-bridge-$DEVICE_NAME.service"
+      SERVICE_NAME="growsense-mqtt-bridge-$DEVICE_NAME.service"
       
       if [ "$DEVICE_GROUP" = "ui" ]; then  
         echo "Giving the UI time to display the message..."

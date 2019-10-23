@@ -25,7 +25,7 @@ namespace GrowSense.Index.Tests.Integration
 
             Assert.IsTrue (output.Contains (successfulText), "Script output doesn't contain the text: " + successfulText);
 
-            var serviceFileName = "greensense-mosquitto-docker.service";
+            var serviceFileName = "growsense-mosquitto-docker.service";
 
             CheckServiceExists (serviceFileName);
         }

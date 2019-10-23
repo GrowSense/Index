@@ -119,8 +119,8 @@ docker rm mosquitto || echo "Mosquitto docker container not found. Skipping remo
 
 echo ""
 echo "Removing nginx linear MQTT config HTTP docker container..."
-docker stop greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping stop."
-docker rm greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
+docker stop growsense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping stop."
+docker rm growsense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
 
 echo ""
 echo "Finished uninstalling GrowSense plug and play!"

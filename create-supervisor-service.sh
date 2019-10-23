@@ -1,7 +1,7 @@
 echo "Creating GrowSense system supervisor service..."
 
-SERVICE_EXAMPLE_FILE="greensense-supervisor.service.example"
-SERVICE_FILE="greensense-supervisor.service"
+SERVICE_EXAMPLE_FILE="growsense-supervisor.service.example"
+SERVICE_FILE="growsense-supervisor.service"
 SERVICE_PATH="svc"
 SERVICE_FILE_PATH="$SERVICE_PATH/$SERVICE_FILE"
 SERVICE_EXAMPLE_FILE_PATH="$SERVICE_PATH/$SERVICE_EXAMPLE_FILE"

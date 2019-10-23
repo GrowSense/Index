@@ -5,13 +5,13 @@ if ! type "docker" > /dev/null; then
 fi
 
 # Install jenkins service file
-SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/greensense-jenkins-docker-2.service"
+SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/jenkins/growsense-jenkins-docker-2.service"
 
-sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/greensense-jenkins-docker.service
+sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/growsense-jenkins-docker.service
 
-sudo chmod 644 /lib/systemd/system/greensense-jenkins-docker.service
+sudo chmod 644 /lib/systemd/system/growsense-jenkins-docker.service
 
-sudo systemctl enable greensense-jenkins-docker.service
-sudo systemctl restart greensense-jenkins-docker.service
+sudo systemctl enable growsense-jenkins-docker.service
+sudo systemctl restart growsense-jenkins-docker.service
 
 echo "Finished installing service"

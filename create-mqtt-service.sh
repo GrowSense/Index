@@ -51,7 +51,7 @@ $SUDO chmod 777 $MOSQUITTO_INSTALL_DIR/data || exit 1
 
 INTERNAL_MOSQUITTO_DIRECTORY="scripts/docker/mosquitto"
 
-SERVICE_FILE_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/greensense-mosquitto-docker.service"
+SERVICE_FILE_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/growsense-mosquitto-docker.service"
 
 echo ""
 echo "  Copying run script into install dir..."

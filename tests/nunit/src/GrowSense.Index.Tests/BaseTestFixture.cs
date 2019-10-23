@@ -254,7 +254,7 @@ namespace GrowSense.Index.Tests
 
         public void CheckMqttBridgeServiceFileWasCreated (string deviceName)
         {
-            var serviceFile = Path.Combine (GetServicesDirectory (), "greensense-mqtt-bridge-" + deviceName + ".service");
+            var serviceFile = Path.Combine (GetServicesDirectory (), "growsense-mqtt-bridge-" + deviceName + ".service");
 
             var fileExists = File.Exists (serviceFile);
 
