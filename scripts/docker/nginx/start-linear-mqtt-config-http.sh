@@ -4,7 +4,7 @@ echo "Starting nginx to expose the Linear MQTT Dashboard UI config file via HTTP
 #docker stop growsense-ui-http
 #docker rm growsense-ui-http
 
-PORT="81"
+PORT="90"
 
 echo "Port: $PORT"
 
