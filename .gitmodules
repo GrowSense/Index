@@ -25,3 +25,6 @@
 [submodule "sketches/monitor/LightPRSensorCalibratedSerial"]
 	path = sketches/monitor/LightPRSensorCalibratedSerial
 	url = https://github.com/GrowSense/LightPRSensorCalibratedSerial.git
+[submodule "www/SystemManagerWWW"]
+	path = www/SystemManagerWWW
+	url = https://github.com/GrowSense/SystemManagerWWW.git

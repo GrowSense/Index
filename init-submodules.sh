@@ -29,4 +29,8 @@ for GROUP_DIR in sketches/*; do
   done
 done
 
+cd www/SystemManagerWWW
+bash init.sh
+cd $DIR
+
 echo "Finished initializing submodules"

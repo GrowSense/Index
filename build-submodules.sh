@@ -22,4 +22,8 @@ for GROUP_DIR in sketches/*; do
   done
 done
 
+cd www/SystemManagerWWW
+bash build.sh
+cd $DIR
+
 echo "Finished building submodules"
