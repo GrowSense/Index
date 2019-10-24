@@ -32,13 +32,13 @@ pipeline {
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh init-apps.sh'
-                sh 'sh init-tests.sh'
+                sh 'sh init-all.sh'
             }
         }
-        stage('Set MQTT Credentials') {
+        stage('Configure WiFi and MQTT') {
             when { expression { !shouldSkipBuild() } }
             steps {
+                shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 shHide( 'sh set-mqtt-credentials.sh ${MQTT_HOST} ${MQTT_USERNAME} ${MQTT_PASSWORD}' )
             }
         }
@@ -54,10 +54,43 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
+        stage('Deploy') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-dev.sh'
+               sh 'sh deploy-master.sh'
+               sh 'sh deploy-lts.sh'
+            }
+        }
+        stage('Deploy Update') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-dev-update.sh'
+               sh 'sh deploy-master-update.sh'
+            }
+        }
         stage('Clean') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh clean.sh'
+            }
+        }
+        stage('Graduate') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh graduate.sh'
+            }
+        }
+        stage('Increment Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+              sh 'sh increment-version.sh'
+            }
+        }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
             }
         }
         stage('CleanWSEnd') {
