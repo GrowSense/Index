@@ -67,5 +67,13 @@ git pull origin $BRANCH || exit 1
 
 cd $DIR
 
+echo "Updating SystemManagerWWW"
+
+cd www/SystemManagerWWW && \
+sh clean.sh && \
+git checkout $BRANCH && \
+git pull origin $BRANCH || exit 1
+
+cd $DIR
 
 echo "Finished updating submodules"
