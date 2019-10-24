@@ -12,7 +12,8 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                shHide( 'git clone --depth 1 --recursive --shallow-submodules -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
+                shHide( 'git clone --depth 1 -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
+                sh 'git submodule init'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
