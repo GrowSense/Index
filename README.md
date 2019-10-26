@@ -94,29 +94,29 @@ Notes:
 ## Update GrowSense and Plug and Play
 
 ```
-# Use either wget or curl to download and launch the setup process...
+# Use either wget or curl to download and launch the update process...
 
 # wget
-sudo wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+sudo wget -O - https://raw.githubusercontent.com/GrowSense/Index/lts/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 
 # curl
-curl https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+curl https://raw.githubusercontent.com/GrowSense/Index/lts/scripts-web/update-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 ```
 
 ## Uninstall GrowSense and Plug and Play
 
 ```
-# Use either wget or curl to download and launch the setup process...
+# Use either wget or curl to download and launch the uninstall process...
 
 # wget
-sudo wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+sudo wget -O - https://raw.githubusercontent.com/GrowSense/Index/lts/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 
 # curl
-curl https://raw.githubusercontent.com/GrowSense/Index/master/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
+curl https://raw.githubusercontent.com/GrowSense/Index/lts/scripts-web/uninstall-plug-and-play-from-web.sh | sudo bash -s -- [Branch] [InstallDir]
 ```
 
 
-# Clone and Setup
+# Setup Development Environment
 
 ## Automatic Clone and Initialize
 ```
@@ -128,11 +128,11 @@ cd ~/workspace
 # Use either wget or curl to download and launch the setup process...
 
 # wget
-wget -O - https://raw.githubusercontent.com/GrowSense/Index/master/setup-from-github.sh | sh
+wget -O - https://raw.githubusercontent.com/GrowSense/Index/dev/setup-from-github.sh | sh
 cd GrowSense/Index
 
 # curl
-curl https://raw.githubusercontent.com/GrowSense/Index/master/setup-from-github.sh | sh
+curl https://raw.githubusercontent.com/GrowSense/Index/dev/setup-from-github.sh | sh
 cd GrowSense/Index
 
 ```
@@ -149,7 +149,7 @@ cd GrowSense/Index
 
 ### Prepare Host Computer
 ```
-sudo bash prepare.sh
+bash prepare.sh
 ```
 
 ### Initialize Libraries
@@ -157,7 +157,7 @@ sudo bash prepare.sh
 bash init.sh
 ```
 
-## Manually Set Up Garden
+## Manually Set Up Garden Computer
 These script are for a manual GrowSense setup when not using plug nd play, such as for a custom setup or for a dev workspace.
 You shouldn't need to use these scripts if you've installed the plug and play system, unless you need to debug the system.
 
@@ -171,20 +171,26 @@ bash set-mqtt-credentials.sh 10.0.0.20 myuser mypass
 Note: The Port argument is optional and defaults to 1883.
 
 ### Set Up Garden Services
-Set up the mosquitto MQTT broker.
+To set up the GrowSense garden services.
 Note: Set the MQTT credentials above first.
 ```
 bash create-garden.sh
 ```
 
+### Stop Garden Services
+To stop the GrowSense garden services.
+```
+bash disable-garden.sh
+```
+
 ### Disable Garden Services
-Disable the mosquitto MQTT broker if it needs to be stopped.
+To disable the GrowSense garden services.
 ```
 bash disable-garden.sh
 ```
 
 ### Reset Garden Cache
-Removes the MQTT bridge service cache and temporary files. This is useful if a service isn't running properly.
+Removes the GrowSense service cache and temporary files. This is useful if a service isn't running properly.
 ```
 bash remove-cache.sh
 ```
