@@ -150,6 +150,11 @@ echo "Updating the index..."
 $SUDO sh update.sh || exit 1
 
 echo ""
+echo "Updating submodules..."
+
+$SUDO sh update-submodules.sh || exit 1
+
+echo ""
 echo "Initializing runtime components..."
 
 $SUDO bash init-runtime.sh || exit 1
