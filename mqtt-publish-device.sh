@@ -22,4 +22,4 @@ if [ ! "$MESSAGE" ]; then
   exit 1
 fi
 
-sh mqtt-publish.sh "/$DEVICE_NAME/$KEY" "$MESSAGE" $4 $5 $6 $7 $8 $9
+sh mqtt-publish.sh "$DEVICE_NAME/$KEY" "$MESSAGE" $4 $5 $6 $7 $8 $9

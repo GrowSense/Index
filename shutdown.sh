@@ -5,7 +5,7 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
-bash mqtt-publish.sh "/garden/StatusMessage" "Shutting down" || echo "MQTT publish failed."
+bash mqtt-publish.sh "garden/StatusMessage" "Shutting down" || echo "MQTT publish failed."
 
 bash "wait-for-unlock.sh" || exit 1
 $SUDO shutdown now

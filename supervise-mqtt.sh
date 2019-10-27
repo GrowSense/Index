@@ -32,7 +32,7 @@ fi
 echo ""
 echo "  Sending data to MQTT broker..."
 
-TOPIC="/supervisortest/value"
+TOPIC="supervisortest/value"
 VALUE="$(date)"
 
 echo "    Topic: $TOPIC"

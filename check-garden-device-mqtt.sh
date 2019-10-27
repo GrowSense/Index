@@ -13,13 +13,13 @@ MQTT_PORT=$(cat mqtt-port.security)
 GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
 # Query the device for a line of data...
-mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/Q/in" -m "1"
+mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/Q/in" -m "1"
 
 # Give the device time to receive the message
 sleep 2
 
 # The timeout is short because newly installed devices don't yet have a status
-STATUS_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/StatusMessage" -C 1)
+STATUS_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/StatusMessage" -C 1)
 
 if [ ! $STATUS_MESSAGE ]; then
   echo "  Status: No MQTT status detected"  
@@ -27,7 +27,7 @@ else
   echo "  Status: $STATUS_MESSAGE"
 fi
 
-INTERVAL_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "/$DEVICE_NAME/I" -C 1)
+INTERVAL_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/I" -C 1)
 
 if [ ! $INTERVAL_MESSAGE ]; then
   echo "  Interval: No MQTT interval detected"  
