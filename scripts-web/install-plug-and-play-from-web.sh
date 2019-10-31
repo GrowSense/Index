@@ -197,7 +197,11 @@ $SUDO bash create-supervisor-service.sh || exit 1
 echo ""
 echo "Publishing status to MQTT..."
 # Sleep for 30 seconds to give the UI controller time to load before publishing
-sh run-background.sh sleep 30 && sh mqtt-publish.sh "/garden/StatusMessage" "Installed" || echo "MQTT publish failed."
+sh run-background.sh sleep 30 && sh mqtt-publish.sh "garden/StatusMessage" "Installed" || echo "MQTT publish failed."
+
+echo ""
+echo "Creating status message file..."
+bash create-message-file.sh "Garden software installed"
 
 echo ""
 echo "Finished installing GrowSense plug and play."

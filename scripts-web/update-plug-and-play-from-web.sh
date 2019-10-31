@@ -68,7 +68,11 @@ echo "Waiting for the installation to unlock..."
 bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
 
 echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "/garden/StatusMessage" "Upgrading" &
+sh mqtt-publish.sh "garden/StatusMessage" "Upgrading" &
+
+echo ""
+echo "Creating status message file..."
+bash create-message-file.sh "Garden software upgrading"
 
 echo "Giving the UI time to receive the status update..."
 sleep 5
@@ -121,7 +125,10 @@ bash "wait-for-plug-and-play.sh"
 #sleep 10
 
 echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "/garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
+sh mqtt-publish.sh "garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
 
+echo ""
+echo "Creating status message file..."
+bash create-message-file.sh "Garden software upgrade complete"
 
 echo "Finished reinstalling GrowSense plug and play!"
