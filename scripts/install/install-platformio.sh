@@ -7,20 +7,6 @@ fi
 
 echo "Install platform.io..."
 
-# python
-if ! type "python" > /dev/null; then
-  echo "  Installing python"
-
-  $SUDO apt-get install -y python
-fi
-
-# pip
-if ! type "pip" &>/dev/null; then
-  echo "  Installing python-pip"
-
-  $SUDO apt-get install -y python-pip
-fi
-
 # platform.io
 if ! type "pio" &>/dev/null; then
   echo "  Upgrading pip"
@@ -45,7 +31,7 @@ if ! type "pio" &>/dev/null; then
 fi
 
 echo "  Upgrading platform.io"
-$SUDO pio upgrade
+timeout 5m $SUDO pio upgrade
 
 # Give the user necessary permissions
 $SUDO usermod -a -G tty $USER

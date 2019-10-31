@@ -90,6 +90,10 @@ fi
 cd scripts/install/ && \
 
 echo ""
+echo "Installing python..."
+bash install-python.sh || exit 1
+
+echo ""
 echo "Installing platform.io..."
 bash install-platformio.sh || exit 1
 
