@@ -44,6 +44,8 @@ fi
 if [ $DEVICE_NAME ]; then
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting"
 
+  bash create-message-file.sh "$DEVICE_NAME disconnecting"
+
   echo "Device name: $DEVICE_NAME"
   
   echo "Stopping device services..."
@@ -56,7 +58,9 @@ if [ $DEVICE_NAME ]; then
   echo ""
   sh $SCRIPT_NAME "$DEVICE_NAME" || exit 1
   
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
+  bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
+
+  bash create-message-file.sh "$DEVICE_NAME disconnected"
   
   echo "Finished auto disconnecting device."
 else

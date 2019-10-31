@@ -35,8 +35,8 @@ else
     fi
     
     # Recreating garden UI
-    # TODO: Instead of regenerating the entire UI, figure out how to remove a single item from the UI
-    sh recreate-garden-ui.sh || exit 1
+    # TODO: Remove if not needed. The Linear MQTT Dashboard app is being phased out
+    #sh recreate-garden-ui.sh || exit 1
   fi
   
 

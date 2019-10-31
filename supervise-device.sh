@@ -22,21 +22,22 @@ fi
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
 
-# If it's not a UI device then create the Linear MQTT Dashboard UI configuration if it hasn't been created alreadys
-if [ "$DEVICE_GROUP" != "ui" ]; then  
-  DEVICE_UI_IS_CREATED=0
-  if [ -f "devices/$DEVICE_NAME/is-ui-created.txt" ]; then 
-    DEVICE_UI_IS_CREATED=$(cat "devices/$DEVICE_NAME/is-ui-created.txt");
-  fi
+# TODO: Remove if not needed. The Linear MQTT Dashboard app is being phased out
+# If it's not a UI device then create the Linear MQTT Dashboard UI configuration if it hasn't been created already
+#if [ "$DEVICE_GROUP" != "ui" ]; then  
+#  DEVICE_UI_IS_CREATED=0
+#  if [ -f "devices/$DEVICE_NAME/is-ui-created.txt" ]; then 
+#    DEVICE_UI_IS_CREATED=$(cat "devices/$DEVICE_NAME/is-ui-created.txt");
+#  fi
 
-  if [ "$DEVICE_UI_IS_CREATED" = "0" ]; then
-    echo "  Device Linear MQTT Dashboard UI hasn't been created. Creating now..."
+#  if [ "$DEVICE_UI_IS_CREATED" = "0" ]; then
+#    echo "  Device Linear MQTT Dashboard UI hasn't been created. Creating now..."
 
-    DEVICE_LABEL=$(cat "devices/$DEVICE_NAME/label.txt");
+#    DEVICE_LABEL=$(cat "devices/$DEVICE_NAME/label.txt");
     
-    sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME || echo "  Failed to create device Linear MQTT Dashboard UI"  
-  fi
-fi
+#    sh create-garden-$DEVICE_GROUP-ui.sh $DEVICE_LABEL $DEVICE_NAME || echo "  Failed to create device Linear MQTT Dashboard UI"  
+#  fi
+#fi
 
 CURRENT_HOST=$(cat "/etc/hostname")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")

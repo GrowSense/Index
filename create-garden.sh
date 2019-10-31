@@ -12,7 +12,8 @@ echo ""
 #  echo "MQTT broker is on another host"
 #fi
 
-bash expose-ui-config-via-http.sh || exit 1
+# TODO: Remove if not needed. The Linear MQTT Dashboard app is being phased out
+#bash expose-ui-config-via-http.sh || exit 1
 
 bash create-www-service.sh || exit 1
 
