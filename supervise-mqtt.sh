@@ -17,15 +17,27 @@ echo "${PING_MQTT_RESULT}"
 
 if [[ ! $(echo $PING_MQTT_RESULT) =~ "64 bytes from" ]]; then
   echo "  MQTT broker/server is down or inaccessible..."
+
   bash send-email.sh "Error: MQTT server $MQTT_HOST is down or inaccessible from $HOST" "Failed to ping MQTT server...\n\nMQTT Host: $MQTT_HOST\nGarden Computer: $HOST\n\nPing result...\n\n${PING_MQTT_RESULT}"
+
+  bash create-alert-file.sh "MQTT server $MQTT_HOST is down or inaccessible from $HOST"
+
   exit 1
 elif [[ $(echo $PING_MQTT_RESULT) =~ "Destination Host Unreachable" ]]; then
   echo "  MQTT broker/server is down or inaccessible..."
+
   bash send-email.sh "Error: MQTT server $MQTT_HOST is down or inaccessible from $HOST" "Failed to ping MQTT server...\n\nMQTT Host: $MQTT_HOST\nGarden Computer: $HOST\n\nPing result...\n\n${PING_MQTT_RESULT}"
+
+  bash create-alert-file.sh "MQTT server $MQTT_HOST is down or inaccessible from $HOST"
+
   exit 1
 elif [[ $(echo $PING_MQTT_RESULT) =~ "unknown host" ]]; then
   echo "  MQTT broker/server is down or inaccessible..."
+
   bash send-email.sh "Error: MQTT server $MQTT_HOST is down or inaccessible from $HOST" "Failed to ping MQTT server...\n\nMQTT Host: $MQTT_HOST\nGarden Computer: $HOST\n\nPing result...\n\n${PING_MQTT_RESULT}"
+
+  bash create-alert-file.sh "MQTT server $MQTT_HOST is down or inaccessible from $HOST"
+
   exit 1
 fi
 
@@ -58,8 +70,12 @@ DETECTED_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQ
 echo "    Detected value: $DETECTED_VALUE"
 
 if [ "$DETECTED_VALUE" != "$VALUE" ]; then
-  echo "  MQTT broker isn't communicating. The MQTT broker service may be downs..."
+  echo "  MQTT broker isn't communicating. The MQTT broker service may be down..."
+
   bash send-email.sh "Error: MQTT broker on $MQTT_HOST isn't communicating" "MQTT broker failed send/receive data test, therefore is failing to communicate. The MQTT broker service may be down...\n\nMQTT Host: $MQTT_HOST\nGarden Computer: $HOST\n\nValue sent: $VALUE\nValue detected: $DETECTED_VALUE"
+
+  bash create-alert-file.sh "MQTT broker on $MQTT_HOST isn't communicating"
+
   exit 1
 else
   echo "  MQTT broker is communicating properly"

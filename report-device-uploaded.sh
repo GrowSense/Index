@@ -28,8 +28,10 @@ fi
 
 SUMMARY="$DEVICE_BOARD $DEVICE_GROUP on $SERIAL_PORT"
  
-sh notify-send.sh "Uploaded $DEVICE_NAME" "$SUMMARY"
+bash notify-send.sh "Uploaded $DEVICE_NAME" "$SUMMARY"
 
-sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" || echo "Failed to publish status to MQTT"
+bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploaded" || echo "Failed to publish status to MQTT"
+
+bash create-message-file.sh "$DEVICE_NAME uploaded"
 
 echo "Finished notifying device uploaded."

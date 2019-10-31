@@ -50,7 +50,7 @@ if [ -d "devices" ]; then
       TMP_DEVICE_DIR="devices.tmp/$DEVICE_NAME"
       #echo "    Tmp device dir: $TMP_DEVICE_DIR"
 
-      # Remove the is-ui-create.txt flag so the UI can be recreated locally by the supervisor scripts
+      # Remove the is-ui-created.txt flag so the UI can be recreated locally by the supervisor scripts
       rm $TMP_DEVICE_DIR/is-ui-created.txt || echo "Failed to remove the is-ui-created.txt flag file"
 
       # If the device isn't found in the devices tmp directory

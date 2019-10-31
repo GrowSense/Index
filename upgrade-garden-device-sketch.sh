@@ -72,8 +72,10 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       cd $DIR
       
       # Publish the status. The device is being upgraded.
-      sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
+      bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
       
+      bash create-message-file.sh "$DEVICE_NAME is upgrading"
+
       SERVICE_NAME="growsense-mqtt-bridge-$DEVICE_NAME.service"
       
       if [ "$DEVICE_GROUP" = "ui" ]; then  
@@ -119,6 +121,8 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         
         bash send-email.sh "Error: Upgrade timed out for $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
         
+        bash create-alert-file.sh "Upgrade timed out for $DEVICE_NAME on $DEVICE_HOST"
+
         exit 1
       fi
       
@@ -133,6 +137,9 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         LOG_OUTPUT=$(cat $LOG_FILE)
         
         bash send-email.sh "Upgrade successful for $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+
+        bash create-message-file.sh "Upgrade successful for $DEVICE_NAME on $DEVICE_HOST"
+
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
@@ -143,6 +150,8 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         LOG_OUTPUT=$(cat $LOG_FILE)
         
         bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+
+        bash create-alert-file.sh "Upgrade failed for $DEVICE_NAME on $DEVICE_HOST"
       fi
     fi
   fi

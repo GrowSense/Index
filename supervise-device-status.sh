@@ -63,6 +63,8 @@ if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
   
   bash send-email.sh "Error: $DEVICE_NAME on $HOST is offline" "The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
 
+  bash create-alert-file.sh "$DEVICE_NAME  on $HOST is offline"
+
   bash restart-garden-device.sh $DEVICE_NAME
   
   echo "1" > "devices/$DEVICE_NAME/is-device-offline.txt"
@@ -81,6 +83,8 @@ else
   if [ "$WAS_DEVICE_OFFLINE" = "1" ]; then
     echo "  Sending device back online email report..."
     bash send-email.sh "$DEVICE_NAME on $HOST is back online" "The $DEVICE_NAME device on $HOST is back online.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
+
+    bash create-message-file.sh "$DEVICE_NAME  on $HOST is back online"
   fi
   
   echo "0" > "devices/$DEVICE_NAME/is-device-offline.txt"
