@@ -55,25 +55,28 @@ echo "  Latest time: $TIME"
 #  PREVIOUS_TIME=$(cat $DEVICE_TIME_FILE)
 #fi
 
+if [ -f "devices/$DEVICE_NAME/is-device-offline.txt" ]; then
+  WAS_DEVICE_OFFLINE=$(cat "devices/$DEVICE_NAME/is-device-offline.txt")
+fi
+  
 
 if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
   echo "  Latest MQTT data time hasn't been updated. Device is offline."  
   
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
+  # If the device was previously online then report that it's now offline
+  if [ "$WAS_DEVICE_OFFLINE" = "0" ]; then
+    sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
   
-  bash send-email.sh "Error: $DEVICE_NAME on $HOST is offline" "The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
+    bash send-email.sh "Error: $DEVICE_NAME on $HOST is offline" "The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
 
-  bash create-alert-file.sh "$DEVICE_NAME  on $HOST is offline"
+    bash create-alert-file.sh "$DEVICE_NAME  on $HOST is offline"
 
-  bash restart-garden-device.sh $DEVICE_NAME
+    bash restart-garden-device.sh $DEVICE_NAME
   
-  echo "1" > "devices/$DEVICE_NAME/is-device-offline.txt"
+    echo "1" > "devices/$DEVICE_NAME/is-device-offline.txt"
+  fi
 else
   echo "  Device is online."
-  
-  if [ -f "devices/$DEVICE_NAME/is-device-offline.txt" ]; then
-    WAS_DEVICE_OFFLINE=$(cat "devices/$DEVICE_NAME/is-device-offline.txt")
-  fi
   
   echo "  Was device offline: $WAS_DEVICE_OFFLINE"
   
