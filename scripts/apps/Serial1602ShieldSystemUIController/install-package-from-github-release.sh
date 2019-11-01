@@ -22,11 +22,7 @@ fi
 
 INCLUDE_VERSION_IN_FOLDER="false"
 
-if [ -d ".git" ]; then
-  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-else
-  BRANCH="lts"
-fi
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 echo "Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
 
@@ -79,8 +75,8 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
   if [ ! -d "$PACKAGE_NAME" ]; then
     echo "  From the web (GitHub release)"
     
-    # Download the package from the web    
-  	wget -q https://github.com/$PACKAGE_OWNER/$PACKAGE_NAME/releases/download/v$PACKAGE_VERSION$POSTFIX/$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX.zip -O $PACKAGE_FILE_EXT || exit 1
+    # Download the package from the web
+  	curl -L https://github.com/$PACKAGE_OWNER/$PACKAGE_NAME/releases/download/v$PACKAGE_VERSION$POSTFIX/$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX.zip --output $PACKAGE_FILE_EXT || exit 1
 
     # Unzip the package
 	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FOLDER/" || exit 1
