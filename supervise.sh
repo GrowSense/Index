@@ -16,6 +16,8 @@ echo ""
 echo "Pulling messages remote garden computers..."
 bash pull-messages-from-remotes.sh || echo "Failed to pull messages from remote garden computers"
 
+bash supervise-www-service.sh
+
 DOCKER_CHECK_FREQUENCY=$(cat supervisor-docker-check-frequency.txt)
 
 if [ "$(( $LOOP_NUMBER%$DOCKER_CHECK_FREQUENCY ))" -eq "0" ]; then
