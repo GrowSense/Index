@@ -42,7 +42,7 @@ echo "Port: $REMOTE_PORT"
 
 mkdir -p "remote"
 
-bash validate-remote-index.sh "add" $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD $REMOTE_PORT || exit 1
+bash validate-remote-index.sh "update" $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD $REMOTE_PORT || exit 1
 
 REMOTE_INFO_PATH="remote/$REMOTE_NAME"
 
