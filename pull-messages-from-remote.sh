@@ -28,9 +28,6 @@ echo "  Password: [hidden]"
 echo "  Port: $REMOTE_PORT"
 
 # rsync is faster
-rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/msgs/ msgs/ || exit 1
-
-# scp is slower
-#sshpass -p $REMOTE_PASSWORD scp -r -o StrictHostKeyChecking=no $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/msgs .
+rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/msgs/ msgs/$REMOTE_NAME/ || exit 1
 
 echo "Finished pull messages from remote"
