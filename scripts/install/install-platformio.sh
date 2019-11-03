@@ -31,7 +31,7 @@ if ! type "pio" &>/dev/null; then
 fi
 
 echo "  Upgrading platform.io"
-timeout 5m $SUDO pio upgrade
+timeout 1m $SUDO pio upgrade
 
 # Give the user necessary permissions
 $SUDO usermod -a -G tty $USER
