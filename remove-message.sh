@@ -37,7 +37,7 @@ if [ -d msgs/ ]; then
       echo ""
 
     else
-      echo "Is local message"	
+      echo "Is local message"
     fi
 
     echo "    Removing from local computer..."
