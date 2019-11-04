@@ -50,8 +50,9 @@ if [ -d "devices" ]; then
       TMP_DEVICE_DIR="devices.tmp/$DEVICE_NAME"
       #echo "    Tmp device dir: $TMP_DEVICE_DIR"
 
+      # TODO: Remove if not needed. Should be obsolete. Linear MQTT dashboard app is being phased out.
       # Remove the is-ui-created.txt flag so the UI can be recreated locally by the supervisor scripts
-      rm $TMP_DEVICE_DIR/is-ui-created.txt || echo "Failed to remove the is-ui-created.txt flag file"
+      #rm $TMP_DEVICE_DIR/is-ui-created.txt || echo "Failed to remove the is-ui-created.txt flag file"
 
       # If the device isn't found in the devices tmp directory
       if [ ! -d "$TMP_DEVICE_DIR" ]; then
