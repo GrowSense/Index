@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                shHide( 'git clone --depth 1 $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
+                shHide( 'git clone --depth 1 -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
                 sh 'git submodule init'
                 sh 'git submodule update --depth 1'
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
