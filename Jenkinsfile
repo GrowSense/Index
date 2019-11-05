@@ -11,9 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                shHide( 'git clone --depth 1 -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
-                sh 'git submodule init'
-                sh 'git submodule update --depth 1'
+                shHide( 'git clone --depth 1 --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
