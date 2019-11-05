@@ -30,8 +30,9 @@ if ! type "pio" &>/dev/null; then
   $SUDO pip install --ignore-installed -U platformio
 fi
 
-echo "  Upgrading platform.io"
-timeout 1m $SUDO pio upgrade
+# Disabled because it's slow and may not be needed
+#echo "  Upgrading platform.io"
+#timeout 1m $SUDO pio upgrade
 
 # Give the user necessary permissions
 $SUDO usermod -a -G tty $USER
