@@ -16,8 +16,9 @@ else
   echo "  Pip is already installed. Skipping install."
 fi
 
-echo "  Upgrading python pip..."
-pip install --upgrade pip
-pip install -U requests
+# Disabled because it's slow and may not be needed
+#echo "  Upgrading python pip..."
+#pip install --upgrade pip
+#pip install -U requests
 
 echo "Finished installing python."
