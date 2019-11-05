@@ -54,4 +54,8 @@ echo $REMOTE_USERNAME > $REMOTE_INFO_PATH/username.security
 echo $REMOTE_PASSWORD > $REMOTE_INFO_PATH/password.security
 echo $REMOTE_PORT > $REMOTE_INFO_PATH/port.security
 
+echo ""
+echo "Pulling device info from remote..."
+bash pull-device-info-from-remote.sh "$REMOTE_NAME"
+
 echo "Finished creating remote index '$REMOTE_NAME'."
