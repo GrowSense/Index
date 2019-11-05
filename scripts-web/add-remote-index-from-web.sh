@@ -61,6 +61,9 @@ mkdir -p $INDEX_DIR
 echo "Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
+echo "Downloading validate remote index script..."
+wget https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/validate-remote-index.sh
+
 echo "Adding remote index..."
 wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/add-remote-index.sh | bash -s -- $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD
 
