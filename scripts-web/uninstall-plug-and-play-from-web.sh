@@ -123,6 +123,16 @@ docker stop growsense-ui-http || echo "GrowSense nginx linear MQTT config HTTP d
 docker rm growsense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
 
 echo ""
+echo "Removing GreenSense nginx linear MQTT config HTTP docker container..."
+docker stop greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping stop."
+docker rm greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP docker container not found. Skipping remove."
+
+echo ""
+echo "Removing GreenSense services..."
+rm /lib/systemd/system/greensense-* -r
+systemctl daemon-reload 
+
+echo ""
 echo "Finished uninstalling GrowSense plug and play!"
   
 
