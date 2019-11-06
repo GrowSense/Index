@@ -7,6 +7,7 @@ REMOTE_NAME=$3
 REMOTE_HOST=$4
 REMOTE_USERNAME=$5
 REMOTE_PASSWORD=$6
+REMOTE_PORT=$7
 
 EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [RemoteName] [RemoteHost] [RemoteUsername] [RemotePassword]"
 
@@ -45,13 +46,18 @@ if [ ! $REMOTE_PASSWORD ]; then
   exit 1
 fi
 
-echo "Branch: $BRANCH"
-echo "Install dir: $INSTALL_DIR"
+if [ ! $REMOTE_PORT ]; then
+  REMOTE_PORT=22
+fi
 
-echo "Name: $REMOTE_NAME"
-echo "Host: $REMOTE_HOST"
-echo "Username: $REMOTE_USERNAME"
-echo "Password: [hidden]"
+echo "  Branch: $BRANCH"
+echo "  Install dir: $INSTALL_DIR"
+
+echo "  Name: $REMOTE_NAME"
+echo "  Host: $REMOTE_HOST"
+echo "  Username: $REMOTE_USERNAME"
+echo "  Password: [hidden]"
+echo "  Port: $REMOTE_PORT"
 
 INDEX_DIR="$INSTALL_DIR"
 
@@ -61,10 +67,12 @@ mkdir -p $INDEX_DIR
 echo "Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
-echo "Downloading validate remote index script..."
-wget https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/validate-remote-index.sh
+echo "Downloading validate remote index script (if needed)..."
+if [ ! -f "validate-remote-index.sh" ]; then
+  wget -q --no-cache https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/validate-remote-index.sh
+fi
 
 echo "Adding remote index..."
-wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/add-remote-index.sh | bash -s -- $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD
+wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/add-remote-index.sh | bash -s -- "$REMOTE_NAME" "$REMOTE_HOST" "$REMOTE_USERNAME" "$REMOTE_PASSWORD" "$REMOTE_PORT"
 
 echo "Finished adding remote index"
