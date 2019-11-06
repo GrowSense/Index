@@ -21,11 +21,11 @@ if [ "$BRANCH" = "lts" ]; then
 
   echo ""
 
-  echo "Setting master branch garden as remote index..."
-  echo "'lts' host: $LTS_INSTALL_HOST"
-  echo "'master' host: $MASTER_INSTALL_HOST"
+#  echo "Setting master branch garden as remote index..."
+#  echo "'lts' host: $LTS_INSTALL_HOST"
+#  echo "'master' host: $MASTER_INSTALL_HOST"
 
-  sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD" || exit 1
+#  sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD" || exit 1
 
   echo ""
   
@@ -34,6 +34,12 @@ if [ "$BRANCH" = "lts" ]; then
 
   sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $LTS_MQTT_HOST $LTS_MQTT_USERNAME $LTS_MQTT_PASSWORD $LTS_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS" || exit 1
 
+  echo "Setting master branch garden as remote index..."
+  echo "'lts' host: $LTS_INSTALL_HOST"
+  echo "'master' host: $MASTER_INSTALL_HOST"
+
+  sshpass -p $LTS_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $LTS_INSTALL_SSH_USERNAME@$LTS_INSTALL_HOST "cd /usr/local/GrowSense/Index && bash add-remote-index.sh master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD $MASTER_INSTALL_SSH_PORT" || exit 1
+  
   echo ""
 
   echo "Checking deployment..."
