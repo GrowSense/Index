@@ -67,16 +67,22 @@ else
   mkdir -p devices
 fi
 
+echo "  Devices pulled..."
+for DEVICE_DIR in devices.tmp/*; do
+  DEVICE_NAME="$(basename $DEVICE_DIR)"
+  echo "    $DEVICE_NAME"
+done
+
 # Copy all the devices from the tmp dir to the devices dir
 cp devices.tmp/* devices/ -fr || exit 1
 
 # Delete the tmp dir
 rm devices.tmp -r || exit 1
 
-if [ "$DEVICE_WAS_REMOVED" = "1" ]; then
-  echo ""
-  echo "  Recreating Linear MQTT Dashboard UI configuration..."
-  sh recreate-garden-ui.sh
-fi
+#if [ "$DEVICE_WAS_REMOVED" = "1" ]; then
+#  echo ""
+#  echo "  Recreating Linear MQTT Dashboard UI configuration..."
+#  sh recreate-garden-ui.sh
+#fi
 
 echo "Finished pull device info from remote"
