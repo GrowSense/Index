@@ -34,6 +34,7 @@ if [ ! $REMOTE_PORT ]; then
   REMOTE_PORT="22"
 fi
 
+echo ""
 echo "Adding remote index/computer..."
 
 echo "  Name: $REMOTE_NAME"
@@ -69,3 +70,4 @@ echo "Pulling device info from remote..."
 bash pull-device-info-from-remote.sh "$REMOTE_NAME"
 
 echo "Finished creating remote index '$REMOTE_NAME'."
+echo ""

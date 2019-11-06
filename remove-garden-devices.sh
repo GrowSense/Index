@@ -19,13 +19,14 @@ if [ -d "devices" ]; then
   rm devices -r
 fi
 
-echo ""
-echo "Mobile UI Settings"
-echo ""
+# TODO: Remove if not needed. Should be obsolete. Linear MQTT Dashboard is being phased out.
+#echo ""
+#echo "Mobile UI Settings"
+#echo ""
 
-cd mobile/linearmqtt && \
-sh reset.sh && \
-cd $DIR
+#cd mobile/linearmqtt && \
+#sh reset.sh && \
+#cd $DIR
 
 
 echo ""
