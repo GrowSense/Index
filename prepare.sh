@@ -1,4 +1,4 @@
-# NOTE: Run this script with sudo
+#!/bin/sh
 
 DIR=$PWD
 
@@ -9,7 +9,9 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
-$SUDO apt-get update
+if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -120)" ]; then
+  $SUDO apt-get update
+fi
 
 $SUDO apt-get install -y build-essential wget git zip unzip curl sendemail software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients
 
