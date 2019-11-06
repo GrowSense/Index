@@ -98,8 +98,9 @@ curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/Com
 echo "Waiting for the plug and play system to load."
 bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
 
-echo "Recreating UI..."
-sh recreate-garden-ui.sh || exit 1
+# TODO: Remove this file if not needed. Should be obsolete. Linear MQTT Dashboard is being phased out.
+#echo "Recreating UI..."
+#sh recreate-garden-ui.sh || exit 1
 
 echo "Recreating garden services..."
 sh recreate-garden-services.sh || exit 1
