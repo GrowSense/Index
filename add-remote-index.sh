@@ -34,15 +34,17 @@ if [ ! $REMOTE_PORT ]; then
   REMOTE_PORT="22"
 fi
 
-echo "Name: $REMOTE_NAME"
-echo "Host: $REMOTE_HOST"
-echo "Username: $REMOTE_USERNAME"
-echo "Password: [hidden]"
-echo "Port: $REMOTE_PORT"
+echo "Adding remote index/computer..."
+
+echo "  Name: $REMOTE_NAME"
+echo "  Host: $REMOTE_HOST"
+echo "  Username: $REMOTE_USERNAME"
+echo "  Password: [hidden]"
+echo "  Port: $REMOTE_PORT"
 
 mkdir -p "remote"
 
-bash validate-remote-index.sh "add" $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD $REMOTE_PORT || exit 1
+bash validate-remote-index.sh "add" "$REMOTE_NAME" "$REMOTE_HOST" "$REMOTE_USERNAME" "$REMOTE_PASSWORD" "$REMOTE_PORT" || exit 1
 
 REMOTE_INFO_PATH="remote/$REMOTE_NAME"
 
@@ -53,6 +55,14 @@ echo $REMOTE_HOST > $REMOTE_INFO_PATH/host.security
 echo $REMOTE_USERNAME > $REMOTE_INFO_PATH/username.security
 echo $REMOTE_PASSWORD > $REMOTE_INFO_PATH/password.security
 echo $REMOTE_PORT > $REMOTE_INFO_PATH/port.security
+
+echo ""
+echo "Checking remote computer info files were created..."
+[[ ! -f $REMOTE_INFO_PATH/name.security ]] && echo "Remote name.security file wasn't created." && exit 1
+[[ ! -f $REMOTE_INFO_PATH/host.security ]] && echo "Remote host.security file wasn't created." && exit 1
+[[ ! -f $REMOTE_INFO_PATH/username.security ]] && echo "Remote username.security file wasn't created." && exit 1
+[[ ! -f $REMOTE_INFO_PATH/password.security ]] && echo "Remote password.security file wasn't created." && exit 1
+[[ ! -f $REMOTE_INFO_PATH/port.security ]] && echo "Remote port.security file wasn't created." && exit 1
 
 echo ""
 echo "Pulling device info from remote..."
