@@ -89,18 +89,22 @@ fi
 echo ""
 echo "Testing connection to the remote computer..."
 
-CONNECTION_RESULT=$(sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" -p $REMOTE_PORT $REMOTE_USERNAME@$REMOTE_HOST "echo 'Testing connection'")
+CONNECTION_RESULT=$(sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" -p $REMOTE_PORT $REMOTE_USERNAME@$REMOTE_HOST "echo 'Connection successful'")
 
 if [[ $(echo $CONNECTION_RESULT) =~ "Permission denied" ]]; then
   echo "Error: Connection to remote computer '$REMOTE_NAME' at path '$REMOTE_HOST' failed. Permission denied. Check the username and password."
   echo ""
   echo "${CONNECTION_RESULT}"
   exit 1
-elif [[ ! $(echo $CONNECTION_RESULT) =~ "Testing connection" ]]; then
+elif [[ ! $(echo $CONNECTION_RESULT) =~ "Connection successful" ]]; then
   echo "Error: Connection to remote computer '$REMOTE_NAME' at path '$REMOTE_HOST' failed. Check the username, password and port."
   echo ""
   echo "${CONNECTION_RESULT}"
   exit 1
+else
+  echo ""
+  echo "Connection result:"
+  echo "${CONNECTION_RESULT}"
 fi
 
 echo "Finished validating remote index '$REMOTE_NAME'."
