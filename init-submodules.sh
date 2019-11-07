@@ -30,6 +30,7 @@ for GROUP_DIR in sketches/*; do
 done
 
 cd www/SystemManagerWWW
+git checkout $BRANCH || exit 1
 bash init.sh
 cd $DIR
 
