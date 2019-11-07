@@ -37,7 +37,7 @@ if [ "$BRANCH" = "dev" ]; then
   #echo "'devstaging2' host: $DEVSTAGING2_INSTALL_HOST"
 
   #sshpass -p $DEV_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $DEV_INSTALL_SSH_USERNAME@$DEV_INSTALL_HOST "cd /usr/local/GrowSense/Index && bash add-remote-index.sh dev2 $DEVSTAGING2_INSTALL_HOST $DEVSTAGING2_INSTALL_SSH_USERNAME $DEVSTAGING2_INSTALL_SSH_PASSWORD $DEVSTAGING2_INSTALL_SSH_PORT" || exit 1
-  
+  	
   echo ""
   echo "Checking deployment..."
   bash check-deployment.sh || exit 1
