@@ -38,6 +38,16 @@ else
   echo "Skipping MQTT check this loop..."
 fi
 
+REMOTES_CHECK_FREQUENCY=$(cat supervisor-remotes-check-frequency.txt)
+
+if [ "$(( $LOOP_NUMBER%$REMOTES_CHECK_FREQUENCY ))" -eq "0" ]; then
+  echo ""
+  echo "Supervising remote computers..."
+  bash supervise-remotes.sh $LOOP_NUMBER || echo "Supervise remote computers failed"
+else
+  echo "Skipping remotes check this loop..."
+fi
+
 echo ""
 echo "Supervising devices..."
 bash supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
