@@ -27,11 +27,12 @@ echo "  Username: $REMOTE_USERNAME"
 echo "  Password: [hidden]"
 echo "  Port: $REMOTE_PORT"
 
-# rsync is faster
-rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/devices/ devices.tmp/ || exit 1
 
-# scp is slower
-#sshpass -p $REMOTE_PASSWORD scp -r -o StrictHostKeyChecking=no $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/devices .
+if sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" $REMOTE_USERNAME@$REMOTE_HOST '[ -d /usr/local/GrowSense/Index/devices ]'; then
+  rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/devices/ devices.tmp/ || exit 1
+else
+  echo "  Remote /devices/ directory not found. Skipping pull."
+fi
 
 DEVICE_WAS_REMOVED=0
 
@@ -39,27 +40,35 @@ if [ -d "devices" ]; then
   echo ""
   echo "  Removing device info for remote devices which have been removed..."
   CURRENT_HOST=$(cat /etc/hostname)
+
   # Loop through all the devices in the devices directory
   for DEVICE_DIR in devices/*; do
-    DEVICE_NAME="$(basename $DEVICE_DIR)"
-    #echo "  Device name: $DEVICE_NAME"
-    DEVICE_HOST=$(cat "$DEVICE_DIR/host.txt")
+
+    if [ -d $DEVICE_DIR ]; then
+
+      DEVICE_NAME="$(basename $DEVICE_DIR)"
+      #echo "  Device name: $DEVICE_NAME"
+      DEVICE_HOST=$(cat "$DEVICE_DIR/host.txt")
         
-    # If the device host matches the remote host
-    if [ "$DEVICE_HOST" = "$REMOTE_HOST" ]; then
-      TMP_DEVICE_DIR="devices.tmp/$DEVICE_NAME"
-      #echo "    Tmp device dir: $TMP_DEVICE_DIR"
+      # If the device host matches the remote host
+      if [ "$DEVICE_HOST" = "$REMOTE_HOST" ]; then
 
-      # TODO: Remove if not needed. Should be obsolete. Linear MQTT dashboard app is being phased out.
-      # Remove the is-ui-created.txt flag so the UI can be recreated locally by the supervisor scripts
-      #rm $TMP_DEVICE_DIR/is-ui-created.txt || echo "Failed to remove the is-ui-created.txt flag file"
+        TMP_DEVICE_DIR="devices.tmp/$DEVICE_NAME"
+        #echo "    Tmp device dir: $TMP_DEVICE_DIR"
 
-      # If the device isn't found in the devices tmp directory
-      if [ ! -d "$TMP_DEVICE_DIR" ]; then
-        echo "    $DEVICE_NAME ($DEVICE_HOST)"
-        # Remove the device info because it's been removed from the remote host
-        rm -r $DEVICE_DIR || exit 1
-        DEVICE_WAS_REMOVED=1
+        # TODO: Remove if not needed. Should be obsolete. Linear MQTT dashboard app is being phased out.
+        # Remove the is-ui-created.txt flag so the UI can be recreated locally by the supervisor scripts
+        #rm $TMP_DEVICE_DIR/is-ui-created.txt || echo "Failed to remove the is-ui-created.txt flag file"
+
+        # If the device isn't found in the devices tmp directory
+        if [ ! -d "$TMP_DEVICE_DIR" ]; then
+
+          echo "    $DEVICE_NAME ($DEVICE_HOST)"
+          # Remove the device info because it's been removed from the remote host
+          rm -r $DEVICE_DIR || exit 1
+          DEVICE_WAS_REMOVED=1
+
+        fi
       fi
     fi
   done
@@ -67,17 +76,24 @@ else
   mkdir -p devices
 fi
 
+echo ""
 echo "  Devices pulled..."
-for DEVICE_DIR in devices.tmp/*; do
-  DEVICE_NAME="$(basename $DEVICE_DIR)"
-  echo "    $DEVICE_NAME"
-done
+if [ -d devices.tmp ]; then
+  for DEVICE_DIR in devices.tmp/*; do
+    if [ -d $DEVICE_DIR ]; then
+      DEVICE_NAME="$(basename $DEVICE_DIR)"
+      echo "    $DEVICE_NAME"
+    fi
+  done
 
-# Copy all the devices from the tmp dir to the devices dir
-cp devices.tmp/* devices/ -fr || exit 1
+  # Copy all the devices from the tmp dir to the devices dir
+  cp devices.tmp/* devices/ -fr || exit 1
 
-# Delete the tmp dir
-rm devices.tmp -r || exit 1
+  # Delete the tmp dir
+  rm devices.tmp -r || exit 1
+else
+  echo "    No devices"
+fi
 
 #if [ "$DEVICE_WAS_REMOVED" = "1" ]; then
 #  echo ""
