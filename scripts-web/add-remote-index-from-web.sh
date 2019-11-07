@@ -65,15 +65,27 @@ echo "  Making the GrowSense index dir (if needed)..."
 mkdir -p $INDEX_DIR
 
 echo "  Moving to GrowSense index dir..."
+echo "    $INDEX_DIR"
 cd $INDEX_DIR
 
-echo "  Downloading validate remote index script (if needed)..."
+echo "  Downloading validate-remote-index.sh script (if needed)..."
 if [ ! -f "validate-remote-index.sh" ]; then
-  wget -q --no-cache https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/validate-remote-index.sh
+  wget --no-cache https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/validate-remote-index.sh
 fi
 
-echo "  Adding remote index..."
-wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/add-remote-index.sh | bash -s -- "$REMOTE_NAME" "$REMOTE_HOST" "$REMOTE_USERNAME" "$REMOTE_PASSWORD" "$REMOTE_PORT" || exit 1
+echo "  Downloading add-remote-index.sh script (if needed)..."
+if [ ! -f "add-remote-index.sh" ]; then
+  wget --no-cache https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/add-remote-index.sh
+fi
 
-echo "Finished adding remote index/computer."
+echo "  Downloading pull-device-info-from-remote.sh script (if needed)..."
+if [ ! -f "pull-device-info-from-remote.sh" ]; then
+  wget --no-cache https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/pull-device-info-from-remote.sh
+fi
+
+
+echo "  Adding remote index..."
+bash add-remote-index.sh "$REMOTE_NAME" "$REMOTE_HOST" "$REMOTE_USERNAME" "$REMOTE_PASSWORD" "$REMOTE_PORT" || exit 1
+
+echo "Finished adding remote index/computer (from web script)."
 echo
