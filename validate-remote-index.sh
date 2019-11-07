@@ -112,6 +112,5 @@ else
   echo "${CONNECTION_RESULT}"
 fi
 
-echo "$?"
+echo ""
 echo "Finished validating remote index '$REMOTE_NAME'."
-exit 0
