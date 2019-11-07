@@ -43,11 +43,14 @@ if [ ! $REMOTE_PORT ]; then
   exit 1
 fi
 
-echo "Name: $REMOTE_NAME"
-echo "Host: $REMOTE_HOST"
-echo "Username: $REMOTE_USERNAME"
-echo "Password: [hidden]"
-echo "Port: $REMOTE_PORT"
+echo ""
+echo "Validating remote index/computer details..."
+
+echo "  Name: $REMOTE_NAME"
+echo "  Host: $REMOTE_HOST"
+echo "  Username: $REMOTE_USERNAME"
+echo "  Password: [hidden]"
+echo "  Port: $REMOTE_PORT"
 
 echo ""
 echo "Checking computer name doesn't already exist..."
