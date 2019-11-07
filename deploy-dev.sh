@@ -28,7 +28,7 @@ if [ "$BRANCH" = "dev" ]; then
 
   echo ""
   echo "Checking that remote index/computer was added..."
-  sshpass -p $DEV_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $DEV_INSTALL_SSH_USERNAME@$DEV_INSTALL_HOST "cd /usr/local/GrowSense/Index && [[ ! -d remote/dev2 ]] && echo 'Remote index/computer directory not found at remote/dev2' && exit 1"
+  sshpass -p $DEV_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $DEV_INSTALL_SSH_USERNAME@$DEV_INSTALL_HOST "cd /usr/local/GrowSense/Index && [[ ! -d remote/dev2 ]] && echo 'Remote index/computer directory not found at remote/dev2' && exit 1" || exit 1
 
   echo ""
 

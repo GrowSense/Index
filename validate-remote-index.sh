@@ -63,6 +63,7 @@ if [ "$ACTION" == "add" ]; then
 
   if [ -d "remote" ]; then
       for d in remote/*; do
+        if [[ ! $(echo $d) =~ "*" ]]; then
           LOADED_HOST=$(cat $d/host.security)
           LOADED_NAME=$(cat $d/name.security)
 
@@ -70,6 +71,7 @@ if [ "$ACTION" == "add" ]; then
             echo "Error: Remote computer with the path '$LOADED_HOST' has already been added with the name '$LOADED_NAME'."
             exit 1
           fi
+        fi
       done
   fi
 fi
