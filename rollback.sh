@@ -2,20 +2,18 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if [ "$BRANCH" = "master" ]
+if [ "$BRANCH" = "lts" ]
 then
-  echo "Rolling back the master branch to previous revision"
+  echo "Rolling back the lts branch to previous revision"
 
-  echo "Reverting to previous revision" && \
-  git reset --hard HEAD~1 && \
+  echo "Reverting to previous revision"
+  git reset --hard HEAD~1 || exit 1
 
-  echo "Pushing back to origin/master" && \
-  git push --force origin master && \
+  echo "Pushing back to origin/lts"
+  git push --force origin lts || exit 1
 
-  echo "The 'master' branch has been rolled back"  || \
-
-  (echo "Error" && exit 1)
+  echo "The 'lts' branch has been rolled back"
 else
-  echo "You must be in the 'master' branch to perform a rollback. The 'dev' branch doesn't get rolled back automatically."
+  echo "You must be in the 'lts' branch to perform a rollback. The '$BRANCH' branch doesn't get rolled back automatically."
 fi
 
