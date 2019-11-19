@@ -36,9 +36,21 @@ if [ "$PASSWORD" ]; then
   CONFIG_FILE="www/SystemManagerWWW/src/GrowSense.SystemManager.WWW/web.config"
 
   echo ""
-  echo "  Setting MQTT values in SystemManager config file:"
+  echo "  Setting login and MQTT values in SystemManager config file:"
   echo "    $CONFIG_FILE"
     
+  echo ""
+  echo "  Inserting login credentials into config file..."
+  xmlstarlet ed -L -u '/configuration/system.web/authentication/forms/credentials/user/@name' -v "$USERNAME" $CONFIG_FILE
+  xmlstarlet ed -L -u '/configuration/system.web/authentication/forms/credentials/user/@password' -v "$PASSWORD" $CONFIG_FILE
+
+  echo ""
+  echo "  Checking login credentials were inserted into config file..."
+
+  CONFIG_FILE_CONTENT=$(cat $CONFIG_FILE)
+  [[ ! $(echo $CONFIG_FILE_CONTENT) =~ "$USERNAME" ]] && echo "The username wasn't inserted into the config file" && exit 1
+  [[ ! $(echo $CONFIG_FILE_CONTENT) =~ "$PASSWORD" ]] && echo "The password wasn't inserted into the config file" && exit 1
+
   echo ""
   echo "  Inserting MQTT values into config file..."
   xmlstarlet ed -L -u '/configuration/appSettings/add[@key="MqttHost"]/@value' -v "$HOST" $CONFIG_FILE
