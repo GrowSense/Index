@@ -94,7 +94,7 @@ fi
 echo ""
 echo "Viewing GrowSense Plug and Play service log..."
 
-PNP_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u arduino-plug-and-play.service -b")
+PNP_LOG=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "journalctl -u arduino-plug-and-play.service -b -n 300")
 
 echo "${PNP_LOG}"
 
