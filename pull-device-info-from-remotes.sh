@@ -4,12 +4,14 @@ if [ -d "remote" ]; then
   echo ""
   echo "  Pulling device info..."
   for REMOTE_DIR in remote/*; do
-    REMOTE_NAME=$(cat "$REMOTE_DIR/name.security")
+    if [ -d $REMOTE_DIR ]; then
+      REMOTE_NAME=$(cat "$REMOTE_DIR/name.security")
     
-    echo "    Remote name: $REMOTE_NAME"
+      echo "    Remote name: $REMOTE_NAME"
 
-    sh pull-device-info-from-remote.sh $REMOTE_NAME
-    echo ""
+      sh pull-device-info-from-remote.sh $REMOTE_NAME
+      echo ""
+    fi
   done
 
 # Disabled because the supervisor script should take care of this

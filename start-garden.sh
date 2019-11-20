@@ -10,14 +10,16 @@ DEVICES_DIR="devices"
 
 if [ -d "$DEVICES_DIR" ]; then
     for d in $DEVICES_DIR/*; do
-        DEVICE_NAME=$(cat $d/name.txt)
-        DEVICE_LABEL=$(cat $d/label.txt)        
+        if [ -d $d ]; then
+            DEVICE_NAME=$(cat $d/name.txt)
+            DEVICE_LABEL=$(cat $d/label.txt)        
         
-        echo "$DEVICE_LABEL"
+            echo "$DEVICE_LABEL"
         
-        sh start-garden-device.sh $DEVICE_NAME
+            sh start-garden-device.sh $DEVICE_NAME
        
-        echo ""
+            echo ""
+        fi
     done
 else
     echo "No device info found in $DEVICES_DIR"
