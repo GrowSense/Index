@@ -46,10 +46,10 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
   mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/Q/in" -m "1" -q 2
 
   # Give the device time to respond
-  sleep 20
+  sleep 10
 
   # Get the version from the device
-  VERSION=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/V" -C 1 -q 2)
+  VERSION=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/V" -C 1 -q 2)
 
   if [ ! "$VERSION" ]; then
     echo "  Device version: No MQTT data detected"
@@ -58,7 +58,11 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
     echo "  Device version: $VERSION"
     echo "  Latest version ($BRANCH): $LATEST_FULL_VERSION"
     
-    if [ "$VERSION" = "$LATEST_FULL_VERSION" ]; then
+    if [ ! "$LATEST_BUILD_NUMBER" ]; then
+      echo "  Error: Failed to retrieve the latest build number from the repository."
+    elif [ ! "$LATEST_VERSION_NUMBER" ]; then
+      echo "  Error: Failed to retrieve the latest version number from the repository."
+    elif [ "$VERSION" = "$LATEST_FULL_VERSION" ]; then
       echo "  Already on the latest version. Skipping upload."
     else
       echo "  Needs to be updated."
@@ -119,9 +123,9 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Error: Upgrade timed out for $DEVICE_NAME on $DEVICE_HOST" "Upgrade timed out $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Error: Upgrade timed out for $DEVICE_NAME (on $DEVICE_HOST)" "Upgrade timed out $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
         
-        bash create-alert-file.sh "Upgrade timed out for $DEVICE_NAME on $DEVICE_HOST"
+        bash create-alert-file.sh "Upgrade timed out for $DEVICE_NAME (on $DEVICE_HOST)"
 
         exit 1
       fi
@@ -136,9 +140,9 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Upgrade successful for $DEVICE_NAME on $DEVICE_HOST" "Upgraded sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Upgrade successful (v$LATEST_FULL_VERSION) for $DEVICE_NAME (on $DEVICE_HOST)" "Upgraded sketch for $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
 
-        bash create-message-file.sh "Upgrade successful for $DEVICE_NAME on $DEVICE_HOST"
+        bash create-message-file.sh "Upgrade successful (v$LATEST_FULL_VERSION) for $DEVICE_NAME (on $DEVICE_HOST)"
 
       else # Upgrade failed
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
@@ -149,9 +153,9 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
 
         LOG_OUTPUT=$(cat $LOG_FILE)
         
-        bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME on $DEVICE_HOST" "Failed to upgrade sketch for $DEVICE_NAME on $DEVICE_HOST\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
+        bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME (on $DEVICE_HOST)" "Failed to upgrade sketch for $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
 
-        bash create-alert-file.sh "Upgrade failed for $DEVICE_NAME on $DEVICE_HOST"
+        bash create-alert-file.sh "Upgrade failed for $DEVICE_NAME (on $DEVICE_HOST)"
       fi
     fi
   fi
