@@ -29,7 +29,7 @@ echo "  Port: $REMOTE_PORT"
 
 
 if sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" $REMOTE_USERNAME@$REMOTE_HOST '[ -d /usr/local/GrowSense/Index/devices ]'; then
-  rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/devices/ devices.tmp/ || exit 1
+  timeout 2m rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/devices/ devices.tmp/ || exit 1
 else
   echo "  Remote /devices/ directory not found. Skipping pull."
 fi

@@ -20,7 +20,9 @@ fi
 #echo "  Loop number: $LOOP_NUMBER"
 #echo "  Device name: $DEVICE_NAME"
 
-DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
+CURRENT_HOST=$(cat "/etc/hostname")
+DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
+DEVICE_GROUP=$(cat "devices/$DEVICE_GROUP/group.txt")
 
 # TODO: Remove if not needed. The Linear MQTT Dashboard app is being phased out
 # If it's not a UI device then create the Linear MQTT Dashboard UI configuration if it hasn't been created already
@@ -39,15 +41,19 @@ DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
 #  fi
 #fi
 
-CURRENT_HOST=$(cat "/etc/hostname")
-DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
 
 if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
     STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
 
-	if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
-	  sh supervise-device-status.sh $DEVICE_NAME
-	fi
+    if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
+        bash supervise-device-status.sh $DEVICE_NAME
+
+        if [ -f "supervise-$DEVICE_GROUP-device-status.sh" ]; then
+	  bash supervise-$DEVICE_GROUP-device-status.sh $DEVICE_NAME
+        fi
+    fi
 else
     echo "  Device is on another host. Skipping status check."
 fi
+
+#echo "Finished supervising garden device."

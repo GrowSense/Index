@@ -57,6 +57,8 @@ echo "  Latest time: $TIME"
 
 if [ -f "devices/$DEVICE_NAME/is-device-offline.txt" ]; then
   WAS_DEVICE_OFFLINE=$(cat "devices/$DEVICE_NAME/is-device-offline.txt")
+else
+  WAS_DEVICE_OFFLINE="0"
 fi
   
 
@@ -82,7 +84,7 @@ else
   
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Online" -r
   
-  # If the device was previously online then report that it's back online
+  # If the device was previously offline then report that it's back online
   if [ "$WAS_DEVICE_OFFLINE" = "1" ]; then
     echo "  Sending device back online email report..."
     bash send-email.sh "$DEVICE_NAME on $HOST is back online" "The $DEVICE_NAME device on $HOST is back online.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
