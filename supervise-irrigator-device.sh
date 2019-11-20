@@ -32,7 +32,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
 
   echo ""
   echo "Getting the threshold from the device..."
-  THRESHOLD=$(timeout 1 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/T" -q 2)
+  THRESHOLD=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/T" -C 1 -q 2)
 
   echo "Threshold: $THRESHOLD"
 
@@ -41,7 +41,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
 
   echo ""
   echo "Getting the calibrated soil moisture value from the device..."
-  CALIBRATED_SOIL_MOISTURE_VALUE=$(timeout 1 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/C" -q 2)
+  CALIBRATED_SOIL_MOISTURE_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/C" -C 1 -q 2)
 
   # Disabled. Only used for manual testing.
   #CALIBRATED_SOIL_MOISTURE_VALUE="30"
