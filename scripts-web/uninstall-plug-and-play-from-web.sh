@@ -72,6 +72,12 @@ else
   echo "Removing all devices and services..."
   sh remove-garden-devices.sh || echo "Failed to remove garden devices"
 
+  HOST=$(cat /etc/hostname)
+
+  echo ""
+  echo "Sending email report..."
+  sh send-email.sh "GrowSense software uninstalled from $HOST" "The GrowSense software was uninstalled from $HOST."
+
   echo ""
   echo "Removing GrowSense directory..."
   echo "  $INSTALL_DIR"

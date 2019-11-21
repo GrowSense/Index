@@ -199,9 +199,15 @@ echo "Publishing status to MQTT..."
 # Sleep for 30 seconds to give the UI controller time to load before publishing
 sh run-background.sh sleep 30 && sh mqtt-publish.sh "garden/StatusMessage" "Installed" || echo "MQTT publish failed."
 
+HOST=$(cat /etc/hostname)
+
+echo ""
+echo "Sending email report..."
+sh send-email.sh "GrowSense software installed on $HOST" "The GrowSense software was successfully installed on $HOST."
+
 echo ""
 echo "Creating status message file..."
-bash create-message-file.sh "Garden software installed"
+bash create-message-file.sh "GrowSense software installed"
 
 echo ""
 echo "Finished installing GrowSense plug and play."
