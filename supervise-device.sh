@@ -20,6 +20,11 @@ fi
 #echo "  Loop number: $LOOP_NUMBER"
 #echo "  Device name: $DEVICE_NAME"
 
+if [ ! -d "devices/$DEVICE_NAME" ]; then
+  echo "  Error: Device $DEVICE_NAME not found."
+  exit 1
+fi
+
 CURRENT_HOST=$(cat "/etc/hostname")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")

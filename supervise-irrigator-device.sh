@@ -12,6 +12,11 @@ fi
 
 #echo "  Device name: $DEVICE_NAME"
 
+if [ ! -d "devices/$DEVICE_NAME" ]; then
+  echo "  Error: Device $DEVICE_NAME not found."
+  exit 1
+fi
+
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt");
 
 CURRENT_HOST=$(cat "/etc/hostname")

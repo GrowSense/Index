@@ -5,6 +5,11 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
+if [ ! -d "devices/$DEVICE_NAME" ]; then
+  echo "  Error: Device $DEVICE_NAME not found."
+  exit 1
+fi
+
 MQTT_HOST=$(cat mqtt-host.security)
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
