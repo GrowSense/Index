@@ -22,7 +22,7 @@ fi
 
 CURRENT_HOST=$(cat "/etc/hostname")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
-DEVICE_GROUP=$(cat "devices/$DEVICE_GROUP/group.txt")
+DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
 # TODO: Remove if not needed. The Linear MQTT Dashboard app is being phased out
 # If it's not a UI device then create the Linear MQTT Dashboard UI configuration if it hasn't been created already

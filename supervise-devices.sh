@@ -16,18 +16,20 @@ echo "Supervising garden devices..."
 echo ""
 
 if [ -d "$DEVICES_DIR" ]; then
-    for d in $DEVICES_DIR/*; do
-        DEVICE_NAME=$(cat $d/name.txt)
-        DEVICE_LABEL=$(cat $d/label.txt)        
+  for d in $DEVICES_DIR/*; do
+    if [ -d "$d" ]; then 
+      DEVICE_NAME=$(cat $d/name.txt)
+      DEVICE_LABEL=$(cat $d/label.txt)        
 
-        echo "$DEVICE_LABEL"
+      echo "$DEVICE_LABEL"
 	        
-        bash supervise-device.sh $LOOP_NUMBER $DEVICE_NAME
+      bash supervise-device.sh $LOOP_NUMBER $DEVICE_NAME
 	       
-        echo ""
-    done
+      echo ""
+    fi
+  done
 else
-    echo "No devices have been added."
+  echo "No devices have been added."
 fi
 
 echo "Finished supervising garden devices..."
