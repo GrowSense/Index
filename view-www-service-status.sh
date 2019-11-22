@@ -1,0 +1,1 @@
+bash systemctl.sh status growsense-www.service
