@@ -9,7 +9,7 @@ if [ ! "$(id -u)" -eq 0 ]; then
   fi
 fi
 
-if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -120)" ]; then
+if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -10080)" ]; then
   $SUDO apt-get update
 fi
 

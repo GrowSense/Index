@@ -104,9 +104,17 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
     $SUDO mv $INDEX_DIR $INDEX_DIR.old
   fi
 
-  echo ""
-  echo "Installing git"
-  sudo apt-get install -y git || exit 1
+
+  if ! type "git" &>/dev/null; then
+    echo ""
+    echo "Installing git"
+
+    if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -10080)" ]; then
+      $SUDO apt-get update
+    fi
+
+    sudo apt-get install -y git || exit 1
+  fi
 
   echo ""
   echo "Cloning the GrowSense index repository..."

@@ -30,6 +30,7 @@ if ! type "docker" &>/dev/null; then
 
     if [ "$IS_RASPBIAN" = "1" ] && [ "$IS_RASPBIAN_STRETCH" = "1" ]; then
       echo "  Is Raspberry Pi. Installing docker version 18.06.2 for raspbian"
+
       apt-get -y install \
         apt-transport-https \
         ca-certificates \
