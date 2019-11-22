@@ -147,12 +147,12 @@ cd $INDEX_DIR || exit 1
 echo ""
 echo "Updating the index..."
 
-$SUDO sh update.sh || exit 1
+$SUDO bash update.sh || exit 1
 
 echo ""
 echo "Updating submodules..."
 
-$SUDO sh update-submodules.sh || exit 1
+$SUDO bash update-submodules.sh || exit 1
 
 echo ""
 echo "Initializing runtime components..."
@@ -203,7 +203,7 @@ HOST=$(cat /etc/hostname)
 
 echo ""
 echo "Sending email report..."
-sh send-email.sh "GrowSense software installed on $HOST" "The GrowSense software was successfully installed on $HOST."
+bash send-email.sh "GrowSense software installed on $HOST" "The GrowSense software was successfully installed on $HOST."
 
 echo ""
 echo "Creating status message file..."

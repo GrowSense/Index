@@ -58,7 +58,7 @@ else
 
   echo ""
   echo "Publishing status to MQTT..."
-  sh mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" &
+  bash mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" &
 
   echo ""
   echo "Giving the UI time (3 seconds) to display the message..."
@@ -66,17 +66,17 @@ else
 
   echo ""
   echo "Stopping garden..."
-  sh stop-garden.sh || echo "Failed to stop garden"
+  bash stop-garden.sh || echo "Failed to stop garden"
 
   echo ""
   echo "Removing all devices and services..."
-  sh remove-garden-devices.sh || echo "Failed to remove garden devices"
+  bash remove-garden-devices.sh || echo "Failed to remove garden devices"
 
   HOST=$(cat /etc/hostname)
 
   echo ""
   echo "Sending email report..."
-  sh send-email.sh "GrowSense software uninstalled from $HOST" "The GrowSense software was uninstalled from $HOST."
+  bash send-email.sh "GrowSense software uninstalled from $HOST" "The GrowSense software was uninstalled from $HOST."
 
   echo ""
   echo "Removing GrowSense directory..."
