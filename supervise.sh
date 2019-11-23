@@ -5,7 +5,7 @@ LOOP_NUMBER=$1
 UPGRADE_FREQUENCY=$(cat supervisor-upgrade-frequency.txt)
 
 if [ ! $LOOP_NUMBER ]; then
-  LOOP_NUMBER=1
+  LOOP_NUMBER=0
 fi
 
 echo ""

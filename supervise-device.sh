@@ -51,10 +51,10 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
     STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
 
     if [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
-        bash supervise-device-status.sh $DEVICE_NAME
+        bash supervise-device-status.sh $DEVICE_NAME || echo "  Error: Failed to supervise device status"
 
         if [ -f "supervise-$DEVICE_GROUP-device-status.sh" ]; then
-	  bash supervise-$DEVICE_GROUP-device-status.sh $DEVICE_NAME
+	  bash supervise-$DEVICE_GROUP-device-status.sh $DEVICE_NAME || echo "  Error: Failed to supervise $DEVICE_GROUP device status"
         fi
     fi
 else
