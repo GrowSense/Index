@@ -25,6 +25,10 @@ while [ $IS_FINISHED = 0 ]; do
 
   echo "${SERVICE_STATUS}"
 
+  [[ $(echo $SERVICE_STATUS) =~ "inactive" ]] && echo "MQTT bridge service is inactive. Restarting..." && bash restart-garden-device.sh $DEVICE_NAME && exit 1
+
+  [[ $(echo $SERVICE_STATUS) =~ "dead" ]] && echo "MQTT bridge service is dead. Restarting..." && bash restart-garden-device.sh $DEVICE_NAME && exit 1
+
   [[ $(echo $SERVICE_STATUS) =~ "D;" ]] && echo "MQTT bridge service is loaded" &&  IS_FINISHED=1
 
   echo "  Is finished: $IS_FINISHED"
