@@ -29,9 +29,6 @@ for GROUP_DIR in sketches/*; do
   done
 done
 
-cd www/SystemManagerWWW
-git checkout $BRANCH || exit 1
-bash init.sh
-cd $DIR
+bash init-www.sh
 
 echo "Finished initializing submodules"
