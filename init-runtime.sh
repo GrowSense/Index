@@ -1,3 +1,3 @@
 sh init-apps.sh && \
 sh init-sketches.sh && \
-sh init-www.sh
+sh init-www.sh || exit 1
