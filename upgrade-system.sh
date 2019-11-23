@@ -29,7 +29,8 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
 # Disabled because it can potentially break the system by causing conflicts with docker containers 
 #  $SUDO apt-get update && $SUDO apt-get -y upgrade
   
-  bash stop-garden-devices.sh
+# Disabled because it shouldn't be needed
+  #bash stop-garden-devices.sh
   
   #$SUDO pio upgrade
   
