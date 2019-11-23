@@ -31,7 +31,7 @@ if [ "$LATEST_FULL_VERSION" != "" ] & [ "$INSTALLED_VERSION" != "$LATEST_FULL_VE
   
   bash stop-garden.sh
   
-  $SUDO pio upgrade
+  #$SUDO pio upgrade
   
   bash clean-all.sh
 
