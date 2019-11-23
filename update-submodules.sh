@@ -73,7 +73,8 @@ cd www/SystemManagerWWW && \
 sh clean.sh && \
 git checkout $BRANCH && \
 git pull origin $BRANCH  && \
-sh build.sh || exit 1
+bash init.sh && \
+bash build.sh || exit 1
 
 cd $DIR
 
