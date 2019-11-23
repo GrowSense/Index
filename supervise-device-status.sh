@@ -10,6 +10,8 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
   exit 1
 fi
 
+bash wait-for-mqtt-bridge-service.sh $DEVICE_NAME
+
 MQTT_HOST=$(cat mqtt-host.security)
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
