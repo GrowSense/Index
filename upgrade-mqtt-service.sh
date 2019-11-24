@@ -15,24 +15,32 @@ SYSTEMCTL_SCRIPT="systemctl.sh"
 MOSQUITTO_SERVICE="growsense-mosquitto-docker.service"
 
 echo ""
-echo "  Stopping the mosquitto docker service..."
-$SUDO bash $SYSTEMCTL_SCRIPT stop $MOSQUITTO_SERVICE || exit 1
-
-echo ""
 echo "  Pulling the mosquitto docker image..."
-sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm || exit 1
+PULL_RESULT=$(sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm) || exit 1
 
-echo ""
-echo "  Stopping the docker container..."
-sh $DOCKER_SCRIPT stop mosquitto || exit 1
+echo ${PULL_RESULT}
 
-echo ""
-echo "  Removing the docker container..."
-sh $DOCKER_SCRIPT rm mosquitto || exit 1
+if [[ ! $(echo $PULL_RESULT) =~ "Image is up to date" ]]; then
+  echo "  Newer docker image found. Updating."
 
-echo ""
-echo "  Recreating the MQTT service..."
-bash create-mqtt-service.sh
+  echo ""
+  echo "  Stopping the mosquitto docker service..."
+  $SUDO bash $SYSTEMCTL_SCRIPT stop $MOSQUITTO_SERVICE || exit 1
+
+  echo ""
+  echo "  Stopping the docker container..."
+  sh $DOCKER_SCRIPT stop mosquitto || exit 1
+
+  echo ""
+  echo "  Removing the docker container..."
+  sh $DOCKER_SCRIPT rm mosquitto || exit 1
+
+  echo ""
+  echo "  Recreating the MQTT service..."
+  bash create-mqtt-service.sh
+else
+  echo "  Docker image is up to date."
+fi
 
 echo ""
 echo "Finished upgrading mosquitto docker service."
