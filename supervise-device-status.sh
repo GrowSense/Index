@@ -10,7 +10,13 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
   exit 1
 fi
 
-bash wait-for-mqtt-bridge-service.sh $DEVICE_NAME || exit 1
+DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+
+if [ "$DEVICE_GROUP" == "ui" ]; then
+  bash wait-for-ui-controller-service.sh $DEVICE_NAME || exit 1
+else
+  bash wait-for-mqtt-bridge-service.sh $DEVICE_NAME || exit 1
+fi
 
 MQTT_HOST=$(cat mqtt-host.security)
 MQTT_USERNAME=$(cat mqtt-username.security)
