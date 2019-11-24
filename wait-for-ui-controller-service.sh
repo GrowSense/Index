@@ -31,6 +31,8 @@ while [ $IS_FINISHED = 0 ]; do
 
   [[ $(echo $SERVICE_STATUS) =~ "D;" ]] && echo "UI controller service is loaded" &&  IS_FINISHED=1
 
+  [[ "$CURRENT_LOOP" == "$MAX_LOOPS" ]] && echo "Timed out waiting for service" && exit 1
+
   echo "  Is finished: $IS_FINISHED"
   echo ""
   

@@ -22,7 +22,7 @@ while [ $IS_FINISHED = 0 ]; do
 
   [[ $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]] && echo "  Mosquitto MQTT service/docker container found" && IS_FINISHED=1
 
-  [[ $CURRENT_LOOP = $MAX_LOOPS ]] && echo "  Reached the max number of loops" && echo "  Error: Mosquitto MQTT service/docker container failed to start" && exit 1
+  [[ "$CURRENT_LOOP" == "$MAX_LOOPS" ]] && echo "  Reached the max number of loops" && echo "  Error: Mosquitto MQTT service/docker container failed to start" && exit 1
 
   echo "  Is finished: $IS_FINISHED"
   echo ""
