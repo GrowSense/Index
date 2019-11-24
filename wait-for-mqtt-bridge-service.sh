@@ -25,13 +25,15 @@ while [ $IS_FINISHED = 0 ]; do
 
   echo "${SERVICE_STATUS}"
 
-  [[ $(echo $SERVICE_STATUS) =~ "inactive" ]] && echo "MQTT bridge service is inactive. Restarting..." && bash restart-garden-device.sh $DEVICE_NAME && exit 1
+  [[ $(echo $SERVICE_STATUS) =~ "could not be found" ]] && echo "  Error: MQTT bridge service could not be found." && exit 1
 
-  [[ $(echo $SERVICE_STATUS) =~ "dead" ]] && echo "MQTT bridge service is dead. Restarting..." && bash restart-garden-device.sh $DEVICE_NAME && exit 1
+  [[ $(echo $SERVICE_STATUS) =~ "inactive" ]] && echo "  Error: MQTT bridge service is inactive. Restarting..." && bash restart-garden-device.sh $DEVICE_NAME && exit 1
+
+  [[ $(echo $SERVICE_STATUS) =~ "dead" ]] && echo "  Error: MQTT bridge service is dead. Restarting..." && bash restart-garden-device.sh $DEVICE_NAME && exit 1
 
   [[ $(echo $SERVICE_STATUS) =~ "D;" ]] && echo "MQTT bridge service is loaded" &&  IS_FINISHED=1
 
-  [[ "$CURRENT_LOOP" == "$MAX_LOOPS" ]] && echo "Timed out waiting for service" && exit 1
+  [[ "$CURRENT_LOOP" == "$MAX_LOOPS" ]] && echo "  Error: Timed out waiting for service" && exit 1
 
   echo "  Is finished: $IS_FINISHED"
   echo ""
