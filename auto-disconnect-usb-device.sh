@@ -41,6 +41,8 @@ fi
 # Disabled because it's causing problems with tests
 #notify-send "Removing $DEVICE_NAME device"
 
+HOST=$(cat /etc/hostname)
+
 if [ $DEVICE_NAME ]; then
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting"
 
