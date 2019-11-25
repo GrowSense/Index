@@ -44,7 +44,7 @@ fi
 if [ $DEVICE_NAME ]; then
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting"
 
-  bash create-message-file.sh "$DEVICE_NAME disconnecting"
+  bash create-alert-file.sh "$DEVICE_NAME disconnecting"
 
   echo "Device name: $DEVICE_NAME"
   
@@ -60,8 +60,10 @@ if [ $DEVICE_NAME ]; then
   
   bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
 
-  bash create-message-file.sh "$DEVICE_NAME disconnected"
-  
+  bash create-alert-file.sh "$DEVICE_NAME disconnected"
+
+  bash send-email.sh "Device $DEVICE_NAME disconnected from USB (on $HOST)." "The $DEVICE_NAME device was disconnected from USB on host $HOST." 
+
   echo "Finished auto disconnecting device."
 else
   echo "Device not found."

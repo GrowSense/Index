@@ -101,11 +101,13 @@ echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"
 
 sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
-sh run-background.sh sh notify-send.sh "Finished adding $GROUP_NAME device"
+sh run-background.sh sh notify-send.sh "Finished connecting $GROUP_NAME device"
 
 HOST=$(cat /etc/hostname)
 
-sh run-background.sh sh send-email.sh "Device $DEVICE_NAME detected by plug and play on $HOST." "The $DEVICE_NAME device was detected and configured by plug and play on host $HOST."
+bash create-message-file.sh "$DEVICE_NAME connected"
+
+bash send-email.sh "Device $DEVICE_NAME connected via USB on $HOST." "The $DEVICE_NAME device was connected via USB on host $HOST."
 
 echo ""
 echo "Finished auto connecting device."

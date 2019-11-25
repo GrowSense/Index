@@ -22,6 +22,10 @@ for GROUP_DIR in sketches/*; do
   done
 done
 
+cd www/SystemManagerWWW && \
+sh graduate-lts.sh
+cd $DIR
+
 sh graduate-lts.sh
 
 echo "Finished graduating all to lts branch"
