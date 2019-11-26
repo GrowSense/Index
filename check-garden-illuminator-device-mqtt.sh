@@ -21,6 +21,14 @@ else
   echo "  Light: $CALIBRATED_VALUE%"
 fi
 
+RAW_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/R" -C 1)
+
+if [ ! $RAW_VALUE ]; then
+  echo "  Light (raw): No MQTT light data detected"  
+else
+  echo "  Light (raw): $RAW_VALUE%"
+fi
+
 MODE_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/M" -C 1)
 
 if [ ! "$MODE_VALUE" ]; then
@@ -28,11 +36,11 @@ if [ ! "$MODE_VALUE" ]; then
 else
   [[ "$MODE_VALUE" = "0" ]] && MODE_TEXT="Off"
   [[ "$MODE_VALUE" = "1" ]] && MODE_TEXT="On"
-  [[ "$MODE_VALUE" = "2" ]] && MODE_TEXT="On Above Threshold"
-  [[ "$MODE_VALUE" = "3" ]] && MODE_TEXT="On Below Threshold"
-  [[ "$MODE_VALUE" = "4" ]] && MODE_TEXT="Fade"
-  [[ "$MODE_VALUE" = "5" ]] && MODE_TEXT="Supplement"
-  [[ "$MODE_VALUE" = "6" ]] && MODE_TEXT="Timer"
+  [[ "$MODE_VALUE" = "2" ]] && MODE_TEXT="Timer"
+  [[ "$MODE_VALUE" = "3" ]] && MODE_TEXT="On Above Threshold"
+  [[ "$MODE_VALUE" = "4" ]] && MODE_TEXT="On Below Threshold"
+#  [[ "$MODE_VALUE" = "5" ]] && MODE_TEXT="Fade" # Disabled. Not yet supported
+#  [[ "$MODE_VALUE" = "6" ]] && MODE_TEXT="Supplement" # Disabled. Not yet supported
   echo "  Mode: $MODE_TEXT"
 fi
 
