@@ -55,7 +55,7 @@ DEVICE_NUMBER=1
 echo "Pulling device info from remote garden computer..."
 sh pull-device-info-from-remotes.sh || exit 1
 
-if [ ! $DEVICE_NAME ] || [ $DEVICE_NAME == *"New"* ]; then
+if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]]; then
   DEVICE_POSTFIX=""
 
   if [ $BOARD_TYPE = "esp" ]; then
