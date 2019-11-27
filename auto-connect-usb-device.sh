@@ -4,8 +4,9 @@ GROUP_NAME=$3
 PROJECT_NAME=$4
 SCRIPT_CODE=$5
 PORT=$6
+DEVICE_NAME=$7
 
-EXAMPLE="Example:\n\tauto-connect-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [ScriptCode] [Port]"
+EXAMPLE="Example:\n\tauto-connect-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [ScriptCode] [Port] [DeviceName]"
 
 if [ ! $FAMILY_NAME ]; then
   echo "Provide a family name as an argument."
@@ -54,29 +55,30 @@ DEVICE_NUMBER=1
 echo "Pulling device info from remote garden computer..."
 sh pull-device-info-from-remotes.sh || exit 1
 
-DEVICE_POSTFIX=""
+if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]]; then
+  DEVICE_POSTFIX=""
 
-if [ $BOARD_TYPE = "esp" ]; then
-  DEVICE_POSTFIX="W"
-fi
+  if [ $BOARD_TYPE = "esp" ]; then
+    DEVICE_POSTFIX="W"
+  fi
 
-DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
+  DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
 
-if [ -d "$DEVICE_INFO_DIR" ]; then
+  if [ -d "$DEVICE_INFO_DIR" ]; then
 
-  echo "Device exists"
+    echo "Device exists"
   
-  until [ ! -d "$DEVICE_INFO_DIR" ]; do
-    echo "Increasing device number"
-    DEVICE_NUMBER=$((DEVICE_NUMBER+1))
-    DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
-    echo "Device info dir:"
-    echo $DEVICE_INFO_DIR
-  done
+    until [ ! -d "$DEVICE_INFO_DIR" ]; do
+      echo "Increasing device number"
+      DEVICE_NUMBER=$((DEVICE_NUMBER+1))
+      DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
+      echo "Device info dir:"
+      echo $DEVICE_INFO_DIR
+    done
+  fi
+
+  DEVICE_NAME="$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
 fi
-
-
-DEVICE_NAME="$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
 
 sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
 
