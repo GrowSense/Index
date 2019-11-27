@@ -80,7 +80,7 @@ echo $DEVICE_FAMILY > $DEVICE_DIR/family.txt
 echo $DEVICE_HOST > $DEVICE_DIR/host.txt
 echo "1" > $DEVICE_DIR/is-usb-connected.txt
 
-PNP_DEVICES_DIR="/usr/local/ArduinoPlugAndPlay/devices/"
+PNP_DEVICES_DIR="/usr/local/ArduinoPlugAndPlay/devices"
 
 echo "$DEVICE_NAME" > "$PNP_DEVICES_DIR/$DEVICE_PORT/device-name.txt"
 
