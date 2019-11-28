@@ -20,6 +20,6 @@ FILE_PATH="$MSGS_DIR/$DATE_STRING--$UNIQUE_ID.msg.txt"
 echo "Message: $MESSAGE_TEXT"
 echo "File: $FILE_PATH"
 
-echo "$MESSAGE_TEXT" > "$FILE_PATH"
+echo "$MESSAGE_TEXT" > "$FILE_PATH" || exit 1
 
 echo "Finished creating message file."

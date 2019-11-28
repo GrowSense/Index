@@ -97,10 +97,10 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
        
       if [ "$DEVICE_BOARD" == "esp" ]; then
         SCRIPT_NAME="upload-device-sketch-esp.sh"
-        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
       else
         SCRIPT_NAME="upload-device-sketch-arduino.sh"
-        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
       fi
 
       STATUS_CODE=$?
@@ -127,6 +127,8 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         echo "Upgrade timed out\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
         
         LOG_OUTPUT=$(cat $LOG_FILE)
+
+        echo "${LOG_OUTPUT}"
         
         bash send-email.sh "Error: Upgrade timed out for $DEVICE_NAME (on $DEVICE_HOST)" "Upgrade timed out $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
         
@@ -157,6 +159,8 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         echo "Device upgrade failed" 
 
         LOG_OUTPUT=$(cat $LOG_FILE)
+
+        echo "${LOG_OUTPUT}"
         
         bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME (on $DEVICE_HOST)" "Failed to upgrade sketch for $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
 

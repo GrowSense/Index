@@ -1,6 +1,6 @@
 
 # Example:
-# sh upload-device-sketch.sh nano ttyUSB0
+# sh upload-device-sketch-arduino.sh [Board] [Group] [Project] [DeviceName] [Port]
 
 DIR=$PWD
 
@@ -25,14 +25,21 @@ if [ ! $DEVICE_PROJECT ]; then
   exit 1
 fi
 
+if [ ! $DEVICE_NAME ]; then
+  echo "Please provide a device name as an argument."
+  exit 1
+fi
+
 if [ ! $SERIAL_PORT ]; then
   SERIAL_PORT="ttyUSB0"
 fi
 
 echo ""
-echo "Uploading $DEVICE_GROUP $DEVICE_BOARD sketch"
+echo "Uploading arduino sketch"
 
 echo "  Device name: $DEVICE_NAME"
+echo "  Device board: $DEVICE_BOARD"
+echo "  Device group: $DEVICE_GROUP"
 echo "  Device project: $DEVICE_PROJECT"
 echo "  Serial port: $SERIAL_PORT"
 
@@ -43,7 +50,6 @@ PROJECT_PATH="$PWD/sketches/$DEVICE_GROUP/$DEVICE_PROJECT"
 [[ -f "is-mock-hardware.txt" ]] && IS_MOCK_HARDWARE=$(cat "is-mock-hardware.txt") && echo "Is mock hardware"
 
 [[ -f "devices/$DEVICE_NAME/is-uploading.txt" ]] && IS_ALREADY_UPLOADING=$(cat "devices/$DEVICE_NAME/is-uploading.txt")
-
 
 if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
 

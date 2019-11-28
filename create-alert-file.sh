@@ -20,6 +20,6 @@ FILE_PATH="$MSGS_DIR/$DATE_STRING--$UNIQUE_ID.alert.txt"
 echo "Alert: $ALERT_TEXT"
 echo "File: $FILE_PATH"
 
-echo "$ALERT_TEXT" > "$FILE_PATH"
+echo "$ALERT_TEXT" > "$FILE_PATH" || exit 1
 
 echo "Finished creating alert file."
