@@ -4,72 +4,72 @@ using System.IO;
 
 namespace GrowSense.Index.Tests.Install.Web
 {
-    [TestFixture (Category = "InstallFromWeb")]
-    public class InstallPlugAndPlayFromWebTestFixture : BaseTestFixture
+  [TestFixture (Category = "InstallFromWeb")]
+  public class InstallPlugAndPlayFromWebTestFixture : BaseTestFixture
+  {
+    [Test]
+    public void Test_Install_FromWeb ()
     {
-        [Test]
-        public void Test_Install_FromWeb ()
-        {
-            MoveToTemporaryDirectory ();
+      MoveToTemporaryDirectory ();
 
-            Console.WriteLine ("");
-            Console.WriteLine ("Preparing install from web test...");
-            Console.WriteLine ("");
+      Console.WriteLine ("");
+      Console.WriteLine ("Preparing install from web test...");
+      Console.WriteLine ("");
 
-            PullFileFromProject ("scripts-web/install-plug-and-play-from-web.sh", true);
+      var scriptName = "install-plug-and-play-from-web.sh";
+      var scriptPath = Path.GetFullPath (scriptName);
 
-            var scriptPath = Path.GetFullPath ("install-plug-and-play-from-web.sh");
+      var branchDetector = new BranchDetector ();
+      var branch = branchDetector.Branch;
 
-            var branchDetector = new BranchDetector ();
-            var branch = branchDetector.Branch;
+      var installDir = Path.GetFullPath ("GrowSense/Index");
+      
+      Directory.CreateDirectory (installDir);
 
-            var installDir = Path.GetFullPath ("GrowSense/Index");
+      var pnpInstallDir = Path.GetFullPath ("ArduinoPlugAndPlay");
 
-            EnableMocking (installDir, "systemctl");
-            EnableMocking (installDir, "mqtt-bridge");
-            EnableMocking (installDir, "docker");
-            EnableMocking (installDir, "install");
+      EnableMocking (pnpInstallDir, "systemctl");
+      
+      Directory.SetCurrentDirectory (installDir);
+      
+      var random = new Random ();
 
-            var pnpInstallDir = Path.GetFullPath ("ArduinoPlugAndPlay");
+      var wifiName = "MyWifi" + random.Next (99);
+      var wifiPass = "MyPass" + random.Next (99);
 
-            EnableMocking (pnpInstallDir, "systemctl");
+      var mqttHost = "10.0.0." + random.Next (99);
+      var mqttUser = "user" + random.Next (99);
+      var mqttPass = "pass" + random.Next (99);
+      var mqttPort = "18" + random.Next (99);
 
-            var random = new Random ();
+      var cmd = "bash " + scriptName + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort;
 
-            var wifiName = "MyWifi" + random.Next (99);
-            var wifiPass = "MyPass" + random.Next (99);
+      Console.WriteLine ("Command:");
+      Console.WriteLine ("  " + cmd);
 
-            var mqttHost = "10.0.0." + random.Next (99);
-            var mqttUser = "user" + random.Next (99);
-            var mqttPass = "pass" + random.Next (99);
-            var mqttPort = "18" + random.Next (99);
+      var starter = GetTestProcessStarter (installDir);
+      
+      PullFileFromProject ("scripts-web/install-plug-and-play-from-web.sh", true);
 
-            var cmd = "bash " + scriptPath + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort;
+      Console.WriteLine ("");
+      Console.WriteLine ("Performing install from web test...");
+      Console.WriteLine ("");
 
-            Console.WriteLine ("Command:");
-            Console.WriteLine ("  " + cmd);
+      starter.RunBash (cmd);
 
-            var starter = new ProcessStarter ();
+      Console.Write (starter.Starter.Output);
 
-            Console.WriteLine ("");
-            Console.WriteLine ("Performing install from web test...");
-            Console.WriteLine ("");
+      Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
 
-            starter.Start (cmd);
+      Console.WriteLine ("Checking that the ArduinoPlugAndPlay service file was installed.");
+      var expectedServiceFile = Path.Combine (pnpInstallDir, "mock/services/arduino-plug-and-play.service");
+      Assert.IsTrue (File.Exists (expectedServiceFile), "Plug and play service file not found.");
 
-            Console.Write (starter.Output);
+      Console.WriteLine ("Checking that GrowSense index was installed.");
+      var indexGitDir = Path.Combine (installDir, ".git");
+      Assert.IsTrue (Directory.Exists (indexGitDir), "The GrowSense index .git folder wasn't found.");
 
-            Assert.IsFalse (starter.IsError, "An error occurred.");
-
-            Console.WriteLine ("Checking that the ArduinoPlugAndPlay service file was installed.");
-            var expectedServiceFile = Path.Combine (pnpInstallDir, "mock/services/arduino-plug-and-play.service");
-            Assert.IsTrue (File.Exists (expectedServiceFile), "Plug and play service file not found.");
-
-            Console.WriteLine ("Checking that GrowSense index was installed.");
-            var indexGitDir = Path.Combine (installDir, ".git");
-            Assert.IsTrue (Directory.Exists (indexGitDir), "The GrowSense index .git folder wasn't found.");
-
-        }
     }
+  }
 }
 

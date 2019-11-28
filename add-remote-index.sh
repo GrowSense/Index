@@ -45,7 +45,11 @@ echo "  Port: $REMOTE_PORT"
 
 mkdir -p "remote"
 
-bash validate-remote-index.sh "add" "$REMOTE_NAME" "$REMOTE_HOST" "$REMOTE_USERNAME" "$REMOTE_PASSWORD" "$REMOTE_PORT" || exit 1
+if [ ! -f "is-mock-remotes.txt" ]; then
+  bash validate-remote-index.sh "add" "$REMOTE_NAME" "$REMOTE_HOST" "$REMOTE_USERNAME" "$REMOTE_PASSWORD" "$REMOTE_PORT" || exit 1
+else
+  echo "[mock] bash validate-remote-index.sh add $REMOTE_NAME $REMOTE_HOST $REMOTE_USERNAME $REMOTE_PASSWORD $REMOTE_PORT"
+fi
 
 REMOTE_INFO_PATH="remote/$REMOTE_NAME"
 
@@ -67,7 +71,11 @@ echo "Checking remote computer info files were created..."
 
 echo ""
 echo "Pulling device info from remote..."
-bash pull-device-info-from-remote.sh "$REMOTE_NAME"
+if [ ! -f "is-mock-remotes.txt" ]; then
+  bash pull-device-info-from-remote.sh "$REMOTE_NAME"
+else
+  echo "[mock] bash pull-device-info-from-remote.sh $REMOTE_NAME"
+fi
 
 echo "Finished creating remote index '$REMOTE_NAME'."
 echo ""

@@ -78,7 +78,7 @@ echo "Creating ArduinoPlugAndPlay dir..."
 PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 mkdir -p $PNP_INSTALL_DIR || exit 1
 
-cd $PNP_INSTALL_DIR
+#cd $PNP_INSTALL_DIR
 
 echo ""
 echo "Importing GrowSense config file into ArduinoPlugAndPlay dir..."
@@ -89,6 +89,8 @@ SUDO=""
 if [ ! "$(id -u)" -eq 0 ]; then
   if [ ! -f "is-mock-sudo.txt" ]; then
     SUDO='sudo'
+  else
+    echo "  Is mock sudo"
   fi
 fi
 
@@ -113,7 +115,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
       $SUDO apt-get update
     fi
 
-    sudo apt-get install -y git || exit 1
+    $SUDO apt-get install -y git || exit 1
   fi
 
   echo ""
@@ -138,13 +140,18 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 
   echo ""
   echo "Moving into index directory..."
+  echo "  $INDEX_DIR"
 
   cd $INDEX_DIR || exit 1
 
   echo ""
   echo "Preparing index..."
 
-  $SUDO bash prepare.sh || exit 1
+  if [ ! -f "is-mock-system.txt" ]; then
+    $SUDO bash prepare.sh || exit 1
+  else
+    echo "[mock] $SUDO bash prepare.sh"
+  fi
 fi
 
 echo ""
