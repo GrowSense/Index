@@ -18,21 +18,25 @@ namespace GrowSense.Index.Tests.Install.Web
 
       var installDir = Path.GetFullPath ("GrowSense/Index");
       var pnpInstallDir = Path.GetFullPath ("ArduinoPlugAndPlay");
+      
+      Directory.CreateDirectory (installDir);
 
       var branchDetector = new BranchDetector ();
       var branch = branchDetector.Branch;
 
       PrepareGrowSenseInstallation (branch, installDir, pnpInstallDir);
+      
+      MoveToTemporaryDirectory ();
 
       PullFileFromProject ("scripts-web/uninstall-plug-and-play-from-web.sh", true);
 
-      var scriptPath = Path.GetFullPath ("uninstall-plug-and-play-from-web.sh");
-      var cmd = "bash " + scriptPath + " " + branch + " " + installDir;
+      var scriptName = "uninstall-plug-and-play-from-web.sh";
+      var cmd = "bash " + scriptName + " " + branch + " " + installDir;
 
       Console.WriteLine ("Command:");
       Console.WriteLine ("  " + cmd);
 
-      var starter = GetTestProcessStarter (installDir);
+      var starter = GetTestProcessStarter ();
 
       Console.WriteLine ("");
       Console.WriteLine ("Performing uninstall from web test...");
@@ -53,11 +57,11 @@ namespace GrowSense.Index.Tests.Install.Web
       Assert.IsFalse (Directory.Exists (indexDir), "The GrowSense index directory still exists.");
     }
     // TODO: Find a faster way of setting up a fake installation instead of doing an actual install
-    public void PrepareGrowSenseInstallation (string branch, string greenSenseInstallDir, string arduinoPlugAndPlayInstallDir)
+    public void PrepareGrowSenseInstallation (string branch, string growSenseInstallDir, string arduinoPlugAndPlayInstallDir)
     {
-      Directory.CreateDirectory (greenSenseInstallDir);
+      Directory.CreateDirectory (growSenseInstallDir);
       
-      Directory.SetCurrentDirectory (greenSenseInstallDir);
+      Directory.SetCurrentDirectory (growSenseInstallDir);
 
       var scriptName = "install-plug-and-play-from-web.sh";
 
@@ -76,12 +80,12 @@ namespace GrowSense.Index.Tests.Install.Web
       var smtpServer = "mail.server" + random.Next (9) + ".com";
       var emailAddress = "user" + random.Next (9) + "@server.com";
       
-      var cmd = "bash " + scriptName + " " + branch + " " + greenSenseInstallDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort + " " + smtpServer + " " + emailAddress;
+      var cmd = "bash " + scriptName + " " + branch + " " + growSenseInstallDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort + " " + smtpServer + " " + emailAddress;
 
       Console.WriteLine ("Command:");
       Console.WriteLine ("  " + cmd);
 
-      var starter = GetTestProcessStarter (greenSenseInstallDir);
+      var starter = GetTestProcessStarter (growSenseInstallDir);
       
       PullFileFromProject ("scripts-web/install-plug-and-play-from-web.sh", true);
 
@@ -100,7 +104,7 @@ namespace GrowSense.Index.Tests.Install.Web
       Assert.IsTrue (File.Exists (expectedServiceFile), "Plug and play service file not found.");
 
       Console.WriteLine ("Checking that GrowSense index was installed.");
-      var indexGitDir = Path.Combine (greenSenseInstallDir, ".git");
+      var indexGitDir = Path.Combine (growSenseInstallDir, ".git");
       Assert.IsTrue (Directory.Exists (indexGitDir), "The GrowSense index .git folder wasn't found.");
 
     }
