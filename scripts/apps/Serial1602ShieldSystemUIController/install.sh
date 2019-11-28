@@ -2,7 +2,7 @@ echo "Installing UI controller"
 
 INSTALL_DIR=$1
 
-if [ ! $INSTALL_DIRECTORY ]; then
+if [ ! $INSTALL_DIR ]; then
   INSTALL_DIR="/usr/local/Serial1602ShieldSystemUIController"
 fi
 
