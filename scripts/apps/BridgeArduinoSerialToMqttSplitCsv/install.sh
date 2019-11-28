@@ -1,6 +1,10 @@
 echo "Installing UI controller"
 
-INSTALL_DIR="/usr/local/BridgeArduinoSerialToMqttSplitCsv"
+INSTALL_DIR=$1
+
+if [ ! $INSTALL_DIR ]; then
+  INSTALL_DIR="/usr/local/BridgeArduinoSerialToMqttSplitCsv"
+fi
 
 echo "Install dir:"
 echo "  $INSTALL_DIR"
