@@ -90,12 +90,22 @@ echo "  $DEVICE_INFO_DIR"
 
 DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
 
-SCRIPT_NAME="create-garden-$SCRIPT_CODE-$BOARD_TYPE".sh || exit 1
-echo "" && \
-echo "Create device script:" && \
-echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
-echo "" && \
-sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
+# TODO: Remove if not needed. Should be obsolete.
+#SCRIPT_NAME="create-garden-$SCRIPT_CODE-$BOARD_TYPE".sh || exit 1
+#echo "" && \
+#echo "Create device script:" && \
+#echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
+#echo "" && \
+#sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
+
+echo ""
+echo "  Launching create device script..."
+if [ "$BOARD_TYPE" == "esp" ]; then
+  bash create-esp-device.sh $BOARD_TYPE $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
+else
+  bash create-arduino-device.sh $BOARD_TYPE $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
+fi
+
 
 echo ""
 echo "Marking device as connected..."

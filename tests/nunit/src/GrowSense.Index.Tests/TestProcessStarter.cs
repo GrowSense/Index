@@ -96,7 +96,7 @@ namespace GrowSense.Index.Tests
 
       var output = String.Empty;
 
-      var fixedCommand = "/bin/bash -c '" + internalCommand + "'";
+      var fixedCommand = internalCommand;//"/bin/bash -c '" + internalCommand + "'";
 
       output += RunProcess (fixedCommand);
 

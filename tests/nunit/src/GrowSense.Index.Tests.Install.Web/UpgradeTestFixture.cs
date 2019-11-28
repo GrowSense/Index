@@ -29,23 +29,23 @@ namespace GrowSense.Index.Tests.Install.Web
 
       //PullFileFromProject ("upgrade.sh", true);
 
-      var scriptPath = Path.GetFullPath ("upgrade.sh");
-      var cmd = "bash " + scriptPath;
+      var scriptName = "upgrade.sh";
+      var cmd = "bash " + scriptName;
 
       Console.WriteLine ("Command:");
       Console.WriteLine ("  " + cmd);
 
-      var starter = new ProcessStarter ();
+      var starter = GetTestProcessStarter ();
 
       Console.WriteLine ("");
       Console.WriteLine ("Performing upgrade test...");
       Console.WriteLine ("");
 
-      starter.Start (cmd);
+      starter.RunBash (cmd);
 
-      Console.Write (starter.Output);
+      Console.Write (starter.Starter.Output);
 
-      Assert.IsFalse (starter.IsError, "An error occurred.");
+      Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
 
       Console.WriteLine ("Checking that the ArduinoPlugAndPlay service file was installed.");
       var expectedServiceFile = Path.Combine (pnpInstallDir, "mock/services/arduino-plug-and-play.service");
