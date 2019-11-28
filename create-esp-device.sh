@@ -44,17 +44,19 @@ if [ ! $DEVICE_PORT ]; then
   exit 1
 fi
 
-echo "Device label: $DEVICE_LABEL"
-echo "Device name: $DEVICE_NAME"
-echo "Device group: $DEVICE_GROUP"
-echo "Device project: $DEVICE_PROJECT"
-echo "Device board: $DEVICE_BOARD"
-echo "Device port: $DEVICE_PORT"
+echo "  Device label: $DEVICE_LABEL"
+echo "  Device name: $DEVICE_NAME"
+echo "  Device group: $DEVICE_GROUP"
+echo "  Device project: $DEVICE_PROJECT"
+echo "  Device board: $DEVICE_BOARD"
+echo "  Device port: $DEVICE_PORT"
 
-# Create device info
-sh create-device-info.sh esp $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT && \
+echo ""
+echo "  Creating device info..."
+sh create-device-info.sh esp $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
 
-# Set the WiFi and MQTT settings on the device
+echo ""
+echo "  Setting device name, WiFi and MQTT settings on devices..."
 if [ ! -f "is-mock-hardware.txt" ]; then
   cd sketches/$DEVICE_GROUP/$DEVICE_PROJECT/ && \
   sh pull-security-files.sh && \

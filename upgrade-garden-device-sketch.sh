@@ -27,6 +27,8 @@ CURRENT_HOST=$(cat /etc/hostname)
 
 echo "  Device name: $DEVICE_NAME"
 echo "  Device project: $DEVICE_PROJECT"
+echo "  Device group: $DEVICE_GROUP"
+echo "  Device port: $DEVICE_PORT"
 echo "  Device host: $DEVICE_HOST"
 echo "  Current host: $CURRENT_HOST"
 
@@ -79,8 +81,6 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
       
       bash create-message-file.sh "$DEVICE_NAME is upgrading"
-
-      SERVICE_NAME="growsense-mqtt-bridge-$DEVICE_NAME.service"
       
       if [ "$DEVICE_GROUP" = "ui" ]; then  
         echo "Giving the UI time to display the message..."
@@ -94,9 +94,14 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       sleep 2
       
       LOG_FILE="logs/updates/$DEVICE_NAME.txt"
-        
-      SCRIPT_NAME="upload-$DEVICE_GROUP-$DEVICE_BOARD-sketch.sh"
-      timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+       
+      if [ "$DEVICE_BOARD" == "esp" ]; then
+        SCRIPT_NAME="upload-device-sketch-esp.sh"
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+      else
+        SCRIPT_NAME="upload-device-sketch-arduino.sh"
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+      fi
 
       STATUS_CODE=$?
       
