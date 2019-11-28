@@ -81,9 +81,10 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   cd $DIR
   
   if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
-    sh report-device-uploaded.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT
+    bash send-device-name-command.sh $DEVICE_NAME $SERIAL_PORT
+    bash report-device-uploaded.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT
   else
-    sh report-device-upload-failed.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT
+    bash report-device-upload-failed.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT
     
     exit 1
   fi
