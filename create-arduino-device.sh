@@ -44,21 +44,25 @@ if [ ! $DEVICE_PORT ]; then
   exit 1
 fi
 
-echo "Device label: $DEVICE_LABEL"
-echo "Device name: $DEVICE_NAME"
-echo "Device group: $DEVICE_GROUP"
-echo "Device project: $DEVICE_PROJECT"
-echo "Device board: $DEVICE_BOARD"
-echo "Device port: $DEVICE_PORT"
+echo "  Device label: $DEVICE_LABEL"
+echo "  Device name: $DEVICE_NAME"
+echo "  Device group: $DEVICE_GROUP"
+echo "  Device project: $DEVICE_PROJECT"
+echo "  Device board: $DEVICE_BOARD"
+echo "  Device port: $DEVICE_PORT"
 
 # Create device info
+echo ""
+echo "  Creating device info..."
 sh create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
 
 # Set up service
+echo ""
+echo "  Creating device service..."
 if [ "$DEVICE_GROUP" == "ui" ]; then
-  sh create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT
+  bash create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
 else
-  sh create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT
+  bash create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || exit 1
 fi
 
 echo ""

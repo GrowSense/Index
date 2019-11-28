@@ -49,13 +49,11 @@ sh notify-send.sh "Adding $GROUP_NAME device"
 
 DEVICE_NUMBER=1
 
-# TODO: Remove if not needed. It shouldn't be needed. Only if plug and play isn't reliable enough at removing devices
-#sh clean-disconnected-devices.sh || "Failed to clean disconnected devices."
-
 echo "Pulling device info from remote garden computer..."
 sh pull-device-info-from-remotes.sh || exit 1
 
 if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
+  echo "  Generating new device name..."
   DEVICE_POSTFIX=""
 
   if [ $BOARD_TYPE = "esp" ]; then
