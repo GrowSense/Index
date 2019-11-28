@@ -13,10 +13,16 @@ if [ ! $SERIAL_PORT ]; then
   exit 1
 fi
 
+if [[ "$SERIAL_PORT" != *"/dev/"* ]]; then
+  SERIAL_PORT="/dev/$SERIAL_PORT"
+fi
+
 echo "  Command: $COMMAND"
 echo "  Device port: $SERIAL_PORT"
 
 exec 3<> $SERIAL_PORT
+
+sleep 2
 
 echo "$COMMAND" >&3
 
