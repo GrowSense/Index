@@ -30,7 +30,7 @@ namespace GrowSense.Index.Tests.Install.Web
       //PullFileFromProject ("upgrade.sh", true);
 
       var scriptName = "upgrade.sh";
-      var cmd = "bash " + scriptName;
+      var cmd = "sh " + scriptName;
 
       Console.WriteLine ("Command:");
       Console.WriteLine ("  " + cmd);
