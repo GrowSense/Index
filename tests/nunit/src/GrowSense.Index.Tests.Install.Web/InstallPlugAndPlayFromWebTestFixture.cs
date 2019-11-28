@@ -41,8 +41,11 @@ namespace GrowSense.Index.Tests.Install.Web
       var mqttUser = "user" + random.Next (99);
       var mqttPass = "pass" + random.Next (99);
       var mqttPort = "18" + random.Next (99);
+      
+      var smtpServer = "mail.server" + random.Next (9) + ".com";
+      var emailAddress = "user" + random.Next (9) + "@server.com";
 
-      var cmd = "bash " + scriptName + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort;
+      var cmd = "bash " + scriptName + " " + branch + " " + installDir + " " + wifiName + " " + wifiPass + " " + mqttHost + " " + mqttUser + " " + mqttPass + " " + mqttPort + " " + smtpServer + " " + emailAddress;
 
       Console.WriteLine ("Command:");
       Console.WriteLine ("  " + cmd);
