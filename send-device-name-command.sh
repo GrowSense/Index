@@ -19,7 +19,7 @@ fi
 
 echo "  Device name: $DEVICE_NAME"
 echo "  Device port: $SERIAL_PORT"
-
+echo ""
 bash send-serial-command.sh "Name:$DEVICE_NAME" $SERIAL_PORT || exit 1
-
+echo ""
 echo "Finished sending device name command"
