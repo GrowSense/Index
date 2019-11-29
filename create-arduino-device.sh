@@ -58,16 +58,12 @@ echo "  Device board: $DEVICE_BOARD"
 echo "  Device port: $DEVICE_PORT"
 
 echo ""
+echo "Sending device name command..."
+bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1
+
+echo ""
 echo "  Creating device info..."
 sh create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
-
-echo ""
-echo "  Stopping device services in case any are running..."
-bash stop-garden-device.sh $DEVICE_NAME
-
-echo ""
-echo "Sending device name command..."
-bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT"
 
 # Set up service
 echo ""
