@@ -57,12 +57,12 @@ echo "  Device project: $DEVICE_PROJECT"
 echo "  Device board: $DEVICE_BOARD"
 echo "  Device port: $DEVICE_PORT"
 
-echo "  Sending device name command..."
-sh send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1
-
 echo ""
 echo "  Setting device name, WiFi and MQTT settings on devices..."
 if [ ! -f "is-mock-hardware.txt" ]; then
+  echo "  Sending device name command..."
+  sh send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1
+
   cd sketches/$DEVICE_GROUP/$DEVICE_PROJECT/ && \
   sh pull-security-files.sh && \
   
@@ -72,8 +72,8 @@ if [ ! -f "is-mock-hardware.txt" ]; then
   sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
   cd $DIR
 else
-  echo "  [mock] sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT"
   echo "  [mock] sh send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT"
+  echo "  [mock] sh send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT"
 fi
 
 echo ""

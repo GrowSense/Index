@@ -59,7 +59,11 @@ echo "  Device port: $DEVICE_PORT"
 
 echo ""
 echo "Sending device name command..."
-bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1
+if [ ! -f "is-mock-hardware.txt" ]; then
+  bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1
+else
+  echo "[mock] bash send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT"
+fi
 
 echo ""
 echo "  Creating device info..."
