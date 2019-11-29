@@ -66,9 +66,6 @@ if [ ! -f "is-mock-hardware.txt" ]; then
   cd sketches/$DEVICE_GROUP/$DEVICE_PROJECT/ && \
   sh pull-security-files.sh && \
   
-  # Give the device time to load
-  sleep 5
-  
   bash send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
   cd $DIR
 else
