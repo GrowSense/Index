@@ -64,7 +64,7 @@ if [ $DEVICE_NAME ]; then
 
   bash create-alert-file.sh "$DEVICE_NAME disconnected"
 
-  bash send-email.sh "Device $DEVICE_NAME disconnected from USB (on $HOST)." "The $DEVICE_NAME device was disconnected from USB on host $HOST." 
+  bash send-email.sh "Device $DEVICE_NAME disconnected via USB (on $HOST)." "The $DEVICE_NAME device was disconnected via USB on host $HOST." 
 
   echo "Finished auto disconnecting device."
 else
