@@ -26,22 +26,22 @@ sleep 2
 
 echo "$COMMAND" >&3
 
-sleep 4
+sleep 2
 
-RESULT=$(cat <&3)
+#RESULT=$(cat <&3)
 
-echo ""
-echo "-------------------- Device Output --------------------"
-echo ""
-echo "${RESULT}"
-echo ""
-echo "-------------------------------------------------------"
-echo ""
+#echo ""
+#echo "-------------------- Device Output --------------------"
+#echo ""
+#echo "${RESULT}"
+#echo ""
+#echo "-------------------------------------------------------"
+#echo ""
 
-if [[ "$RESULT" != *"$COMMAND"* ]]; then
-  echo "  Error: Device didn't receive command."
-  exit 1
-fi
+#if [[ "$RESULT" != *"$COMMAND"* ]]; then
+#  echo "  Error: Device didn't receive command."
+#  exit 1
+#fi
 
 exec 3>&-
 
