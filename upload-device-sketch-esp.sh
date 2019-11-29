@@ -55,14 +55,6 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   echo "  Pulling security files..."
   sh pull-security-files.sh || exit 1
 
-# TODO: Remove if not needed. Disabled because details are set via a command
-  # Inject security details
-  #sh inject-security-settings.sh && \
-
-# TODO: Remove if not needed. Disabled because device name is set via a command
-  # Inject device name
-#  sh inject-device-name.sh "$DEVICE_NAME" && \
-
   # Inject version into the sketch
   sh inject-version.sh || exit 1
 
@@ -79,7 +71,7 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   echo ""
   echo "-------------------- Output --------------------"
   echo "${RESULT}"
-  echo "--------------------------------------------------
+  echo "--------------------------------------------------"
   echo ""
 
   
