@@ -51,39 +51,48 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   echo "  Project directory:"
   echo "    $PROJECT_PATH"
 
-  # Pull the security files from the index into the project
-  sh pull-security-files.sh && \
+  echo ""
+  echo "  Pulling security files..."
+  sh pull-security-files.sh || exit 1
 
+# TODO: Remove if not needed. Disabled because details are set via a command
   # Inject security details
-  sh inject-security-settings.sh && \
+  #sh inject-security-settings.sh && \
 
+# TODO: Remove if not needed. Disabled because device name is set via a command
   # Inject device name
-  sh inject-device-name.sh "$DEVICE_NAME" && \
+#  sh inject-device-name.sh "$DEVICE_NAME" && \
 
   # Inject version into the sketch
-  sh inject-version.sh && \
+  sh inject-version.sh || exit 1
 
   # Upload the sketch
   if [ "$IS_MOCK_HARDWARE" != "1" ]; then
       echo "  Uploading (please wait)..."
-      RESULT=$(bash upload.sh "/dev/$SERIAL_PORT")
+      RESULT=$(bash upload.sh "/dev/$SERIAL_PORT" || exit 1)
   else
       echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
   fi
   
   sleep 5
-  bash send-wifi-mqtt-commands.sh /dev/$SERIAL_PORT || exit 1
 
   echo ""
+  echo "-------------------- Output --------------------"
   echo "${RESULT}"
+  echo "--------------------------------------------------
   echo ""
 
-  cd $DIR
   
-  if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
-    bash send-device-name-command.sh $DEVICE_NAME $SERIAL_PORT || exit 1
+  if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then
+    bash send-device-name-command.sh $DEVICE_NAME /dev/$SERIAL_PORT || exit 1
+    bash send-wifi-mqtt-commands.sh /dev/$SERIAL_PORT || exit 1
+
+    cd $DIR
+
     bash report-device-uploaded.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT || exit 1
   else
+    cd $DIR
+
     bash report-device-upload-failed.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT || exit 1
     
     exit 1
