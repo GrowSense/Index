@@ -26,7 +26,7 @@ sleep 2
 
 echo "$COMMAND" >&3
 
-sleep 1
+sleep 2
 
 RESULT=$(cat <&3)
 
