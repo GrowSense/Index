@@ -74,6 +74,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       
       mkdir -p "logs/updates"
       
+      echo "  Checking out latest device project repository..."
       cd "sketches/$DEVICE_GROUP/$DEVICE_PROJECT"
       sh clean.sh
       git checkout $BRANCH
@@ -98,6 +99,8 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       
       LOG_FILE="logs/updates/$DEVICE_NAME.txt"
        
+      echo ""
+      echo "  Launching device upload script..."
       if [ "$DEVICE_BOARD" == "esp" ]; then
         SCRIPT_NAME="upload-device-sketch-esp.sh"
         timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
