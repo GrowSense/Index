@@ -77,7 +77,9 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   fi
 
   echo ""
+  echo "-------------------- Output --------------------"
   echo "${RESULT}"
+  echo "--------------------------------------------------"
   echo ""
 
   cd $DIR
