@@ -74,7 +74,7 @@ bash install-service.sh $SERVICE_FILE_PATH || exit 1
 if [ ! -f "is-mock-mqtt.txt" ]; then
 	echo ""
 	echo "  Waiting for docker container to start..."
-	bash wait-for-mqtt-service.sh
+	bash wait-for-mqtt-service.sh || exit 1
 
 #	echo ""
 #	echo "  Checking mosquitto docker container started..."
