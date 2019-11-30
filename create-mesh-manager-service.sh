@@ -1,4 +1,4 @@
-echo "Creating GrowSense system mesh manager service..."
+echo "Creating GrowSense mesh manager service..."
 
 SERVICE_EXAMPLE_FILE="growsense-mesh-manager.service.example"
 SERVICE_FILE="growsense-mesh-manager.service"

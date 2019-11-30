@@ -43,7 +43,7 @@ fi
 echo "Automatically adding a device..."
 
 # Disabled because it's causing problems with tests
-sh notify-send.sh "Adding $GROUP_NAME device"
+bash notify-send.sh "Adding $GROUP_NAME device"
 
 #sh update.sh
 
@@ -79,7 +79,7 @@ if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{D
   DEVICE_NAME="$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
 fi
 
-sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
+bash run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
 
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
@@ -110,9 +110,9 @@ echo ""
 echo "Marking device as connected..."
 echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"
 
-sh run-background.sh sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
+sh run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
-sh run-background.sh sh notify-send.sh "Finished connecting $GROUP_NAME device"
+sh run-background.sh bash notify-send.sh "Finished connecting $GROUP_NAME device"
 
 HOST=$(cat /etc/hostname)
 
