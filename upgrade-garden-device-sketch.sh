@@ -32,6 +32,9 @@ echo "  Device port: $DEVICE_PORT"
 echo "  Device host: $DEVICE_HOST"
 echo "  Current host: $CURRENT_HOST"
 
+echo "  Waiting for devices to unlock (to ensure no device sketches are being uploaded)..."
+bash wait-for-unlock.sh || exit 1
+
 if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
   echo "  Device is on another host. Skipping upgrade."
   exit 0
