@@ -49,8 +49,9 @@ sh notify-send.sh "Adding $GROUP_NAME device"
 
 DEVICE_NUMBER=1
 
-echo "Pulling device info from remote garden computer..."
-sh pull-device-info-from-remotes.sh || exit 1
+# Disabled to speed up plug and play. Mesh manager will take care of this
+#echo "Pulling device info from remote garden computer..."
+#sh pull-device-info-from-remotes.sh || exit 1
 
 if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
   echo "  Generating new device name..."

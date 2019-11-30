@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GrowSense System Mesh Manager Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/GrowSense/Index/; cd /usr/local/GrowSense/Index/; bash manage-mesh-ongoing.sh"
+
+ [Install]
+ WantedBy=multi-user.target
