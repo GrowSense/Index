@@ -82,7 +82,7 @@ fi
 echo ""
 echo "Testing ping to the remote computer..."
 
-PING_RESULT="$(timeout 5 ping $REMOTE_HOST)"
+PING_RESULT="$(ping -c 1 $REMOTE_HOST)"
 
 if [[ ! $(echo $PING_RESULT) =~ "64 bytes from" ]]; then
   echo "Error: Remote computer '$REMOTE_NAME' at path '$REMOTE_HOST' is offline or cannot be found."
