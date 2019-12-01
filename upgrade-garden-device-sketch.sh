@@ -26,6 +26,7 @@ DEVICE_IS_USB_CONNECTED=$(cat "devices/$DEVICE_NAME/is-usb-connected.txt")
 CURRENT_HOST=$(cat /etc/hostname)
 
 echo "  Device name: $DEVICE_NAME"
+echo "  Device board: $DEVICE_BOARD"
 echo "  Device project: $DEVICE_PROJECT"
 echo "  Device group: $DEVICE_GROUP"
 echo "  Device port: $DEVICE_PORT"
@@ -101,12 +102,16 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
        
       echo ""
       echo "  Launching device upload script..."
-      if [ "$DEVICE_BOARD" == "esp" ]; then
+      if [[ "$DEVICE_BOARD" == "esp" ]]; then
+        echo "    Is ESP board. Launching upload ESP script...."
         SCRIPT_NAME="upload-device-sketch-esp.sh"
-        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
+        echo "    Script: $SCRIPT_NAME"
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
       else
+        echo "    Is arduino board. Launching upload arduino script...."
         SCRIPT_NAME="upload-device-sketch-arduino.sh"
-        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
+        echo "    Script: $SCRIPT_NAME"
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
       fi
 
       STATUS_CODE=$?
