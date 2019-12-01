@@ -82,8 +82,6 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   #echo "--------------------------------------------------"
   #echo ""
 
-  cd $DIR
-
   #if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
 
   if [[ "$?" == "0" ]]; then
