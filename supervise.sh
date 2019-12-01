@@ -8,6 +8,17 @@ if [ ! $LOOP_NUMBER ]; then
   LOOP_NUMBER=0
 fi
 
+echo ""
+echo "-----"
+echo "Starting GrowSense Supervisor Loop: $LOOP_NUMBER"
+echo ""
+
+echo ""
+echo "  Supervising mesh manager service..."
+bash supervise-mesh-manager-service.sh
+
+echo ""
+echo "  Supervising WWW service..."
 bash supervise-www-service.sh
 
 DOCKER_CHECK_FREQUENCY=$(cat supervisor-docker-check-frequency.txt)
@@ -44,12 +55,8 @@ echo ""
 echo "Supervising devices..."
 bash supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
 
-
 AUTO_UPGRADE_ENABLED=$(cat auto-upgrade-enabled.txt)
 
-echo ""
-echo "-----"
-echo "Starting GrowSense Supervisor Loop: $LOOP_NUMBER"
 echo ""
 if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
   if [ $(( $LOOP_NUMBER%$UPGRADE_FREQUENCY )) -eq "0" ]; then
