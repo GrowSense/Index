@@ -23,14 +23,15 @@ else
   else
     if [ "$DEVICE_GROUP" = "ui" ]; then
     
-      echo "  Stopping UI controller service" && \
-      sh systemctl.sh stop growsense-ui-1602-$DEVICE_NAME.service || exit 1
-      
+      echo "  Stopping UI controller service"
+      if [ -f "/lib/systemd/system/growsense-ui-1602-$DEVICE_NAME.service" ]; then
+        sh systemctl.sh stop growsense-ui-1602-$DEVICE_NAME.service || exit 1
+      fi
     else
-
-      echo "  Stopping MQTT bridge service" && \
-      sh systemctl.sh stop growsense-mqtt-bridge-$DEVICE_NAME.service || exit 1
-
+      echo "  Stopping MQTT bridge service"
+      if [ -f "/lib/systemd/system/growsense-mqtt-bridge-$DEVICE_NAME.service" ]; then
+        sh systemctl.sh stop growsense-mqtt-bridge-$DEVICE_NAME.service || exit 1
+      fi
     fi
     
     echo "Garden device services stopped for '$DEVICE_NAME'"
