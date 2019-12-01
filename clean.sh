@@ -4,14 +4,6 @@ echo ""
 echo "Cleaning project"
 echo ""
 
-
-# TODO: Remove if not needed. Should be obsolete. Linear MQTT Dashboard is being phased out.
-# Clean linear MQTT dashboard settings
-#echo "Cleaning UI configuration..."
-#cd mobile/linearmqtt/
-#sh reset.sh
-#cd $DIR
-
 # Clean mock directory
 echo "Cleaning mock directory..."
 MOCK_DIR="mock";
@@ -30,8 +22,8 @@ fi
 #sh disable-mocking.sh
 
 # Remove all garden devices and services
-echo "Removing all garden devices..."
-sh remove-garden-devices.sh || exit 1
+#echo "Removing all garden devices..."
+#sh remove-garden-devices.sh || exit 1
 
 # Reset the MQTT details
 echo "Resettings MQTT credentials..."
