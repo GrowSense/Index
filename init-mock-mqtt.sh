@@ -1,2 +1,2 @@
-echo true > is-mock-mqtt.txt
+echo 1 > is-mock-mqtt.txt
 

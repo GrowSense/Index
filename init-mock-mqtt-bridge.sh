@@ -1,1 +1,1 @@
-echo true > is-mock-mqtt-bridge.txt
+echo 1 > is-mock-mqtt-bridge.txt

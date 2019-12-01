@@ -1,1 +1,1 @@
-echo true > is-mock-systemctl.txt
+echo 1 > is-mock-systemctl.txt

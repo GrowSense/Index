@@ -1,1 +1,1 @@
-echo true > is-mock-docker.txt
+echo 1 > is-mock-docker.txt
