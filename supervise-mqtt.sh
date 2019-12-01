@@ -9,7 +9,7 @@ MQTT_PORT=$(cat mqtt-port.security)
 
 echo "  Pinging MQTT server..."
 echo "    MQTT Host: $MQTT_HOST"
-PING_MQTT_RESULT="$(timeout 5 ping $MQTT_HOST)"
+PING_MQTT_RESULT="$(ping -c 1 $MQTT_HOST)"
 
 echo ""
 echo "  Ping result..."
