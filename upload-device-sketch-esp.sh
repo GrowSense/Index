@@ -77,7 +77,7 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
 
   
   #if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then
-  if [ $? -eq 0 ]; then
+  if [[ "$?" == "0" ]]; then
     echo "  Upload successful"
 
     echo "  Giving device time to load..."
