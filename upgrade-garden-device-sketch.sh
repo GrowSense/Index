@@ -32,6 +32,7 @@ echo "  Device group: $DEVICE_GROUP"
 echo "  Device port: $DEVICE_PORT"
 echo "  Device host: $DEVICE_HOST"
 echo "  Current host: $CURRENT_HOST"
+echo ""
 
 echo "  Waiting for devices to unlock (to ensure no device sketches are being uploaded)..."
 bash wait-for-unlock.sh || exit 1
@@ -83,8 +84,10 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       cd $DIR
       
       # Publish the status. The device is being upgraded.
+      echo ""
       bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
       
+      echo ""
       bash create-message-file.sh "$DEVICE_NAME is upgrading"
       
       if [ "$DEVICE_GROUP" = "ui" ]; then  
@@ -150,31 +153,39 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       
       # If the upgrade script completed successfully
       if [ $STATUS_CODE = 0 ]; then
+        echo ""
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
 
         echo "Upgrade complete\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
-       
+
+        echo ""
         echo "Device has been upgraded"   
         
         LOG_OUTPUT=$(cat $LOG_FILE)
-        
+
+        echo ""
         bash send-email.sh "Upgrade successful (v$LATEST_FULL_VERSION) for $DEVICE_NAME (on $DEVICE_HOST)" "Upgraded sketch for $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
 
+        echo ""
         bash create-message-file.sh "Upgrade successful (v$LATEST_FULL_VERSION) for $DEVICE_NAME (on $DEVICE_HOST)"
 
       else # Upgrade failed
+        echo ""       
+        echo "Device upgrade failed"
+
+        echo ""
         sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
         
         echo "Upgrade failed\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
-       
-        echo "Device upgrade failed" 
 
         LOG_OUTPUT=$(cat $LOG_FILE)
 
         echo "${LOG_OUTPUT}"
         
+        echo ""
         bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME (on $DEVICE_HOST)" "Failed to upgrade sketch for $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
 
+        echo ""
         bash create-alert-file.sh "Upgrade failed for $DEVICE_NAME (on $DEVICE_HOST)"
       fi
     fi
