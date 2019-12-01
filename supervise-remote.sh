@@ -23,7 +23,7 @@ echo "  Remote host: $REMOTE_HOST"
 echo ""
 echo "  Pinging remote host..."
 
-PING_RESULT=$(timeout 2 ping $REMOTE_HOST)
+PING_RESULT=$(ping -c 1 $REMOTE_HOST)
 
 echo ""
 echo "  Ping result..."
