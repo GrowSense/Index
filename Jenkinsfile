@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                sh 'git clone --recursive --mirror git://github.com/GrowSense/Index.git ../GrowSense/Index.reference'
+                sh 'git clone --recursive --mirror git://github.com/GrowSense/Index.git ../GrowSense/Index.reference && cd ../GrowSense/Index.reference && git submodule init --update'
                 shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git . --reference ../GrowSense/Index.reference' )
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'sh init-mock-systemctl.sh'
