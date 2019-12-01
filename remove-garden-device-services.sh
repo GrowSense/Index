@@ -4,10 +4,11 @@ echo ""
 
 DEVICE_NAME=$1
 
+echo "  Device name: $DEVICE_NAME"
+
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
-
 
 if [ -f "is-mock-systemctl.txt" ]; then
   echo "Is mock systemctl. Using mock services directory."

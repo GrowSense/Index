@@ -72,6 +72,10 @@ else
   echo "Removing all devices and services..."
   bash remove-garden-devices.sh || echo "Failed to remove garden devices"
 
+  echo ""
+  echo "Removing all remaining services..."
+  bash remove-all-services.sh || echo "Failed to remove services"
+
   HOST=$(cat /etc/hostname)
 
   echo ""
