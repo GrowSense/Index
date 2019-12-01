@@ -54,11 +54,15 @@ else
   cd $INDEX_DIR
   
   echo "Waiting for the installation to unlock..."
-  bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
+  if [ -f wait-for-unlock.sh ]; then
+    bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
+  fi
 
   echo ""
   echo "Publishing status to MQTT..."
-  bash mqtt-publish.sh "/garden/StatusMessage" "Uninstalling" &
+  if [ -f mqtt-publish.sh ]; then
+    bash mqtt-publish.sh "/garden/StatusMessage" "Uninstalling"
+  fi
 
   echo ""
   echo "Giving the UI time (3 seconds) to display the message..."
@@ -66,21 +70,29 @@ else
 
   echo ""
   echo "Stopping garden..."
-  bash stop-garden.sh || echo "Failed to stop garden"
+  if [ -f stop-garden.sh ]; then
+    bash stop-garden.sh || echo "Failed to stop garden"
+  fi
 
   echo ""
   echo "Removing all devices and services..."
-  bash remove-garden-devices.sh || echo "Failed to remove garden devices"
+  if [ -f remove-garden-devices.sh ]; then
+    bash remove-garden-devices.sh || echo "Failed to remove garden devices"
+  fi
 
   echo ""
   echo "Removing all remaining services..."
-  bash remove-all-services.sh || echo "Failed to remove services"
+  if [ -f remove-all-services.sh ]; then
+    bash remove-all-services.sh || echo "Failed to remove services"
+  fi
 
   HOST=$(cat /etc/hostname)
 
   echo ""
   echo "Sending email report..."
-  bash send-email.sh "GrowSense software uninstalled from $HOST" "The GrowSense software was uninstalled from $HOST."
+  if [ -f send-email.sh ]; then
+    bash send-email.sh "GrowSense software uninstalled from $HOST" "The GrowSense software was uninstalled from $HOST."
+  fi
 
   echo ""
   echo "Removing GrowSense directory..."
