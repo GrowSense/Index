@@ -24,11 +24,9 @@ DEPLOYMENT_DEVICE_INFO_DIR="tests/deployments/$DEPLOYMENT_NAME/devices/$DEVICE_N
 
 DEVICE_GROUP=$(cat "$DEPLOYMENT_DEVICE_INFO_DIR/group.txt") || exit 1
 DEVICE_CONNECTION=$(cat "$DEPLOYMENT_DEVICE_INFO_DIR/connection.txt") || exit 1
-DEVICE_PORT=$(cat "$DEPLOYMENT_DEVICE_INFO_DIR/port.txt") || exit 1
 
 echo "  Device name: $DEVICE_NAME"
 echo "  Device group: $DEVICE_GROUP"
-echo "  Device port: $DEVICE_PORT"
 echo "  Device connection: $DEVICE_CONNECTION"
 echo "  Device info dir: $DEPLOYMENT_DEVICE_INFO_DIR"
 
