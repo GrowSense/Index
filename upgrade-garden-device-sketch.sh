@@ -1,9 +1,16 @@
+echo "Upgrading garden device sketch..."
+
 DIR=$PWD
 
 DEVICE_NAME=$1
 
 if [ ! $DEVICE_NAME ]; then
-  echo "Please provide a device name as an argument."
+  echo "  Error: Please provide a device name as an argument."
+  exit 1
+fi
+
+if [ ! -d "devices/$DEVICE_NAME" ]; then
+  echo "  Error: The device '$DEVICE_NAME' was not found."
   exit 1
 fi
 
@@ -16,12 +23,12 @@ MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
-DEVICE_PROJECT=$(cat "devices/$DEVICE_NAME/project.txt")
-DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
-DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
-DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
-DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
-DEVICE_IS_USB_CONNECTED=$(cat "devices/$DEVICE_NAME/is-usb-connected.txt")
+DEVICE_PROJECT="$(cat devices/$DEVICE_NAME/project.txt)"
+DEVICE_BOARD="$(cat devices/$DEVICE_NAME/board.txt)"
+DEVICE_GROUP="$(cat devices/$DEVICE_NAME/group.txt)"
+DEVICE_PORT="$(cat devices/$DEVICE_NAME/port.txt)"
+DEVICE_HOST="$(cat devices/$DEVICE_NAME/host.txt)"
+DEVICE_IS_USB_CONNECTED="$(cat devices/$DEVICE_NAME/is-usb-connected.txt)"
 
 CURRENT_HOST=$(cat /etc/hostname)
 
@@ -105,7 +112,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
        
       echo ""
       echo "  Launching device upload script..."
-      if [ "$DEVICE_BOARD" == "esp" ]; then
+      if [[ "$DEVICE_BOARD" = "esp" ]]; then
         echo "    Is ESP board. Launching upload ESP script...."
         SCRIPT_NAME="upload-device-sketch-esp.sh"
         echo "    Script: $SCRIPT_NAME"
