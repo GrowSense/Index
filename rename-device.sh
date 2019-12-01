@@ -18,7 +18,7 @@ if [ ! -d "devices/$ORIGINAL_NAME" ]; then
   exit 1
 fi
 
-if [ ! -d "devices/$NEW_NAME" ]; then
+if [ -d "devices/$NEW_NAME" ]; then
   echo "  Error: The device '$NEW_NAME' already exists."
   exit 1
 fi
