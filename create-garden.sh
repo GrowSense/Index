@@ -7,16 +7,16 @@ echo ""
 #MQTT_HOST=$(cat mqtt-host.security)
 #if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
 #  echo "MQTT broker is local host"
+  echo "  Creating MQTT service..."
   bash create-mqtt-service.sh || exit 1
 #else
 #  echo "MQTT broker is on another host"
 #fi
 
-# TODO: Remove if not needed. The Linear MQTT Dashboard app is being phased out
-#bash expose-ui-config-via-http.sh || exit 1
-
+echo "  Creating WWW service..."
 bash create-www-service.sh || exit 1
 
+echo "  Creating mesh manage service..."
 bash create-mesh-manager-service.sh || exit 1
 
 echo ""
