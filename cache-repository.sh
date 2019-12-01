@@ -1,0 +1,1 @@
+git clone --recursive --mirror git://github.com/GrowSense/Index.git ~/git-cache/GrowSense/Index.reference
