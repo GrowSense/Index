@@ -68,7 +68,7 @@ echo "Waiting for the installation to unlock..."
 bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
 
 echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "garden/StatusMessage" "Upgrading" &
+sh mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
 echo ""
 echo "Creating status message file..."
