@@ -118,7 +118,7 @@ HOST=$(cat /etc/hostname)
 
 bash run-background.sh bash create-message-file.sh "$DEVICE_NAME connected"
 
-bash run-background.sh bash send-email.sh "Device $DEVICE_NAME connected via USB (on $HOST)." "The $DEVICE_NAME device was connected via USB on host $HOST."
+bash send-email.sh "Device $DEVICE_NAME connected via USB (on $HOST)." "The $DEVICE_NAME device was connected via USB on host $HOST."
 
 echo ""
 echo "Finished auto connecting device."
