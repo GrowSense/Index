@@ -61,19 +61,23 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   # Upload the sketch
   if [ "$IS_MOCK_HARDWARE" != "1" ]; then
       echo "  Uploading (please wait)..."
-      RESULT="$(bash upload.sh /dev/$SERIAL_PORT)"
+      bash upload.sh /dev/$SERIAL_PORT
   else
       echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
   fi
+
+  # TODO: Clean up obsolete code
+  #echo "  Exit code: $?"
   
-  echo ""
-  echo "-------------------- Output --------------------"
-  echo "${RESULT}"
-  echo "--------------------------------------------------"
-  echo ""
+  #echo ""
+  #echo "-------------------- Output --------------------"
+  #echo "${RESULT}"
+  #echo "--------------------------------------------------"
+  #echo ""
 
   
-  if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then
+  #if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then
+  if [ $? -eq 0 ]; then
     echo "  Upload successful"
 
     echo "  Giving device time to load..."
