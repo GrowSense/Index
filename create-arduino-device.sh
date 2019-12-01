@@ -72,6 +72,6 @@ sh create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LAB
 # Set up service
 echo ""
 echo "  Creating device service..."
-bash create-garden-device-services.sh || exit 1
+bash create-garden-device-services.sh $DEVICE_NAME || exit 1
 
 echo "Arduino device created with name '$DEVICE_NAME'"
