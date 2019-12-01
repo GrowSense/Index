@@ -13,7 +13,7 @@ else
   echo "  Device name: $DEVICE_NAME"
   echo "  Board type: $BOARD_TYPE"
 
-  sh remove-device-services.sh $DEVICE_NAME || exit 1
+  sh remove-garden-device-services.sh $DEVICE_NAME || exit 1
   
   DEVICE_INFO_DIR="devices/$DEVICE_NAME"
 
