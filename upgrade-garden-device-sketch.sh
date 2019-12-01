@@ -106,12 +106,12 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         echo "    Is ESP board. Launching upload ESP script...."
         SCRIPT_NAME="upload-device-sketch-esp.sh"
         echo "    Script: $SCRIPT_NAME"
-        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
       else
         echo "    Is arduino board. Launching upload arduino script...."
         SCRIPT_NAME="upload-device-sketch-arduino.sh"
         echo "    Script: $SCRIPT_NAME"
-        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT >> $LOG_FILE
+        timeout $UPGRADE_SCRIPT_TIMEOUT bash $SCRIPT_NAME $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_NAME $DEVICE_PORT > $LOG_FILE
       fi
 
       STATUS_CODE=$?
