@@ -71,24 +71,28 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
   # Upload the sketch
   if [ "$IS_MOCK_HARDWARE" != "1" ]; then
       echo "  Uploading (please wait)..."
-      RESULT="$(bash upload-$DEVICE_BOARD.sh /dev/$SERIAL_PORT)"
+      bash upload-$DEVICE_BOARD.sh /dev/$SERIAL_PORT
   else
       echo "[mock] sh upload-$DEVICE_BOARD.sh /dev/$SERIAL_PORT"
   fi
 
-  echo ""
-  echo "-------------------- Output --------------------"
-  echo "${RESULT}"
-  echo "--------------------------------------------------"
-  echo ""
+  #echo ""
+  #echo "-------------------- Output --------------------"
+  #echo "${RESULT}"
+  #echo "--------------------------------------------------"
+  #echo ""
 
   cd $DIR
 
-  if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
+  #if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then  
+
+  if [[ "$?" == "0" ]]; then
+    cd $DIR
     echo "  Upload successful"
     bash send-device-name-command.sh $DEVICE_NAME $SERIAL_PORT || exit 1
     bash report-device-uploaded.sh $DEVICE_NAME $DEVICE_BOARD $DEVICE_GROUP $SERIAL_PORT || exit 1
   else
+    cd $DIR
     echo "  Error: Upload failed!"
     bash report-device-upload-failed.sh $DEVICE_NAME $DEVICE_BOARD $DEVICE_GROUP $SERIAL_PORT || exit 1
     
