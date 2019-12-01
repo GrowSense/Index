@@ -22,9 +22,11 @@ echo "  Device port: $SERIAL_PORT"
 
 exec 3<> $SERIAL_PORT
 
-sleep 2
+sleep 3
 
 echo "$COMMAND" >&3
+
+sleep 1
 
 #RESULT=$(cat <&3)
 
