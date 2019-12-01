@@ -112,7 +112,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
        
       echo ""
       echo "  Launching device upload script..."
-      if [[ "$DEVICE_BOARD" = "esp" ]]; then
+      if [ "$DEVICE_BOARD" = "esp" ]; then
         echo "    Is ESP board. Launching upload ESP script...."
         SCRIPT_NAME="upload-device-sketch-esp.sh"
         echo "    Script: $SCRIPT_NAME"
