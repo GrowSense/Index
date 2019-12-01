@@ -66,17 +66,6 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
       echo "[mock] sh upload.sh /dev/$SERIAL_PORT"
   fi
 
-  # TODO: Clean up obsolete code
-  #echo "  Exit code: $?"
-  
-  #echo ""
-  #echo "-------------------- Output --------------------"
-  #echo "${RESULT}"
-  #echo "--------------------------------------------------"
-  #echo ""
-
-  
-  #if [[ $(echo $RESULT) =~ "SUCCESS" ]] || [[ $(echo $RESULT) =~ "Upload complete" ]]; then
   if [[ "$?" == "0" ]]; then
     echo "  Upload successful"
 
