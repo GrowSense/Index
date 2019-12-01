@@ -69,7 +69,6 @@ echo ""
 echo "  Creating device info..."
 sh create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
 
-# Set up service
 echo ""
 echo "  Creating device service..."
 bash create-garden-device-services.sh $DEVICE_NAME || exit 1

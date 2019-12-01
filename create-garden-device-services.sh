@@ -12,8 +12,8 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
   exit 1
 fi 
 
-DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt)
-DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt)
+DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
 
 if [ "$DEVICE_GROUP" == "ui" ]; then
   bash create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
