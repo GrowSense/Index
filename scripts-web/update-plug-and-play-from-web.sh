@@ -80,8 +80,9 @@ sleep 5
 #echo "Stopping arduino plug and play..."
 #sh systemctl.sh stop arduino-plug-and-play.service # TODO: Remove if not needed. Causing problems because if ArduinoPlugAndPlay is already up to date the service doesn't restart
 
-echo "Stopping garden..."
-sh stop-garden.sh || exit 1
+# Remove if not needed. Disabled because it may not be needed
+#echo "Stopping garden..."
+#sh stop-garden.sh || exit 1
 
 echo "Updating index..."
 sh update-all.sh || exit 1
