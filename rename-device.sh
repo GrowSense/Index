@@ -30,6 +30,10 @@ echo "  New name: $NEW_NAME"
 echo "  Port: $DEVICE_PORT"
 
 echo ""
+echo "  Removing device services..."
+bash remove-garden-device-services.sh $ORIGINAL_NAME || exit 1
+
+echo ""
 echo "  Sending device name command to device..."
 bash send-device-name-command.sh $NEW_NAME $DEVICE_PORT || exit 1
 
@@ -40,6 +44,11 @@ mv "devices/$ORIGINAL_NAME" "devices/$NEW_NAME" || exit 1
 echo ""
 echo "  Setting device name in name.txt file..."
 echo "$NEW_NAME" > "devices/$NEW_NAME/name.txt" || exit 1
+
+echo ""
+echo "  Creating device services..."
+bash create-garden-device-services.sh $NEW_NAME || exit 1
+
 
 echo ""
 echo "Finished renaming device."

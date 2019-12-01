@@ -72,10 +72,6 @@ sh create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LAB
 # Set up service
 echo ""
 echo "  Creating device service..."
-if [ "$DEVICE_GROUP" == "ui" ]; then
-  bash create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
-else
-  bash create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || exit 1
-fi
+bash create-garden-device-services.sh || exit 1
 
 echo "Arduino device created with name '$DEVICE_NAME'"
