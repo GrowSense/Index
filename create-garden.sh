@@ -17,7 +17,7 @@ echo ""
 
 bash create-www-service.sh || exit 1
 
-bash create-mesh-manager.sh || exit 1
+bash create-mesh-manager-service.sh || exit 1
 
 echo ""
 echo "Setup complete"
