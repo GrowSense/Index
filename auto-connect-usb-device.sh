@@ -43,7 +43,7 @@ fi
 echo "Automatically connecting a device..."
 
 if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
-  ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
+  . ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
 fi
 
 bash notify-send.sh "Connecting $DEVICE_NAME device"
