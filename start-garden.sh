@@ -4,9 +4,9 @@ echo ""
 
 DIR=$PWD
 
-sh start-supervisor.sh || exit 1
-
 sh start-mesh-manager.sh || exit 1
+
+sh start-supervisor.sh || exit 1
 
 DEVICES_DIR="devices"
 
