@@ -20,5 +20,9 @@ echo "  Creating mesh manage service..."
 bash create-mesh-manager-service.sh || exit 1
 
 echo ""
+echo "Creating system supervisor service..."
+bash create-supervisor-service.sh || exit 1
+
+echo ""
 echo "Setup complete"
 echo ""

@@ -205,11 +205,6 @@ echo "Creating garden..."
 $SUDO bash create-garden.sh || exit 1
 
 echo ""
-echo "Creating system supervisor service..."
-
-$SUDO bash create-supervisor-service.sh || exit 1
-
-echo ""
 echo "Publishing status to MQTT..."
 # Sleep for 30 seconds to give the UI controller time to load before publishing
 sh run-background.sh sleep 30 && sh mqtt-publish.sh "garden/StatusMessage" "Installed" || echo "MQTT publish failed."
