@@ -19,6 +19,7 @@ fi
 
 cd $CACHE_PATH
 echo "  Updating cache..."
+git checkout $BRANCH
 git pull origin $BRANCH
 git submodule update --init
 
