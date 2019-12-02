@@ -16,9 +16,9 @@ if [ ! "$INSTALL_DIR" ]; then
     INSTALL_DIR="/usr/local/GrowSense/Index"
 fi
 
-echo "Branch: $BRANCH"
-echo "Install dir: $INSTALL_DIR"
-
+echo ""
+echo "  Branch: $BRANCH"
+echo "  Install dir: $INSTALL_DIR"
 
 INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
@@ -27,54 +27,64 @@ BASE_DIR="$(dirname $GREENSENSE_DIR)"
 PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 
 
-echo "Checking for ArduinoPlugAndPlay install dir..."
+echo "  Checking for ArduinoPlugAndPlay install dir..."
 if [ ! -d $PNP_INSTALL_DIR ]; then
-  echo "ArduinoPlugAndPlay doesn't appear to be installed at:"
-  echo "  $PNP_INSTALL_DIR"
-  echo "Use the install-plug-and-play-from-web-sh script instead."
+  echo "    ArduinoPlugAndPlay doesn't appear to be installed at:"
+  echo "      $PNP_INSTALL_DIR"
+  echo "    Use the install-plug-and-play-from-web-sh script instead."
   exit 1
 fi
 
 INDEX_DIR=$INSTALL_DIR
 
-echo "Checking for GrowSense index dir..."
+echo "  Checking for GrowSense index dir..."
 if [ ! -d $INDEX_DIR ]; then
-  echo "GrowSense Index doesn't appear to be installed at:"
-  echo "  $INDEX_DIR"
-  echo "Use the install-plug-and-play-from-web-sh script instead."
+  echo "    GrowSense Index doesn't appear to be installed at:"
+  echo "       $INDEX_DIR"
+  echo "    Use the install-plug-and-play-from-web-sh script instead."
   exit 1
 fi
 
-echo "Moving to GrowSense index dir..."
+echo ""
+echo "  Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
 WIFI_NAME=$(cat wifi-name.security)
 WIFI_PASSWORD=$(cat wifi-password.security)
 
-echo "WiFi Name: $WIFI_NAME"
-echo "WiFi Password: [hidden]"
+echo ""
+echo "  WiFi Name: $WIFI_NAME"
+echo "  WiFi Password: [hidden]"
 
 MQTT_HOST=$(cat mqtt-host.security)
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
-echo "MQTT Host: $MQTT_HOST"
-echo "MQTT Username: $MQTT_USERNAME"
-echo "MQTT Password: [hidden]"
-echo "MQTT PORT: $MQTT_PORT"
+echo ""
+echo "  MQTT Host: $MQTT_HOST"
+echo "  MQTT Username: $MQTT_USERNAME"
+echo "  MQTT Password: [hidden]"
+echo "  MQTT PORT: $MQTT_PORT"
 
-echo "Waiting for the installation to unlock..."
+echo ""
+echo "  Waiting for the installation to unlock..."
 bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
 
-echo "Publishing status to MQTT..."
+echo ""
+echo "  Updating cached repository..."
+bash cache-repository.sh
+
+echo ""
+echo "  Publishing status to MQTT..."
 sh mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
 echo ""
 echo "Creating status message file..."
 bash create-message-file.sh "Garden software upgrading"
 
-echo "Giving the UI time to receive the status update..."
+echo ""
+echo "  Giving the UI time to receive the status update..."
 sleep 5
 
 #echo "Stopping arduino plug and play..."
@@ -84,22 +94,28 @@ sleep 5
 #echo "Stopping garden..."
 #sh stop-garden.sh || exit 1
 
-echo "Updating index..."
+echo ""
+echo "  Updating index..."
 sh update-all.sh || exit 1
 
-echo "Upgrading system..."
+echo ""
+echo "  Upgrading system..."
 sh upgrade-system.sh || exit 1
 
-echo "Reinitializing index..."
+echo ""
+echo "  Reinitializing index..."
 sh init-runtime.sh || exit 1
 
-echo "Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
+echo ""
+echo "  Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
 curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR" || exit 1
 
-echo "Waiting for the plug and play system to load."
+echo ""
+echo "  Waiting for the plug and play system to load..."
 bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
 
-echo "Recreating garden services..."
+echo ""
+echo "  Recreating garden services..."
 sh recreate-garden-services.sh || exit 1
 
 # TODO: Remove if not needed. Likely causing problems with plug and play starting after garden services have started
@@ -110,13 +126,16 @@ sh recreate-garden-services.sh || exit 1
 #  echo "[mock] systemctl daemon-reload"
 #fi
 
-echo "Moving to GrowSense index dir..."
+echo ""
+echo "  Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
-echo "Start garden services..."
+echo ""
+echo "  Start garden services..."
 sh start-garden.sh || exit 1
 
-echo "Waiting for plug and play..."
+echo ""
+echo "  Waiting for plug and play..."
 bash "wait-for-plug-and-play.sh"
 
 #echo "Giving services time to start..."
@@ -126,7 +145,8 @@ echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
 
 echo ""
-echo "Creating status message file..."
+echo "  Creating status message file..."
 bash create-message-file.sh "Garden software upgrade complete"
 
-echo "Finished reinstalling GrowSense plug and play!"
+echo ""
+echo "Finished updating GrowSense plug and play!"
