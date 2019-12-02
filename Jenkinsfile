@@ -12,7 +12,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh 'curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH_NAME/cache-repository.sh | bash'
-                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git . --reference ../../../git-cache/GrowSense/Index.reference' )
+                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git . --reference ../../git-cache/GrowSense/Index.reference' )
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
@@ -125,7 +125,6 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
- 
  
  
  
