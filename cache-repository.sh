@@ -18,8 +18,10 @@ if [ ! -d $CACHE_PATH ]; then
 fi
 
 cd $CACHE_PATH
+echo "  Updating cache..."
 git pull origin $BRANCH
 git submodule update --init
+
 cd $DIR
 
 echo "Finished caching git repository."
