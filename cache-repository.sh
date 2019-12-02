@@ -9,7 +9,7 @@ if [ ! "$BRANCH" ]; then
   exit 1
 fi
 
-CACHE_PATH="../../../git-cache/GrowSense/Index.reference"
+CACHE_PATH="/usr/local/git-cache/GrowSense/Index"
 #rm $CACHE_PATH -R
 
 if [ ! -d "$CACHE_PATH" ]; then
