@@ -14,7 +14,7 @@ CACHE_PATH="/usr/local/git-cache/GrowSense/Index"
 
 if [ ! -d "$CACHE_PATH" ]; then
   echo "  Cache doesn't exist. Cloning."
-  git clone -b $BRANCH --recursive http://github.com/GrowSense/Index.git $CACHE_PATH
+  git clone -j 10 -b $BRANCH --recursive http://github.com/GrowSense/Index.git $CACHE_PATH
 fi
 
 cd $CACHE_PATH

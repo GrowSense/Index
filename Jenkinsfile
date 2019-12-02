@@ -12,7 +12,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh 'curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH_NAME/cache-repository.sh | bash -s $BRANCH_NAME'
-                shHide( '[ -d /usr/local/git-cache/GrowSense/Index ] && git clone --recursive -b $BRANCH_NAME /usr/local/git-cache/GrowSense/Index . || git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
+                shHide( '[ -d /usr/local/git-cache/GrowSense/Index ] && git clone -j 10 --recursive -b $BRANCH_NAME /usr/local/git-cache/GrowSense/Index . || git clone -j 10 --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
                  shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
