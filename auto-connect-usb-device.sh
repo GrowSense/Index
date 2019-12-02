@@ -40,44 +40,13 @@ if [ ! $PORT ]; then
   exit 1
 fi
 
-echo "Automatically adding a device..."
-
-# Disabled because it's causing problems with tests
-bash notify-send.sh "Adding $GROUP_NAME device"
-
-#sh update.sh
-
-DEVICE_NUMBER=1
-
-# Disabled to speed up plug and play. Mesh manager will take care of this
-#echo "Pulling device info from remote garden computer..."
-#sh pull-device-info-from-remotes.sh || exit 1
+echo "Automatically connecting a device..."
 
 if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
-  echo "  Generating new device name..."
-  DEVICE_POSTFIX=""
-
-  if [ $BOARD_TYPE = "esp" ]; then
-    DEVICE_POSTFIX="W"
-  fi
-
-  DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
-
-  if [ -d "$DEVICE_INFO_DIR" ]; then
-
-    echo "Device exists"
-  
-    until [ ! -d "$DEVICE_INFO_DIR" ]; do
-      echo "Increasing device number"
-      DEVICE_NUMBER=$((DEVICE_NUMBER+1))
-      DEVICE_INFO_DIR="devices/$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
-      echo "Device info dir:"
-      echo $DEVICE_INFO_DIR
-    done
-  fi
-
-  DEVICE_NAME="$GROUP_NAME$DEVICE_POSTFIX$DEVICE_NUMBER"
+  ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
 fi
+
+bash notify-send.sh "Connecting $DEVICE_NAME device"
 
 bash run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
 
