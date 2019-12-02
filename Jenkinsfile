@@ -13,10 +13,10 @@ pipeline {
             steps {
                 sh 'curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH_NAME/cache-repository.sh | bash -s $BRANCH_NAME'
                 shHide( '[ -d /usr/local/git-cache/GrowSense/Index ] && git clone -j 10 --recursive -b $BRANCH_NAME /usr/local/git-cache/GrowSense/Index . || git clone -j 10 --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
-                shHide('git remote set-url --add --push origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
+                shHide('git remote rm origin')
+                shHide('git remote add origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
+                shHide('#git remote set-url --add --push origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
-                sh 'git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"'
-                sh 'git fetch origin master'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
