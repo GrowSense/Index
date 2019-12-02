@@ -106,26 +106,18 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
     $SUDO mv $INDEX_DIR $INDEX_DIR.old
   fi
 
-
-  if ! type "git" &>/dev/null; then
-    echo ""
-    echo "Installing git"
-
-    if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -10080)" ]; then
-      $SUDO apt-get update
-    fi
-
-    $SUDO apt-get install -y git || exit 1
-  fi
+  echo ""
+  echo "Installing/updating git if needed"
+  curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/install/install-git.sh | bash
 
   echo ""
   echo "Caching repository..."
-  curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash
+  curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash -s $BRANCH
 
   echo ""
   echo "Cloning the GrowSense index repository..."
 
-  $SUDO git clone --depth 1 --recursive https://github.com/GrowSense/Index.git "$INDEX_DIR" --branch $BRANCH --reference ../../git-cache/GrowSense/Index.reference || exit 1
+  $SUDO git clone -j 10 --depth 1 --recursive https://github.com/GrowSense/Index.git "$INDEX_DIR" --branch $BRANCH --reference /usr/local/git-cache/GrowSense/Index.reference || exit 1
 
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
