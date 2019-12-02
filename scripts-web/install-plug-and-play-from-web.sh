@@ -121,7 +121,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   echo ""
   echo "Cloning the GrowSense index repository..."
 
-  $SUDO git clone --depth 1 --recursive https://github.com/GrowSense/Index.git "$INDEX_DIR" --branch $BRANCH || exit 1
+  $SUDO git clone --depth 1 --recursive https://github.com/GrowSense/Index.git "$INDEX_DIR" --branch $BRANCH --reference ../../../GrowSense/Index.reference || exit 1
 
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
@@ -143,6 +143,10 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   echo "  $INDEX_DIR"
 
   cd $INDEX_DIR || exit 1
+
+  echo ""
+  echo "Caching repository..."
+  bash cache-repository.sh
 
   echo ""
   echo "Preparing index..."
