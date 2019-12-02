@@ -2,7 +2,12 @@ echo "Caching git repository..."
 
 DIR=$PWD
 
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+BRANCH=$1
+
+if [ ! "$BRANCH" ]; then
+  echo "  Error: Please provide a branch name as an argument."
+  exit 1
+fi
 
 CACHE_PATH="../../git-cache/GrowSense/Index.reference"
 #rm $CACHE_PATH -R
