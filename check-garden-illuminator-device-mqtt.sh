@@ -26,7 +26,7 @@ RAW_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PAS
 if [ ! $RAW_VALUE ]; then
   echo "  Light (raw): No MQTT light data detected"  
 else
-  echo "  Light (raw): $RAW_VALUE%"
+  echo "  Light (raw): $RAW_VALUE"
 fi
 
 MODE_VALUE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/M" -C 1)
