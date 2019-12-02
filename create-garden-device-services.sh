@@ -13,9 +13,12 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
 fi 
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
 DEVICE_PORT=$(cat "devices/$DEVICE_NAME/port.txt")
 
-if [ "$DEVICE_GROUP" == "ui" ]; then
+if [ "$DEVICE_BOARD" == "esp" ]; then
+  echo "  ESP/WiFi device. No services need to be created."
+elif [ "$DEVICE_GROUP" == "ui" ]; then
   bash create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
 else
   bash create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || exit 1

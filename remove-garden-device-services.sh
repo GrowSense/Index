@@ -9,6 +9,7 @@ echo "  Device name: $DEVICE_NAME"
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
 
 if [ -f "is-mock-systemctl.txt" ]; then
   echo "Is mock systemctl. Using mock services directory."
@@ -19,7 +20,9 @@ fi
 
 echo "  Services directory: $SERVICES_DIR"
 
-if [ "$DEVICE_GROUP" = "ui" ]; then
+if [ "$DEVICE_BOARD" = "esp" ]; then
+  echo "  ESP/WiFi device. No services need to be removed."
+elif [ "$DEVICE_GROUP" = "ui" ]; then
   echo "  Stopping/disabling UI controller service.."
   sh $SYSTEMCTL_SCRIPT stop growsense-ui-1602-$DEVICE_NAME.service || echo "Failed to stop service. It may not exist."
   sh $SYSTEMCTL_SCRIPT disable growsense-ui-1602-$DEVICE_NAME.service || echo "Failed to disable service. It may not exist."
