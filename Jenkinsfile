@@ -11,9 +11,9 @@ pipeline {
         }
         stage('Setup') {
             steps {
+                sh 'curl -s https://raw.githubusercontent.com/GrowSense/Index/dev/cache-repository.sh | bash'
                 shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git . --reference ../../../GrowSense/Index.reference' )
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
-                sh 'sh cache-repository.sh'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
