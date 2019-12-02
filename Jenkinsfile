@@ -16,7 +16,7 @@ pipeline {
                 shHide('git remote set-url --add --push origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
                 shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"'
-                sh 'git fetch master'
+                sh 'git fetch origin master'
                 sh 'sh init-mock-systemctl.sh'
                 sh 'sh init-mock-docker.sh'
                 sh 'sh init-mock-setup.sh'
