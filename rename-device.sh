@@ -23,19 +23,40 @@ if [ -d "devices/$NEW_NAME" ]; then
   exit 1
 fi
 
-DEVICE_PORT=$(cat devices/$ORIGINAL_NAME/port.txt)
+CURRENT_HOST=$(cat /etc/hostname)
 
+DEVICE_HOST=$(cat devices/$ORIGINAL_NAME/host.txt)
+
+echo ""
 echo "  Original name: $ORIGINAL_NAME"
 echo "  New name: $NEW_NAME"
-echo "  Port: $DEVICE_PORT"
 
-echo ""
-echo "  Removing device services..."
-bash remove-garden-device-services.sh $ORIGINAL_NAME || exit 1
+if [ "$DEVICE_HOST" == "$CURRENT_HOST" ]; then
+  echo ""
+  echo "  Device is on current host..."
+  DEVICE_PORT=$(cat devices/$ORIGINAL_NAME/port.txt)
 
-echo ""
-echo "  Sending device name command to device..."
-bash send-device-name-command.sh $NEW_NAME $DEVICE_PORT || exit 1
+  echo "  Port: $DEVICE_PORT"
+
+  echo ""
+  echo "  Removing device services..."
+  bash remove-garden-device-services.sh $ORIGINAL_NAME || exit 1
+
+  echo ""
+  echo "  Sending device name command to device..."
+  bash send-device-name-command.sh $NEW_NAME $DEVICE_PORT || exit 1
+
+  echo ""
+  echo "  Creating device services..."
+  bash create-garden-device-services.sh $NEW_NAME || exit 1
+else
+  echo ""
+  echo "  Device is on remote host..."
+  
+  . ./get-remote-name.sh $DEVICE_HOST
+
+  bash run-on-remote.sh $REMOTE_NAME bash rename-device.sh $ORIGINAL_NAME $NEW_NAME
+fi
 
 echo ""
 echo "  Renaming device folder..."
@@ -44,10 +65,6 @@ mv "devices/$ORIGINAL_NAME" "devices/$NEW_NAME" || exit 1
 echo ""
 echo "  Setting device name in name.txt file..."
 echo "$NEW_NAME" > "devices/$NEW_NAME/name.txt" || exit 1
-
-echo ""
-echo "  Creating device services..."
-bash create-garden-device-services.sh $NEW_NAME || exit 1
 
 
 echo ""
