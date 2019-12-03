@@ -47,6 +47,14 @@ if [ "$DEVICE_HOST" == "$CURRENT_HOST" ]; then
   bash send-device-name-command.sh $NEW_NAME $DEVICE_PORT || exit 1
 
   echo ""
+  echo "  Renaming device folder..."
+  mv "devices/$ORIGINAL_NAME" "devices/$NEW_NAME" || exit 1
+
+  echo ""
+  echo "  Setting device name in name.txt file..."
+  echo "$NEW_NAME" > "devices/$NEW_NAME/name.txt" || exit 1
+
+  echo ""
   echo "  Creating device services..."
   bash create-garden-device-services.sh $NEW_NAME || exit 1
 else
@@ -55,16 +63,16 @@ else
   
   . ./get-remote-name.sh $DEVICE_HOST
 
-  bash run-on-remote.sh $REMOTE_NAME bash rename-device.sh $ORIGINAL_NAME $NEW_NAME
+  bash run-on-remote.sh $REMOTE_NAME bash rename-device.sh $ORIGINAL_NAME $NEW_NAME || exit 1
+
+  echo ""
+  echo "  Renaming device folder..."
+  mv "devices/$ORIGINAL_NAME" "devices/$NEW_NAME" || exit 1
+
+  echo ""
+  echo "  Setting device name in name.txt file..."
+  echo "$NEW_NAME" > "devices/$NEW_NAME/name.txt" || exit 1
 fi
-
-echo ""
-echo "  Renaming device folder..."
-mv "devices/$ORIGINAL_NAME" "devices/$NEW_NAME" || exit 1
-
-echo ""
-echo "  Setting device name in name.txt file..."
-echo "$NEW_NAME" > "devices/$NEW_NAME/name.txt" || exit 1
 
 
 echo ""

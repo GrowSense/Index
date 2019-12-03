@@ -19,7 +19,7 @@ REMOTE_NAME=""
 for REMOTE_INFO_DIR in remote/*; do
   if [ -d "$REMOTE_INFO_DIR" ]; then
     if [ "$(cat $REMOTE_INFO_DIR/host.security)" == "$REMOTE_HOST" ]; then
-      REMOTE_NAME="$(cat $REMOTE_INFO_DIR/host.security)"
+      REMOTE_NAME="$(cat $REMOTE_INFO_DIR/name.security)"
     fi
   fi
 done
