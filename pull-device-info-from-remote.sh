@@ -78,7 +78,7 @@ fi
 
 echo ""
 echo "  Devices pulled..."
-if [ -d devices.tmp ]; then
+if [ -d "devices.tmp" ]; then
   for DEVICE_DIR in devices.tmp/*; do
     if [ -d $DEVICE_DIR ]; then
       DEVICE_NAME="$(basename $DEVICE_DIR)"
@@ -86,10 +86,12 @@ if [ -d devices.tmp ]; then
     fi
   done
 
-  # Copy all the devices from the tmp dir to the devices dir
+  echo ""
+  echo "  Copying device info from devices.tmp/ to devices/..."
   cp devices.tmp/* devices/ -fr || exit 1
 
-  # Delete the tmp dir
+  echo ""
+  echo "  Removing devices.tmp/ folder..."
   rm devices.tmp -r || exit 1
 else
   echo "    No devices"
