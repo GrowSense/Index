@@ -22,7 +22,7 @@ echo "  Device port: $SERIAL_PORT"
 
 exec 3<> $SERIAL_PORT
 
-sleep 3
+sleep 4
 
 echo "$COMMAND" >&3
 
