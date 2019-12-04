@@ -33,7 +33,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   bash mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
   echo "  Sending email report..."
-  bash send-email.sh "GrowSense system upgrading (v$LATEST_FULL_VERSION) on $HOST" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+  bash send-email.sh "GrowSense system upgrading to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
   
 # Disabled because it can potentially break the system by causing conflicts with docker containers 
 #  $SUDO apt-get update && $SUDO apt-get -y upgrade
@@ -59,8 +59,12 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   bash mqtt-publish.sh "garden/StatusMessage" "Upgraded"
   
   echo "  Sending email report..."
-  bash send-email.sh "GrowSense system upgraded(v$LATEST_FULL_VERSION) on $HOST" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+  bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
   
+  echo ""
+  echo "  Creating message file..."
+  bash create-message-file.sh "GrowSense upgraded to v$LATEST_FULL_VERSION"
+
   echo "Finished upgrading system"
 else
   echo "  GrowSense system is up to date. Skipping upgrade."

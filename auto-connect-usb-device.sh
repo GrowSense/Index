@@ -66,7 +66,6 @@ else
   bash create-arduino-device.sh $BOARD_TYPE $GROUP_NAME $PROJECT_NAME $DEVICE_LABEL $DEVICE_NAME $PORT || exit 1
 fi
 
-
 echo ""
 echo "Marking device as connected..."
 echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"

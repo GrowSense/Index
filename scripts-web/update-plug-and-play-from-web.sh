@@ -81,7 +81,7 @@ sh mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
 echo ""
 echo "Creating status message file..."
-bash create-message-file.sh "Garden software upgrading"
+bash create-message-file.sh "GrowSense system upgrading"
 
 echo ""
 echo "  Giving the UI time to receive the status update..."
@@ -141,12 +141,18 @@ bash "wait-for-plug-and-play.sh"
 #echo "Giving services time to start..."
 #sleep 10
 
+echo ""
 echo "Publishing status to MQTT..."
 sh mqtt-publish.sh "garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
 
+FULL_VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
+
+echo ""
+echo "  Version: $FULL_VERSION"
+
 echo ""
 echo "  Creating status message file..."
-bash create-message-file.sh "Garden software upgrade complete"
+bash create-message-file.sh "GrowSense system upgraded to v$FULL_VERSION"
 
 echo ""
 echo "Finished updating GrowSense plug and play!"
