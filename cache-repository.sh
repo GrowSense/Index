@@ -9,8 +9,16 @@ if [ ! "$BRANCH" ]; then
   exit 1
 fi
 
-CACHE_PATH="/usr/local/git-cache/GrowSense/Index"
-#rm $CACHE_PATH -R
+BASE_PATH="/usr/local"
+
+if [ -f "is-mock-system.txt" ]; then
+  BASE_PATH="../../../../.."
+fi
+
+CACHE_PATH="$BASE_PATH/git-cache/GrowSense/Index"
+
+echo "  Cache path:"
+echo "    $CACHE_PATH"
 
 if [ ! -d "$CACHE_PATH" ]; then
   echo "  Cache doesn't exist. Cloning."
@@ -21,9 +29,9 @@ cd $CACHE_PATH
 echo "  Updating cache..."
 #git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 #git fetch --all
-git checkout $BRANCH
-git pull origin $BRANCH
-git submodule update --init
+git checkout $BRANCH || exit 1
+git pull origin $BRANCH || exit 1
+git submodule update --init || exit 1
 
 cd $DIR
 
