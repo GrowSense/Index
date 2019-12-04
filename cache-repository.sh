@@ -19,8 +19,8 @@ fi
 
 cd $CACHE_PATH
 echo "  Updating cache..."
-git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-git fetch --all
+#git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+#git fetch --all
 git checkout $BRANCH
 git pull origin $BRANCH
 git submodule update --init
