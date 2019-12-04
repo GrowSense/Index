@@ -23,9 +23,9 @@ if [ -d "devices/$NEW_NAME" ]; then
   exit 1
 fi
 
-CURRENT_HOST=$(cat /etc/hostname)
+CURRENT_HOST=$(cat /etc/hostname) || exit 1
 
-DEVICE_HOST=$(cat devices/$ORIGINAL_NAME/host.txt)
+DEVICE_HOST=$(cat devices/$ORIGINAL_NAME/host.txt) || exit 1
 
 echo ""
 echo "  Original name: $ORIGINAL_NAME"
@@ -61,7 +61,7 @@ else
   echo ""
   echo "  Device is on remote host..."
   
-  . ./get-remote-name.sh $DEVICE_HOST
+  . ./get-remote-name.sh $DEVICE_HOST || exit 1
 
   bash run-on-remote.sh $REMOTE_NAME bash rename-device.sh $ORIGINAL_NAME $NEW_NAME || exit 1
 
