@@ -29,7 +29,7 @@ if [ "$NEEDS_INSTALL" == "1" ]; then
     apt-get update || exit 1
   fi
 
-  apt-get install -y software-properties-common python-software-properties software-python-common python-software-properties
+  apt-get install -y software-properties-common software-python-common
   add-apt-repository -y ppa:git-core/ppa || exit 1
   apt-get update || exit 1
   apt-get install -y git || exit 1
