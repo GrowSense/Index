@@ -74,7 +74,7 @@ START_SCRIPT_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/$START_SCRIPT_NAME"
 if [ ! -f "is-mock-mqtt.txt" ] && [ ! -f "is-mock-docker.txt" ]; then
         echo ""
         echo "  Starting mosquitto MQTT docker container..."
-        bash START_SCRIPT_PATH || exit 1
+        bash $START_SCRIPT_PATH || exit 1
 
 	echo ""
 	echo "  Waiting for docker container to start..."
