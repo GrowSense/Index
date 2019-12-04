@@ -55,7 +55,7 @@ INTERNAL_MOSQUITTO_DIRECTORY="scripts/docker/mosquitto"
 
 #echo ""
 #echo "  Copying run script into install dir..."
-#START_SCRIPT_NAME="run-mosquitto-arm.sh"
+START_SCRIPT_NAME="run-mosquitto-arm.sh"
 START_SCRIPT_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/$START_SCRIPT_NAME"
 #$SUDO cp -f $START_SCRIPT_PATH "$MOSQUITTO_INSTALL_DIR/$START_SCRIPT_NAME" || exit 1
 
