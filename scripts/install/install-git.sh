@@ -31,7 +31,7 @@ if [ "$NEEDS_INSTALL" == "1" ]; then
 
   apt-get install -y software-properties-common || echo "Failed to install. Skipping"
   apt-get install -y python-software-properties || echo "Failed to install. Skipping"
-  apt-get install -y software-python-common || echo "Failed to install. Skipping"
+#  apt-get install -y software-python-common || echo "Failed to install. Skipping"
   add-apt-repository -y ppa:git-core/ppa || exit 1
   apt-get update || exit 1
   apt-get install -y git || exit 1
