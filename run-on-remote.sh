@@ -28,6 +28,8 @@ echo ""
 echo "  Command: $2 $3 $4 $5 $6 $7 $8 $9"
 echo ""
 
-sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" -p $REMOTE_PORT $REMOTE_USERNAME@$REMOTE_HOST "cd /usr/local/GrowSense/Index && $2 $3 $4 $5 $6 $7 $8 $9"
+echo ""
+echo "  Launching command on remote computer..."
+sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" -p $REMOTE_PORT $REMOTE_USERNAME@$REMOTE_HOST "cd /usr/local/GrowSense/Index && $2 $3 $4 $5 $6 $7 $8 $9" || exit 1
 
 echo "Finished running command on remote computer."
