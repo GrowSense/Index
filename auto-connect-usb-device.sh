@@ -48,7 +48,7 @@ fi
 
 bash notify-send.sh "Connecting $DEVICE_NAME device"
 
-bash run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
+bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connecting"
 
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
@@ -57,14 +57,6 @@ echo "Device info dir:"
 echo "  $DEVICE_INFO_DIR"
 
 DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
-
-# TODO: Remove if not needed. Should be obsolete.
-#SCRIPT_NAME="create-garden-$SCRIPT_CODE-$BOARD_TYPE".sh || exit 1
-#echo "" && \
-#echo "Create device script:" && \
-#echo $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
-#echo "" && \
-#sh $SCRIPT_NAME "$DEVICE_LABEL" "$DEVICE_NAME" $PORT || exit 1
 
 echo ""
 echo "  Launching create device script..."
@@ -79,13 +71,13 @@ echo ""
 echo "Marking device as connected..."
 echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"
 
-sh run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
+bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
-sh run-background.sh bash notify-send.sh "Finished connecting $GROUP_NAME device"
+bash notify-send.sh "Finished connecting $GROUP_NAME device"
 
 HOST=$(cat /etc/hostname)
 
-bash run-background.sh bash create-message-file.sh "$DEVICE_NAME connected"
+bash create-message-file.sh "$DEVICE_NAME connected"
 
 bash send-email.sh "Device $DEVICE_NAME connected via USB (on $HOST)." "The $DEVICE_NAME device was connected via USB on host $HOST."
 

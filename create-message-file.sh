@@ -1,6 +1,6 @@
 echo "Creating message file..."
 
-MESSAGE_TEXT=$1
+MESSAGE_TEXT="$1"
 
 if [ ! "$MESSAGE_TEXT" ]; then
   echo "Please provide the message text as an argument."
