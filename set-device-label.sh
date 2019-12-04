@@ -31,7 +31,7 @@ if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
   echo ""
   echo "  Setting device label on remote host..."
   echo ""
-  bash run-on-remote.sh $REMOTE_NAME bash set-device-label.sh $DEVICE_NAME $DEVICE_HOST
+  bash run-on-remote.sh $REMOTE_NAME bash set-device-label.sh $DEVICE_NAME $DEVICE_HOST || exit 1
 
   echo ""
   echo "  Finished setting device label on remote host."

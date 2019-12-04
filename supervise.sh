@@ -60,12 +60,15 @@ AUTO_UPGRADE_ENABLED=$(cat auto-upgrade-enabled.txt)
 echo ""
 if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
   if [ $(( $LOOP_NUMBER%$UPGRADE_FREQUENCY )) -eq "0" ]; then
-    echo ""
-    echo "  Initiating system upgrade..."
-    bash upgrade-system.sh || exit 1
-    echo ""
-    echo "  Initiating device upgrades..."
-    bash upgrade-garden-device-sketches.sh || exit 1 
+
+    echo "  Initiating upgrade..."
+    bash upgrade.sh || exit 1
+#    echo ""
+#    echo "  Initiating system upgrade..."
+#    bash upgrade-system.sh || exit 1
+#    echo ""
+#    echo "  Initiating device upgrades..."
+#    bash upgrade-garden-device-sketches.sh || exit 1 
   else
     echo "  Skipping upgrade this loop."
   fi
