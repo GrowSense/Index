@@ -73,7 +73,7 @@ bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
 
 echo ""
 echo "  Updating cached repository..."
-bash cache-repository.sh $BRANCH
+bash cache-repository.sh $BRANCH || exit 1
 
 echo ""
 echo "  Publishing status to MQTT..."
