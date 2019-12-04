@@ -5,7 +5,7 @@ MOSQUITTO_DIR="/usr/local/mosquitto"
 
 #docker pull compulsivecoder/mosquitto-arm
 
-docker run -i \
+docker run -d \
   --restart=always \
   --name=mosquitto \
 	--volume $MOSQUITTO_DIR/data:/mosquitto_data \
@@ -16,4 +16,4 @@ docker run -i \
 	-e MQTT_TOPIC=Test \
 	-p 1883:1883 \
 	-p 8080:8080 \
-	compulsivecoder/mosquitto-arm || echo "Failed to run mosquitto docker container. It may already be running."
+	compulsivecoder/mosquitto-arm || exit 1
