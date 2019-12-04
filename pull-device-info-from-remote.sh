@@ -88,7 +88,9 @@ if [ -d "devices.tmp" ]; then
 
   echo ""
   echo "  Copying device info from devices.tmp/ to devices/..."
-  cp devices.tmp/* devices/ -fr || exit 1
+  if [ "$(ls -A devices.tmp)" ]; then
+    cp devices.tmp/* devices/ -fr || exit 1
+  fi
 
   echo ""
   echo "  Removing devices.tmp/ folder..."
