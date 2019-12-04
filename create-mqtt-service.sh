@@ -51,27 +51,31 @@ $SUDO chmod 777 $MOSQUITTO_INSTALL_DIR/data || exit 1
 
 INTERNAL_MOSQUITTO_DIRECTORY="scripts/docker/mosquitto"
 
-SERVICE_FILE_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/growsense-mosquitto-docker.service"
+#SERVICE_FILE_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/growsense-mosquitto-docker.service"
 
-echo ""
-echo "  Copying run script into install dir..."
-START_SCRIPT_NAME="run-mosquitto-arm.sh"
+#echo ""
+#echo "  Copying run script into install dir..."
+#START_SCRIPT_NAME="run-mosquitto-arm.sh"
 START_SCRIPT_PATH="$INTERNAL_MOSQUITTO_DIRECTORY/$START_SCRIPT_NAME"
-$SUDO cp -f $START_SCRIPT_PATH "$MOSQUITTO_INSTALL_DIR/$START_SCRIPT_NAME" || exit 1
+#$SUDO cp -f $START_SCRIPT_PATH "$MOSQUITTO_INSTALL_DIR/$START_SCRIPT_NAME" || exit 1
 
-echo ""
-echo "  Copying template file..."
-cp $SERVICE_FILE_PATH.template $SERVICE_FILE_PATH || exit 1
+#echo ""
+#echo "  Copying template file..."
+#cp $SERVICE_FILE_PATH.template $SERVICE_FILE_PATH || exit 1
 
-echo ""
-echo "  Editing service file..."
-sed -i "s/{BRANCH}/$BRANCH/g" $SERVICE_FILE_PATH || exit 1
+#echo ""
+#echo "  Editing service file..."
+#sed -i "s/{BRANCH}/$BRANCH/g" $SERVICE_FILE_PATH || exit 1
 
-echo ""
-echo "  Installing service file..."
-bash install-service.sh $SERVICE_FILE_PATH || exit 1
+#echo ""
+#echo "  Installing service file..."
+#bash install-service.sh $SERVICE_FILE_PATH || exit 1
 
-if [ ! -f "is-mock-mqtt.txt" ]; then
+if [ ! -f "is-mock-mqtt.txt" ] && [ ! -f "is-mock-docker.txt" ]; then
+        echo ""
+        echo "  Starting mosquitto MQTT docker container..."
+        bash START_SCRIPT_PATH || exit 1
+
 	echo ""
 	echo "  Waiting for docker container to start..."
 	bash wait-for-mqtt-service.sh || exit 1

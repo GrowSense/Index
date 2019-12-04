@@ -72,21 +72,21 @@ UI_CONTROLLER_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHo
 [[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpServer\" value=\"$SMTP_SERVER\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP server" && exit 1
 [[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"EmailAddress\" value=\"$EMAIL_ADDRESS\"" ]] && echo "Serial UI controller config file doesn't contain the correct email address" && exit 1
 
-echo ""
-echo "Viewing mosquitto service status..."
-echo "  MQTT Host: $INSTALL_MQTT_HOST"
+#echo ""
+#echo "Viewing mosquitto service status..."
+#echo "  MQTT Host: $INSTALL_MQTT_HOST"
 
 # Disabled if statement because mosquitto MQTT is installed regardless
 # Only check the mosquitto service if the MQTT host is localhost (otherwise it's not installed because it's using a remote MQTT host)
 #if [ "$INSTALL_MQTT_HOST" = "localhost" ] || [ "$INSTALL_MQTT_HOST" = "127.0.0.1" ]; then
 #  echo "MQTT host is running on the local host"
-  MOSQUITTO_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status growsense-mosquitto-docker.service")
+#  MOSQUITTO_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "systemctl status growsense-mosquitto-docker.service")
 
-  echo "${MOSQUITTO_RESULT}"
+#  echo "${MOSQUITTO_RESULT}"
 
-  [[ ! $(echo $MOSQUITTO_RESULT) =~ "Loaded: loaded" ]] && echo "Mosquitto service isn't loaded" && exit 1
-  [[ ! $(echo $MOSQUITTO_RESULT) =~ "Active: active" ]] && echo "Mosquitto service isn't active" && exit 1
-  [[ $(echo $MOSQUITTO_RESULT) =~ "not found" ]] && echo "Mosquitto service wasn't found" && exit 1
+#  [[ ! $(echo $MOSQUITTO_RESULT) =~ "Loaded: loaded" ]] && echo "Mosquitto service isn't loaded" && exit 1
+#  [[ ! $(echo $MOSQUITTO_RESULT) =~ "Active: active" ]] && echo "Mosquitto service isn't active" && exit 1
+#  [[ $(echo $MOSQUITTO_RESULT) =~ "not found" ]] && echo "Mosquitto service wasn't found" && exit 1
 #else
 #  echo "Skipping mosquitto service status check. Mosquitto service hasn't been installed because the MQTT host is on another server: $INSTALL_MQTT_HOST"
 #fi
