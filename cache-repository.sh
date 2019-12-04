@@ -12,7 +12,7 @@ fi
 BASE_PATH="/usr/local"
 
 if [ -f "is-mock-system.txt" ]; then
-  BASE_PATH="../../../../.."
+  BASE_PATH=$(readlink -m "$PWD/../../../../..")
 fi
 
 CACHE_PATH="$BASE_PATH/git-cache/GrowSense/Index"

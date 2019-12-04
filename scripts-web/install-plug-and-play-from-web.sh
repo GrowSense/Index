@@ -108,18 +108,28 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 
   echo ""
   echo "Installing/updating git if needed"
-  curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/install/install-git.sh | bash
+  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/install/install-git.sh | bash
 
   echo ""
   echo "Caching repository..."
-  curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash -s $BRANCH
+  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash -s $BRANCH
+
+  BASE_REPO_CACHE_PATH="/usr/local"
+
+  if [ -f "is-mock-system.txt" ]; then
+    BASE_REPO_CACHE_PATH=$(readlink -m "$PWD/../../../../..")
+  fi
+
+  REPO_CACHE_PATH="$BASE_REPO_CACHE_PATH/git-cache/GrowSense/Index"
+  echo "  Repository cache path:"
+  echo "    $REPO_CACHE_PATH"
 
   echo ""
   echo "Cloning the GrowSense index repository..."
 
   #$SUDO git clone -j 10 --depth 1 --recursive https://github.com/GrowSense/Index.git "$INDEX_DIR" --branch $BRANCH --reference /usr/local/git-cache/GrowSense/Index.reference || exit 1
 
-  $SUDO git clone -j 10 --depth 1 --recursive /usr/local/git-cache/GrowSense/Index "$INDEX_DIR" --branch $BRANCH || exit 1
+  $SUDO git clone -j 10 --depth 1 --recursive $REPO_CACHE_PATH "$INDEX_DIR" --branch $BRANCH || exit 1
 
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
