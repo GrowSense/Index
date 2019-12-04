@@ -14,7 +14,7 @@ VERSION=$(git --version)
 echo "  Version info:"
 echo "    $VERSION"
 
-if [[ "$VERSION" != *"2.2"* ]]; then
+if [[ "$VERSION" != *" 2."* ]]; then
   echo "  Git needs to be updated..."
   NEEDS_INSTALL=1
 else
