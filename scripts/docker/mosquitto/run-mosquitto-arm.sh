@@ -6,7 +6,7 @@ MOSQUITTO_DIR="/usr/local/mosquitto"
 #docker pull compulsivecoder/mosquitto-arm
 
 docker run -d \
-  --rm \
+#  --rm \
   --restart=always \
   --name=mosquitto \
 	--volume $MOSQUITTO_DIR/data:/mosquitto_data \
