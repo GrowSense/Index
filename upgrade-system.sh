@@ -19,7 +19,7 @@ if [ ! "$LATEST_BUILD_NUMBER" ]; then
   echo "  Error: Failed to get the latest build number. Skipping upgrade."
   exit 1
 elif [ ! "$LATEST_VERSION_NUMBER" ]; then
-  echo "  Error: Failed to get the latest build number. Skipping upgrade."
+  echo "  Error: Failed to get the latest version number. Skipping upgrade."
   exit 1
 elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  New GrowSense system version available. Upgrading..."
