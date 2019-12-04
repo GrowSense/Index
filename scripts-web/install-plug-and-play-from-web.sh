@@ -110,10 +110,6 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   echo "Installing/updating git if needed"
   curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/install/install-git.sh | bash
 
-  echo ""
-  echo "Caching repository..."
-  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash -s $BRANCH
-
   BASE_REPO_CACHE_PATH="/usr/local"
 
   if [ -f "is-mock-system.txt" ]; then
@@ -123,6 +119,10 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   REPO_CACHE_PATH="$BASE_REPO_CACHE_PATH/git-cache/GrowSense/Index"
   echo "  Repository cache path:"
   echo "    $REPO_CACHE_PATH"
+
+  echo ""
+  echo "Caching repository..."
+  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash -s $BRANCH $REPO_CACHE_PATH
 
   echo ""
   echo "Cloning the GrowSense index repository..."

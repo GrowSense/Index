@@ -3,19 +3,23 @@ echo "Caching git repository..."
 DIR=$PWD
 
 BRANCH=$1
+CACHE_PATH=$2
 
 if [ ! "$BRANCH" ]; then
   echo "  Error: Please provide a branch name as an argument."
   exit 1
 fi
 
-BASE_PATH="/usr/local"
-
-if [ -f "is-mock-system.txt" ]; then
-  BASE_PATH=$(readlink -m "$PWD/../../../../..")
+if [ ! "$CACHE_PATH" ]; then
+  echo "  No cache path specified. Using default."
+  BASE_PATH="/usr/local"
+	
+  if [ -f "is-mock-system.txt" ]; then
+    BASE_PATH=$(readlink -m "$PWD/../../../../..")
+  fi
+	
+  CACHE_PATH="$BASE_PATH/git-cache/GrowSense/Index"
 fi
-
-CACHE_PATH="$BASE_PATH/git-cache/GrowSense/Index"
 
 echo "  Currrent path:"
 echo "    $PWD"
