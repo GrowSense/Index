@@ -9,7 +9,7 @@ if [ -d "remote" ]; then
     
       echo "    Remote name: $REMOTE_NAME"
 
-      sh pull-messages-from-remote.sh $REMOTE_NAME
+      bash pull-messages-from-remote.sh $REMOTE_NAME
       echo ""
     fi
   done

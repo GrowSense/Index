@@ -27,7 +27,10 @@ echo "  Username: $REMOTE_USERNAME"
 echo "  Password: [hidden]"
 echo "  Port: $REMOTE_PORT"
 
-# rsync is faster
-rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/msgs/ msgs/$REMOTE_NAME/ || exit 1
+if sshpass -p $REMOTE_PASSWORD ssh -o "StrictHostKeyChecking no" -p $REMOTE_PORT $REMOTE_USERNAME@$REMOTE_HOST '[ -d /usr/local/GrowSense/Index/msgs ]'; then
+  rsync -rzq -e "sshpass -p $REMOTE_PASSWORD ssh -o StrictHostKeyChecking=no -p $REMOTE_PORT" --progress $REMOTE_USERNAME@$REMOTE_HOST:/usr/local/GrowSense/Index/msgs/ msgs/$REMOTE_NAME/ || exit 1
 
-echo "Finished pull messages from remote"
+  echo "Finished pull messages from remote"
+else
+  echo "  No messages found on remote. Skipping pull."
+fi
