@@ -10,6 +10,8 @@ namespace GrowSense.Index.Tests.Install.Web
     [Test]
     public void Test_Upgrade ()
     {
+      var branch = GetBranch ();
+      
       MoveToTemporaryDirectory ();
 
       Console.WriteLine ("");
@@ -18,10 +20,6 @@ namespace GrowSense.Index.Tests.Install.Web
 
       var installDir = Path.GetFullPath ("GrowSense/Index");
       var pnpInstallDir = Path.GetFullPath ("ArduinoPlugAndPlay");
-
-      var branchDetector = new BranchDetector ();
-      var branch = branchDetector.Branch;
-
 
       PrepareGrowSenseInstallation (branch, installDir, pnpInstallDir);
 
@@ -41,6 +39,7 @@ namespace GrowSense.Index.Tests.Install.Web
       Console.WriteLine ("Performing upgrade test...");
       Console.WriteLine ("");
 
+      starter.Initialize ();
       starter.RunBash (cmd);
 
       Console.Write (starter.Starter.Output);

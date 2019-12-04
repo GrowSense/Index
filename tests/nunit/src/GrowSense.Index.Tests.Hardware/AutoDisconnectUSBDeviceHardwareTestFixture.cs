@@ -5,25 +5,25 @@ using System.IO;
 
 namespace GrowSense.Index.Tests.Hardware
 {
-    [TestFixture (Category = "Hardware")]
-    public class AutoDisconnectUSBDeviceHardwareTestFixture : BaseHardwareTestFixture
+  [TestFixture (Category = "Hardware")]
+  public class AutoDisconnectUSBDeviceHardwareTestFixture : BaseHardwareTestFixture
+  {
+    [Test]
+    public void Test_AutoDisconnectDevice ()
     {
-        [Test]
-        public void Test_AutoDisconnectDevice ()
-        {
-            var deviceInfo = new DeviceInfo ();
-            deviceInfo.FamilyName = "GrowSense";
-            deviceInfo.GroupName = "irrigator";
-            deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
-            deviceInfo.BoardType = "uno";
-            deviceInfo.Port = GetIrrigatorPort ();
+      var deviceInfo = new DeviceInfo ();
+      deviceInfo.FamilyName = "GrowSense";
+      deviceInfo.DeviceName = "irrigator1";
+      deviceInfo.GroupName = "irrigator";
+      deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
+      deviceInfo.BoardType = "uno";
+      deviceInfo.Port = GetIrrigatorPort ();
 
-            using (var helper = new AutoDisconnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
-                helper.ExampleDevice = deviceInfo;
-                helper.TestDisconnectDevice ();
-            }
-        }
-
+      using (var helper = new AutoDisconnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
+        helper.ExampleDevice = deviceInfo;
+        helper.TestDisconnectDevice ();
+      }
     }
+  }
 }
 

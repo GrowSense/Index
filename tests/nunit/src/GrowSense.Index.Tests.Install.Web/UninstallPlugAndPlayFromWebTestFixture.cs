@@ -21,8 +21,7 @@ namespace GrowSense.Index.Tests.Install.Web
       
       Directory.CreateDirectory (installDir);
 
-      var branchDetector = new BranchDetector ();
-      var branch = branchDetector.Branch;
+      var branch = GetBranch ();
 
       PrepareGrowSenseInstallation (branch, installDir, pnpInstallDir);
       

@@ -19,8 +19,7 @@ namespace GrowSense.Index.Tests.Install.Web
       var installDir = Path.GetFullPath ("GrowSense/Index");
       var pnpInstallDir = Path.GetFullPath ("ArduinoPlugAndPlay");
 
-      var branchDetector = new BranchDetector ();
-      var branch = branchDetector.Branch;
+      var branch = GetBranch ();
 
 
       PrepareGrowSenseInstallation (branch, installDir, pnpInstallDir);

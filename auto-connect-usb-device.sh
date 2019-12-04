@@ -81,5 +81,5 @@ bash create-message-file.sh "$DEVICE_NAME connected"
 bash send-email.sh "Device $DEVICE_NAME connected via USB (on $HOST)." "The $DEVICE_NAME device was connected via USB on host $HOST."
 
 echo ""
-echo "Finished auto connecting device."
+echo "Finished connecting device: $DEVICE_NAME."
 

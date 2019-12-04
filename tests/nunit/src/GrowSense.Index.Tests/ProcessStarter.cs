@@ -6,55 +6,61 @@ using System.IO;
 
 namespace GrowSense.Index.Tests
 {
-    public class ProcessStarter
+  public class ProcessStarter
+  {
+    public bool IsError { get; set; }
+
+    public bool ThrowExceptionOnError = true;
+    public bool WriteOutputToConsole = true;
+    public bool IsVerbose = false;
+    public string OriginalDirectory = "";
+    public string WorkingDirectory = "";
+
+    public string Output {
+      get { return OutputBuilder.ToString (); }
+    }
+
+    public StringBuilder OutputBuilder = new StringBuilder ();
+
+    public ProcessStarter () : this(Environment.CurrentDirectory)
     {
-        public bool IsError { get; set; }
+    }
 
-        public bool ThrowExceptionOnError = true;
+    public ProcessStarter (string workingDirectory)
+    {
+      WorkingDirectory = workingDirectory;
+      OriginalDirectory = Environment.CurrentDirectory;
+    }
 
-        public bool WriteOutputToConsole = true;
+    public Process Start (params string[] commandParts)
+    {
+      return Start (String.Join (" ", commandParts));
+    }
 
-        public bool IsVerbose = false;
+    public Process Start (string command, string argument1, params string[] otherArguments)
+    {
+      var arguments = new List<string> ();
+      arguments.Add (argument1);
+      arguments.AddRange (otherArguments);
 
-        public string Output {
-            get { return OutputBuilder.ToString (); }
-        }
+      return Start (command, arguments.ToArray ());
+    }
 
-        public StringBuilder OutputBuilder = new StringBuilder ();
+    public Process Start (string command, string argument1, string argument2, params string[] otherArguments)
+    {
+      var arguments = new List<string> ();
+      arguments.Add (argument1);
+      arguments.Add (argument2);
+      arguments.AddRange (otherArguments);
 
-        public ProcessStarter ()
-        {
-        }
+      return Start (command, arguments.ToArray ());
+    }
 
-        public Process Start (params string[] commandParts)
-        {
-            return Start (String.Join (" ", commandParts));
-        }
-
-        public Process Start (string command, string argument1, params string[] otherArguments)
-        {
-            var arguments = new List<string> ();
-            arguments.Add (argument1);
-            arguments.AddRange (otherArguments);
-
-            return Start (command, arguments.ToArray ());
-        }
-
-        public Process Start (string command, string argument1, string argument2, params string[] otherArguments)
-        {
-            var arguments = new List<string> ();
-            arguments.Add (argument1);
-            arguments.Add (argument2);
-            arguments.AddRange (otherArguments);
-
-            return Start (command, arguments.ToArray ());
-        }
-
-        public Process Start (string command)
-        {
-            if (command.Contains (" ")) {
-                var cmd = String.Empty;
-                var arguments = new string[] { };
+    public Process Start (string command)
+    {
+      if (command.Contains (" ")) {
+        var cmd = String.Empty;
+        var arguments = new string[] { };
                 var list = new List<string> (command.Split (' '));
                 cmd = list [0];
                 list.RemoveAt (0);
@@ -140,12 +146,16 @@ namespace GrowSense.Index.Tests
             );
 
             try {
+                Directory.SetCurrentDirectory(WorkingDirectory);
+                
                 process.Start ();
 
                 process.BeginOutputReadLine ();
                 process.BeginErrorReadLine ();
 
                 process.WaitForExit ();
+                
+                Directory.SetCurrentDirectory(OriginalDirectory);
 
                 // If the exit code is NOT zero then an error must have occurred
                 IsError = (process.ExitCode != 0);

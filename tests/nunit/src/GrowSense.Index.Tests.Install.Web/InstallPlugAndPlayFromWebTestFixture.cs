@@ -10,6 +10,8 @@ namespace GrowSense.Index.Tests.Install.Web
     [Test]
     public void Test_Install_FromWeb ()
     {
+      var branch = GetBranch ();
+      
       MoveToTemporaryDirectory ();
 
       Console.WriteLine ("");
@@ -17,10 +19,6 @@ namespace GrowSense.Index.Tests.Install.Web
       Console.WriteLine ("");
 
       var scriptName = "install-plug-and-play-from-web.sh";
-      var scriptPath = Path.GetFullPath (scriptName);
-
-      var branchDetector = new BranchDetector ();
-      var branch = branchDetector.Branch;
 
       var installDir = Path.GetFullPath ("GrowSense/Index");
       

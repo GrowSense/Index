@@ -22,8 +22,7 @@ namespace GrowSense.Index.Tests.Install.Web
 
       var scriptPath = Path.GetFullPath (scriptName);
 
-      var branchDetector = new BranchDetector ();
-      var branch = branchDetector.Branch;
+      var branch = GetBranch ();
 
       var installDir = Path.Combine (TemporaryDirectory, "installation");
 

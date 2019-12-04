@@ -20,5 +20,5 @@ else
   echo "  Marking device and disconnected from USB"
   echo "0" > "$DEVICE_INFO_DIR/is-usb-connected.txt"
 
-  echo "Garden device removed: $DEVICE_NAME"
+  echo "Finished disconnecting device: $DEVICE_NAME"
 fi

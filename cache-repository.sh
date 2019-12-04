@@ -17,6 +17,8 @@ fi
 
 CACHE_PATH="$BASE_PATH/git-cache/GrowSense/Index"
 
+echo "  Currrent path:"
+echo "    $PWD"
 echo "  Cache path:"
 echo "    $CACHE_PATH"
 

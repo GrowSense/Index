@@ -26,6 +26,8 @@ namespace GrowSense.Index.Tests
     public void Initialize ()
     {
       Console.WriteLine ("Initializing the test");
+      
+      Directory.SetCurrentDirectory (WorkingDirectory);
 
       if (File.Exists (Path.GetFullPath (PrepareScript)))
         RunProcess ("bash " + PrepareScript);
@@ -95,6 +97,9 @@ namespace GrowSense.Index.Tests
       // Console.WriteLine (internalCommand);
 
       var output = String.Empty;
+      
+      Console.WriteLine ("Working directory:");
+      Console.WriteLine ("  " + WorkingDirectory);
 
       var fixedCommand = "/bin/bash -c '" + internalCommand + "'";
 
