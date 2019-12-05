@@ -7,12 +7,13 @@ if ! type "git" &>/dev/null; then
   NEEDS_INSTALL=1
 else
   echo "  Git is already installed..."
+
+  VERSION=$(git --version)
+
+  echo "  Version info:"
+  echo "    $VERSION"
 fi
 
-VERSION=$(git --version)
-
-echo "  Version info:"
-echo "    $VERSION"
 
 #if [[ "$VERSION" != *" 2."* ]]; then
 #  echo "  Git needs to be updated..."
