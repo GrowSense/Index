@@ -75,9 +75,10 @@ else
   fi
 
   echo ""
-  echo "Removing all devices and services..."
-  if [ -f remove-garden-devices.sh ]; then
-    bash remove-garden-devices.sh || echo "Failed to remove garden devices"
+  echo "Removing all and services..."
+  # IMPORTANT: Don't use the remove-garden-devices.sh script because it will remove device on remote computers as well
+  if [ -f remove-garden-device-services.sh ]; then
+    bash remove-garden-device-services.sh || echo "Failed to remove garden devices"
   fi
 
   echo ""
