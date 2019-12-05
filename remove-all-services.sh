@@ -15,4 +15,8 @@ for filename in /lib/systemd/system/growsense-*.service; do
   echo "" 
 done
 
+echo ""
+echo "  Removing mosquitto docker container..."
+bash remove-mqtt-service.sh
+
 echo "Finished removing all GrowSense services."
