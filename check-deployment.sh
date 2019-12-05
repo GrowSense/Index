@@ -26,14 +26,14 @@ sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_
 
 #sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && echo 1 > supervisor-status-check-frequency.txt && sudo systemctl restart growsense-supervisor.service"
 
-echo ""
-echo "Viewing platform.io list..."
+#echo ""
+#echo "Viewing platform.io list..."
 
-PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "pio device list")
+#PIO_LIST_RESULT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "pio device list")
 
-echo "${PIO_LIST_RESULT}"
+#echo "${PIO_LIST_RESULT}"
 
-[[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB" ]] && echo "No USB devices are connected" && exit 1
+#[[ ! $(echo $PIO_LIST_RESULT) =~ "ttyUSB" ]] && echo "No USB devices are connected" && exit 1
 
 echo ""
 echo "Viewing docker ps result..."
