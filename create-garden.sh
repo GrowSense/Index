@@ -2,6 +2,12 @@ echo ""
 echo "Creating GrowSense garden..."
 echo ""
 
+ "  Creating mesh manage service..."
+bash create-mesh-manager-service.sh || exit 1
+
+echo "  Creating WWW service..."
+bash create-www-service.sh || exit 1
+
 # Only create the MQTT broker service if the MQTT host is localhost
 # Note: The localhost check has been disabled so the MQTT broker will be installed anyway
 #MQTT_HOST=$(cat mqtt-host.security)
@@ -13,11 +19,6 @@ echo ""
 #  echo "MQTT broker is on another host"
 #fi
 
-echo "  Creating WWW service..."
-bash create-www-service.sh || exit 1
-
-echo "  Creating mesh manage service..."
-bash create-mesh-manager-service.sh || exit 1
 
 echo ""
 echo "Creating system supervisor service..."
