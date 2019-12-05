@@ -42,7 +42,14 @@ fi
 
 echo "Automatically connecting a device..."
 
-if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
+DEVICE_NAME_IS_IN_USE=0
+if [ "$DEVICE_NAME" != "" ] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
+  if [ -d "devices/$DEVICE_NAME" ]; then
+    DEVICE_NAME_IS_IN_USE=1
+  fi
+fi
+
+if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]] || [[ "$DEVICE_NAME_IS_IN_USE" == "1" ]]; then
   . ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
 fi
 
