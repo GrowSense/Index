@@ -81,6 +81,9 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
   echo ""
   echo "Finished upgrading system"
+  echo ""
+  echo ""
 else
   echo "  GrowSense system is up to date. Skipping upgrade."
+  echo ""
 fi
