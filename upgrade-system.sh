@@ -43,21 +43,35 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   
   #$SUDO pio upgrade
   
-  bash clean-all.sh
+  echo ""
+  echo "  Cleaning all..."
+  bash clean-all.sh || exit 1
 
-  bash update-all.sh
+  echo ""
+  echo "  Updating all..."
+  bash update-all.sh || exit 1
 
-  bash init-runtime.sh
+  echo ""
+  echo "  Initializing runtime..."
+  bash init-runtime.sh || exit 1
   
-  bash upgrade-mqtt-service.sh
+  echo ""
+  echo "  Upgrading MQTT service..."
+  bash upgrade-mqtt-service.sh || exit 1
   
-  $SUDO sh install-apps.sh
+  echo ""
+  echo "  Installing apps..."
+  $SUDO sh install-apps.sh || exit 1
   
-  bash restart-garden.sh
+  echo ""
+  echo "  Restarting garden..."
+  bash restart-garden.sh || exit 1
   
+  echo ""
   echo "  Publishing status to MQTT..."
   bash mqtt-publish.sh "garden/StatusMessage" "Upgraded"
   
+  echo ""
   echo "  Sending email report..."
   bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
   
@@ -65,6 +79,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  Creating message file..."
   bash create-message-file.sh "GrowSense upgraded to v$LATEST_FULL_VERSION"
 
+  echo ""
   echo "Finished upgrading system"
 else
   echo "  GrowSense system is up to date. Skipping upgrade."

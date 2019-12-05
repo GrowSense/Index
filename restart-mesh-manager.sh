@@ -1,3 +1,5 @@
-echo "Restarting GrowSense mesh manaager service..."
+echo "Restarting GrowSense mesh manager service..."
 
-sh systemctl.sh restart growsense-mesh-manager.service
+bash systemctl.sh restart growsense-mesh-manager.service || exit 1
+
+echo "Finished restarting GrowSense mesh manager service"
