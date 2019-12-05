@@ -45,6 +45,7 @@ echo "Automatically connecting a device..."
 DEVICE_NAME_IS_IN_USE=0
 if [ "$DEVICE_NAME" != "" ] || [[ $DEVICE_NAME == "{DEVICENAME}" ]]; then
   if [ -d "devices/$DEVICE_NAME" ]; then
+    echo "  Device name $DEVICE_NAME is already in use. Generating a new name."
     DEVICE_NAME_IS_IN_USE=1
   fi
 fi
