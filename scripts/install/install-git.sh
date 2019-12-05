@@ -7,9 +7,8 @@ if ! type "git" &>/dev/null; then
   NEEDS_INSTALL=1
 else
   echo "  Git is already installed..."
+  VERSION=$(git --version)
 fi
-
-VERSION=$(git --version)
 
 echo "  Version info:"
 echo "    $VERSION"
@@ -32,8 +31,10 @@ if [ "$NEEDS_INSTALL" == "1" ]; then
   apt-get install -y software-properties-common || echo "Failed to install. Skipping"
 #  apt-get install -y python-software-properties || echo "Failed to install. Skipping"
 #  apt-get install -y software-python-common || echo "Failed to install. Skipping"
+  apt-key adv --recv-keys --keyserver keyserver.ubuntu.com A1715D88E1DF1F24 40976EAF437D05B5 3B4FE6ACC0B21F32 A6616109451BBBF2
   add-apt-repository -y ppa:git-core/ppa || exit 1
   apt-get update || exit 1
+  apt-get upgrade || exit 1
   apt-get install -y git || exit 1
 
   git --version || exit 1

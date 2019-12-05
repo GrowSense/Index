@@ -108,7 +108,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 
   echo ""
   echo "Installing/updating git if needed"
-  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/install/install-git.sh | bash
+  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts/install/install-git.sh | bash || exit 1
 
   BASE_REPO_CACHE_PATH="/usr/local"
 
