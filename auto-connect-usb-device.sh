@@ -42,11 +42,16 @@ fi
 
 echo "Automatically connecting a device..."
 
+HOST=$(cat /etc/hostname)
+
 DEVICE_NAME_IS_IN_USE=0
 if [ "$DEVICE_NAME" != "" ]; then
   if [ -d "devices/$DEVICE_NAME" ]; then
-    echo "  Device name $DEVICE_NAME is already in use. Generating a new name."
-    DEVICE_NAME_IS_IN_USE=1
+    DEVICE_HOST="$(cat devices/$DEVICE_NAME/host.txt)"
+    if [ "$HOST" != "$DEVICE_HOST" ]; then
+      echo "  Device name $DEVICE_NAME is already in use on another host. Generating a new name."
+      DEVICE_NAME_IS_IN_USE=1
+    fi
   fi
 fi
 
@@ -81,8 +86,6 @@ echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"
 bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Connected"
 
 bash notify-send.sh "Finished connecting $GROUP_NAME device"
-
-HOST=$(cat /etc/hostname)
 
 bash create-message-file.sh "$DEVICE_NAME connected"
 
