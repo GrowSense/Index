@@ -20,6 +20,9 @@ bash create-www-service.sh || exit 1
 #  echo "MQTT broker is on another host"
 #fi
 
+echo ""
+echo "Creating upgrade service..."
+bash create-upgrade-service.sh || exit 1
 
 echo ""
 echo "Creating system supervisor service..."
