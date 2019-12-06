@@ -17,7 +17,7 @@ bash restart-mesh-manager.sh || exit 1
 #if [ "$MQTT_HOST" = "localhost" ] || [ "$MQTT_HOST" = "127.0.0.1" ]; then
   echo ""
   echo "  Restarting MQTT..."
-  bash restart-mqtt.sh || exit 1
+  bash restart-mqtt-service.sh || exit 1
 #fi
 
 echo ""
