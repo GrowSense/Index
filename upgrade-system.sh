@@ -66,6 +66,12 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "  Upgrading MQTT service..."
     bash upgrade-mqtt-service.sh
   fi
+
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Recreating garden services..."
+    sh recreate-garden-services.sh || exit 1
+  fi
   
   if [ $? == 0 ]; then
     echo ""
@@ -75,8 +81,27 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   
   if [ $? == 0 ]; then
     echo ""
-    echo "  Restarting garden..."
-    bash restart-garden.sh
+    echo "  Recreating garden services..."
+    sh recreate-garden-services.sh
+  fi
+
+  # TODO: Remove if not needed. Recreating garden services should restart the garden.
+  #if [ $? == 0 ]; then
+  #  echo ""
+  #  echo "  Restarting garden..."
+  #  bash restart-garden.sh
+  #fi
+
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
+    curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR"
+  fi
+
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Waiting for the plug and play system to load..."
+    bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
   fi
   
   if [ $? == 0 ]; then

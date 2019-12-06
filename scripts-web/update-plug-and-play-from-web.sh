@@ -94,9 +94,10 @@ sleep 5
 #echo "Stopping garden..."
 #sh stop-garden.sh || exit 1
 
-echo ""
-echo "  Updating index..."
-sh update-all.sh || exit 1
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Updating index..."
+#sh update-all.sh || exit 1
 
 echo ""
 echo "  Upgrading system..."
@@ -107,17 +108,21 @@ sh upgrade-system.sh || exit 1
 #echo "  Reinitializing index..."
 #sh init-runtime.sh || exit 1
 
-echo ""
-echo "  Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
-curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR" || exit 1
 
-echo ""
-echo "  Waiting for the plug and play system to load..."
-bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
+#curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR" || exit 1
 
-echo ""
-echo "  Recreating garden services..."
-sh recreate-garden-services.sh || exit 1
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Waiting for the plug and play system to load..."
+#bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
+
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Recreating garden services..."
+#sh recreate-garden-services.sh || exit 1
 
 # TODO: Remove if not needed. Likely causing problems with plug and play starting after garden services have started
 #echo "Reloading systemctl..."
@@ -131,29 +136,34 @@ echo ""
 echo "  Moving to GrowSense index dir..."
 cd $INDEX_DIR
 
-echo ""
-echo "  Start garden services..."
-sh start-garden.sh || exit 1
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Start garden services..."
+#sh start-garden.sh || exit 1
 
-echo ""
-echo "  Waiting for plug and play..."
-bash "wait-for-plug-and-play.sh"
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Waiting for plug and play..."
+#bash "wait-for-plug-and-play.sh"
 
+# Disabled
 #echo "Giving services time to start..."
 #sleep 10
 
-echo ""
-echo "Publishing status to MQTT..."
-sh mqtt-publish.sh "garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
+# The upgrade-system.sh script takes care of this
+#echo ""
+#echo "Publishing status to MQTT..."
+#sh mqtt-publish.sh "garden/StatusMessage" "Upgrade Complete" || echo "MQTT publish failed."
 
-FULL_VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
+#FULL_VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 
-echo ""
-echo "  Version: $FULL_VERSION"
+#echo ""
+#echo "  Version: $FULL_VERSION"
 
-echo ""
-echo "  Creating status message file..."
-bash create-message-file.sh "GrowSense system upgraded to v$FULL_VERSION"
+# The upgrade-system.sh script takes care of thi
+#echo ""
+#echo "  Creating status message file..."
+#bash create-message-file.sh "GrowSense system upgraded to v$FULL_VERSION"
 
 echo ""
 echo "Finished updating GrowSense plug and play!"
