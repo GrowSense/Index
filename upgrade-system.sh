@@ -23,6 +23,10 @@ elif [ ! "$LATEST_VERSION_NUMBER" ]; then
   exit 1
 elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  New GrowSense system version available. Upgrading..."
+
+  echo ""
+  echo "  Waiting for the installation to unlock..."
+  bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
   
   SUDO=""
   if [ ! "$(id -u)" -eq 0 ]; then
@@ -34,6 +38,14 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
   echo "  Sending email report..."
   bash send-email.sh "GrowSense system upgrading to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+
+  echo ""
+  echo "Creating status message file..."
+  bash create-message-file.sh "GrowSense system upgrading"
+
+  echo ""
+  echo "  Giving the UI time to receive the status update..."
+  sleep 5
   
 # Disabled because it can potentially break the system by causing conflicts with docker containers 
 #  $SUDO apt-get update && $SUDO apt-get -y upgrade
@@ -92,6 +104,17 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   fi
 
   if [ $? == 0 ]; then
+    BASE_DIR="$(dirname $PWD)"
+    PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
+
+    echo "  Checking for ArduinoPlugAndPlay install dir..."
+    if [ ! -d $PNP_INSTALL_DIR ]; then
+      echo "    ArduinoPlugAndPlay doesn't appear to be installed at:"
+      echo "      $PNP_INSTALL_DIR"
+      echo "    Use the install-plug-and-play-from-web-sh script instead."
+      exit 1
+    fi
+
     echo ""
     echo "  Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
     curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR"

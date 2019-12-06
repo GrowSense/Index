@@ -24,16 +24,16 @@ INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
 BASE_DIR="$(dirname $GREENSENSE_DIR)"
 
-PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
+#PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 
 
-echo "  Checking for ArduinoPlugAndPlay install dir..."
-if [ ! -d $PNP_INSTALL_DIR ]; then
-  echo "    ArduinoPlugAndPlay doesn't appear to be installed at:"
-  echo "      $PNP_INSTALL_DIR"
-  echo "    Use the install-plug-and-play-from-web-sh script instead."
-  exit 1
-fi
+#echo "  Checking for ArduinoPlugAndPlay install dir..."
+#if [ ! -d $PNP_INSTALL_DIR ]; then
+#  echo "    ArduinoPlugAndPlay doesn't appear to be installed at:"
+#  echo "      $PNP_INSTALL_DIR"
+#  echo "    Use the install-plug-and-play-from-web-sh script instead."
+#  exit 1
+#fi
 
 INDEX_DIR=$INSTALL_DIR
 
@@ -47,45 +47,42 @@ fi
 
 echo ""
 echo "  Moving to GrowSense index dir..."
-cd $INDEX_DIR
+echo "    $INDEX_DIR"
+cd $INDEX_DIR || exit 1
 
-WIFI_NAME=$(cat wifi-name.security)
-WIFI_PASSWORD=$(cat wifi-password.security)
+#WIFI_NAME=$(cat wifi-name.security)
+#WIFI_PASSWORD=$(cat wifi-password.security)
 
-echo ""
-echo "  WiFi Name: $WIFI_NAME"
-echo "  WiFi Password: [hidden]"
+#echo ""
+#echo "  WiFi Name: $WIFI_NAME"
+#echo "  WiFi Password: [hidden]"
 
-MQTT_HOST=$(cat mqtt-host.security)
-MQTT_USERNAME=$(cat mqtt-username.security)
-MQTT_PASSWORD=$(cat mqtt-password.security)
-MQTT_PORT=$(cat mqtt-port.security)
+#MQTT_HOST=$(cat mqtt-host.security)
+#MQTT_USERNAME=$(cat mqtt-username.security)
+#MQTT_PASSWORD=$(cat mqtt-password.security)
+#MQTT_PORT=$(cat mqtt-port.security)
 
-echo ""
-echo "  MQTT Host: $MQTT_HOST"
-echo "  MQTT Username: $MQTT_USERNAME"
-echo "  MQTT Password: [hidden]"
-echo "  MQTT PORT: $MQTT_PORT"
+#echo ""
+#echo "  MQTT Host: $MQTT_HOST"
+#echo "  MQTT Username: $MQTT_USERNAME"
+#echo "  MQTT Password: [hidden]"
+#echo "  MQTT PORT: $MQTT_PORT"
 
-echo ""
-echo "  Waiting for the installation to unlock..."
-bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
+#echo ""
+#echo "  Updating cached repository..."
+#bash cache-repository.sh $BRANCH || exit 1
 
-echo ""
-echo "  Updating cached repository..."
-bash cache-repository.sh $BRANCH || exit 1
+#echo ""
+#echo "  Publishing status to MQTT..."
+#sh mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
-echo ""
-echo "  Publishing status to MQTT..."
-sh mqtt-publish.sh "garden/StatusMessage" "Upgrading"
+#echo ""
+#echo "Creating status message file..."
+#bash create-message-file.sh "GrowSense system upgrading"
 
-echo ""
-echo "Creating status message file..."
-bash create-message-file.sh "GrowSense system upgrading"
-
-echo ""
-echo "  Giving the UI time to receive the status update..."
-sleep 5
+#echo ""
+#echo "  Giving the UI time to receive the status update..."
+#sleep 5
 
 #echo "Stopping arduino plug and play..."
 #sh systemctl.sh stop arduino-plug-and-play.service # TODO: Remove if not needed. Causing problems because if ArduinoPlugAndPlay is already up to date the service doesn't restart
