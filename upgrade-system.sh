@@ -157,7 +157,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   fi
 
   if [ "$?" -eq "0" ]; then
-    BASE_DIR="$(dirname $PWD)"
+    BASE_DIR="$(dirname $(dirname $PWD))"
     PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 
     echo "  Checking for ArduinoPlugAndPlay install dir..."
