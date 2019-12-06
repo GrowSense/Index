@@ -56,61 +56,61 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   #$SUDO pio upgrade
   
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Stopping supervisor to prevent unnecessary errors..."
     bash stop-supervisor.sh
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Cleaning all..."
     bash clean-all.sh
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
   echo ""
   echo "  Updating all..."
   bash update-all.sh
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Initializing runtime..."
     bash init-runtime.sh
   fi
   
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Upgrading MQTT service..."
     bash upgrade-mqtt-service.sh
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Recreating garden services..."
     sh recreate-garden-services.sh || exit 1
   fi
   
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Installing apps..."
      $SUDO sh install-apps.sh
   fi
   
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Recreating garden services..."
     sh recreate-garden-services.sh
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Starting garden..."
     bash start-garden.sh
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     BASE_DIR="$(dirname $PWD)"
     PNP_INSTALL_DIR="$BASE_DIR/ArduinoPlugAndPlay"
 
@@ -127,13 +127,13 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     curl -s -L -H 'Cache-Control: no-cache' -f https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/upgrade.sh | bash -s -- "$BRANCH" "$PNP_INSTALL_DIR"
   fi
 
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Waiting for the plug and play system to load..."
     bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
   fi
   
-  if [ $? == 0 ]; then
+  if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Publishing status to MQTT..."
     bash mqtt-publish.sh "garden/StatusMessage" "Upgraded"

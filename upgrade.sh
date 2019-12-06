@@ -18,19 +18,19 @@ echo ""
 echo "  Caching repository/updating cache...."
 bash cache-repository.sh $BRANCH
 
-if [ $? == 0 ]; then
+if [ "$?" -eq "0" ]; then
   echo ""
   echo "  Upgrading device sketches..."
   bash upgrade-garden-device-sketches.sh
 fi
 
-if [ $? == 0 ]; then
+if [ "$?" -eq "0" ]; then
   echo ""
   echo "  Upgrading system..."
   bash upgrade-system.sh
 fi
 
-if [ $? != 0 ]; then
+if [ "$?" -ne "0" ]; then
   echo ""
   echo "  Publishing status to MQTT..."
   bash mqtt-publish.sh "garden/StatusMessage" "Upgrade failed"
