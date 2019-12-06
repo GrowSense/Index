@@ -10,7 +10,7 @@ echo "  Branch: $BRANCH"
 
 echo ""
 echo "  Updating repository cache..."
-bash cache-repository $BRANCH || exit 1
+bash cache-repository.sh $BRANCH || exit 1
 
 echo ""
 echo "  Pulling from origin..."
