@@ -5,6 +5,10 @@ DEVICES_DIR="devices"
 DIR=$PWD
 
 echo ""
+echo "  Stopping supervisor to avoid unnecessary error reports..."
+bash stop-supervisor.sh || exit 1
+
+echo ""
 echo "  Recreating mesh manager service..."
 bash create-mesh-manager-service.sh || exit 1
 

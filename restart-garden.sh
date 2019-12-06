@@ -5,8 +5,8 @@ echo ""
 DIR=$PWD
 
 echo ""
-echo "  Restarting supervisor..."
-bash restart-supervisor.sh || exit 1
+echo "  Stopping supervisor to avoid unnecessary error reports..."
+bash stop-supervisor.sh || exit 1
 
 echo ""
 echo "  Restarting mesh manager..."
@@ -27,6 +27,10 @@ bash restart-garden-devices.sh || exit 1
 echo ""
 echo "  Restarting supervisor..."
 bash restart-www-service.sh || exit 1
+
+echo ""
+echo "  Starting supervisor..."
+bash start-supervisor.sh || exit 1
 
 echo ""
 echo "Finished restarting garden."
