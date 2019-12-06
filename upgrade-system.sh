@@ -85,12 +85,11 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     sh recreate-garden-services.sh
   fi
 
-  # TODO: Remove if not needed. Recreating garden services should restart the garden.
-  #if [ $? == 0 ]; then
-  #  echo ""
-  #  echo "  Restarting garden..."
-  #  bash restart-garden.sh
-  #fi
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Starting garden..."
+    bash start-garden.sh
+  fi
 
   if [ $? == 0 ]; then
     echo ""
