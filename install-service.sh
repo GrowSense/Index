@@ -12,6 +12,7 @@ fi
 echo "Installing service"
 echo "Path: $SERVICE_FILE_PATH"
 echo "Name: $SERVICE_FILE"
+echo "Start service: $START_SERVICE"
 
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
