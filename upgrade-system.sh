@@ -186,7 +186,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   
     echo ""
     echo "  Sending email report..."
-    bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+    bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output..\n\n$(bash view-upgrade-service-log.sh)"
   
     echo ""
     echo "  Creating message file..."

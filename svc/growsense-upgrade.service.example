@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GrowSense System Upgrade Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/GrowSense/Index/; cd /usr/local/GrowSense/Index/; bash upgrade.sh"
+
+ [Install]
+ WantedBy=multi-user.target

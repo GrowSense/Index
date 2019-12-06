@@ -50,7 +50,7 @@ if [ "$?" -ne "0" ]; then
 
   echo ""
   echo "  Sending email report..."
-  bash send-email.sh "GrowSense system upgrade failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(cat logs/updates/system.txt)"
+  bash send-email.sh "GrowSense system upgrade failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(bash view-upgrade-service-log.sh)"
 
 
   echo ""
