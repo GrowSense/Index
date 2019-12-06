@@ -2,7 +2,8 @@ echo ""
 echo "Creating GrowSense garden..."
 echo ""
 
- "  Creating mesh manage service..."
+echo ""
+echo "  Creating mesh manager service..."
 bash create-mesh-manager-service.sh || exit 1
 
 echo "  Creating WWW service..."
