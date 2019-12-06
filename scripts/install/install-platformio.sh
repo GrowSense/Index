@@ -7,27 +7,35 @@ fi
 
 echo "Install platform.io..."
 
+# Disabled because it doesnt work via python3
 # platform.io
+#if ! type "pio" &>/dev/null; then
+#  echo "  Upgrading pip"
+#  $SUDO pip3 install --ignore-installed --upgrade pip3
+
+#  echo "  Installing/upgrading pip extras"
+#  $SUDO pip3 install --ignore-installed --upgrade setuptools wheel
+
+#  echo "  Installing platformio"
+#  $SUDO python3 -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
+  
+
+#else
+#  echo "Platform.io is already installed. Skipping."
+#fi
+
+# If platformio install failed try again via pip3
 if ! type "pio" &>/dev/null; then
+
   echo "  Upgrading pip"
-  $SUDO pip install --ignore-installed --upgrade pip
+  $SUDO pip3 install --ignore-installed --upgrade pip3
 
   echo "  Installing/upgrading pip extras"
-  $SUDO pip install --ignore-installed --upgrade setuptools wheel
+  $SUDO pip3 install --ignore-installed --upgrade setuptools wheel
 
-  echo "  Installing platformio"
-  $SUDO python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
+  echo "  Installing platformio via pip3"
   
-
-else
-  echo "Platform.io is already installed. Skipping."
-fi
-
-# If platformio install failed try again via pip
-if ! type "pio" &>/dev/null; then
-  echo "  Installing platformio via pip"
-  
-  $SUDO pip install --ignore-installed -U platformio
+  $SUDO pip3 install --ignore-installed -U platformio
 fi
 
 # Disabled because it's slow and may not be needed
