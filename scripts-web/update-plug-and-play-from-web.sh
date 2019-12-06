@@ -102,9 +102,10 @@ echo ""
 echo "  Upgrading system..."
 sh upgrade-system.sh || exit 1
 
-echo ""
-echo "  Reinitializing index..."
-sh init-runtime.sh || exit 1
+# Disabled. The upgrade-system.sh script takes care of this
+#echo ""
+#echo "  Reinitializing index..."
+#sh init-runtime.sh || exit 1
 
 echo ""
 echo "  Upgrading ArduinoPlugAndPlay (by downloading upgrade.sh script)..."
