@@ -95,13 +95,59 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Installing apps..."
-     $SUDO sh install-apps.sh
+    $SUDO sh install-apps.sh
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "Setting WiFi credentials..."
+ 
+    WIFI_NAME=$(cat wifi-name.security)
+    WIFI_PASSWORD=$(cat wifi-password.security)
+
+    echo ""
+    echo "    WiFi Name: $WIFI_NAME"
+    echo "    WiFi Password: [hidden]"
+
+    bash set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Setting MQTT details..."
+ 
+    MQTT_HOST=$(cat mqtt-host.security)
+    MQTT_USERNAME=$(cat mqtt-username.security)
+    MQTT_PASSWORD=$(cat mqtt-password.security)
+    MQTT_PORT=$(cat mqtt-port.security)
+
+    echo ""
+    echo "    MQTT Host: $MQTT_HOST"
+    echo "    MQTT Username: $MQTT_USERNAME"
+    echo "    MQTT Password: [hidden]"
+    echo "    MQTT PORT: $MQTT_PORT"
+
+    bash set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Setting email details..."
+ 
+    SMTP_SERVER=$(cat smtp-server.security)
+    ADMIN_EMAIL=$(cat admin-email.security)
+
+    echo ""
+    echo "    SMTP Server: $SMTP_SERVER"
+    echo "    Adming Email: $ADMIN_EMAIL"
+
+    bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
   fi
   
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Recreating garden services..."
-    sh recreate-garden-services.sh
+    bash recreate-garden-services.sh
   fi
 
   if [ "$?" -eq "0" ]; then
