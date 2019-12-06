@@ -98,7 +98,7 @@ cd $INDEX_DIR || exit 1
 
 echo ""
 echo "  Upgrading system..."
-sh upgrade-system.sh || exit 1
+bash upgrade-system.sh || exit 1
 
 # Disabled. The upgrade-system.sh script takes care of this
 #echo ""
