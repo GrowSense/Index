@@ -43,46 +43,79 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   
   #$SUDO pio upgrade
   
-  echo ""
-  echo "  Cleaning all..."
-  bash clean-all.sh || exit 1
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Cleaning all..."
+    bash clean-all.sh
+  fi
 
-  echo ""
-  echo "  Updating all..."
-  bash update-all.sh || exit 1
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Updating all..."
+    bash update-all.sh
+  fi
 
-  echo ""
-  echo "  Initializing runtime..."
-  bash init-runtime.sh || exit 1
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Initializing runtime..."
+    bash init-runtime.sh
+  fi
   
-  echo ""
-  echo "  Upgrading MQTT service..."
-  bash upgrade-mqtt-service.sh || exit 1
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Upgrading MQTT service..."
+    bash upgrade-mqtt-service.sh
+  fi
   
-  echo ""
-  echo "  Installing apps..."
-  $SUDO sh install-apps.sh || exit 1
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Installing apps..."
+    $SUDO sh install-apps.sh
+  fi
   
-  echo ""
-  echo "  Restarting garden..."
-  bash restart-garden.sh || exit 1
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Restarting garden..."
+    bash restart-garden.sh
+  fi
   
-  echo ""
-  echo "  Publishing status to MQTT..."
-  bash mqtt-publish.sh "garden/StatusMessage" "Upgraded"
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Publishing status to MQTT..."
+    bash mqtt-publish.sh "garden/StatusMessage" "Upgraded"
   
-  echo ""
-  echo "  Sending email report..."
-  bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+    echo ""
+    echo "  Sending email report..."
+    bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
   
-  echo ""
-  echo "  Creating message file..."
-  bash create-message-file.sh "GrowSense upgraded to v$LATEST_FULL_VERSION"
+    echo ""
+    echo "  Creating message file..."
+    bash create-message-file.sh "GrowSense upgraded to v$LATEST_FULL_VERSION"
 
-  echo ""
-  echo "Finished upgrading system"
-  echo ""
-  echo ""
+    echo ""
+    echo "Finished upgrading system"
+    echo ""
+    echo ""
+  else
+    echo ""
+    echo "  Publishing failure status to MQTT..."
+    bash mqtt-publish.sh "garden/StatusMessage" "Upgrade failed"
+  
+    echo ""
+    echo "  Creating alert file..."
+    bash create-alert-file.sh "GrowSense upgrade failed (v$LATEST_FULL_VERSION)"
+
+    echo ""
+    echo "Error: Upgrade failed."
+
+    echo ""
+    echo "  Sending error email report..."
+    bash send-email.sh "GrowSense system upgrade failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(cat logs/upgrades/system.txt)"
+
+    echo ""
+    echo ""
+  fi
+
 else
   echo "  GrowSense system is up to date. Skipping upgrade."
   echo ""

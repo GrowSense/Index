@@ -62,7 +62,9 @@ if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
   if [ $(( $LOOP_NUMBER%$UPGRADE_FREQUENCY )) -eq "0" ]; then
 
     echo "  Initiating upgrade..."
-    bash upgrade.sh || exit 1
+    mkdir -p logs/upgrades
+    bash run-background.sh "bash upgrade.sh >> logs/upgrades/system.txt" # Run this in the background so it's not stopped during upgrade
+
 #    echo ""
 #    echo "  Initiating system upgrade..."
 #    bash upgrade-system.sh || exit 1
