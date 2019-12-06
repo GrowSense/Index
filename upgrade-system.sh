@@ -50,9 +50,9 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   fi
 
   if [ $? == 0 ]; then
-    echo ""
-    echo "  Updating all..."
-    bash update-all.sh
+  echo ""
+  echo "  Updating all..."
+  bash update-all.sh
   fi
 
   if [ $? == 0 ]; then
@@ -70,7 +70,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ $? == 0 ]; then
     echo ""
     echo "  Installing apps..."
-    $SUDO sh install-apps.sh
+     $SUDO sh install-apps.sh
   fi
   
   if [ $? == 0 ]; then
@@ -98,19 +98,21 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo ""
   else
     echo ""
-    echo "  Publishing failure status to MQTT..."
+    echo "  Publishing status to MQTT..."
     bash mqtt-publish.sh "garden/StatusMessage" "Upgrade failed"
   
     echo ""
-    echo "  Creating alert file..."
+    echo "  Creating message file..."
     bash create-alert-file.sh "GrowSense upgrade failed (v$LATEST_FULL_VERSION)"
 
     echo ""
     echo "Error: Upgrade failed."
+    echo ""
+    echo ""
 
     echo ""
-    echo "  Sending error email report..."
-    bash send-email.sh "GrowSense system upgrade failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(cat logs/upgrades/system.txt)"
+    echo "  Sending email report..."
+    bash send-email.sh "GrowSense system upgrad failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(cat logs/updates/system.txt)"
 
     echo ""
     echo ""
