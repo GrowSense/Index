@@ -20,14 +20,14 @@ bash cache-repository.sh $BRANCH
 
 if [ "$?" -eq "0" ]; then
   echo ""
-  echo "  Upgrading device sketches..."
-  bash upgrade-garden-device-sketches.sh
+  echo "  Upgrading system..."
+  bash upgrade-system.sh
 fi
 
 if [ "$?" -eq "0" ]; then
   echo ""
-  echo "  Upgrading system..."
-  bash upgrade-system.sh
+  echo "  Upgrading device sketches..."
+  bash upgrade-garden-device-sketches.sh
 fi
 
 if [ "$?" -ne "0" ]; then
