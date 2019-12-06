@@ -121,6 +121,13 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "Finished upgrading system"
     echo ""
     echo ""
+  else
+    echo ""
+    echo "Error: GrowSense system upgrade failed."
+    echo ""
+    echo ""
+
+    exit 1
   fi
 
 else
