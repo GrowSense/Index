@@ -65,6 +65,8 @@ PUBLISH_RESULT=$(mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD
 #  echo "  MQTT publish appears to be successful..."
 #fi
 
+sleep 3
+
 echo ""
 echo "  Reading data from MQTT broker..."
 DETECTED_VALUE=$(timeout 10 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$TOPIC" -C 1 -q 2)
