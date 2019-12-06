@@ -129,9 +129,9 @@ bash upgrade-system.sh || exit 1
 #  echo "[mock] systemctl daemon-reload"
 #fi
 
-echo ""
-echo "  Moving to GrowSense index dir..."
-cd $INDEX_DIR
+#echo ""
+#echo "  Moving to GrowSense index dir..."
+#cd $INDEX_DIR
 
 # Disabled. The upgrade-system.sh script takes care of this
 #echo ""
