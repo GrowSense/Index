@@ -55,6 +55,13 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   
   #$SUDO pio upgrade
   
+
+  if [ $? == 0 ]; then
+    echo ""
+    echo "  Stopping supervisor to prevent unnecessary errors..."
+    bash stop-supervisor.sh
+  fi
+
   if [ $? == 0 ]; then
     echo ""
     echo "  Cleaning all..."

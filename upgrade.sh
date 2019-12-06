@@ -26,7 +26,7 @@ fi
 
 if [ $? == 0 ]; then
   echo ""
-  echo "  Upgrading system sketches..."
+  echo "  Upgrading system..."
   bash upgrade-system.sh
 fi
 
