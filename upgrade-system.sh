@@ -96,26 +96,6 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "Finished upgrading system"
     echo ""
     echo ""
-  else
-    echo ""
-    echo "  Publishing status to MQTT..."
-    bash mqtt-publish.sh "garden/StatusMessage" "Upgrade failed"
-  
-    echo ""
-    echo "  Creating message file..."
-    bash create-alert-file.sh "GrowSense upgrade failed (v$LATEST_FULL_VERSION)"
-
-    echo ""
-    echo "Error: Upgrade failed."
-    echo ""
-    echo ""
-
-    echo ""
-    echo "  Sending email report..."
-    bash send-email.sh "GrowSense system upgrad failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(cat logs/updates/system.txt)"
-
-    echo ""
-    echo ""
   fi
 
 else
