@@ -15,8 +15,8 @@ echo "  Setting 'is-upgrading.txt' flag..."
 echo "1" > "is-upgrading.txt"
 
 echo ""
-echo "  Caching repository/updating cache...."
-bash cache-repository.sh $BRANCH
+echo "  Updating repository...."
+bash update.sh
 
 if [ "$?" -eq "0" ]; then
   echo ""
