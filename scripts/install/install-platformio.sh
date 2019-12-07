@@ -27,8 +27,8 @@ echo "Install platform.io..."
 # If platformio install failed try again via pip3
 if ! type "pio" &>/dev/null; then
 
-  echo "  Upgrading pip"
-  $SUDO pip3 install --ignore-installed --upgrade pip3
+  #echo "  Upgrading pip"
+  #$SUDO pip3 install --ignore-installed --upgrade pip3
 
   echo "  Installing/upgrading pip extras"
   $SUDO pip3 install --ignore-installed --upgrade setuptools wheel
