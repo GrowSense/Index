@@ -7,6 +7,11 @@ if [ ! $DEVICE_NAME ]; then
   exit 1 
 fi
 
+if [ ! -d "devices/$DEVICE_NAME" ]; then
+  echo "  Error: Device info not found '$DEVICE_NAME'."
+  exit 1
+fi
+
 IS_FINISHED=0
 
 MAX_LOOPS=20
@@ -14,6 +19,13 @@ MAX_LOOPS=20
 CURRENT_LOOP=0
 
 SLEEP_TIME=1
+
+DEVICE_BOARD="$(cat devices/$DEVICE_NAME/board.txt)"
+
+if [ "$DEVICE_BOARD" == "esp" ]; then
+  echo "   ESP/WiFi device. Doesn't require MQTT bridge service. Skipping wait..."
+  exit 0
+fi
 
 while [ $IS_FINISHED = 0 ]; do
 
