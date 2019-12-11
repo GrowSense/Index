@@ -31,7 +31,7 @@ mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t
 
 echo ""
 echo "Giving the device time to receive the message..."
-sleep 10
+sleep 5
 #sleep 10
 
 echo ""
@@ -42,7 +42,7 @@ echo "  First time: $PREVIOUS_TIME"
 
 echo ""
 echo "Waiting for the device to run for a while..."
-sleep 20
+sleep 5
 #sleep 100
 
 echo ""
@@ -51,7 +51,7 @@ mosquitto_pub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t
 
 echo ""
 echo "Giving the device time to receive the message..."
-sleep 10
+sleep 5
 #sleep 20
 
 echo ""
