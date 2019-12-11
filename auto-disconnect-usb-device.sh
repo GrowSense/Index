@@ -44,7 +44,7 @@ fi
 HOST=$(cat /etc/hostname)
 
 if [ $DEVICE_NAME ]; then
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting"
+  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting" -r
 
   bash create-alert-file.sh "$DEVICE_NAME disconnecting"
 
@@ -60,7 +60,7 @@ if [ $DEVICE_NAME ]; then
   echo ""
   sh $SCRIPT_NAME "$DEVICE_NAME" || exit 1
   
-  bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected"
+  bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected" -r
 
   bash create-alert-file.sh "$DEVICE_NAME disconnected"
 

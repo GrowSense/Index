@@ -92,7 +92,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       
       # Publish the status. The device is being upgraded.
       echo ""
-      bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" || echo "Failed to publish device status 'Upgrading'."
+      bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" -r || echo "Failed to publish device status 'Upgrading'."
       
       echo ""
       bash create-message-file.sh "$DEVICE_NAME is upgrading"
@@ -141,7 +141,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       
       # If the upgrade script timed out
       if [ $STATUS_CODE = 124 ]; then
-        sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade timed out"
+        sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade timed out" -r
         
         echo "Upgrade timed out"
         
@@ -161,7 +161,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       # If the upgrade script completed successfully
       if [ $STATUS_CODE = 0 ]; then
         echo ""
-        sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete"
+        sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Complete" -r
 
         echo "Upgrade complete\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
 
@@ -181,7 +181,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         echo "Device upgrade failed"
 
         echo ""
-        sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed"
+        sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed" -r
         
         echo "Upgrade failed\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
 

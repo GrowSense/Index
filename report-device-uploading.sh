@@ -10,8 +10,6 @@ if [ ! $DEVICE_NAME ]; then
   exit 1
 fi
 
-sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading" || echo "Failed to publish status to MQTT"
-
 if [ -d "devices/$DEVICE_NAME" ]; then 
   DEVICE_GROUP=$(cat devices/$DEVICE_NAME/group.txt)
   DEVICE_BOARD=$(cat devices/$DEVICE_NAME/board.txt)
@@ -29,7 +27,7 @@ SUMMARY="$DEVICE_BOARD $DEVICE_GROUP on $SERIAL_PORT"
 
 bash notify-send.sh "Uploading $DEVICE_NAME" "$SUMMARY"
 
-bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading" || echo "Failed to publish status to MQTT"
+bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Uploading" -r || echo "Failed to publish status to MQTT"
 
 bash create-message-file.sh "$DEVICE_NAME uploading"
 
