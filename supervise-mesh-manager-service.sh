@@ -2,7 +2,7 @@ SERVICE_RESULT="$(bash systemctl.sh status growsense-mesh-manager.service)"
 
 HOST=$(cat /etc/hostname)
 
-if [[ $(echo $SERVICE_RESULT) =~ "No such file or directory" ]]; then
+if [[ $(echo $SERVICE_RESULT) =~ "Reason: No such file or directory" ]]; then
   echo "Mesh manager service isn't active"
   bash send-email.sh "Mesh manager service hasn't been installed on $HOST." "The mesh manager service hasn't been installed on $HOST.  Installing service...\n\nResult from 'bash systemctl.sh status growsense-mesh-manager.service' command:\n\n$SERVICE_RESULT"
 
