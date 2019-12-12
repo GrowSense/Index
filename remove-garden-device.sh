@@ -26,11 +26,11 @@ if [ -d devices/ ]; then
 
       for d in remote/*; do
           FOUND_HOST="$(cat $d/host.security)"
-          echo "Host: $FOUND_HOST"
+          #echo "Host: $FOUND_HOST"
 
           if [ "$FOUND_HOST" = "$DEVICE_HOST" ]; then
             REMOTE_NAME="$(cat $d/name.security)"
-            echo "Remote name: $REMOTE_NAME"
+            echo "  Remote name: $REMOTE_NAME"
           fi
       done
 

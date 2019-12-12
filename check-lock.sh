@@ -8,6 +8,11 @@ CURRENT_HOST="$(cat /etc/hostname)"
 echo "  Current host: $CURRENT_HOST"
 echo ""
 
+if [ -f "is-upgrading.txt" ]; then
+  echo "  System is upgrading..."
+  IS_LOCKED=1
+fi
+
 if [ -d devices ]; then
 	for DEVICE_INFO_DIR in devices/*; do
 	  #echo "$DEVICE_INFO_DIR"
