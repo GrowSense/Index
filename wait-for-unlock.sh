@@ -1,6 +1,6 @@
 echo "Waiting for system to unlock..."
 
-MAX_RETRIES=1000
+MAX_RETRIES=100
 
 SLEEP_TIME=3
 
@@ -49,7 +49,7 @@ do
     echo "  Sleeping for $SLEEP_TIME seconds before retrying..."
     sleep $SLEEP_TIME
     
-    [ $LOOP_NUMBER = $MAX_RETRIES ] && echo "  Reached maximum retry count."
+    [ $LOOP_NUMBER = $MAX_RETRIES ] && echo "  Reached maximum retry count." && KEEP_WAITING=0
     
     LOOP_NUMBER=$((LOOP_NUMBER+1))
   else
