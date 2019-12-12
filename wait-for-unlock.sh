@@ -32,9 +32,9 @@ do
   fi
   
   if [ $IS_LOCKED = 1 ]; then
-    echo "  Deployment is locked"
+    echo "  System is locked"
   else
-    echo "  Deployment is free"
+    echo "  System is unfree"
   fi
   
   if [ $IS_LOCKED = 0 ]; then
@@ -55,8 +55,6 @@ do
     fi
     
     LOOP_NUMBER=$((LOOP_NUMBER+1))
-  else
-    echo "  System is unlocked."
   fi
   
   echo ""
