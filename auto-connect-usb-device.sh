@@ -19,21 +19,25 @@ if [ ! $GROUP_NAME ]; then
   echo $EXAMPLE
   exit 1
 fi
+
 if [ ! $PROJECT_NAME ]; then
   echo "Provide a project name as an argument."
   echo $EXAMPLE
   exit 1
 fi
+
 if [ ! $BOARD_TYPE ]; then
   echo "Provide a board type as an argument."
   echo $EXAMPLE
   exit 1
 fi
+
 if [ ! $SCRIPT_CODE ]; then
   echo "Provide a script code as an argument."
   echo $EXAMPLE
   exit 1
 fi
+
 if [ ! $PORT ]; then
   echo "Provide a port as an argument."
   echo $EXAMPLE
@@ -41,6 +45,16 @@ if [ ! $PORT ]; then
 fi
 
 echo "Automatically connecting a device..."
+
+echo ""
+echo "  Board: $BOARD_TYPE"
+echo "  Family: $FAMILY_NAME"
+echo "  Group: $GROUP_NAME"
+echo "  Project: $PROJECT_NAME"
+echo "  Script code: $SCRIPT_CODE"
+echo "  Port: $PORT"
+echo "  Device name (provided): $DEVICE_NAME"
+echo ""
 
 HOST=$(cat /etc/hostname)
 
