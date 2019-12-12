@@ -24,6 +24,9 @@ elif [ ! "$LATEST_VERSION_NUMBER" ]; then
 elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  New GrowSense system version available. Upgrading..."
 
+  echo "  Setting 'is-upgrading.txt' flag..."
+  echo "1" > "is-upgrading.txt"
+
   echo ""
   echo "  Waiting for the installation to unlock..."
   bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
@@ -179,6 +182,10 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
   fi
   
+  echo ""
+  echo "  Removing 'is-upgrading.txt' flag..."
+  rm is-upgrading.txt
+
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Publishing status to MQTT..."
@@ -201,6 +208,8 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "Error: GrowSense system upgrade failed."
     echo ""
     echo ""
+
+
 
     exit 1
   fi

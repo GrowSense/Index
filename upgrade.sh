@@ -11,9 +11,6 @@ if [ -f "is-upgrading.txt" ]; then
   exit 0
 fi
 
-echo "  Setting 'is-upgrading.txt' flag..."
-echo "1" > "is-upgrading.txt"
-
 echo ""
 echo "  Updating repository...."
 bash update.sh
@@ -45,10 +42,6 @@ if [ "$?" -ne "0" ]; then
   echo ""
 
   echo ""
-  echo "  Removing 'is-upgrading.txt' flag..."
-  rm is-upgrading.txt
-
-  echo ""
   echo "  Sending email report..."
   bash send-email.sh "GrowSense system upgrade failed (on $HOST)" "The GrowSense system upgrade failed on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output...\n\n$(bash view-upgrade-service-log.sh)"
 
@@ -56,11 +49,6 @@ if [ "$?" -ne "0" ]; then
   echo ""
   echo ""
 else
-
-  echo ""
-  echo "  Removing 'is-upgrading.txt' flag..."
-  rm is-upgrading.txt
-
   echo ""
   echo "Finished upgrade."
 fi
