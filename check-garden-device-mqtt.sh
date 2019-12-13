@@ -21,7 +21,7 @@ sleep 2
 # The timeout is short because newly installed devices don't yet have a status
 STATUS_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/StatusMessage" -C 1)
 
-if [ ! $STATUS_MESSAGE ]; then
+if [ ! "$STATUS_MESSAGE" ]; then
   echo "  Status: No MQTT status detected"  
 else
   echo "  Status: $STATUS_MESSAGE"
@@ -29,7 +29,7 @@ fi
 
 INTERVAL_MESSAGE=$(timeout 5 mosquitto_sub -h $MQTT_HOST -u $MQTT_USERNAME -P $MQTT_PASSWORD -p $MQTT_PORT -t "$DEVICE_NAME/I" -C 1)
 
-if [ ! $INTERVAL_MESSAGE ]; then
+if [ ! "$INTERVAL_MESSAGE" ]; then
   echo "  Interval: No MQTT interval detected"  
 else
   echo "  Interval: $INTERVAL_MESSAGE"
