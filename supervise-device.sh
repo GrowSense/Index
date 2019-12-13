@@ -34,6 +34,8 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
 
     # Skip the first loop (number 0)
     if [ "$LOOP_NUMBER" != "0" ] && [ "$(( $LOOP_NUMBER%$STATUS_CHECK_FREQUENCY ))" -eq "0" ]; then
+        bash supervise-device-service.sh $DEVICE_NAME || echo "  Error: Failed to supervise device service"
+
         bash supervise-device-status.sh $DEVICE_NAME || echo "  Error: Failed to supervise device status"
 
         if [ -f "supervise-$DEVICE_GROUP-device-status.sh" ]; then
