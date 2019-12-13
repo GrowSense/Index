@@ -1,0 +1,10 @@
+ [Unit]
+ Description=GrowSense SystemManager WWW Upgrading Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/bash -c "cd /usr/local/GrowSense/Index/ && bash start-www-upgrading.sh"
+
+ [Install]
+ WantedBy=multi-user.target

@@ -67,6 +67,18 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
   if [ "$?" -eq "0" ]; then
     echo ""
+    echo "  Stopping WW service..."
+    bash stop-www-service.sh
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Starting WWW upgrading service..."
+    bash start-www-upgrading-service.sh
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
     echo "  Cleaning all..."
     bash clean-all.sh
   fi
@@ -89,11 +101,12 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     bash upgrade-mqtt-service.sh
   fi
 
-  if [ "$?" -eq "0" ]; then
-    echo ""
-    echo "  Recreating garden services..."
-    sh recreate-garden-services.sh || exit 1
-  fi
+# TODO: Remove if not needed. Services are recreated below
+#  if [ "$?" -eq "0" ]; then
+#    echo ""
+#    echo "  Recreating garden services..."
+#    sh recreate-garden-services.sh || exit 1
+#  fi
   
   if [ "$?" -eq "0" ]; then
     echo ""
@@ -147,6 +160,12 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
   fi
   
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Stopping WWW upgrading service..."
+    bash stop-www-upgrading-service.sh
+  fi
+
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Recreating garden services..."
