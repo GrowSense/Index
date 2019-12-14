@@ -50,15 +50,6 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  Giving the UI time to receive the status update..."
   sleep 5
   
-# Disabled because it can potentially break the system by causing conflicts with docker containers 
-#  $SUDO apt-get update && $SUDO apt-get -y upgrade
-  
-# Disabled because it shouldn't be needed
-  #bash stop-garden-devices.sh
-  
-  #$SUDO pio upgrade
-  
-
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Stopping supervisor to prevent unnecessary errors..."
@@ -102,13 +93,6 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     bash upgrade-mqtt-service.sh
   fi
 
-# TODO: Remove if not needed. Services are recreated below
-#  if [ "$?" -eq "0" ]; then
-#    echo ""
-#    echo "  Recreating garden services..."
-#    sh recreate-garden-services.sh || exit 1
-#  fi
-  
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Installing apps..."
@@ -228,8 +212,6 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "Error: GrowSense system upgrade failed."
     echo ""
     echo ""
-
-
 
     exit 1
   fi
