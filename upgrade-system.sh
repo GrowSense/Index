@@ -74,6 +74,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Starting WWW upgrading service..."
+    bash create-www-upgrading-service.sh
     bash start-www-upgrading-service.sh
   fi
 
