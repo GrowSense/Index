@@ -83,24 +83,6 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
   if [ "$?" -eq "0" ]; then
     echo ""
-    echo "  Initializing runtime..."
-    bash init-runtime.sh
-  fi
-  
-  if [ "$?" -eq "0" ]; then
-    echo ""
-    echo "  Upgrading MQTT service..."
-    bash upgrade-mqtt-service.sh
-  fi
-
-  if [ "$?" -eq "0" ]; then
-    echo ""
-    echo "  Installing apps..."
-    $SUDO sh install-apps.sh
-  fi
-
-  if [ "$?" -eq "0" ]; then
-    echo ""
     echo "Setting WiFi credentials..."
  
     WIFI_NAME=$(cat wifi-name.security)
@@ -143,6 +125,24 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "    Adming Email: $ADMIN_EMAIL"
 
     bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Initializing runtime..."
+    bash init-runtime.sh
+  fi
+  
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Upgrading MQTT service..."
+    bash upgrade-mqtt-service.sh
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
+    echo "  Installing apps..."
+    $SUDO sh install-apps.sh
   fi
   
   if [ "$?" -eq "0" ]; then
