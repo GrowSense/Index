@@ -34,7 +34,7 @@ do
   if [ $IS_LOCKED = 1 ]; then
     echo "  System is locked"
   else
-    echo "  System is unfree"
+    echo "  System is free"
   fi
   
   if [ $IS_LOCKED = 0 ]; then
