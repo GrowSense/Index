@@ -56,19 +56,19 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
+        stage('Deploy Update') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-dev-update.sh'
+               sh 'sh deploy-master-update.sh'
+            }
+        }
         stage('Deploy') {
             when { expression { !shouldSkipBuild() } }
             steps {
                sh 'sh deploy-dev.sh'
                sh 'sh deploy-master.sh'
                sh 'sh deploy-lts.sh'
-            }
-        }
-        stage('Deploy Update') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy-dev-update.sh'
-               sh 'sh deploy-master-update.sh'
             }
         }
         stage('Clean') {
