@@ -23,6 +23,8 @@ elif [ "$DEVICE_BOARD" != "esp" ]; then
   SERVICE_LABEL="MQTT bridge"
 fi
 
+HOST=$(cat /etc/hostname)
+
 if [[ "$SERVICE_NAME" != "" ]] && [[ $(echo $SERVICE_STATUS) =~ "Reason: No such file or directory" ]]; then
   echo "The service 'SERVICE_NAME' doesn't exist."
   bash send-email.sh "$SERVICE_LABEL hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_STATUS"
