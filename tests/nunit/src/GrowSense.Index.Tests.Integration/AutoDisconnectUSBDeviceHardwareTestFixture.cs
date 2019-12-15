@@ -3,10 +3,10 @@ using NUnit.Framework;
 using ArduinoPlugAndPlay;
 using System.IO;
 
-namespace GrowSense.Index.Tests.Hardware
+namespace GrowSense.Index.Tests.Integration
 {
-  [TestFixture (Category = "Hardware")]
-  public class AutoDisconnectUSBDeviceHardwareTestFixture : BaseHardwareTestFixture
+  [TestFixture (Category = "Integration")]
+  public class AutoDisconnectUSBDeviceHardwareTestFixture : BaseTestFixture
   {
     [Test]
     public void Test_AutoDisconnectDevice ()
@@ -17,7 +17,7 @@ namespace GrowSense.Index.Tests.Hardware
       deviceInfo.GroupName = "irrigator";
       deviceInfo.ProjectName = "SoilMoistureSensorCalibratedPump";
       deviceInfo.BoardType = "uno";
-      deviceInfo.Port = GetIrrigatorPort ();
+      deviceInfo.Port = "/dev/ttyUSB0";//GetIrrigatorPort ();
 
       using (var helper = new AutoDisconnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
         helper.ExampleDevice = deviceInfo;

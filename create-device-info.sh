@@ -68,21 +68,27 @@ mkdir -p  $DEVICES_DIR
 
 DEVICE_DIR=$DEVICES_DIR/$DEVICE_NAME
 
-mkdir -p $DEVICE_DIR
+mkdir -p $DEVICE_DIR || exit 1
 
-echo $DEVICE_BOARD > $DEVICE_DIR/board.txt
-echo $DEVICE_PROJECT > $DEVICE_DIR/project.txt
-echo $DEVICE_LABEL > $DEVICE_DIR/label.txt
-echo $DEVICE_NAME > $DEVICE_DIR/name.txt
-echo $DEVICE_PORT > $DEVICE_DIR/port.txt
-echo $DEVICE_GROUP > $DEVICE_DIR/group.txt
-echo $DEVICE_FAMILY > $DEVICE_DIR/family.txt
-echo $DEVICE_HOST > $DEVICE_DIR/host.txt
-echo "1" > $DEVICE_DIR/is-usb-connected.txt
+echo $DEVICE_BOARD > $DEVICE_DIR/board.txt || exit 1
+echo $DEVICE_PROJECT > $DEVICE_DIR/project.txt || exit 1
+echo $DEVICE_LABEL > $DEVICE_DIR/label.txt || exit 1
+echo $DEVICE_NAME > $DEVICE_DIR/name.txt || exit 1
+echo $DEVICE_PORT > $DEVICE_DIR/port.txt || exit 1
+echo $DEVICE_GROUP > $DEVICE_DIR/group.txt || exit 1
+echo $DEVICE_FAMILY > $DEVICE_DIR/family.txt || exit 1
+echo $DEVICE_HOST > $DEVICE_DIR/host.txt || exit 1
+echo "1" > $DEVICE_DIR/is-usb-connected.txt || exit 1
 
 PNP_DEVICES_DIR="/usr/local/ArduinoPlugAndPlay/devices"
 
-echo "$DEVICE_NAME" > "$PNP_DEVICES_DIR/$DEVICE_PORT/device-name.txt"
+if [ -f "is-mock-system.txt" ]; then
+  PNP_DEVICES_DIR="mock/ArduinoPlugAndPlay/devices"
+fi
+
+mkdir -p "$PNP_DEVICES_DIR/$DEVICE_PORT" || exit 1
+
+echo "$DEVICE_NAME" > "$PNP_DEVICES_DIR/$DEVICE_PORT/device-name.txt" || exit 1
 
 echo "Finished creating device info"
 echo ""

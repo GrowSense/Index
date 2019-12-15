@@ -4,7 +4,7 @@ using ArduinoPlugAndPlay;
 using NUnit.Framework;
 using System.IO;
 
-namespace GrowSense.Index.Tests.Hardware
+namespace GrowSense.Index.Tests.Integration
 {
   public class AutoDisconnectUSBDeviceHardwareTestHelper : BaseTestHelper
   {
@@ -28,7 +28,7 @@ namespace GrowSense.Index.Tests.Hardware
       CreateExampleDevice (deviceName, deviceInfo);
 
       var cmd = String.Format ("sh auto-disconnect-usb-device.sh {0}",
-                                     deviceInfo.Port.Replace ("/dev/", "")
+                               deviceInfo.Port.Replace ("/dev/", "")
       );
 
       starter.RunBash (cmd);

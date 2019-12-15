@@ -3,7 +3,7 @@ using ArduinoPlugAndPlay;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace GrowSense.Index.Tests.Hardware
+namespace GrowSense.Index.Tests.Integration
 {
   public class AutoConnectUSBDeviceHardwareTestHelper : BaseTestHelper
   {

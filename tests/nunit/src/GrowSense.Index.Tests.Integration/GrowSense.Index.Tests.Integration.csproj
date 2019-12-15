@@ -60,6 +60,10 @@
     <Compile Include="InstallPlugAndPlayTestFixture.cs" />
     <Compile Include="SetEmailDetailsTestFixture.cs" />
     <Compile Include="PlugAndPlayTestFixture.cs" />
+    <Compile Include="AutoConnectUSBDeviceHardwareTestFixture.cs" />
+    <Compile Include="AutoConnectUSBDeviceHardwareTestHelper.cs" />
+    <Compile Include="AutoDisconnectUSBDeviceHardwareTestFixture.cs" />
+    <Compile Include="AutoDisconnectUSBDeviceHardwareTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GrowSense.Index.Tests\GrowSense.Index.Tests.csproj">

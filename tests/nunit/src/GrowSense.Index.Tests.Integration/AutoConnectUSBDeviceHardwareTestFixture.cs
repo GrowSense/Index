@@ -2,10 +2,10 @@
 using NUnit.Framework;
 using ArduinoPlugAndPlay;
 
-namespace GrowSense.Index.Tests.Hardware
+namespace GrowSense.Index.Tests.Integration
 {
-  [TestFixture (Category = "Hardware")]
-  public class AutoConnectUSBDeviceHardwareTestFixture : BaseHardwareTestFixture
+  [TestFixture (Category = "Integration")]
+  public class AutoConnectUSBDeviceHardwareTestFixture : BaseTestFixture
   {
     [Test]
     public void Test_AutoConnectDevices ()
@@ -17,7 +17,7 @@ namespace GrowSense.Index.Tests.Hardware
       deviceInfo.BoardType = "uno";
       deviceInfo.DeviceName = "irrigator1";
       deviceInfo.ScriptCode = "irrigator";
-      deviceInfo.Port = GetIrrigatorPort ();
+      deviceInfo.Port = "/dev/ttyUSB0";//GetIrrigatorPort ();
 
       var deviceInfo2 = new DeviceInfo ();
       deviceInfo2.FamilyName = "GrowSense";
@@ -26,7 +26,7 @@ namespace GrowSense.Index.Tests.Hardware
       deviceInfo2.BoardType = "uno";
       deviceInfo2.DeviceName = "illuminator1";
       deviceInfo2.ScriptCode = "illuminator";
-      deviceInfo2.Port = GetIlluminatorPort ();
+      deviceInfo2.Port = "/dev/ttyUSB1";//GetIlluminatorPort ();
 
       var deviceInfo3 = new DeviceInfo ();
       deviceInfo3.FamilyName = "GrowSense";
@@ -35,7 +35,7 @@ namespace GrowSense.Index.Tests.Hardware
       deviceInfo3.BoardType = "uno";
       deviceInfo3.DeviceName = "ventilator1";
       deviceInfo3.ScriptCode = "ventilator";
-      deviceInfo3.Port = GetVentilatorPort ();
+      deviceInfo3.Port = "/dev/ttyUSB2";//GetVentilatorPort ();
 
       var deviceInfo4 = new DeviceInfo ();
       deviceInfo4.FamilyName = "GrowSense";
@@ -44,7 +44,7 @@ namespace GrowSense.Index.Tests.Hardware
       deviceInfo4.BoardType = "esp";
       deviceInfo4.DeviceName = "irrigator2";
       deviceInfo4.ScriptCode = "irrigator";
-      deviceInfo4.Port = GetIrrigatorESPPort ();
+      deviceInfo4.Port = "/dev/ttyUSB3";//GetIrrigatorESPPort ();
 
       using (var helper = new AutoConnectUSBDeviceHardwareTestHelper (ProjectDirectory)) {
         helper.Devices.Add (deviceInfo);

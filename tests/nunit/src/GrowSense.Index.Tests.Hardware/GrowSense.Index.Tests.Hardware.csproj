@@ -8,6 +8,8 @@
     <RootNamespace>GrowSense.Index.Tests.Hardware</RootNamespace>
     <AssemblyName>GrowSense.Index.Tests.Hardware</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,10 +44,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseHardwareTestFixture.cs" />
-    <Compile Include="AutoConnectUSBDeviceHardwareTestFixture.cs" />
-    <Compile Include="AutoConnectUSBDeviceHardwareTestHelper.cs" />
-    <Compile Include="AutoDisconnectUSBDeviceHardwareTestFixture.cs" />
-    <Compile Include="AutoDisconnectUSBDeviceHardwareTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
