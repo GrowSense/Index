@@ -28,7 +28,7 @@ HOST=$(cat /etc/hostname)
 if [[ "$SERVICE_NAME" != "" ]]; then
   if [[ $(echo $SERVICE_STATUS) =~ "Reason: No such file or directory" ]]; then
     echo "The service 'SERVICE_NAME' doesn't exist."
-    bash send-email.sh "$SERVICE_LABEL hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_STATUS"
+    bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_STATUS"
 
     bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
   
@@ -38,7 +38,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
   elif [[ ! $(echo $SERVICE_RESULT) =~ "D;" ]]; then
  
     echo "The service 'SERVICE_NAME' isn't receiving data from device. Restarting..."
-    bash send-email.sh "The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
+    bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
 
     bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
 
@@ -48,7 +48,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
   elif [[ $(echo $SERVICE_RESULT) =~ "Active: inactive" ]] ||  [[ $(echo $SERVICE_RESULT) =~ "Active: dead" ]] ||  [[ $(echo $SERVICE_RESULT) =~ "Active: failed" ]]; then
  
     echo "The service 'SERVICE_NAME' isn't active. Restarting..."
-    bash send-email.sh "The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
+    bash send-email.sh "Error: The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
 
     bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
 
