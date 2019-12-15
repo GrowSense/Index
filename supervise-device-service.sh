@@ -35,7 +35,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     bash create-alert-file.sh "The $SERVICE_LABEL service hasn't been installed on $HOST. Installing service..."
 
     bash create-garden-device-services.sh $DEVICE_NAME
-  elif [[ ! $(echo $SERVICE_RESULT) =~ "D;" ]]; then
+  elif [[ "$SERVICE_RESULT" != *"D;"* ]]; then
  
     echo "The service 'SERVICE_NAME' isn't receiving data from device. Restarting..."
     bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
