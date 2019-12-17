@@ -15,20 +15,20 @@ DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
 
 if [ "$DEVICE_GROUP" == "ui" ]; then
   SERVICE_NAME="growsense-ui-1602-$DEVICE_NAME.service"
-  SERVICE_STATUS=$(bash systemctl.sh status $SERVICE_NAME)
+  SERVICE_RESULT=$(bash systemctl.sh status $SERVICE_NAME)
   SERVICE_LABEL="UI controller"
 elif [ "$DEVICE_BOARD" != "esp" ]; then
   SERVICE_NAME="growsense-mqtt-bridge-$DEVICE_NAME.service"
-  SERVICE_STATUS=$(bash systemctl.sh status $SERVICE_NAME)
+  SERVICE_RESULT=$(bash systemctl.sh status $SERVICE_NAME)
   SERVICE_LABEL="MQTT bridge"
 fi
 
 HOST=$(cat /etc/hostname)
 
 if [[ "$SERVICE_NAME" != "" ]]; then
-  if [[ $(echo $SERVICE_STATUS) =~ "Reason: No such file or directory" ]]; then
-    echo "The service 'SERVICE_NAME' doesn't exist."
-    bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_STATUS"
+  if [[ $(echo $SERVICE_RESULT) =~ "Reason: No such file or directory" ]]; then
+    echo "The service '$SERVICE_NAME' doesn't exist."
+    bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_RESULT"
 
     bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
   
@@ -37,8 +37,8 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     bash create-garden-device-services.sh $DEVICE_NAME
   elif [[ "$SERVICE_RESULT" != *"D;"* ]]; then
  
-    echo "The service 'SERVICE_NAME' isn't receiving data from device. Restarting..."
-    bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
+    echo "The service '$SERVICE_NAME' isn't receiving data from device. Restarting..."
+    bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
 
     bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
 
@@ -48,7 +48,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
   elif [[ $(echo $SERVICE_RESULT) =~ "Active: inactive" ]] ||  [[ $(echo $SERVICE_RESULT) =~ "Active: dead" ]] ||  [[ $(echo $SERVICE_RESULT) =~ "Active: failed" ]]; then
  
     echo "The service 'SERVICE_NAME' isn't active. Restarting..."
-    bash send-email.sh "Error: The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_STATUS"
+    bash send-email.sh "Error: The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
 
     bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
 
