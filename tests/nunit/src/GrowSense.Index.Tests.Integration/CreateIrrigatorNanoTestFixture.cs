@@ -25,6 +25,8 @@ namespace GrowSense.Index.Tests.Integration
 
       var starter = GetTestProcessStarter ();
       starter.RunBash ("sh " + scriptName + " " + arguments);
+      
+      Thread.Sleep (1000);
 
       Assert.IsFalse (starter.Starter.IsError, "An error occurred running the script.");
       
