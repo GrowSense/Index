@@ -6,7 +6,7 @@ SCRIPT_CODE=$5
 PORT=$6
 DEVICE_NAME=$7
 
-EXAMPLE="Example:\n\tauto-connect-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [ScriptCode] [Port] [DeviceName]"
+EXAMPLE="Example:\n\tauto-connect-usb-device.sh [BoardType] [ProjectFamily] [ProjectGroup] [ProjectName] [ScriptCode] [Port] [DeviceName]"
 
 if [ ! $FAMILY_NAME ]; then
   echo "Provide a family name as an argument."
@@ -76,7 +76,7 @@ fi
 
 bash run-background.sh bash notify-send.sh "Connecting $DEVICE_NAME device"
 
-bash run-background.sh "bash mqtt-publish-device.sh $DEVICE_NAME StatusMessage Connecting -r
+bash run-background.sh "bash mqtt-publish-device.sh $DEVICE_NAME StatusMessage Connecting -r"
 
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
@@ -108,4 +108,3 @@ bash run-background.sh bash send-email.sh "Device $DEVICE_NAME connected via USB
 
 echo ""
 echo "Finished connecting device: $DEVICE_NAME."
-
