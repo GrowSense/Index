@@ -75,6 +75,6 @@ fi
 
 echo ""
 echo "  Creating device info..."
-sh create-device-info.sh esp $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
+bash run-background.sh "bash create-device-info.sh esp $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1"
 
 echo "ESP/WiFi device created with name '$DEVICE_NAME'"
