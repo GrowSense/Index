@@ -26,7 +26,7 @@ fi
 HOST=$(cat /etc/hostname)
 
 if [[ "$SERVICE_NAME" != "" ]]; then
-  if [[ $(echo $SERVICE_RESULT) =~ "Reason: No such file or directory" ]]; then
+  if [[ $(echo $SERVICE_RESULT) =~ "Reason: No such file or directory" ]] || [[ $(echo $SERVICE_RESULT) =~ "could not be found" ]]; then
     echo "The service '$SERVICE_NAME' doesn't exist."
     bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_RESULT"
 
