@@ -44,19 +44,12 @@ if [ "$BRANCH" = "dev" ]; then
   echo "Installing GrowSense plug and play on remote computer..."
 
   sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS" || exit 1
+
+  echo ""
+  echo "Setting supervisor settings..."
+
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index/ && echo 10 > supervisor-status-check-frequency.txt && echo 10 > supervisor-docker-check-frequency.txt && echo 10 > supervisor-mqtt-check-frequency.txt" || exit 1
   
-  # Disabled because the remote is added previously
-  #echo ""
-  #echo "Setting devstaging2 as remote index..."
-  #echo "'devstaging2' host: $DEVSTAGING2_INSTALL_HOST"
-
-  #sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash add-remote-index.sh dev2 $DEVSTAGING2_INSTALL_HOST $DEVSTAGING2_INSTALL_SSH_USERNAME $DEVSTAGING2_INSTALL_SSH_PASSWORD $DEVSTAGING2_INSTALL_SSH_PORT" || exit 1
-
-  #echo ""
-  #echo "Checking that remote index/computer was added..."
- #sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && [[ ! -d remote/dev2 ]] && echo 'Remote index/computer directory not found at remote/dev2' && exit 1" || exit 1
-  	
-
   echo ""
   echo "Checking deployment..."
   bash check-deployment.sh || exit 1
