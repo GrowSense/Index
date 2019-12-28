@@ -60,17 +60,17 @@ echo "  Device port: $DEVICE_PORT"
 echo ""
 echo "Sending device name command..."
 if [ ! -f "is-mock-hardware.txt" ]; then
-  bash run-background.sh "bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1"
+  bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1
 else
   echo "[mock] bash send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT"
 fi
 
 echo ""
 echo "  Creating device info..."
-bash run-background.sh "bash create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1"
+bash create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
 
 echo ""
 echo "  Creating device service..."
-bash run-background.sh "bash create-garden-device-services.sh $DEVICE_NAME || exit 1"
+bash create-garden-device-services.sh $DEVICE_NAME || exit 1
 
 echo "Arduino device created with name '$DEVICE_NAME'"
