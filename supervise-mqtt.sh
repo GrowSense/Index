@@ -46,7 +46,7 @@ fi
 echo ""
 echo "  Sending data to MQTT broker..."
 
-TOPIC="supervisortest/value"
+TOPIC="$HOST/supervisortest/value"
 VALUE="$(date)"
 
 echo "    Topic: $TOPIC"
