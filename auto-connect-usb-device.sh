@@ -74,9 +74,9 @@ if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{D
   . ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
 fi
 
-bash run-background.sh bash notify-send.sh "Connecting $DEVICE_NAME device"
+bash notify-send.sh "Connecting $DEVICE_NAME device"
 
-bash run-background.sh "bash mqtt-publish-device.sh $DEVICE_NAME StatusMessage Connecting -r"
+bash mqtt-publish-device.sh $DEVICE_NAME StatusMessage Connecting -r
 
 echo "Device name: $DEVICE_NAME"
 echo "Device number: $DEVICE_NUMBER"
@@ -98,13 +98,13 @@ echo ""
 echo "Marking device as connected..."
 echo "1" > "devices/$DEVICE_NAME/is-usb-connected.txt"
 
-bash run-background.sh "bash mqtt-publish-device.sh $DEVICE_NAME StatusMessage Connected -r"
+bash mqtt-publish-device.sh $DEVICE_NAME StatusMessage Connected -r
 
-bash run-background.sh bash notify-send.sh "Finished connecting $GROUP_NAME device"
+bash notify-send.sh "Finished connecting $GROUP_NAME device"
 
-bash run-background.sh bash create-message-file.sh "$DEVICE_NAME connected"
+bash create-message-file.sh "$DEVICE_LABEL connected"
 
-bash run-background.sh bash send-email.sh "Device $DEVICE_NAME connected via USB (on $HOST)." "The $DEVICE_NAME device was connected via USB on host $HOST."
+bash send-email.sh "Device $DEVICE_LABEL connected via USB (on $HOST)." "The $DEVICE_LABEL device was connected via USB on host $HOST."
 
 echo ""
 echo "Finished connecting device: $DEVICE_NAME."

@@ -61,12 +61,12 @@ echo ""
 echo "  Setting device name, WiFi and MQTT settings on devices..."
 if [ ! -f "is-mock-hardware.txt" ]; then
   echo "  Sending device name command..."
-  bash run-background.sh "bash send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1"
+  bash send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT || exit 1
 
   cd sketches/$DEVICE_GROUP/$DEVICE_PROJECT/ && \
   sh pull-security-files.sh && \
   
-  bash run-background.sh "bash send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1"
+  bash send-wifi-mqtt-commands.sh /dev/$DEVICE_PORT || exit 1
   cd $DIR
 else
   echo "  [mock] sh send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT"
@@ -75,6 +75,6 @@ fi
 
 echo ""
 echo "  Creating device info..."
-bash run-background.sh "bash create-device-info.sh esp $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1"
+bash create-device-info.sh esp $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
 
 echo "ESP/WiFi device created with name '$DEVICE_NAME'"
