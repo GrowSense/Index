@@ -30,7 +30,13 @@ DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 
 if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
-    bash supervise-device-service.sh $DEVICE_NAME || echo "  Error: Failed to supervise device service"
+
+    SERVICE_CHECK_FREQUENCY=$(cat supervisor-device-service-check-frequency.txt)
+
+    # Skip the first loop (number 0)
+    if [ "$LOOP_NUMBER" != "0" ] && [ "$(( $LOOP_NUMBER%$SERVICE_CHECK_FREQUENCY ))" -eq "0" ]; then
+         bash supervise-device-service.sh $DEVICE_NAME || echo "  Error: Failed to supervise device service"
+    fi
 
     STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
 
