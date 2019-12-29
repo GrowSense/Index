@@ -30,7 +30,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     echo "The service '$SERVICE_NAME' doesn't exist."
     bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_RESULT"
 
-    bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
+    bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
   
     bash create-alert-file.sh "The $SERVICE_LABEL service hasn't been installed on $HOST. Installing service..."
 
@@ -40,7 +40,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     echo "The service 'SERVICE_NAME' isn't active. Restarting..."
     bash send-email.sh "Error: The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
 
-    bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
+    bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
 
     bash create-alert-file.sh "The $SERVICE_LABEL service for $DEVICE_NAME service isn't active on $HOST. Restarting service..."
 
@@ -50,7 +50,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     echo "The service '$SERVICE_NAME' isn't receiving data from device. Restarting..."
     bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
 
-    bash mqtt-publish.sh "garden/StatusMessage" "$DEVICE_NAME offline" -r
+    bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
 
     bash create-alert-file.sh "The $SERVICE_LABEL service isn't receiving data from  $DEVICE_NAME on $HOST. Restarting service..."
 
