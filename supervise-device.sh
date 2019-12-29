@@ -25,6 +25,8 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
   exit 1
 fi
 
+bash wait-for-plug-and-play.sh
+
 CURRENT_HOST=$(cat "/etc/hostname")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
