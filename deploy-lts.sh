@@ -7,12 +7,12 @@ if [ "$BRANCH" = "lts" ]; then
   echo "Host: $LTS_INSTALL_HOST"
 
   . ./detect-deployment-details.sh
-  
+
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ -d /usr/local/GrowSense/Index/ ]'; then
     echo "Waiting for deployment to unlock..."
 
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
-  
+
     echo ""
 
     echo "Uninstalling GrowSense plug and play on remote computer..."
@@ -21,11 +21,6 @@ if [ "$BRANCH" = "lts" ]; then
     echo "GrowSense Index directory not found on remote computer. Skipping uninstall."
   fi
 
-  echo ""
-  echo "Installing GrowSense plug and play on remote computer..."
-
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS" || exit 1
-  
   echo ""
   echo "Setting rc as remote index..."
   echo "'lts' host: $LTS_INSTALL_HOST"
@@ -41,12 +36,17 @@ if [ "$BRANCH" = "lts" ]; then
   fi
 
   echo ""
+  echo "Installing GrowSense plug and play on remote computer..."
+
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS" || exit 1
+
+  echo ""
 
   echo "Checking deployment..."
   bash check-deployment.sh || exit 1
 
   echo ""
-  
+
   echo "Finished deployment."
 else
   echo "You're not in the lts branch. Skipping lts deployment."
