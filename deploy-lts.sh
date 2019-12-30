@@ -21,10 +21,11 @@ if [ "$BRANCH" = "lts" ]; then
     echo "GrowSense Index directory not found on remote computer. Skipping uninstall."
   fi
 
-#  echo "Setting rc branch garden as remote index..."
-#  echo "'lts' host: $LTS_INSTALL_HOST"
-#  echo "'rc' host: $RC_INSTALL_HOST"
+  echo ""
+  echo "Installing GrowSense plug and play on remote computer..."
 
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS" || exit 1
+  
   echo ""
   echo "Setting rc as remote index..."
   echo "'lts' host: $LTS_INSTALL_HOST"
@@ -38,14 +39,7 @@ if [ "$BRANCH" = "lts" ]; then
     echo "Remote computer/index at remote/rc wasn't found."
     exit 1
   fi
-  echo ""
-  
 
-  echo ""
-  echo "Installing GrowSense plug and play on remote computer..."
-
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS" || exit 1
-  
   echo ""
 
   echo "Checking deployment..."

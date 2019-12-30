@@ -106,9 +106,6 @@ else
   fi
   
   echo "0" > "devices/$DEVICE_NAME/is-device-offline.txt"
-  
-  # TODO: Remove if not needed. Should be obsolete
-  #echo $TIME > $DEVICE_TIME_FILE
 fi
 
 echo "Finished supervising device"
