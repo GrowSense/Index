@@ -21,21 +21,17 @@ if [ "$BRANCH" = "rc" ]; then
     echo "GrowSense Index directory not found on remote computer. Skipping uninstall."
   fi
 
-#  echo "Setting master branch garden as remote index..."
-#  echo "'rc' host: $RC_INSTALL_HOST"
-#  echo "'master' host: $MASTER_INSTALL_HOST"
-
   echo ""
   echo "Setting master as remote index..."
   echo "'rc' host: $RC_INSTALL_HOST"
   echo "'master' host: $MASTER_INSTALL_HOST"
 
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST  "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? master $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD $MASTER_INSTALL_SSH_PORT" || exit 1
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST  "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? GardenMaster $MASTER_INSTALL_HOST $MASTER_INSTALL_SSH_USERNAME $MASTER_INSTALL_SSH_PASSWORD $MASTER_INSTALL_SSH_PORT" || exit 1
 
   echo ""
   echo "Checking that remote index/computer was added..."
-  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ ! -d /usr/local/GrowSense/Index/remote/master ]'; then
-    echo "Remote computer/index at remote/master wasn't found."
+  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ ! -d /usr/local/GrowSense/Index/remote/GardenMaster ]'; then
+    echo "Remote computer/index at remote/GardenMaster wasn't found."
     exit 1
   fi
   echo ""
