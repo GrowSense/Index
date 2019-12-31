@@ -20,6 +20,8 @@ echo ""
 echo "  Recreating MQTT service..."
 bash restart-mqtt-service.sh || exit 1
 
+CURRENT_HOST=$(cat /etc/hostname)
+
 echo "Recreating device services..."
 
 if [ -d "$DEVICES_DIR" ]; then
@@ -40,15 +42,29 @@ if [ -d "$DEVICES_DIR" ]; then
         echo "  Device port: $DEVICE_PORT"
         DEVICE_BOARD=$(cat $d/board.txt)
         echo "  Device board: $DEVICE_BOARD"
+        DEVICE_HOST=$(cat $d/host.txt)
+        echo "  Device host: $DEVICE_HOST"
+        DEVICE_IS_USB_CONNECTED=1
+        if [ -f "$d/is-usb-connected.txt" ]; then
+           DEVICE_IS_USB_CONNECTED=$(cat $d/is-usb-connected.txt)
+        fi
+        echo "  Device is connected via USB: $DEVICE_IS_USB_CONNECTED"
 
-        if [ "$DEVICE_BOARD" = "esp" ]; then
-          echo "ESP/WiFi device. No services need to be created."     
-        elif [ "$DEVICE_GROUP" = "ui" ]; then
-          echo "Recreating UI controller service..."
-          sh create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
+        if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
+          echo "  Device is on another host. Skipping service creation...."
+        elif [ "$DEVICE_IS_USB_CONNECTED" == "0" ]; then
+          echo "  Device is not connected via USB. Skipping service creation..."
         else
-          echo "Recreating MQTT bridge service..."
-          sh create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || exit 1
+          echo "  Device is connected via USB to the current host. Recreating service..."
+          if [ "$DEVICE_BOARD" = "esp" ]; then
+            echo "ESP/WiFi device. No services need to be created."     
+          elif [ "$DEVICE_GROUP" = "ui" ]; then
+            echo "Recreating UI controller service..."
+            sh create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
+          else
+            echo "Recreating MQTT bridge service..."
+            sh create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || exit 1
+          fi
         fi
       fi
     done
