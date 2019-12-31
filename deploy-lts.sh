@@ -26,12 +26,12 @@ if [ "$BRANCH" = "lts" ]; then
   echo "'lts' host: $LTS_INSTALL_HOST"
   echo "'rc' host: $RC_INSTALL_HOST"
 
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST  "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? rc $RC_INSTALL_HOST $RC_INSTALL_SSH_USERNAME $RC_INSTALL_SSH_PASSWORD $RC_INSTALL_SSH_PORT" || exit 1
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST  "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/add-remote-index-from-web.sh | bash -s -- $BRANCH ? GardenRC $RC_INSTALL_HOST $RC_INSTALL_SSH_USERNAME $RC_INSTALL_SSH_PASSWORD $RC_INSTALL_SSH_PORT" || exit 1
 
   echo ""
   echo "Checking that remote index/computer was added..."
-  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ ! -d /usr/local/GrowSense/Index/remote/rc ]'; then
-    echo "Remote computer/index at remote/rc wasn't found."
+  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ ! -d /usr/local/GrowSense/Index/remote/GardenRC ]'; then
+    echo "Remote computer/index at remote/GardenRC wasn't found."
     exit 1
   fi
 

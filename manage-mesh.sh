@@ -7,6 +7,10 @@ if [ ! $LOOP_NUMBER ]; then
 fi
 
 echo ""
+echo "Pulling remote info from remote garden computers..."
+bash pull-remote-info-from-remotes.sh || echo "Failed to pull remote info from remote garden computers"
+
+echo ""
 echo "Pulling device info from remote garden computers..."
 bash pull-device-info-from-remotes.sh || echo "Failed to pull device info from remote garden computers"
 
