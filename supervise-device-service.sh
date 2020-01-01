@@ -26,37 +26,81 @@ fi
 HOST=$(cat /etc/hostname)
 
 if [[ "$SERVICE_NAME" != "" ]]; then
+  WAS_SERVICE_OFFLINE=0
+  if [ -f "devices/$DEVICE_NAME/is-service-offline.txt" ]; then
+    WAS_SERVICE_OFFLINE=$(cat devices/$DEVICE_NAME/is-service-offline.txt)
+  fi
+
   if [[ $(echo $SERVICE_RESULT) =~ "Reason: No such file or directory" ]] || [[ $(echo $SERVICE_RESULT) =~ "could not be found" ]]; then
     echo "The service '$SERVICE_NAME' doesn't exist."
-    bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_RESULT"
 
-    bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
+    if [[ "$WAS_SERVICE_OFFLINE" == "0" ]]; then
+      echo "  The service was previously online. Sending reports that it's offline..."
+
+      bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_RESULT"
+
+      bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
   
-    bash create-alert-file.sh "The $SERVICE_LABEL service hasn't been installed on $HOST. Installing service..."
+      bash create-alert-file.sh "The $SERVICE_LABEL service hasn't been installed on $HOST. Installing service..."
+
+      echo "1" > "devices/$DEVICE_NAME/is-service-offline.txt"
+    else
+      echo "  The service was previously offline. Reports have already been sent. Skipping send reports..."
+    fi
 
     bash create-garden-device-services.sh $DEVICE_NAME
   elif [[ $(echo $SERVICE_RESULT) =~ "Active: inactive" ]] ||  [[ $(echo $SERVICE_RESULT) =~ "Active: dead" ]] ||  [[ $(echo $SERVICE_RESULT) =~ "Active: failed" ]]; then
- 
     echo "The service 'SERVICE_NAME' isn't active. Restarting..."
-    bash send-email.sh "Error: The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
 
-    bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
+    if [[ "$WAS_SERVICE_OFFLINE" == "0" ]]; then
+      echo "  The service was previously online. Sending reports that it's offline..."
 
-    bash create-alert-file.sh "The $SERVICE_LABEL service for $DEVICE_NAME service isn't active on $HOST. Restarting service..."
+      bash send-email.sh "Error: The $SERVICE_LABEL service for $DEVICE_NAME isn't active on $HOST. Restarting service..." "The $SERVICE_LABEL service for $DEVICE_NAME isn't running on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
+
+      bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
+
+      bash create-alert-file.sh "The $SERVICE_LABEL service for $DEVICE_NAME service isn't active on $HOST. Restarting service..."
+
+      echo "1" > "devices/$DEVICE_NAME/is-service-offline.txt"
+    else
+      echo "  The service was previously offline. Reports have already been sent. Skipping send reports..."
+    fi
 
     bash systemctl.sh start $SERVICE_NAME
   elif [[ "$SERVICE_RESULT" != *"D;"* ]]; then
- 
-    echo "The service '$SERVICE_NAME' isn't receiving data from device. Restarting..."
-    bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
+     echo "The service '$SERVICE_NAME' isn't receiving data from device. Restarting..."
 
-    bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
+    if [[ "$WAS_SERVICE_OFFLINE" == "0" ]]; then
+      echo "  The service was previously online. Sending reports that it's offline..."
+      bash send-email.sh "Error: The $SERVICE_LABEL service isn't receiving data from device $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME device on $HOST.  Restarting service...\n\nDetails:\n\n$SERVICE_RESULT"
 
-    bash create-alert-file.sh "The $SERVICE_LABEL service isn't receiving data from  $DEVICE_NAME on $HOST. Restarting service..."
+      bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
+
+      bash create-alert-file.sh "The $SERVICE_LABEL service isn't receiving data from $DEVICE_NAME on $HOST. Restarting service..."
+
+      echo "1" > "devices/$DEVICE_NAME/is-service-offline.txt"
+    else
+      echo "  The service was previously offline. Reports have already been sent. Skipping send reports..."
+    fi
 
     bash systemctl.sh start $SERVICE_NAME
   else
     echo "The service for '$DEVICE_NAME' is active."
+
+    if [[ "$WAS_SERVICE_OFFLINE" == "1" ]]; then
+      echo "  The service was previously offline. Sending reports that it's back online..."
+
+      bash send-email.sh "The $SERVICE_LABEL service is back online for $DEVICE_NAME (on $HOST)" "The $SERVICE_LABEL service is back online for $DEVICE_NAME device on $HOST.\n\nDetails:\n\n$SERVICE_RESULT"
+
+# TODO: Remove if not needed. The MQTT status checks will check if the device is indeed online.
+#      bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Online" -r
+
+      bash create-message-file.sh "The $SERVICE_LABEL service is back online for $DEVICE_NAME on $HOST."
+    else
+      echo "  The service was previously online. No need to send reports that it's online."
+    fi
+
+    echo "0" > "devices/$DEVICE_NAME/is-service-offline.txt"
   fi
 else
   echo "The device '$DEVICE_NAME' has no services. Skipping check."
