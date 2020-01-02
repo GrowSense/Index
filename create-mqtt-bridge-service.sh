@@ -30,12 +30,12 @@ echo "  Device type: $DEVICE_TYPE"
 echo "  Device name: $DEVICE_NAME"
 echo "  Device port: $DEVICE_PORT"
 
-DEVICE_HOST=$(cat devices/$DEVICE_NAME/host.txt)
+DEVICE_HOST=$(cat devices/$DEVICE_NAME/host.txt) || exit 1
 echo "  Device host: $DEVICE_HOST"
 
 DEVICE_IS_USB_CONNECTED=1
 if [ -f "devices/$DEVICE_NAME/is-usb-connected.txt" ]; then
-   DEVICE_IS_USB_CONNECTED=$(cat $d/is-usb-connected.txt)
+   DEVICE_IS_USB_CONNECTED=$(cat devices/$DEVICE_NAME/is-usb-connected.txt) || exit 1
 fi
 echo "  Device is connected via USB: $DEVICE_IS_USB_CONNECTED"
 

@@ -13,6 +13,10 @@ fi
 if [ ! "$CACHE_PATH" ]; then
   echo "  No cache path specified. Using default."
   BASE_PATH="/usr/local"
+
+  if [[ "$PWD" == *"workspace/GrowSense/Index"* ]]; then
+    BASE_PATH="~/workspace/GrowSense/Index"
+  fi
 	
   if [ -f "is-mock-system.txt" ]; then
     BASE_PATH=$(readlink -m "$PWD/../../../../..")
