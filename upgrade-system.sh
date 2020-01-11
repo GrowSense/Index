@@ -149,7 +149,6 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo ""
     echo "  Stopping WWW upgrading service..."
     bash stop-www-upgrading-service.sh
-    sleep 2
   fi
 
   if [ "$?" -eq "0" ]; then
