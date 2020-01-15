@@ -11,6 +11,17 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
 fi
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
+DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
+
+DEVICE_IS_USB_CONNECTED=$(cat "devices/$DEVICE_NAME/is-usb-connected.txt")
+
+if [ "$DEVICE_BOARD" != "esp" ] && [ "$DEVICE_IS_USB_CONNECTED" == "0" ]; then
+  echo "  Device has been disconnected from USB. Skipping status check."
+
+  bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected" -r
+
+  exit 0
+fi
 
 if [ "$DEVICE_GROUP" == "ui" ]; then
   bash wait-for-ui-controller-service.sh $DEVICE_NAME || exit 1
