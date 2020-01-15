@@ -52,7 +52,7 @@ if [ ! -d $INDEX_DIR ]; then
 else
   echo "Moving to GrowSense index dir..."
   cd $INDEX_DIR
-  
+
   echo "Waiting for the installation to unlock..."
   if [ -f wait-for-unlock.sh ]; then
     bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
@@ -61,7 +61,7 @@ else
   echo ""
   echo "Publishing status to MQTT..."
   if [ -f mqtt-publish.sh ]; then
-    bash mqtt-publish.sh "/garden/StatusMessage" "Uninstalling"
+    bash mqtt-publish.sh "garden/StatusMessage" "Uninstalling"
   fi
 
   echo ""
@@ -148,9 +148,9 @@ docker rm greensense-ui-http || echo "GrowSense nginx linear MQTT config HTTP do
 echo ""
 echo "Removing GreenSense services..."
 rm /lib/systemd/system/greensense-* -r
-systemctl daemon-reload 
+systemctl daemon-reload
 
 echo ""
 echo "Finished uninstalling GrowSense plug and play!"
-  
+
 
