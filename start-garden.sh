@@ -23,9 +23,9 @@ if [ -d "$DEVICES_DIR" ]; then
             echo "$DEVICE_LABEL"
         
             if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
-                echo "  Device is on another host. Skipping start service..."
+                echo "  Device $DEVICE_NAME is on another host. Skipping start service..."
             elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
-                echo "  Device is not connected via USB. Skipping start service..."
+                echo "  Device $DEVICE_NAME is not connected via USB. Skipping start service..."
             else
                 sh start-garden-device.sh $DEVICE_NAME
             fi
