@@ -77,6 +77,10 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     fi
 
     bash systemctl.sh start $SERVICE_NAME
+  elif [[ $(echo $SERVICE_RESULT) =~ "Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable" ]]; then
+    echo "The service 'SERVICE_NAME' log needs to be rotated. Restarting..."
+
+    bash systemctl.sh restart $SERVICE_NAME
   elif [[ "$SERVICE_RESULT" != *"D;"* ]]; then
      echo "The service '$SERVICE_NAME' isn't receiving data from device. Restarting..."
 
