@@ -42,7 +42,7 @@ echo "  Device is connected via USB: $DEVICE_IS_USB_CONNECTED"
 if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
   echo "  Device is on another host. Skipping service creation...."
   exit 0
-elif [ "$DEVICE_IS_USB_CONNECTED" == "0" ]; then
+elif [ "$DEVICE_IS_USB_CONNECTED" = "0" ]; then
   echo "  Device is not connected via USB. Skipping service creation..."
   exit 0
 fi

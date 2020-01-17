@@ -69,7 +69,7 @@ if [ "$DEVICE_NAME" != "" ]; then
   fi
 fi
 
-if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME == *"New"* ]] || [[ $DEVICE_NAME == "{DEVICENAME}" ]] || [[ "$DEVICE_NAME_IS_IN_USE" == "1" ]]; then
+if [ ! $DEVICE_NAME ] || [ $DEVICE_NAME = *"New"* ] || [ $DEVICE_NAME = "{DEVICENAME}" ] || [ "$DEVICE_NAME_IS_IN_USE" = "1" ]; then
   echo "  Generating a new device name."
   . ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
 fi
@@ -88,7 +88,7 @@ DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
 
 echo ""
 echo "  Launching create device script..."
-if [ "$BOARD_TYPE" == "esp" ]; then
+if [ "$BOARD_TYPE" = "esp" ]; then
   bash create-esp-device.sh $BOARD_TYPE $GROUP_NAME $PROJECT_NAME $DEVICE_LABEL $DEVICE_NAME $PORT || exit 1
 else
   bash create-arduino-device.sh $BOARD_TYPE $GROUP_NAME $PROJECT_NAME $DEVICE_LABEL $DEVICE_NAME $PORT || exit 1
