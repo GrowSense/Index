@@ -24,9 +24,9 @@ if [ "$DEVICE_BOARD" != "esp" ] && [ "$DEVICE_IS_USB_CONNECTED" == "0" ]; then
 fi
 
 if [ "$DEVICE_GROUP" == "ui" ]; then
-  bash wait-for-ui-controller-service.sh $DEVICE_NAME || exit 1
+  bash "wait-for-ui-controller-service.sh" $DEVICE_NAME || exit 1
 else
-  bash wait-for-mqtt-bridge-service.sh $DEVICE_NAME || exit 1
+  bash "wait-for-mqtt-bridge-service.sh" $DEVICE_NAME || exit 1
 fi
 
 MQTT_HOST=$(cat mqtt-host.security)
@@ -84,30 +84,30 @@ if [ -f "devices/$DEVICE_NAME/is-device-offline.txt" ]; then
 else
   WAS_DEVICE_OFFLINE="0"
 fi
-  
+
 
 if [ ! "$TIME" ] || [ "$TIME" = "$PREVIOUS_TIME" ]; then
-  echo "  Latest MQTT data time hasn't been updated. Device is offline."  
-  
+  echo "  Latest MQTT data time hasn't been updated. Device is offline."
+
   # If the device was previously online then report that it's now offline
   if [ "$WAS_DEVICE_OFFLINE" = "0" ]; then
     sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Offline" -r
-  
+
     bash send-email.sh "Error: $DEVICE_NAME on $HOST is offline" "The $DEVICE_NAME device on $HOST is offline.\n\nPrevious MQTT output time: $PREVIOUS_TIME\nLatest MQTT output time: $TIME\nMQTT Host: $MQTT_HOST"
 
     bash create-alert-file.sh "$DEVICE_NAME  on $HOST is offline"
 
     bash restart-garden-device.sh $DEVICE_NAME
-  
+
     echo "1" > "devices/$DEVICE_NAME/is-device-offline.txt"
   fi
 else
   echo "  Device is online."
-  
+
   echo "  Was device offline: $WAS_DEVICE_OFFLINE"
-  
+
   sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Online" -r
-  
+
   # If the device was previously offline then report that it's back online
   if [ "$WAS_DEVICE_OFFLINE" = "1" ]; then
     echo "  Sending device back online email report..."
@@ -115,7 +115,7 @@ else
 
     bash create-message-file.sh "$DEVICE_NAME  on $HOST is back online"
   fi
-  
+
   echo "0" > "devices/$DEVICE_NAME/is-device-offline.txt"
 fi
 
