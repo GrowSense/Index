@@ -1,3 +1,5 @@
+#!/bin/bash
+
 BOARD_TYPE=$1
 FAMILY_NAME=$2
 GROUP_NAME=$3
@@ -69,7 +71,7 @@ if [ "$DEVICE_NAME" != "" ]; then
   fi
 fi
 
-if [ ! $DEVICE_NAME ] || [ $DEVICE_NAME = *"New"* ] || [ $DEVICE_NAME = "{DEVICENAME}" ] || [ "$DEVICE_NAME_IS_IN_USE" = "1" ]; then
+if [ ! $DEVICE_NAME ] || [[ $DEVICE_NAME = *"New"* ]] || [ $DEVICE_NAME = "{DEVICENAME}" ] || [ "$DEVICE_NAME_IS_IN_USE" = "1" ]; then
   echo "  Generating a new device name."
   . ./generate-device-name.sh $GROUP_NAME $PROJECT_NAME $BOARD_TYPE || exit 1
 fi

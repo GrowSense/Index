@@ -11,8 +11,12 @@ if [ "$BRANCH" = "dev" ]; then
   
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ -d /usr/local/GrowSense/Index/ ]'; then
     echo "Waiting for deployment to unlock..."
-
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
+  
+    echo ""
+
+    echo "Renaming illuminator1 to NewIlluminator so automatic device naming can be tested during deployment..."
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash rename-device.sh illuminator1 NewIlluminator" || echo "Failed to rename illuminator1 to NewIlluminator. Script likely doesn't exist because it hasn't been installed."
   
     echo ""
 
