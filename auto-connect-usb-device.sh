@@ -1,3 +1,5 @@
+#!/bin/bash
+
 BOARD_TYPE=$1
 FAMILY_NAME=$2
 GROUP_NAME=$3
