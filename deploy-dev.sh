@@ -4,20 +4,25 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 if [ "$BRANCH" = "dev" ]; then
 
   echo "Deploying dev branch..."
-  
+
   echo ""
 
   . ./detect-deployment-details.sh
-  
+
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ -d /usr/local/GrowSense/Index/ ]'; then
     echo "Waiting for deployment to unlock..."
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
-  
+
     echo ""
 
     echo "Renaming illuminator1 to NewIlluminator so automatic device naming can be tested during deployment..."
-    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash rename-device.sh illuminator1 NewIlluminator" || echo "Failed to rename illuminator1 to NewIlluminator. Script likely doesn't exist because it hasn't been installed."
-  
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash rename-device.sh illuminator1 NewIlluminator" || echo "Failed to rename illuminator1 to NewIlluminator."
+
+    echo ""
+
+    echo "Renaming irrigatorW1 to NewIrrigatorW so automatic device naming can be tested during deployment..."
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash rename-device.sh irrigatorW1 NewIrrigatorW" || echo "Failed to rename irrigatorW1 to NewIrrigatorW."
+
     echo ""
 
     echo "Uninstalling GrowSense plug and play on remote computer..."
@@ -53,13 +58,13 @@ if [ "$BRANCH" = "dev" ]; then
   echo "Setting supervisor settings..."
 
   sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index/ && echo 10 > supervisor-status-check-frequency.txt && echo 10 > supervisor-docker-check-frequency.txt && echo 10 > supervisor-mqtt-check-frequency.txt" || exit 1
-  
+
   echo ""
   echo "Checking deployment..."
   bash check-deployment.sh || exit 1
-  
+
   echo ""
-  
+
   echo "Finished deployment."
 else
   echo "You're not in the dev branch. Skipping dev deployment."
