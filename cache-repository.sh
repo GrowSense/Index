@@ -18,7 +18,7 @@ if [ ! "$CACHE_PATH" ]; then
 
   if [[ "$PWD" =~ "workspace/GrowSense/Index" ]]; then
     echo "  Is in workspace"
-    BASE_PATH="~/workspace"
+    BASE_PATH=$(readlink -m "$PWD/../..")
   fi
 	
   if [ -f "is-mock-system.txt" ]; then
