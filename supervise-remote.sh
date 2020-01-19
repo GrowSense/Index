@@ -35,7 +35,7 @@ if [[ "$PING_RESULT" == *"64 bytes from"* ]]; then
 else
   echo "  Ping failed"
 
-  bash send-email.sh "Remote '$REMOTE_HOST' cannot be pinged from '$CURRENT_HOST'." "Ping failed to remote '$REMOTE_NAME' with host '$REMOTE_HOST' from '$CURRENT_HOST'.\n\nPing result:\n\n${PING_RESULT}"
+  bash send-email.sh "Error: Remote '$REMOTE_HOST' cannot be pinged from '$CURRENT_HOST'." "Ping failed to remote '$REMOTE_NAME' with host '$REMOTE_HOST' from '$CURRENT_HOST'.\n\nPing result:\n\n${PING_RESULT}"
 
   bash publish-mqtt.sh "garden/StatusMessage" "$REMOTE_HOST offline"
 
