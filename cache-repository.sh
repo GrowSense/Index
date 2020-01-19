@@ -20,15 +20,15 @@ if [ ! "$CACHE_PATH" ]; then
     echo "  Is in workspace"
     BASE_PATH="~/workspace"
   fi
-	
+
   if [ -f "is-mock-system.txt" ]; then
     BASE_PATH=$(readlink -m "$PWD/../../../../..")
   fi
-	
+
   CACHE_PATH="$BASE_PATH/git-cache/GrowSense/Index"
 fi
 
-echo "  Currrent path:"
+echo "  Current path:"
 echo "    $PWD"
 echo "  Cache path:"
 echo "    $CACHE_PATH"
