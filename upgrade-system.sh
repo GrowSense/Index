@@ -40,7 +40,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   bash mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
   echo "  Sending email report..."
-  bash send-email.sh "GrowSense system upgrading to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+  bash send-email.sh "GrowSense system upgrading to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system is upgrading on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
 
   echo ""
   echo "Creating status message file..."
