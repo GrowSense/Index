@@ -27,11 +27,19 @@ if [ "$?" -eq "0" ]; then
   bash upgrade-garden-device-sketches.sh
 fi
 
+if [ "$?" -eq "0" ]; then
+  echo ""
+  echo "  Supervising device status..."
+  STATUS_CHECK_FREQUENCY=$(cat supervisor-status-check-frequency.txt)
+
+  bash supervise-devices.sh $STATUS_CHECK_FREQUENCY
+fi
+
 if [ "$?" -ne "0" ]; then
   echo ""
   echo "  Publishing status to MQTT..."
   bash mqtt-publish.sh "garden/StatusMessage" "Upgrade failed"
-  
+
   echo ""
   echo "  Creating message file..."
   bash create-alert-file.sh "GrowSense system upgrade failed (v$LATEST_FULL_VERSION)"
