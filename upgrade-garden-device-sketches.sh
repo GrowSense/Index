@@ -8,9 +8,6 @@ echo ""
 echo "Upgrading devices..."
 echo ""
 
-echo "  Stopping supervisor service to avoid offline status for devices during upgrade..."
-bash stop-supervisor.sh || exit 1
-
 if [ -d "$DEVICES_DIR" ]; then
   for d in $DEVICES_DIR/*; do
     if [ -d $d ]; then
@@ -29,9 +26,6 @@ if [ -d "$DEVICES_DIR" ]; then
 else
     echo "No devices have been added."
 fi
-
-echo "  Starting supervisor service..."
-bash start-supervisor.sh || exit 1
 
 echo ""
 echo "Finished upgrading devices."
