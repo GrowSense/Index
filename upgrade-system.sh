@@ -30,17 +30,17 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo ""
   echo "  Waiting for the installation to unlock..."
   bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
-  
+
   SUDO=""
   if [ ! "$(id -u)" -eq 0 ]; then
       SUDO='sudo'
   fi
-    
+
   echo "  Publishing status to MQTT..."
   bash mqtt-publish.sh "garden/StatusMessage" "Upgrading"
 
   echo "  Sending email report..."
-  bash send-email.sh "GrowSense system upgrading to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
+  bash send-email.sh "GrowSense system upgrading to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system is upgrading on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION"
 
   echo ""
   echo "Creating status message file..."
@@ -49,7 +49,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo ""
   echo "  Giving the UI time to receive the status update..."
   sleep 5
-  
+
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Stopping supervisor to prevent unnecessary errors..."
@@ -102,7 +102,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "Setting WiFi credentials..."
- 
+
     WIFI_NAME=$(cat wifi-name.security)
     WIFI_PASSWORD=$(cat wifi-password.security)
 
@@ -116,7 +116,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Setting MQTT details..."
- 
+
     MQTT_HOST=$(cat mqtt-host.security)
     MQTT_USERNAME=$(cat mqtt-username.security)
     MQTT_PASSWORD=$(cat mqtt-password.security)
@@ -134,7 +134,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Setting email details..."
- 
+
     SMTP_SERVER=$(cat smtp-server.security)
     ADMIN_EMAIL=$(cat admin-email.security)
 
@@ -144,7 +144,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
     bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
   fi
-  
+
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Stopping WWW upgrading service..."
@@ -172,6 +172,11 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
       echo "    ArduinoPlugAndPlay doesn't appear to be installed at:"
       echo "      $PNP_INSTALL_DIR"
       echo "    Use the install-plug-and-play-from-web-sh script instead."
+
+      echo ""
+      echo "  Removing 'is-upgrading.txt' flag..."
+      rm is-upgrading.txt
+
       exit 1
     fi
 
@@ -185,20 +190,16 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "  Waiting for the plug and play system to load..."
     bash "wait-for-plug-and-play.sh" # In quotes to avoid color coding issue in editor
   fi
-  
-  echo ""
-  echo "  Removing 'is-upgrading.txt' flag..."
-  rm is-upgrading.txt
 
   if [ "$?" -eq "0" ]; then
     echo ""
     echo "  Publishing status to MQTT..."
     bash mqtt-publish.sh "garden/StatusMessage" "Upgraded"
-  
+
     echo ""
     echo "  Sending email report..."
     bash send-email.sh "GrowSense system upgraded to v$LATEST_FULL_VERSION (on $HOST)" "The GrowSense system was upgraded on $HOST...\n\nPrevious version: $INSTALLED_VERSION\nNew version: $LATEST_FULL_VERSION\n\nLog output..\n\n$(bash view-upgrade-service-log.sh)"
-  
+
     echo ""
     echo "  Creating message file..."
     bash create-message-file.sh "GrowSense upgraded to v$LATEST_FULL_VERSION"
@@ -207,11 +208,19 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "Finished upgrading system"
     echo ""
     echo ""
+
+    echo ""
+    echo "  Removing 'is-upgrading.txt' flag..."
+    rm is-upgrading.txt
   else
     echo ""
     echo "Error: GrowSense system upgrade failed."
     echo ""
     echo ""
+
+    echo ""
+    echo "  Removing 'is-upgrading.txt' flag..."
+    rm is-upgrading.txt
 
     exit 1
   fi

@@ -25,7 +25,7 @@ if [ ! -d "devices/$DEVICE_NAME" ]; then
   exit 1
 fi
 
-bash wait-for-plug-and-play.sh
+bash "wait-for-plug-and-play.sh"
 
 CURRENT_HOST=$(cat "/etc/hostname")
 DEVICE_HOST=$(cat "devices/$DEVICE_NAME/host.txt")
@@ -48,7 +48,7 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
         bash supervise-device-status.sh $DEVICE_NAME || echo "  Error: Failed to supervise device status"
 
         if [ -f "supervise-$DEVICE_GROUP-device-status.sh" ]; then
-	  bash supervise-$DEVICE_GROUP-device-status.sh $DEVICE_NAME || echo "  Error: Failed to supervise $DEVICE_GROUP device status"
+            bash supervise-$DEVICE_GROUP-device-status.sh $DEVICE_NAME || echo "  Error: Failed to supervise $DEVICE_GROUP device status"
         fi
     fi
 else

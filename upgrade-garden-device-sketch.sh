@@ -42,7 +42,7 @@ echo "  Current host: $CURRENT_HOST"
 echo ""
 
 echo "  Waiting for devices to unlock (to ensure no device sketches are being uploaded)..."
-bash wait-for-unlock.sh || exit 1
+bash "wait-for-unlock.sh" || exit 1
 
 if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
   echo "  Device is on another host. Skipping upgrade."
@@ -71,7 +71,7 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
   else
     echo "  Device version: $VERSION"
     echo "  Latest version ($BRANCH): $LATEST_FULL_VERSION"
-    
+
     if [ ! "$LATEST_BUILD_NUMBER" ]; then
       echo "  Error: Failed to retrieve the latest build number from the repository."
     elif [ ! "$LATEST_VERSION_NUMBER" ]; then
@@ -80,26 +80,29 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       echo "  Already on the latest version. Skipping upload."
     else
       echo "  Needs to be updated."
-      
+
+      echo "  Stopping supervisor service to avoid offline status for devices during upgrade..."
+      bash stop-supervisor.sh || exit 1
+
       mkdir -p "logs/updates"
-      
+
       echo "  Checking out latest device project repository..."
       cd "sketches/$DEVICE_GROUP/$DEVICE_PROJECT"
       sh clean.sh
       git checkout $BRANCH
       git pull origin $BRANCH
       cd $DIR
-      
+
       # Publish the status. The device is being upgraded.
       echo ""
       bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrading" -r || echo "Failed to publish device status 'Upgrading'."
-      
+
       echo ""
       bash create-message-file.sh "$DEVICE_NAME is upgrading"
-      
-      if [ "$DEVICE_GROUP" = "ui" ]; then  
+
+      if [ "$DEVICE_GROUP" = "ui" ]; then
         echo "Giving the UI time to display the message..."
-        sleep 5 
+        sleep 5
       fi
 
       # Stop the service so the upgrade can execute
@@ -107,9 +110,9 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
 
       # Give the services time to stop
       sleep 2
-      
+
       LOG_FILE="logs/updates/$DEVICE_NAME.txt"
-       
+
       echo ""
       echo "  Launching device upload script..."
       if [ "$DEVICE_BOARD" = "esp" ]; then
@@ -125,39 +128,42 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
       fi
 
       STATUS_CODE=$?
-      
+
       echo "Status code: $STATUS_CODE"
-      
+
       echo "Giving the device time to restart..."
       sleep 5
-      
+
       # Start the device again
       sh start-garden-device.sh $DEVICE_NAME
-    
-      if [ "$DEVICE_GROUP" = "ui" ]; then  
+
+      echo "  Starting supervisor service..."
+      bash start-supervisor.sh || exit 1
+
+      if [ "$DEVICE_GROUP" = "ui" ]; then
         echo "Giving the UI controller time to restart..."
         sleep 10
       fi
-      
+
       # If the upgrade script timed out
       if [ $STATUS_CODE = 124 ]; then
         bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade timed out" -r
-        
+
         echo "Upgrade timed out"
-        
+
         echo "Upgrade timed out\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
-        
+
         LOG_OUTPUT=$(cat $LOG_FILE)
 
         echo "${LOG_OUTPUT}"
-        
+
         bash send-email.sh "Error: Upgrade timed out for $DEVICE_NAME (on $DEVICE_HOST)" "Upgrade timed out $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
-        
+
         bash create-alert-file.sh "Upgrade timed out for $DEVICE_NAME (on $DEVICE_HOST)"
 
         exit 1
       fi
-      
+
       # If the upgrade script completed successfully
       if [ $STATUS_CODE = 0 ]; then
         echo ""
@@ -166,8 +172,8 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         echo "Upgrade complete\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
 
         echo ""
-        echo "Device has been upgraded"   
-        
+        echo "Device has been upgraded"
+
         LOG_OUTPUT=$(cat $LOG_FILE)
 
         echo ""
@@ -177,18 +183,18 @@ elif [ "$DEVICE_IS_USB_CONNECTED" = "1" ]; then
         bash create-message-file.sh "Upgrade successful (v$LATEST_FULL_VERSION) for $DEVICE_NAME (on $DEVICE_HOST)"
 
       else # Upgrade failed
-        echo ""       
+        echo ""
         echo "Device upgrade failed"
 
         echo ""
         bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Upgrade Failed" -r
-        
+
         echo "Upgrade failed\n---------- End Upgrade Log ----------\n\n\n\n" >> $LOG_FILE
 
         LOG_OUTPUT=$(cat $LOG_FILE)
 
         echo "${LOG_OUTPUT}"
-        
+
         echo ""
         bash send-email.sh "Error: Upgrade failed for $DEVICE_NAME (on $DEVICE_HOST)" "Failed to upgrade sketch for $DEVICE_NAME (on $DEVICE_HOST)\n\nPrevious version: $VERSION\nNew version: $LATEST_FULL_VERSION\n\nBranch: $BRANCH\n\nCurrent host: $CURRENT_HOST\nDevice host: $DEVICE_HOST\n\nStatus code: $?\n\n$LOG_OUTPUT"
 
