@@ -4,6 +4,8 @@ NETWORK_CONNECTION_TYPE=$(cat network-connection-type.txt)
 
 echo "  Network connection type: $NETWORK_CONNECTION_TYPE"
 
+WPA_SUPPLICANT_FILE="/etc/wpa_supplicant/wpa_supplicant.conf"
+
 if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "  Is WiFi connection..."
 
@@ -13,13 +15,16 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "  Name: $WIFI_NAME"
   echo "  Pass: $WIFI_PASS"
 
-  WPA_SUPPLICANT_FILE="/etc/wpa_supplicant/wpa_supplicant.conf"
-
-  WPA_SUPPLICANT_CONTENT="network={\nssid="$WIFI_NAME"\npsk=\“$WIFI_PASS\”\n}"
-
   hotspot stop
 
-  echo "$WPA_SUPPLICANT_CONTENT" > "$WPA_SUPPLICANT_FILE"
+  echo "ctrl_interface=/var/run/wpa_supplicant GROUP=netdev" > "$WPA_SUPPLICANT_FILE"
+  echo "update_config=1" >> "$WPA_SUPPLICANT_FILE"
+  echo "network={" >> "$WPA_SUPPLICANT_FILE"
+  echo "ssid=\"$WIFI_NAME\"" >> "$WPA_SUPPLICANT_FILE"
+  echo "psk=\"$WIFI_PASS\"" >> "$WPA_SUPPLICANT_FILE"
+  echo "}" >> "$WPA_SUPPLICANT_FILE"
+
+  ifconfig wlan0 up
 
 elif [ "$NETWORK_CONNECTION_TYPE" == "WiFiHotSpot" ]; then
   echo "  Is WiFi hotspot connection..."
@@ -39,6 +44,15 @@ else
   echo "  Is ethernet..."
 
   hotspot stop
+
+#  echo "ctrl_interface=/var/run/wpa_supplicant GROUP=netdev" > "$WPA_SUPPLICANT_FILE"
+#  echo "update_config=1" >> "$WPA_SUPPLICANT_FILE"
+#  echo "network={" >> "$WPA_SUPPLICANT_FILE"
+#  echo "ssid=\"disabled\"" >> "$WPA_SUPPLICANT_FILE"
+#  echo "psk=\"disabled\"" >> "$WPA_SUPPLICANT_FILE"
+#  echo "}" >> "$WPA_SUPPLICANT_FILE"
+
+  ifconfig wlan0 down
 fi
 
 echo "Finished reconnecting to network (on raspbian)."
