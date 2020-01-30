@@ -25,13 +25,15 @@ fi
 
 CURRENT_HOST=$(cat /etc/hostname) || exit 1
 
+echo "  Current host: $CURRENT_HOST"
+
 DEVICE_HOST=$(cat devices/$ORIGINAL_NAME/host.txt) || exit 1
 
 echo ""
 echo "  Original name: $ORIGINAL_NAME"
 echo "  New name: $NEW_NAME"
 
-if [ "$DEVICE_HOST" == "$CURRENT_HOST" ]; then
+if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
   echo ""
   echo "  Device is on current host..."
   DEVICE_PORT=$(cat devices/$ORIGINAL_NAME/port.txt)

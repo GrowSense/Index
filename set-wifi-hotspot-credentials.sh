@@ -14,11 +14,11 @@ if [ ! $WIFI_PASSWORD ]; then
   exit 1
 fi
 
-echo "Setting WiFi connection credentials..."
-echo "  WiFi network name: $WIFI_NAME"
+echo "Setting WiFi hotspot credentials..."
+echo "  WiFi hotspot name: $WIFI_NAME"
 
-echo $WIFI_NAME > wifi-name.security
-echo $WIFI_PASSWORD > wifi-password.security
+echo $WIFI_NAME > wifi-hotspot-name.security
+echo $WIFI_PASSWORD > wifi-hotspot-password.security
 
-echo "Finished setting WiFi connection credentials."
+echo "Finished setting WiFi hotspot credentials."
 
