@@ -1,5 +1,5 @@
  [Unit]
- Description=GrowSense System Upgrade Service
+ Description=GrowSense Network Reconnect Service
  After=multi-user.target
 
  [Service]
