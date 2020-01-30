@@ -17,6 +17,10 @@ echo "  Recreating WWW service..."
 bash create-www-service.sh || exit 1
 
 echo ""
+echo "  Recreating network reconnect service..."
+bash create-network-reconnect-service.sh || exit 1
+
+echo ""
 echo "  Recreating MQTT service..."
 bash restart-mqtt-service.sh || exit 1
 
@@ -26,12 +30,12 @@ echo "Recreating device services..."
 
 if [ -d "$DEVICES_DIR" ]; then
     for d in $DEVICES_DIR/*; do
-    
+
       if [ -f $d/name.txt ]; then
-      
+
         DEVICE_GROUP=$(cat $d/group.txt)
         echo "  Device group: $DEVICE_GROUP"
-        
+
         echo "Found device info:"
         echo $d
         DEVICE_NAME=$(cat $d/name.txt)
@@ -57,7 +61,7 @@ if [ -d "$DEVICES_DIR" ]; then
         else
           echo "  Device is connected via USB to the current host. Recreating service..."
           if [ "$DEVICE_BOARD" = "esp" ]; then
-            echo "ESP/WiFi device. No services need to be created."     
+            echo "ESP/WiFi device. No services need to be created."
           elif [ "$DEVICE_GROUP" = "ui" ]; then
             echo "Recreating UI controller service..."
             sh create-ui-controller-1602-service.sh $DEVICE_NAME $DEVICE_PORT || exit 1
