@@ -4,6 +4,13 @@ NETWORK_CONNECTION_TYPE=$(cat network-connection-type.txt)
 
 echo "  Network connection type: $NETWORK_CONNECTION_TYPE"
 
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+  if [ ! -f "is-mock-sudo.txt" ]; then
+    SUDO='sudo'
+  fi
+fi
+
 WPA_SUPPLICANT_FILE="/etc/wpa_supplicant/wpa_supplicant.conf"
 
 if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
@@ -33,7 +40,7 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo ""
   echo "  Reloading wpa_supplicant.conf file..."
 
-  RECONFIGURE_RESULT="$(sudo wpa_cli -i wlan0 reconfigure)"
+  RECONFIGURE_RESULT="$($SUDO wpa_cli -i wlan0 reconfigure)"
 
   if [[ "$RECONFIGURE_RESULT" = *"OK"* ]]; then
     echo "  wpa_supplicant.conf file reloaded successfully."
