@@ -1,5 +1,16 @@
 echo "Reconnecting to network..."
 
+LOOP_NUMBER=$1
+
+if [ ! "$LOOP_NUMBER" ]; then
+  LOOP_NUMBER=1
+fi
+
+echo "  Loop number: $LOOP_NUMBER"
+
+#MAX_LOOPS=3
+MAX_LOOPS=10
+
 if [ -f "/etc/os-release" ]; then
   RASPBIAN_INFO="$(cat /etc/os-release | grep -w Raspbian)"
 else
@@ -22,39 +33,48 @@ fi
 if [ "$IS_RASPBIAN" == "1" ]; then
   echo "  Operating system is raspbian. Reconnecting..."
 
-  $SUDO bash network-reconnect-raspbian.sh
+  CONNECT_RESULT=$($SUDO bash network-reconnect-raspbian.sh)
 else
   echo "  Operating system is not raspbian. Skipping reconnect because it's not supported."
 fi
 
-MQTT_HOST=$(cat mqtt-host.security)
-
-echo "  Pinging MQTT server..."
-echo "    MQTT Host: $MQTT_HOST"
-PING_MQTT_RESULT="$(ping -c 1 $MQTT_HOST)"
-
 echo ""
-echo "  Ping result..."
-echo "${PING_MQTT_RESULT}"
+echo "  Connect result..."
+echo ""
+echo "----- Start Connect Result "
+echo "$CONNECT_RESULT"
+echo "----- End Connect Result"
+echo ""
 
-if [[ ! $(echo $PING_MQTT_RESULT) =~ "64 bytes from" ]]; then
-  echo "  Failed to ping MQTT broker. Reconnect likely failed..."
+#if [[ ! $(echo $PING_MQTT_RESULT) =~ "64 bytes from" ]]; then
+if [[ "$CONNECT_RESULT" = *"connected"* ]]; then
+  echo "  Connection successful."
+else
+  if [ "$LOOP_NUMBER" -lt "$MAX_LOOPS" ]; then
+#    echo "  Failed to ping MQTT broker. Reconnect likely failed..."
+    echo "  Connection failed."
 
-  echo "  Sleeping for 15 seconds then retrying..."
-  sleep 15
+    echo "  Sleeping for 15 seconds then retrying..."
+#    sleep 5
+    sleep 15
 
-  echo "  Retrying..."
-  bash network-reconnect.sh
+    echo "  Retrying..."
+    bash network-reconnect.sh $(($LOOP_NUMBER+1))
+  else
+    echo "  Can't connect to network. Reverting back to previous settings..."
+
+    cp network-connection-type-previous.txt network-connection-type.txt
+    echo "    Connection type: $(cat network-connection-type.txt)"
+
+    CONNECTION_TYPE=$(cat network-connection-type.txt)
+
+    if [ "$CONNECTION_TYPE" = "WiFi" ]; then
+      cp wifi-network-name-previous.security wifi-network-name.security
+      echo "    WiFi name: $(cat wifi-network-name.security)"
+      cp wifi-network-password-previous.security wifi-network-password.security
+    fi
+
+    bash network-reconnect.sh
+  fi
 fi
 
-#elif [[ $(echo $PING_MQTT_RESULT) =~ "unknown host" ]]; then
-#  echo "  MQTT broker/server is down or inaccessible..."
-
-#  bash send-email.sh "Error: MQTT server $MQTT_HOST is down or inaccessible (from $HOST)" "Failed to ping MQTT server...\n\nMQTT Host: $MQTT_HOST\nGarden Computer: $HOST\n\nPing result...\n\n${PING_MQTT_RESULT}"
-
-#  bash create-alert-file.sh "MQTT server $MQTT_HOST is down or inaccessible (from $HOST)"
-
-#  exit 1
-#fi
-
-echo "Finished reconnecting to network."

@@ -9,6 +9,8 @@ fi
 echo "Setting network connection type..."
 echo "  Network connection type: $CONNECTION_TYPE"
 
+cp network-connection-type.txt network-connection-type-previous.txt
+
 echo $CONNECTION_TYPE > network-connection-type.txt
 
 echo "Finished setting network connection type."

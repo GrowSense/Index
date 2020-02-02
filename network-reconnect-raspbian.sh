@@ -15,16 +15,55 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "  Name: $WIFI_NAME"
   echo "  Pass: $WIFI_PASS"
 
-  hotspot stop
+  IFCONFIG_RESULT="$(ifconfig)"
 
-  echo "ctrl_interface=/var/run/wpa_supplicant GROUP=netdev" > "$WPA_SUPPLICANT_FILE"
+  if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
+    echo "  Hotspot is running. Stopping..."
+    hotspot stop
+  fi
+
+  echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" > "$WPA_SUPPLICANT_FILE"
   echo "update_config=1" >> "$WPA_SUPPLICANT_FILE"
+#  echo "country=AU" >> "$WPA_SUPPLICANT_FILE"
   echo "network={" >> "$WPA_SUPPLICANT_FILE"
-  echo "ssid=\"$WIFI_NAME\"" >> "$WPA_SUPPLICANT_FILE"
-  echo "psk=\"$WIFI_PASS\"" >> "$WPA_SUPPLICANT_FILE"
+  echo "    ssid=\"$WIFI_NAME\"" >> "$WPA_SUPPLICANT_FILE"
+  echo "    psk=\"$WIFI_PASS\"" >> "$WPA_SUPPLICANT_FILE"
   echo "}" >> "$WPA_SUPPLICANT_FILE"
 
-  ifconfig wlan0 up
+  echo ""
+  echo "  Reloading wpa_supplicant.conf file..."
+
+  RECONFIGURE_RESULT="$(sudo wpa_cli -i wlan0 reconfigure)"
+
+  if [[ "$RECONFIGURE_RESULT" = *"OK"* ]]; then
+    echo "  wpa_supplicant.conf file reloaded successfully."
+  else
+    echo "  Failed to reload wpa_supplicant.conf file."
+    echo ""
+    echo "  Ouput from command: wpa_cli -i wlan0 reconfigure..."
+    echo ""
+    echo "----- Start "
+    echo "$RECONFIGURE_RESULT"
+    echo "----- End "
+    echo ""
+    echo "Failed to connect"
+    exit 1
+  fi
+
+  echo ""
+  echo "  Waiting 6 seconds for WiFi to connect..."
+  sleep 6
+
+  echo "  Checking WiFi connection..."
+  #RESULT=$(iwconfig 2>&1 | grep wlan0)
+  RESULT=$(ifconfig wlan0 | grep inet | wc -l)
+
+
+  if [[ "$RESULT" = "0" ]]; then
+    echo "  WiFi connection failed"
+  else
+    echo "  WiFi connected"
+  fi
 
 elif [ "$NETWORK_CONNECTION_TYPE" == "WiFiHotSpot" ]; then
   echo "  Is WiFi hotspot connection..."
@@ -40,19 +79,28 @@ elif [ "$NETWORK_CONNECTION_TYPE" == "WiFiHotSpot" ]; then
   hotspot modpar hostapd wpa_passphrase $HOTSPOT_PASS
   hotspot try
   hotspot start
+
+  echo "  WiFi hotspot connected"
 else
   echo "  Is ethernet..."
 
-  hotspot stop
+  IFCONFIG_RESULT="$(ifconfig)"
 
-#  echo "ctrl_interface=/var/run/wpa_supplicant GROUP=netdev" > "$WPA_SUPPLICANT_FILE"
-#  echo "update_config=1" >> "$WPA_SUPPLICANT_FILE"
-#  echo "network={" >> "$WPA_SUPPLICANT_FILE"
-#  echo "ssid=\"disabled\"" >> "$WPA_SUPPLICANT_FILE"
-#  echo "psk=\"disabled\"" >> "$WPA_SUPPLICANT_FILE"
-#  echo "}" >> "$WPA_SUPPLICANT_FILE"
+  if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
+    echo "  Hotspot is running. Stopping..."
+    hotspot stop
+  fi
 
   ifconfig wlan0 down
+  ifconfig eth0 up
+
+  ETHERNET_RESULT=$(ethtool eth0 | grep "Link")
+
+  if [[ "$ETHERNET_RESULT" = *"Link detected: yes" ]]; then
+    echo "  Ethernet connected"
+  else
+    echo "  Ethernet connection failed"
+  fi
 fi
 
 echo "Finished reconnecting to network (on raspbian)."
