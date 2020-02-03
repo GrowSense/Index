@@ -33,7 +33,7 @@ fi
 if [ "$IS_RASPBIAN" == "1" ]; then
   echo "  Operating system is raspbian. Reconnecting..."
 
-  CONNECT_RESULT=$($SUDO bash network-reconnect-raspbian.sh)
+  CONNECT_RESULT=$($SUDO bash network-setup-raspbian.sh)
 else
   echo "  Operating system is not raspbian. Skipping reconnect because it's not supported."
 fi
