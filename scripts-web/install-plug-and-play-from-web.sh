@@ -191,6 +191,7 @@ echo ""
 echo "Setting WiFi credentials..."
 
 $SUDO bash set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
+$SUDO bash set-wifi-network-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
 
 echo ""
 echo "Setting MQTT credentials..."

@@ -103,9 +103,10 @@ echo ""
 echo "Installing udev rules..."
 bash install-udev-rules.sh || exit 1
 
-echo ""
-echo "Installing jq..."
-bash install-jq.sh || exit 1
+# TODO: Remove if not needed. Should be obsolete.
+#echo ""
+#echo "Installing jq..."
+#bash install-jq.sh || exit 1
 
 echo ""
 echo "Installing systemd..."
