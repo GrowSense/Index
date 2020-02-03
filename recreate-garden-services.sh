@@ -17,8 +17,8 @@ echo "  Recreating WWW service..."
 bash create-www-service.sh || exit 1
 
 echo ""
-echo "  Recreating network reconnect service..."
-bash create-network-reconnect-service.sh || exit 1
+echo "  Recreating network setup service..."
+bash create-network-setup-service.sh || exit 1
 
 echo ""
 echo "  Recreating MQTT service..."

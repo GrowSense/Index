@@ -12,8 +12,8 @@ bash create-www-service.sh || exit 1
 echo "  Creating WWW upgrading service..."
 bash create-www-upgrading-service.sh || exit 1
 
-echo "  Creating network reconnect service..."
-bash create-network-reconnect-service.sh || exit 1
+echo "  Creating network setup service..."
+bash create-network-setup-service.sh || exit 1
 
 # Only create the MQTT broker service if the MQTT host is localhost
 # Note: The localhost check has been disabled so the MQTT broker will be installed anyway
