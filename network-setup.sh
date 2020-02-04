@@ -74,7 +74,7 @@ else
       cp wifi-network-password-previous.security wifi-network-password.security
     fi
 
-    bash network-reconnect.sh
+    bash network-setup.sh
   fi
 fi
 
