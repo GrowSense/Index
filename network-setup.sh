@@ -59,7 +59,7 @@ else
     sleep 15
 
     echo "  Retrying..."
-    bash network-reconnect.sh $(($LOOP_NUMBER+1))
+    bash network-setup.sh $(($LOOP_NUMBER+1))
   else
     echo "  Can't connect to network. Reverting back to previous settings..."
 
