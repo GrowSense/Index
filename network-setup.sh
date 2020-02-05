@@ -1,4 +1,4 @@
-echo "Reconnecting to network..."
+echo "Setting up network..."
 
 LOOP_NUMBER=$1
 
@@ -31,11 +31,11 @@ if [ ! "$(id -u)" -eq 0 ]; then
 fi
 
 if [ "$IS_RASPBIAN" == "1" ]; then
-  echo "  Operating system is raspbian. Reconnecting..."
+  echo "  Operating system is raspbian. Setting up network..."
 
   CONNECT_RESULT=$($SUDO bash network-setup-raspbian.sh)
 else
-  echo "  Operating system is not raspbian. Skipping reconnect because it's not supported."
+  echo "  Operating system is not raspbian. Skipping setup because it's not supported."
 fi
 
 echo ""

@@ -25,6 +25,7 @@ if [ "$IS_RASPBIAN" = "1" ]; then
   chmod +x hotspot
   apt-get -y update
   apt-get -y upgrade
+  hotspot modpar self aptaddinstlist ""
   hotspot setup
 
   cd "$DIR"
