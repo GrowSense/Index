@@ -9,7 +9,9 @@ fi
 echo "Setting network connection type..."
 echo "  Network connection type: $CONNECTION_TYPE"
 
-cp network-connection-type.txt network-connection-type-previous.txt
+if [ -f network-connection-type.txt ]; then
+  cp network-connection-type.txt network-connection-type-previous.txt
+fi
 
 echo $CONNECTION_TYPE > network-connection-type.txt
 

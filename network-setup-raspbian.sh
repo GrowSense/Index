@@ -104,7 +104,7 @@ elif [ "$NETWORK_CONNECTION_TYPE" == "WiFiHotSpot" ]; then
   hotspot start
 
   echo "  WiFi hotspot connected"
-else
+elif [ "$NETWORK_CONNECTION_TYPE" == "Ethernet" ]; then
   echo "  Is ethernet..."
 
   IFCONFIG_RESULT="$(ifconfig)"
@@ -124,6 +124,9 @@ else
   else
     echo "  Ethernet connection failed"
   fi
+else
+  echo "  Network connection type not supported..."
+  echo "    Type: $NETWORK_CONNECTION_TYPE"
 fi
 
 echo "Finished reconnecting to network (on raspbian)."
