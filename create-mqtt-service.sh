@@ -14,14 +14,6 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 DOCKER_SCRIPT="docker.sh"
 SYSTEMCTL_SCRIPT="systemctl.sh"
 
-echo ""
-echo "  Pulling the mosquitto docker image"
-if [ ! -f "is-mock-mqtt.txt" ]; then
-  sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm || exit 1
-else
-  echo "[mock] sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm"
-fi
-
 MOSQUITTO_INSTALL_DIR="/usr/local/mosquitto"
 
 if [ -f "is-mock-mqtt.txt" ]; then
@@ -93,6 +85,8 @@ if [ ! -f "is-mock-mqtt.txt" ] && [ ! -f "is-mock-docker.txt" ]; then
 #	  echo "Error: mosquitto docker container isn't running"
 #	  exit 1
 #	fi
+else
+  echo "  [mock] Start mosquitto docker container"
 fi
 
 echo ""
