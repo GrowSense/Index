@@ -26,15 +26,17 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   $SUDO ifconfig wlan0 down
   $SUDO ifconfig wlan0 up
 
+  COUNTRY_CODE=$(cat country-code.txt)
   WIFI_NAME=$(cat wifi-network-name.security)
   WIFI_PASS=$(cat wifi-network-password.security)
 
+  echo "  Country code: $COUNTRY_CODE"
   echo "  Name: $WIFI_NAME"
   echo "  Pass: $WIFI_PASS"
 
   echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" > "$WPA_SUPPLICANT_FILE"
   echo "update_config=1" >> "$WPA_SUPPLICANT_FILE"
-  #echo "country=AU" >> "$WPA_SUPPLICANT_FILE"
+  echo "country=$COUNTRY_CODE" >> "$WPA_SUPPLICANT_FILE"
   echo "network={" >> "$WPA_SUPPLICANT_FILE"
   echo "    ssid=\"$WIFI_NAME\"" >> "$WPA_SUPPLICANT_FILE"
   echo "    psk=\"$WIFI_PASS\"" >> "$WPA_SUPPLICANT_FILE"
@@ -91,15 +93,19 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
 elif [ "$NETWORK_CONNECTION_TYPE" == "WiFiHotSpot" ]; then
   echo "  Is WiFi hotspot connection..."
 
+  COUNTRY_CODE=$(cat country-code.txt)
   HOTSPOT_NAME=$(cat wifi-hotspot-name.security)
   HOTSPOT_PASS=$(cat wifi-hotspot-password.security)
 
+  echo "  Country code: $COUNTRY_CODE"
   echo "  Name: $HOTSPOT_NAME"
   echo "  Pass: $HOTSPOT_PASS"
 
   #hotspot setup
   hotspot modpar hostapd ssid $HOTSPOT_NAME 
   hotspot modpar hostapd wpa_passphrase $HOTSPOT_PASS
+  hotspot modpar hostapd country_code $COUNTRY_CODE
+  hotspot modpar crda REGDOMAIN $COUNTRY_CODE
   #hotspot try
   hotspot start
 
