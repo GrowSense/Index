@@ -23,18 +23,22 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
   echo "Running mosquitto docker container..."
   echo "  Loop number $loopNumber"
   
-  docker run -d \
-    --restart=always \
-    --name=mosquitto \
-	--volume $MOSQUITTO_DIR/data:/mosquitto_data \
-	-e MQTT_HOST=localhost \
-	-e MQTT_CLIENTID=client1234 \
-	-e MQTT_USERNAME=j \
-	-e MQTT_PASSWORD=pass \
-	-e MQTT_TOPIC=Test \
-	-p 1883:1883 \
-	-p 8080:8080 \
-	compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
+  docker pull compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
+  
+  if [ "$didSucceed" == "1" ]; then
+    docker run -d \
+      --restart=always \
+      --name=mosquitto \
+	  --volume $MOSQUITTO_DIR/data:/mosquitto_data \
+	  -e MQTT_HOST=localhost \
+	  -e MQTT_CLIENTID=client1234 \
+	  -e MQTT_USERNAME=j \
+	  -e MQTT_PASSWORD=pass \
+	  -e MQTT_TOPIC=Test \
+	  -p 1883:1883 \
+	  -p 8080:8080 \
+	  compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
+  fi
 	
   if [ "$didSucceed" == "0" ]; then
     echo "Error: Failed to start mosquitto docker container"
