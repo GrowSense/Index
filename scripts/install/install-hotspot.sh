@@ -13,22 +13,24 @@ else
 fi
 
 if [ "$IS_RASPBIAN" = "1" ]; then
-  echo "  Is Raspberry Pi running Raspbian. Installing hotspot..."
+  if [ ! -f "/usr/local/sbin/hotspot" ]; then
+    echo "  Is Raspberry Pi running Raspbian. Installing hotspot..."
 
-  DIR="$PWD"
+    DIR="$PWD"
 
-  cd /usr/local/sbin
-  if [ -f "hotspot" ]; then
-    rm hotspot
+    cd /usr/local/sbin
+    wget https://raw.githubusercontent.com/rudiratlos/hotspot/master/hotspot
+    chmod +x hotspot
+    apt-get -y update
+    apt-get -y upgrade
+    hotspot modpar self wipeiptables no
+    hotspot modpar self aptaddinstlist ""
+    hotspot setup
+
+    cd "$DIR"
+  else 
+    echo "  Hotspot already installed. Skipping..."
   fi
-  wget https://raw.githubusercontent.com/rudiratlos/hotspot/master/hotspot
-  chmod +x hotspot
-  apt-get -y update
-  apt-get -y upgrade
-  hotspot modpar self aptaddinstlist ""
-  hotspot setup
-
-  cd "$DIR"
 else
   echo "  Is not Raspberry Pi running Raspbian. Skipping hotspot install."
 fi
