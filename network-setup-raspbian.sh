@@ -16,13 +16,15 @@ WPA_SUPPLICANT_FILE="/etc/wpa_supplicant/wpa_supplicant.conf"
 if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "  Is WiFi connection..."
 
-
   IFCONFIG_RESULT="$(ifconfig)"
   
   if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
     echo "  Hotspot is running. Stopping..."
     hotspot stop
   fi
+
+  $SUDO ifconfig wlan0 down
+  $SUDO ifconfig wlan0 up
 
   WIFI_NAME=$(cat wifi-network-name.security)
   WIFI_PASS=$(cat wifi-network-password.security)
@@ -38,12 +40,11 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "    psk=\"$WIFI_PASS\"" >> "$WPA_SUPPLICANT_FILE"
   echo "}" >> "$WPA_SUPPLICANT_FILE"
 
-
   echo "  Terminating WiFi..."
   $SUDO wpa_cli -p /var/run/wpa_supplicant/ -i wlan0 terminate || echo "  Skipping terminate WiFi"
   
   echo "  Sleeping for 3 seconds..."
-  sleep 1
+  sleep 3
   
   echo "  Loading wpa_supplicant.conf file and connecting to WiFi..."
   $SUDO wpa_supplicant -B -i wlan0 -c $WPA_SUPPLICANT_FILE
@@ -73,8 +74,8 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   
 
   echo ""
-  echo "  Waiting 6 seconds for WiFi to connect..."
-  sleep 7
+  echo "  Waiting 10 seconds for WiFi to connect..."
+  sleep 10
 
   echo "  Checking WiFi connection..."
   #RESULT=$(iwconfig 2>&1 | grep wlan0)
