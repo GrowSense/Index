@@ -23,8 +23,8 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
     hotspot stop
   fi
 
-  $SUDO ifconfig wlan0 down
-  $SUDO ifconfig wlan0 up
+#  $SUDO ifconfig wlan0 down
+#  $SUDO ifconfig wlan0 up
 
   COUNTRY_CODE=$(cat country-code.txt)
   WIFI_NAME=$(cat wifi-network-name.security)
