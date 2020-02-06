@@ -42,6 +42,8 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
       echo "  Restarting docker service..."
       $SUDO service docker restart
       loopNumber=$(($loopNumber+1))
+      docker stop mosquitto
+      docker rm mosquitto
     fi
   fi
 done
