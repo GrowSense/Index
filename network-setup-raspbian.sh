@@ -16,13 +16,7 @@ WPA_SUPPLICANT_FILE="/etc/wpa_supplicant/wpa_supplicant.conf"
 if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "  Is WiFi connection..."
 
-  IFCONFIG_RESULT="$(ifconfig)"
-  
-  if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
-    echo "  Hotspot is running. Stopping..."
-    hotspot stop
-  fi
-
+# TODO: Remove if not needed
 #  $SUDO ifconfig wlan0 down
 #  $SUDO ifconfig wlan0 up
 
@@ -42,15 +36,33 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
   echo "    psk=\"$WIFI_PASS\"" >> "$WPA_SUPPLICANT_FILE"
   echo "}" >> "$WPA_SUPPLICANT_FILE"
 
-  echo "  Terminating WiFi..."
-  $SUDO wpa_cli -p /var/run/wpa_supplicant/ -i wlan0 terminate || echo "  Skipping terminate WiFi"
-  
-  echo "  Sleeping for 3 seconds..."
-  sleep 3
-  
-  echo "  Loading wpa_supplicant.conf file and connecting to WiFi..."
-  $SUDO wpa_supplicant -B -i wlan0 -c $WPA_SUPPLICANT_FILE
 
+  IFCONFIG_RESULT="$(ifconfig)"
+  
+  if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
+    echo "  Hotspot is running. Stopping..."
+    hotspot stop
+  fi
+
+# TODO: Remove if not needed
+#  echo "  Terminating WiFi..."
+#  $SUDO wpa_cli -p /var/run/wpa_supplicant/ -i wlan0 terminate || echo "  Skipping terminate WiFi"
+  
+#  echo "  Sleeping for 3 seconds..."
+#  sleep 3
+  
+#  echo "  Loading wpa_supplicant.conf file and connecting to WiFi..."
+#  $SUDO wpa_supplicant -B -i wlan0 -c $WPA_SUPPLICANT_FILE -f /etc/wpa_supplicant/wpa_supplicant.log
+
+  sleep 5
+
+  echo "  Restarting wpa_supplicant..."
+  $SUDO systemctl restart wpa_supplicant
+
+  echo "  Restarting dhcpd..."
+  $SUDO systemctl restart dhcpcd
+
+# TODO: Remove if not needed
 #    echo ""
 #    echo "  Reloading wpa_supplicant.conf file..."
 
@@ -74,15 +86,13 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
 #      exit 1
 #    fi
   
-
   echo ""
   echo "  Waiting 10 seconds for WiFi to connect..."
   sleep 10
 
   echo "  Checking WiFi connection..."
-  #RESULT=$(iwconfig 2>&1 | grep wlan0)
+  #RESULT=$(iwconfig 2>&1 | grep wlan0) # TODO: Remove if not needed
   RESULT=$(ifconfig wlan0 | grep inet | wc -l)
-
 
   if [[ "$RESULT" = "0" ]]; then
     echo "  WiFi connection failed"
