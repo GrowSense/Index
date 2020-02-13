@@ -120,8 +120,8 @@ echo ""
 echo "Installing mono..."
 bash install-mono.sh || exit 1
 
-echo ""
-echo "Installing hotspot..."
-bash install-hotspot.sh || exit 1
+#echo ""
+#echo "Installing hotspot..."
+#bash install-hotspot.sh || exit 1
 
 cd $DIR
