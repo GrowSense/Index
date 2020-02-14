@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "mkdir -p /usr/local/GrowSense/Index/; cd /usr/local/GrowSense/Index/; bash network-setup.sh"
+ ExecStart=/bin/bash -c "mkdir -p /usr/local/GrowSense/Index/; cd /usr/local/GrowSense/Index/; echo "Disabled because it's not working properly yet" # bash network-setup.sh"
 
  [Install]
  WantedBy=multi-user.target
