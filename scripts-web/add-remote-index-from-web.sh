@@ -61,6 +61,20 @@ echo "  Port: $REMOTE_PORT"
 
 INDEX_DIR="$INSTALL_DIR"
 
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+  if [ ! -f "is-mock-sudo.txt" ]; then
+    SUDO='sudo'
+  else
+    echo "  Is mock sudo"
+  fi
+fi
+
+echo "  Installing sshpass..."
+if ! type "sshpass" &>/dev/null; then
+  $SUDO apt-get -y -q install sshpass
+fi
+
 echo "  Making the GrowSense index dir (if needed)..."
 mkdir -p $INDEX_DIR
 
