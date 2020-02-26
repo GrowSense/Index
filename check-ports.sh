@@ -3,6 +3,8 @@ echo ""
 
 pioList=$(pio device list)
 
+currentHost=$(cat /etc/hostname)
+
 while IFS= read -r line; do
   if [[ "$line" == *"/dev/"* ]]; then
     deviceIsConfigured=0
@@ -11,7 +13,8 @@ while IFS= read -r line; do
         #echo "$deviceDir"
         if [[ -d "$deviceDir" ]]; then
           deviceInfoPort=$(cat $deviceDir/port.txt)
-          if [[ "$line" == *"$deviceInfoPort"* ]]; then
+          deviceInfoHost=$(cat $deviceDir/host.txt)
+          if [[ "$line" == *"$deviceInfoPort"* ]] && [[ "$currentHost" == "$deviceInfoHost" ]]; then
             deviceIsConfigured=1
             deviceLabel=$(cat $deviceDir/label.txt)
             deviceName=$(cat $deviceDir/name.txt)
