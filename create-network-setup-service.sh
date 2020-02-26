@@ -22,5 +22,6 @@ echo "Installing service..."
 bash install-service.sh $SERVICE_FILE_PATH 0 && \
 
 bash systemctl.sh stop $SERVICE_FILE
+bash systemctl.sh disable $SERVICE_FILE
 
 echo "Finished GrowSense network setup service"
