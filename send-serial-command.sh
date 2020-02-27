@@ -20,8 +20,6 @@ fi
 echo "  Command: '$COMMAND'"
 echo "  Device port: $SERIAL_PORT"
 
-stty -F $SERIAL_PORT 9600 cs8 -cstopb
-sleep 0.1
-echo "$COMMAND;" > $SERIAL_PORT
+python send-serial.py "$COMMAND;" "$SERIAL_PORT"
 
 echo "Finished sending command to device via serial"
