@@ -175,7 +175,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
       echo ""
       echo "  Removing 'is-upgrading.txt' flag..."
-      rm is-upgrading.txt
+      rm is-upgrading.txt || echo "  Failed to remove is-upgrading.txt flag. It must has been removed manually."
 
       exit 1
     fi
@@ -211,7 +211,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
     echo ""
     echo "  Removing 'is-upgrading.txt' flag..."
-    rm is-upgrading.txt
+    rm is-upgrading.txt || echo "  Failed to remove is-upgrading.txt flag. It must has been removed manually."
   else
     echo ""
     echo "Error: GrowSense system upgrade failed."
@@ -220,7 +220,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
     echo ""
     echo "  Removing 'is-upgrading.txt' flag..."
-    rm is-upgrading.txt
+    rm is-upgrading.txt || echo "  Failed to remove is-upgrading.txt flag. It must has been removed manually."
 
     exit 1
   fi
