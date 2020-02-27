@@ -11,7 +11,7 @@ ser = Serial(sys.argv[2], 9600, timeout=3)
 
 sleep(2)
 
-ser.write("Name:" + sys.argv[1] + ";")
+ser.write(sys.argv[1] + ";")
 
 sleep(1)
 
