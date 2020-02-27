@@ -70,7 +70,7 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
     echo "  Upload successful"
 
     echo "  Giving device time to load..."
-    sleep 1
+    sleep 2
 
     bash send-wifi-mqtt-commands.sh $DEVICE_NAME "/dev/$SERIAL_PORT" || exit 1
 
