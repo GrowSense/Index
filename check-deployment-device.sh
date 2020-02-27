@@ -1,7 +1,7 @@
 DEPLOYMENT_NAME=$1
 DEVICE_NAME=$2
 
-EXAMPLE="Syntax:\n  *.sh [DeploymentName] [DeviceName]\nExample:\n  *.sh dev irrigator1"  
+EXAMPLE="Syntax:\n  *.sh [DeploymentName] [DeviceName]\nExample:\n  *.sh dev irrigator1"
 
 echo "Checking deployment device..."
 
@@ -58,8 +58,9 @@ if [ "$DEVICE_CONNECTION" = "usb" ]; then
   [[ ! $(echo $SERVICE_STATUS) =~ "Loaded: loaded" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't loaded" && exit 1
   [[ ! $(echo $SERVICE_STATUS) =~ "Active: active" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't active" && exit 1
   [[ $(echo $SERVICE_STATUS) =~ "not found" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service wasn't found" && exit 1
-  
-  
+  [[ ! $(echo $SERVICE_STATUS) =~ "Name:$DEVICE_NAME;" ]] && echo "The device name isn't set to $DEVICE_NAME as it should be" && exit 1
+
+
 else
   echo "  Connection type is $DEVICE_CONNECTION. Skipping service check."
 fi
