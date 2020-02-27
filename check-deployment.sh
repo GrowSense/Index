@@ -110,6 +110,17 @@ echo "${PNP_RESULT}"
 [[ $(echo $PNP_RESULT) =~ "not found" ]] && echo "Arduino Plug and Play service wasn't found" && exit 1
 [[ $(echo $PNP_RESULT) =~ "(unusable)" ]] && echo "Arduino Plug and Play detected an unusable device when it shouldn't" && exit 1
 
+echo ""
+echo "Checking MQTT bridge version..."
+MQTT_BRIDGE_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/GrowSense/Index/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/version.txt")
+MQTT_BRIDGE_INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/version.txt")
+echo "  Expected version: $MQTT_BRIDGE_VERSION"
+echo "  Installed version: $MQTT_BRIDGE_INSTALLED_VERSION"
+if [[ "$MQTT_BRIDGE_VERSION" != "$MQTT_BRIDGE_INSTALLED_VERSION" ]]; then
+  echo "  Error: Incorrect MQTT bridge version installed."
+fi
+
+
 #echo ""
 #echo "Supervising devices..."
 # Disabled because it conflicts with the supervisor service
@@ -137,7 +148,7 @@ echo "Checking update log files..."
 for LOG_FILE in logs/updates/*.txt; do
   echo "Log file: $LOG_FILE"
   LOG_FILE_CONTENT=$(cat $LOG_FILE)
-  
+
 #  [[ $(echo $LOG_FILE_CONTENT) =~ "failed" ]] && echo "Upgrade failed" && echo "Content:\n${LOG_FILE_CONTENT}\n" && exit 1
 #  [[ $(echo $LOG_FILE_CONTENT) =~ "error" ]] && echo "Upgrade resulted in error" && echo "Content:\n${LOG_FILE_CONTENT}\n" && exit 1
 done
