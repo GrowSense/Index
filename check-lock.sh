@@ -13,39 +13,41 @@ if [ -f "is-upgrading.txt" ]; then
   IS_LOCKED=1
 fi
 
-if [ -d devices ]; then
-	for DEVICE_INFO_DIR in devices/*; do
-	  #echo "$DEVICE_INFO_DIR"
+if [ "$IS_LOCKED" == "0" ]; then
+  if [ -d devices ]; then
+	  for DEVICE_INFO_DIR in devices/*; do
+	    #echo "$DEVICE_INFO_DIR"
 
-	  DEVICE_NAME=$(basename "$DEVICE_INFO_DIR")
+	    DEVICE_NAME=$(basename "$DEVICE_INFO_DIR")
 
       if [ "$DEVICE_NAME" != "*" ]; then
 
-		  echo "$DEVICE_NAME"
+		    echo "$DEVICE_NAME"
 
-		  IS_UPLOADING_FILE=$DEVICE_INFO_DIR/is-uploading.txt
-		  DEVICE_HOST_FILE=$DEVICE_INFO_DIR/host.txt
-		  DEVICE_HOST=$(cat $DEVICE_HOST_FILE)
-		  echo "  Device host: $DEVICE_HOST"
+		    IS_UPLOADING_FILE=$DEVICE_INFO_DIR/is-uploading.txt
+		    DEVICE_HOST_FILE=$DEVICE_INFO_DIR/host.txt
+		    DEVICE_HOST=$(cat $DEVICE_HOST_FILE)
+		    echo "  Device host: $DEVICE_HOST"
 
-		  if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
-		  	  echo "  Device is on current host"
-			  if [ -f $IS_UPLOADING_FILE ]; then
-			    IS_UPLOADING="$(cat $IS_UPLOADING_FILE)"
-			    echo "  Is uploading: $IS_UPLOADING"
+		    if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
+		    	  echo "  Device is on current host"
+			    if [ -f $IS_UPLOADING_FILE ]; then
+			      IS_UPLOADING="$(cat $IS_UPLOADING_FILE)"
+			      echo "  Is uploading: $IS_UPLOADING"
 
-			    if [ "$IS_UPLOADING" = "1" ]; then
-			      echo "  $DEVICE_NAME is uploading"
-			      IS_LOCKED=1
+			      if [ "$IS_UPLOADING" = "1" ]; then
+			        echo "  $DEVICE_NAME is uploading"
+			        IS_LOCKED=1
+			      fi
+			    #else
+			      #echo "  Is uploading: 0"
 			    fi
-			  #else
-			    #echo "  Is uploading: 0"
-			  fi
-		  else
-		      echo "  Device is on another host"
-		  fi
+		    else
+		        echo "  Device is on another host"
+		    fi
       fi
-	done
+	  done
+  fi
 fi
 
 if [ "$IS_LOCKED" = "1" ]; then
