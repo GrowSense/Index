@@ -8,6 +8,9 @@ fi
 
 echo "  Loop number: $LOOP_NUMBER"
 
+echo "  Waiting for system to unlock..."
+bash "wait-for-unlock.sh"
+
 #MAX_LOOPS=3
 MAX_LOOPS=10
 
