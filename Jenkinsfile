@@ -97,11 +97,6 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         }
-        stage('CleanWSEnd') {
-            steps {
-                deleteDir()
-            }
-        }
     }
     post {
         success() {
@@ -114,7 +109,6 @@ pipeline {
         }
         failure() {
           sh 'sh rollback.sh'
-          deleteDir()
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
@@ -130,4 +124,4 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
- 
+
