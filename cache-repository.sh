@@ -46,7 +46,7 @@ git fetch origin $BRANCH
 echo "    Checking out $BRANCH..."
 git checkout $BRANCH || exit 1
 echo "    Pulling $BRANCH from origin..."
-git pull origin -x theirs $BRANCH || exit 1
+git pull origin -X theirs $BRANCH || exit 1
 echo "    Updating submodules..."
 git submodule update --init || exit 1
 
