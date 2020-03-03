@@ -43,7 +43,7 @@ echo "  Updating cache..."
 #git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch origin $BRANCH
 git checkout $BRANCH || exit 1
-git pull origin $BRANCH || exit 1
+git pull origin -x theirs $BRANCH || exit 1
 git submodule update --init || exit 1
 
 cd $DIR
