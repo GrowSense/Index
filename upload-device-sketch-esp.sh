@@ -70,13 +70,11 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
     echo "  Upload successful"
 
     echo "  Giving device time to load..."
-    sleep 5
+    sleep 2
 
-    bash send-wifi-mqtt-commands.sh "/dev/$SERIAL_PORT" || exit 1
+    bash send-wifi-mqtt-commands.sh $DEVICE_NAME "/dev/$SERIAL_PORT" || exit 1
 
     cd $DIR
-
-    bash send-device-name-command.sh $DEVICE_NAME "/dev/$SERIAL_PORT" || exit 1
 
     bash report-device-uploaded.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT || exit 1
   else
@@ -84,7 +82,7 @@ if [ "$IS_ALREADY_UPLOADING" != "1" ]; then
     cd $DIR
 
     bash report-device-upload-failed.sh $DEVICE_NAME "esp" $DEVICE_GROUP $SERIAL_PORT || exit 1
-    
+
     exit 1
   fi
 

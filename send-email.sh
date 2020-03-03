@@ -32,7 +32,7 @@ if [ $EMAIL_DETAILS_ARE_SET = 1 ]; then
   echo "  Subject: $SUBJECT"
   echo "  Message:"
   echo "---"
-  echo ${MESSAGE}
+  echo "$MESSAGE"
   echo "---"
 
   sendemail -f $EMAIL_ADDRESS -t $EMAIL_ADDRESS -u $SUBJECT -m "$MESSAGE" -s $SMTP_SERVER

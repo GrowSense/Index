@@ -24,12 +24,12 @@ elif [ ! "$LATEST_VERSION_NUMBER" ]; then
 elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   echo "  New GrowSense system version available. Upgrading..."
 
-  echo "  Setting 'is-upgrading.txt' flag..."
-  echo "1" > "is-upgrading.txt"
-
   echo ""
   echo "  Waiting for the installation to unlock..."
   bash "wait-for-unlock.sh" # In quotes to avoid color coding issue in editor
+
+  echo "  Setting 'is-upgrading.txt' flag..."
+  echo "1" > "is-upgrading.txt"
 
   SUDO=""
   if [ ! "$(id -u)" -eq 0 ]; then
@@ -175,7 +175,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
       echo ""
       echo "  Removing 'is-upgrading.txt' flag..."
-      rm is-upgrading.txt
+      rm is-upgrading.txt || echo "  Failed to remove is-upgrading.txt flag. It must has been removed manually."
 
       exit 1
     fi
@@ -211,7 +211,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
     echo ""
     echo "  Removing 'is-upgrading.txt' flag..."
-    rm is-upgrading.txt
+    rm is-upgrading.txt || echo "  Failed to remove is-upgrading.txt flag. It must has been removed manually."
   else
     echo ""
     echo "Error: GrowSense system upgrade failed."
@@ -220,7 +220,7 @@ elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
 
     echo ""
     echo "  Removing 'is-upgrading.txt' flag..."
-    rm is-upgrading.txt
+    rm is-upgrading.txt || echo "  Failed to remove is-upgrading.txt flag. It must has been removed manually."
 
     exit 1
   fi

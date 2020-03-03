@@ -47,13 +47,21 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh '#sh build-tests.sh'
+                sh 'sh build-tests.sh'
             }
         }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh '#sh test-software.sh'
+                sh 'sh test-software.sh'
+            }
+        }
+        stage('Deploy Update') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-dev-update.sh'
+               sh 'sh deploy-master-update.sh'
+               sh 'sh deploy-rc-update.sh'
             }
         }
         stage('Deploy') {
@@ -63,14 +71,6 @@ pipeline {
                sh 'sh deploy-master.sh'
                sh 'sh deploy-rc.sh'
                sh 'sh deploy-lts.sh'
-            }
-        }
-        stage('Deploy Update') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy-dev-update.sh'
-               sh 'sh deploy-master-update.sh'
-               sh 'sh deploy-rc-update.sh'
             }
         }
         stage('Clean') {
@@ -97,11 +97,6 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         }
-        stage('CleanWSEnd') {
-            steps {
-                deleteDir()
-            }
-        }
     }
     post {
         success() {
@@ -114,7 +109,6 @@ pipeline {
         }
         failure() {
           sh 'sh rollback.sh'
-          deleteDir()
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
@@ -130,4 +124,7 @@ Boolean shouldSkipBuild() {
 def shHide(cmd) {
     sh('#!/bin/sh -e\n' + cmd)
 }
- 
+
+
+
+
