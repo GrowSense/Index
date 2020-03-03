@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Preparing system for GrowSense installation..."
+
 DIR=$PWD
 
 SUDO=""
@@ -125,3 +127,5 @@ bash install-mono.sh || exit 1
 #bash install-hotspot.sh || exit 1
 
 cd $DIR
+
+echo "Finished preparing system for GrowSense installation."
