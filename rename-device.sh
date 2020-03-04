@@ -57,12 +57,16 @@ if [ "$DEVICE_HOST" = "$CURRENT_HOST" ]; then
   echo "$NEW_NAME" > "devices/$NEW_NAME/name.txt" || exit 1
 
   echo ""
+  echo "  Setting device name in arduino plug and play device-name.txt file..."
+  echo "$NEW_NAME" > "/usr/local/ArduinoPlugAndPlay/devices/$DEVICE_PORT/device-name.txt" || exit 1
+
+  echo ""
   echo "  Creating device services..."
   bash create-garden-device-services.sh $NEW_NAME || exit 1
 else
   echo ""
   echo "  Device is on remote host..."
-  
+
   . ./get-remote-name.sh $DEVICE_HOST || exit 1
 
   bash run-on-remote.sh $REMOTE_NAME bash rename-device.sh $ORIGINAL_NAME $NEW_NAME || exit 1

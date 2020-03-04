@@ -80,4 +80,13 @@ echo ""
 echo "  Recreating supervisor service..."
 bash create-supervisor-service.sh || exit 1
 
+SUDO=""
+if [ ! "$(id -u)" -eq 0 ]; then
+    SUDO='sudo'
+fi
+
+echo ""
+echo "  Reloading systemctl daemon..."
+$SUDO systemctl daemon-reload
+
 echo "Finished recreating garden services."
