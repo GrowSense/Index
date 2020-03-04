@@ -22,7 +22,7 @@ fi
 
 INCLUDE_VERSION_IN_FOLDER="false"
 
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p') || BRANCH=lts
 
 echo "Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
 
@@ -68,6 +68,8 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
       # Copy the package from the GrowSense index lib directory
       cp -r $INDEX_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION $PACKAGE_FOLDER || exit 1
       cp -r $INDEX_LIB_DIR/$PACKAGE_FILE_EXT $PACKAGE_FILE_EXT || exit 1
+    else
+      echo "  Not found in GrowSense index lib directory"
     fi
   fi
 

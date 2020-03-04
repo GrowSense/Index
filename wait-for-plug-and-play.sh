@@ -6,12 +6,12 @@ MAX_LOOPS=50
 
 CURRENT_LOOP=0
 
-SLEEP_TIME=5
+SLEEP_TIME=2
 
 while [ $IS_FINISHED = 0 ]; do
 
   CURRENT_LOOP=$((CURRENT_LOOP+1))
-  
+
   echo "  Loop: $CURRENT_LOOP"
 
   PNP_RESULT=$(systemctl status arduino-plug-and-play.service)
@@ -29,7 +29,7 @@ while [ $IS_FINISHED = 0 ]; do
 
   echo "  Is finished: $IS_FINISHED"
   echo ""
-  
+
   [[ $IS_FINISHED = 0 ]] && echo "Sleeping for $SLEEP_TIME seconds..." && sleep $SLEEP_TIME
 done
 
