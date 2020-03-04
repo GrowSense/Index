@@ -47,6 +47,7 @@ cd $INDEX_DIR || exit 1
 
 echo ""
 echo "  Upgrading system..."
+echo ""
 bash upgrade-system.sh $FORCE_UPDATE || exit 1
 
 echo ""
