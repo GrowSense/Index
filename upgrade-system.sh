@@ -20,17 +20,18 @@ LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 echo "  Branch: $BRANCH"
 echo "  Installed version: $INSTALLED_VERSION"
 echo "  Latest version: $LATEST_FULL_VERSION"
+echo "  Force upgrade: $FORCE_UPGRADE"
 
-if [ ! "$LATEST_BUILD_NUMBER" ] && [ "$FORCE_UPGRADE" -eq "0" ]; then
+if [ ! "$LATEST_BUILD_NUMBER" ] && [[ "$FORCE_UPGRADE" -eq "0" ]]; then
   echo "  Error: Failed to get the latest build number. Skipping upgrade."
   exit 1
-elif [ ! "$LATEST_VERSION_NUMBER" ] && [ "$FORCE_UPGRADE" -eq "0" ]; then
+elif [ ! "$LATEST_VERSION_NUMBER" ] && [[ "$FORCE_UPGRADE" -eq "0" ]]; then
   echo "  Error: Failed to get the latest version number. Skipping upgrade."
   exit 1
-elif [ "$FORCE_UPGRADE" -eq "1" ] || [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
+elif [[ "$FORCE_UPGRADE" -eq "1" ]] || [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
   if [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
     echo "  New GrowSense system version available."
-  elif [ "$FORCE_UPGRADE" -eq "1" ]; then
+  elif [[ "$FORCE_UPGRADE" -eq "1" ]]; then
     echo "  Forcing upgrade."
   fi
 

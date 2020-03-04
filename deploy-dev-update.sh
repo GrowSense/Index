@@ -4,11 +4,12 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 if [ "$BRANCH" = "dev" ]; then
 
   echo "Deploying dev branch update..."
-  echo "Host: $INSTALL_HOST"
 
   echo ""
 
   . ./detect-deployment-details.sh
+
+  echo "Host: $INSTALL_HOST"
 
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "[ -d /usr/local/GrowSense/Index ]"; then
     echo ""
