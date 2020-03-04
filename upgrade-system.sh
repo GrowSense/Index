@@ -1,5 +1,11 @@
 echo "Upgrading system..."
 
+FORCE_UPGRADE=$1
+
+if [ ! "$FORCE_UPGRADE" ]; then
+  FORCE_UPGRADE=0
+fi
+
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 HOST=$(cat /etc/hostname)
@@ -15,14 +21,20 @@ echo "  Branch: $BRANCH"
 echo "  Installed version: $INSTALLED_VERSION"
 echo "  Latest version: $LATEST_FULL_VERSION"
 
-if [ ! "$LATEST_BUILD_NUMBER" ]; then
+if [ ! "$LATEST_BUILD_NUMBER" ] && [ "$FORCE_UPGRADE" -eq "0" ]; then
   echo "  Error: Failed to get the latest build number. Skipping upgrade."
   exit 1
-elif [ ! "$LATEST_VERSION_NUMBER" ]; then
+elif [ ! "$LATEST_VERSION_NUMBER" ] && [ "$FORCE_UPGRADE" -eq "0" ]; then
   echo "  Error: Failed to get the latest version number. Skipping upgrade."
   exit 1
-elif [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
-  echo "  New GrowSense system version available. Upgrading..."
+elif [ "$FORCE_UPGRADE" -eq "1" ] || [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
+  if [ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]; then
+    echo "  New GrowSense system version available."
+  elif [ "$FORCE_UPGRADE" -eq "1" ]; then
+    echo "  Forcing upgrade."
+  fi
+
+  echo "  Upgrading..."
 
   echo ""
   echo "  Waiting for the installation to unlock..."

@@ -7,17 +7,27 @@ if [ "$BRANCH" = "master" ]; then
   echo "Host: $RC_INSTALL_HOST"
 
   echo ""
-  
-  echo "Waiting for deployment to unlock..."
-  . ./detect-deployment-details.sh
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
-  
-  echo "Updating GrowSense plug and play on remote host..."
 
-  sshpass -p $RC_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $RC_INSTALL_SSH_USERNAME@$RC_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH"
-  
-  echo "Checking deployment..."
-  bash check-deployment.sh || exit 1
+  . ./detect-deployment-details.sh
+
+  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "[ -d /usr/local/GrowSense/Index ]"; then
+    echo ""
+    echo "Waiting for deployment to unlock..."
+
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
+
+    echo ""
+    echo "Updating GrowSense plug and play on remote host..."
+
+    FORCE_UPDATE=1
+    sshpass -p $RC_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $RC_INSTALL_SSH_USERNAME@$RC_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $FORCE_UPDATE"
+
+    echo ""
+    echo "Checking deployment..."
+    bash check-deployment.sh || exit 1
+  else
+    echo "  GrowSense isn't installed. Skipping update."
+  fi
 
   echo "Finished deployment."
 else
