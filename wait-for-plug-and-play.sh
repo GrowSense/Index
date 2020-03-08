@@ -2,11 +2,11 @@ echo "Waiting for plug and play to register all devices..."
 
 IS_FINISHED=0
 
-MAX_LOOPS=50
+MAX_LOOPS=100
 
 CURRENT_LOOP=0
 
-SLEEP_TIME=2
+SLEEP_TIME=5
 
 while [ $IS_FINISHED = 0 ]; do
 
