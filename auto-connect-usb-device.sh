@@ -88,6 +88,9 @@ echo "  $DEVICE_INFO_DIR"
 
 DEVICE_LABEL="$(echo $DEVICE_NAME | sed 's/.*/\u&/')" || exit 1
 
+echo "Setting device name in plug and play info..."
+echo "$DEVICE_NAME" > "/usr/local/ArduinoPlugAndPlay/devices/$PORT/device-name.txt"
+
 echo ""
 echo "  Launching create device script..."
 if [ "$BOARD_TYPE" = "esp" ]; then

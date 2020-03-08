@@ -47,13 +47,13 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-tests.sh'
+                sh '#sh build-tests.sh'
             }
         }
         stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh test-software.sh'
+                sh '#sh test-software.sh'
             }
         }
         stage('Deploy Update') {
@@ -128,3 +128,6 @@ def shHide(cmd) {
 
 
 
+
+ 
+ 
