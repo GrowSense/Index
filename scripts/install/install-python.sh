@@ -17,6 +17,8 @@ else
   echo "  Pip is already installed. Skipping install."
 fi
 
+python3 install-python-modules.py
+
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
