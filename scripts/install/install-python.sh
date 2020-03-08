@@ -17,7 +17,9 @@ else
   echo "  Pip is already installed. Skipping install."
 fi
 
-python3 install-python-modules.py
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+python3 $CURRENT_DIR/install-python-modules.py
 
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
