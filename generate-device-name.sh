@@ -39,7 +39,7 @@ DEVICE_INFO_DIR="devices/$DEVICE_NAME_START$DEVICE_POSTFIX$DEVICE_NUMBER"
 if [ -d "$DEVICE_INFO_DIR" ]; then
 
   echo "Device exists"
- 
+
   until [ ! -d "$DEVICE_INFO_DIR" ]; do
     echo "Increasing device number"
     DEVICE_NUMBER=$((DEVICE_NUMBER+1))
