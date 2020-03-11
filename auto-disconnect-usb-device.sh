@@ -45,9 +45,9 @@ fi
 HOST=$(cat /etc/hostname)
 
 if [ $DEVICE_NAME ]; then
-  sh mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting" -r
+  bash run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting" -r
 
-  bash create-alert-file.sh "$DEVICE_LABEL disconnecting"
+  bash run-background.sh bash create-alert-file.sh "$DEVICE_LABEL disconnecting"
 
   echo "Device name: $DEVICE_NAME"
 
@@ -61,11 +61,11 @@ if [ $DEVICE_NAME ]; then
   echo ""
   sh $SCRIPT_NAME "$DEVICE_NAME" || exit 1
 
-  bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected" -r
+  bash run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnected" -r
 
-  bash create-alert-file.sh "$DEVICE_LABEL disconnected"
+  bash run-background.sh bash create-alert-file.sh "$DEVICE_LABEL disconnected"
 
-  bash send-email.sh "Device $DEVICE_LABEL disconnected via USB (on $HOST)." "The $DEVICE_LABEL device was disconnected via USB on host $HOST."
+  bash run-background.sh bash send-email.sh "Device $DEVICE_LABEL disconnected via USB (on $HOST)." "The $DEVICE_LABEL device was disconnected via USB on host $HOST."
 
   echo "Finished auto disconnecting device."
 else
