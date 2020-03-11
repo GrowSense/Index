@@ -111,5 +111,7 @@ bash run-background.sh bash create-message-file.sh "$DEVICE_LABEL connected"
 
 bash run-background.sh bash send-email.sh "Device $DEVICE_LABEL connected via USB (on $HOST)." "The $DEVICE_LABEL device was connected via USB on host $HOST."
 
+sleep 3
+
 echo ""
 echo "Finished connecting device: $DEVICE_NAME."
