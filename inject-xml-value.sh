@@ -30,14 +30,14 @@ if [ ! "$VALUE_HIDDEN" ]; then
 fi
 
 
-echo "  XML File: $XML_FILE"
-echo "  XML Path: $XML_PATH"
-if [ "$VALUE_HIDDEN" = 1 ]; then
-  echo "  XML Value: [hidden]"
-else
-  echo "  XML Value: $XML_VALUE"
-fi
-echo "  Value Hidden: $VALUE_HIDDEN"
+#echo "  XML File: $XML_FILE"
+#echo "  XML Path: $XML_PATH"
+#if [ "$VALUE_HIDDEN" = 1 ]; then
+#  echo "  XML Value: [hidden]"
+#else
+#  echo "  XML Value: $XML_VALUE"
+#fi
+#echo "  Value Hidden: $VALUE_HIDDEN"
 
 if [ ! -f $XML_FILE ]; then
   echo "XML file not found:"

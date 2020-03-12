@@ -11,7 +11,7 @@ if [ "$BRANCH" = "dev" ]; then
 
   echo "Host: $INSTALL_HOST"
 
-  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "[ -d /usr/local/GrowSense/Index ]"; then
+  if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "[ -f /usr/local/GrowSense/Index/upgrade-system.sh ]"; then
     echo ""
     echo "Waiting for deployment to unlock..."
 

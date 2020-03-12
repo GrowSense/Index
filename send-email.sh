@@ -25,6 +25,10 @@ EMAIL_DETAILS_ARE_SET=1
 [[ "$EMAIL_ADDRESS" = "na" ]] && EMAIL_DETAILS_ARE_SET=0
 [[ "$EMAIL_ADDRESS" = "user@example.com" ]] && EMAIL_DETAILS_ARE_SET=0
 
+HOST=$(cat /etc/hostname)
+
+FOOTER="----------------------------------------\nEmail sent by GrowSense system on $HOST."
+
 if [ $EMAIL_DETAILS_ARE_SET = 1 ]; then
 
   echo "  SMTP Server: $SMTP_SERVER"
@@ -35,7 +39,7 @@ if [ $EMAIL_DETAILS_ARE_SET = 1 ]; then
   echo "$MESSAGE"
   echo "---"
 
-  sendemail -f $EMAIL_ADDRESS -t $EMAIL_ADDRESS -u $SUBJECT -m "$MESSAGE" -s $SMTP_SERVER
+  sendemail -f $EMAIL_ADDRESS -t $EMAIL_ADDRESS -u $SUBJECT -m "$MESSAGE\n\n\n$FOOTER" -s $SMTP_SERVER
 
   echo "Finished sending email to administrator."
 else
