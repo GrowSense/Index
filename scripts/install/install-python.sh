@@ -3,7 +3,7 @@ echo "Installing python..."
 # python
 if ! type "python3" > /dev/null; then
   echo "  Installing python3..."
-  $SUDO apt-get install -y python3
+  $SUDO apt-get install -y python3 python3-setuptools
 else
   echo "  Python is already installed. Skipping install."
 fi
