@@ -141,11 +141,6 @@ fi
 #echo "${SUPERVISE_DEVICES_RESULT}"
 
 echo ""
-echo "Checking deployment devices..."
-
-bash check-deployment-devices.sh $BRANCH || exit 1
-
-echo ""
 echo "Pulling update log files..."
 
 if [ -d logs/updates ]; then
@@ -182,6 +177,11 @@ echo "${SUPERVISOR_RESULT}"
 [[ ! $(echo $SUPERVISOR_RESULT) =~ "Loaded: loaded" ]] && echo "GrowSense supervisor service isn't loaded" && exit 1
 [[ ! $(echo $SUPERVISOR_RESULT) =~ "Active: active" ]] && echo "GrowSense supervisor service isn't active" && exit 1
 [[ $(echo $SUPERVISOR_RESULT) =~ "not found" ]] && echo "GrowSense supervisor service wasn't found" && exit 1
+
+echo ""
+echo "Checking deployment devices..."
+
+bash check-deployment-devices.sh $BRANCH || exit 1
 
 echo ""
 echo "Listing device info directories..."
