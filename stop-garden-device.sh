@@ -22,6 +22,8 @@ else
 
   CURRENT_HOST="$(cat /etc/hostname)"
 
+  echo "  Current host: $CURRENT_HOST"
+
   if [ "$DEVICE_BOARD" = "esp" ]; then
     echo "  ESP/WiFi device. No services need to be stopped."
   else
@@ -44,3 +46,7 @@ else
     echo "Garden device services stopped for '$DEVICE_NAME'"
   fi
 fi
+
+echo ""
+echo "Finished stopping garden device services"
+echo ""

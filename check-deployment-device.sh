@@ -58,6 +58,7 @@ if [ "$DEVICE_CONNECTION" = "usb" ]; then
   [[ ! $(echo $SERVICE_STATUS) =~ "Loaded: loaded" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't loaded" && exit 1
   [[ ! $(echo $SERVICE_STATUS) =~ "Active: active" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service isn't active" && exit 1
   [[ $(echo $SERVICE_STATUS) =~ "not found" ]] && echo "The $DEVICE_NAME $SERVICE_LABEL service wasn't found" && exit 1
+  [[ ! $(echo $SERVICE_STATUS) =~ "D;" ]] && echo "The device isn't yet outputting data as it should be" && exit 1
   [[ ! $(echo $SERVICE_STATUS) =~ ";Name:$DEVICE_NAME;" ]] && echo "The device name isn't set to $DEVICE_NAME as it should be" && exit 1
 
 
