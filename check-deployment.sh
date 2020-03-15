@@ -179,6 +179,10 @@ echo "${SUPERVISOR_RESULT}"
 [[ $(echo $SUPERVISOR_RESULT) =~ "not found" ]] && echo "GrowSense supervisor service wasn't found" && exit 1
 
 echo ""
+echo "Sleeping for 5 seconds to let devices load..."
+sleep 5
+
+echo ""
 echo "Checking deployment devices..."
 
 bash check-deployment-devices.sh $BRANCH || exit 1
