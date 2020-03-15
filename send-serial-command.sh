@@ -20,6 +20,6 @@ fi
 echo "  Command: '$COMMAND'"
 echo "  Device port: $SERIAL_PORT"
 
-python3 send-serial.py "$COMMAND;" "$SERIAL_PORT"
+python send-serial.py "$COMMAND;" "$SERIAL_PORT"
 
 echo "Finished sending command to device via serial"
