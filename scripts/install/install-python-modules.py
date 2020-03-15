@@ -17,4 +17,4 @@ except ImportError:
     install("serial")
 
 print("Python modules installed.")
-sys.exit(1)
+sys.exit()
