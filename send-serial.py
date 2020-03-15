@@ -19,3 +19,5 @@ ser.write(text.encode())
 sleep(1)
 
 print("Finished sending serial data to device.")
+
+sys.exit()
