@@ -14,6 +14,10 @@ echo "Starting GrowSense Supervisor Loop: $LOOP_NUMBER"
 echo ""
 
 echo ""
+echo "  Supervising network..."
+bash supervise-network.sh
+
+echo ""
 echo "  Supervising mesh manager service..."
 bash supervise-mesh-manager-service.sh
 
@@ -71,7 +75,7 @@ if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
 #    bash upgrade-system.sh || exit 1
 #    echo ""
 #    echo "  Initiating device upgrades..."
-#    bash upgrade-garden-device-sketches.sh || exit 1 
+#    bash upgrade-garden-device-sketches.sh || exit 1
   else
     echo "  Skipping upgrade this loop."
   fi
