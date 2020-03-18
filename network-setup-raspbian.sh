@@ -38,19 +38,20 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
 
 
   IFCONFIG_RESULT="$(ifconfig)"
-  
+
   if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
     echo "  Hotspot is running. Stopping..."
+    hotspot modpar self autostart no
     hotspot stop
   fi
 
 # TODO: Remove if not needed
 #  echo "  Terminating WiFi..."
 #  $SUDO wpa_cli -p /var/run/wpa_supplicant/ -i wlan0 terminate || echo "  Skipping terminate WiFi"
-  
+
 #  echo "  Sleeping for 3 seconds..."
 #  sleep 3
-  
+
 #  echo "  Loading wpa_supplicant.conf file and connecting to WiFi..."
 #  $SUDO wpa_supplicant -B -i wlan0 -c $WPA_SUPPLICANT_FILE -f /etc/wpa_supplicant/wpa_supplicant.log
 
@@ -85,7 +86,7 @@ if [ "$NETWORK_CONNECTION_TYPE" == "WiFi" ]; then
 #      echo "Failed to connect"
 #      exit 1
 #    fi
-  
+
   echo ""
   echo "  Waiting 10 seconds for WiFi to connect..."
   sleep 10
@@ -112,7 +113,8 @@ elif [ "$NETWORK_CONNECTION_TYPE" == "WiFiHotSpot" ]; then
   echo "  Pass: $HOTSPOT_PASS"
 
   #hotspot setup
-  hotspot modpar hostapd ssid $HOTSPOT_NAME 
+  hotspot modpar self autostart yes
+  hotspot modpar hostapd ssid $HOTSPOT_NAME
   hotspot modpar hostapd wpa_passphrase $HOTSPOT_PASS
   hotspot modpar hostapd country_code $COUNTRY_CODE
   hotspot modpar crda REGDOMAIN $COUNTRY_CODE
@@ -127,6 +129,7 @@ elif [ "$NETWORK_CONNECTION_TYPE" == "Ethernet" ]; then
 
   if [[ "$IFCONFIG_RESULT" = *"ap0"* ]]; then
     echo "  Hotspot is running. Stopping..."
+    hotspot modpar self autostart no
     hotspot stop
   fi
 
