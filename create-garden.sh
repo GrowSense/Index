@@ -35,5 +35,9 @@ echo "Creating system supervisor service..."
 bash create-supervisor-service.sh || exit 1
 
 echo ""
+echo "  Reloading systemctl daemon..."
+bash systemctl.sh daemon-reload
+
+echo ""
 echo "Setup complete"
 echo ""
