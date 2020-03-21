@@ -10,7 +10,7 @@ fi
 if [ ! -d "devices/$DEVICE_NAME" ]; then
   echo "  Error: Device '$DEVICE_NAME' not found."
   exit 1
-fi 
+fi
 
 DEVICE_GROUP=$(cat "devices/$DEVICE_NAME/group.txt")
 DEVICE_BOARD=$(cat "devices/$DEVICE_NAME/board.txt")
@@ -23,3 +23,9 @@ elif [ "$DEVICE_GROUP" == "ui" ]; then
 else
   bash create-mqtt-bridge-service.sh $DEVICE_GROUP $DEVICE_NAME $DEVICE_PORT || exit 1
 fi
+
+echo ""
+echo "  Reloading systemctl daemon..."
+bash run-background.sh bash systemctl.sh daemon-reload || exit 1
+
+echo "Finished creating garden device services."
