@@ -50,7 +50,7 @@ if [[ "$SERVICE_NAME" != "" ]]; then
       bash send-email.sh "Error: $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST." "The $SERVICE_LABEL service for $DEVICE_NAME hasn't been installed on $HOST.  Installing service...\n\nDetails:\n\n$SERVICE_RESULT"
 
       bash mqtt-publish-device.sh $DEVICE_NAME "StatusMessage" "Offline" -r
-  
+
       bash create-alert-file.sh "The $SERVICE_LABEL service hasn't been installed on $HOST. Installing service..."
 
       echo "1" > "devices/$DEVICE_NAME/is-service-offline.txt"
@@ -81,6 +81,10 @@ if [[ "$SERVICE_NAME" != "" ]]; then
     echo "The service 'SERVICE_NAME' log needs to be rotated. Restarting..."
 
     bash systemctl.sh restart $SERVICE_NAME
+  elif [[ $(echo $SERVICE_RESULT) =~ "The unit file, source configuration file or drop-ins of growsense-ui-1602-ui2.service changed on disk" ]]; then
+    echo "The service 'SERVICE_NAME' file has changed on disk. Reloading systemctl daemon..."
+
+    bash systemctl.sh daemon-reload
   elif [[ "$SERVICE_RESULT" != *"D;"* ]]; then
      echo "The service '$SERVICE_NAME' isn't receiving data from device. Restarting..."
 
