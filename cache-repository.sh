@@ -12,6 +12,8 @@ if [ ! "$BRANCH" ]; then
   exit 1
 fi
 
+echo "  Branch: $BRANCH"
+
 if [ ! "$CACHE_PATH" ]; then
   echo "  No cache path specified. Using default."
   BASE_PATH="/usr/local"
