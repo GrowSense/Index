@@ -21,9 +21,9 @@ if [ -d "$DEVICES_DIR" ]; then
             DEVICE_IS_USB_CONNECTED=$(cat $d/is-usb-connected.txt)
 
             echo "$DEVICE_LABEL"
-            echo "Name: $DEVICE_NAME"
-            echo "Host: $DEVICE_HOST"
-            echo "Current host: $CURRENT_HOST"
+            echo "  Name: $DEVICE_NAME"
+            echo "  Host: $DEVICE_HOST"
+            echo "  Current host: $CURRENT_HOST"
 
             if [ "$DEVICE_HOST" != "$CURRENT_HOST" ]; then
                 echo "  Device $DEVICE_NAME is on another host. Skipping start service..."
