@@ -24,8 +24,8 @@ if [ "$BRANCH" = "dev" ];  then
   git merge -X theirs origin/dev || exit 1
 
   echo ""
-  echo "  Fetching pushing the updated master branch to origin..."
-  git push origin master -q || exit 1
+  echo "  Pushing the updated master branch to origin..."
+  git push origin master || exit 1
 
   echo ""
   echo "  Checking out the dev branch..."
