@@ -9,6 +9,8 @@ if [ "$BRANCH" = "dev" ]; then
 
   . ./detect-deployment-details.sh
 
+  echo "Install host: $INSTALL_HOST"
+
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ -d /usr/local/GrowSense/Index/ ]'; then
     echo "Waiting for deployment to unlock..."
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."

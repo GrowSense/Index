@@ -1,14 +1,15 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if [ "$BRANCH" = "master" ]; then
+if [ "$BRANCH" = "rc" ]; then
 
   echo "Deploying master branch update..."
-  echo "Host: $RC_INSTALL_HOST"
 
   echo ""
 
   . ./detect-deployment-details.sh
+
+  echo "Install host: $INSTALL_HOST"
 
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "[ -d /usr/local/GrowSense/Index ]"; then
     echo ""
@@ -20,7 +21,7 @@ if [ "$BRANCH" = "master" ]; then
     echo "Updating GrowSense plug and play on remote host..."
 
     FORCE_UPDATE=1
-    sshpass -p $RC_INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $RC_INSTALL_SSH_USERNAME@$RC_INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $FORCE_UPDATE"
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $FORCE_UPDATE"
 
     echo ""
     echo "Checking deployment..."

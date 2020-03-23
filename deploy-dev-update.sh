@@ -9,7 +9,7 @@ if [ "$BRANCH" = "dev" ]; then
 
   . ./detect-deployment-details.sh
 
-  echo "Host: $INSTALL_HOST"
+  echo "Install host: $INSTALL_HOST"
 
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "[ -f /usr/local/GrowSense/Index/upgrade-system.sh ]"; then
     echo ""
