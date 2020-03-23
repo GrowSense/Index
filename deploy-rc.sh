@@ -4,9 +4,10 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 if [ "$BRANCH" = "rc" ]; then
 
   echo "Deploying rc branch..."
-  echo "Host: $RC_INSTALL_HOST"
 
   . ./detect-deployment-details.sh
+
+  echo "Install host: $INSTALL_HOST"
 
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ -d /usr/local/GrowSense/Index/ ]'; then
     echo "Waiting for deployment to unlock..."
