@@ -24,7 +24,7 @@ for GROUP_DIR in sketches/*; do
     if [ -f "clean.sh" ]; then
       echo "Updating submodule..."
       bash clean.sh || exit 1
-      git fetch $BRANCH || exit 1
+      git fetch origin $BRANCH || exit 1
       git checkout $BRANCH || exit 1
       git pull origin $BRANCH || exit 1
     else
