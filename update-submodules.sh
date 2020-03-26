@@ -18,18 +18,19 @@ for GROUP_DIR in sketches/*; do
   for PROJECT_DIR in $GROUP_DIR/*; do
     echo ""
     echo "Project: $PROJECT_DIR"
-    
+
     cd "$PROJECT_DIR"
-    
+
     if [ -f "clean.sh" ]; then
       echo "Updating submodule..."
       bash clean.sh || exit 1
+      git fetch $BRANCH || exit 1
       git checkout $BRANCH || exit 1
       git pull origin $BRANCH || exit 1
     else
       echo "clean.sh script not found. Skipping."
     fi
-    
+
     cd $DIR
   done
 done
