@@ -28,7 +28,7 @@ for GROUP_DIR in sketches/*; do
       echo "  Cleaning..."
       bash clean.sh || exit 1
       echo "  Checking out $BRANCH..."
-      git checkout -b origin/$BRANCH || exit 1
+      git checkout -f origin/$BRANCH || exit 1
       echo "  Pulling $BRANCH from origin..."
       git pull origin $BRANCH || exit 1
 
@@ -49,7 +49,7 @@ echo "Updating SystemManagerWWW"
 cd www/SystemManagerWWW && \
 sh clean.sh && \
 git fetch origin $BRANCH && \
-git checkout -b $BRANCH && \
+git checkout -f $BRANCH && \
 git pull origin $BRANCH || exit 1
 
 cd $DIR
