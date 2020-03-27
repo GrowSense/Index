@@ -49,6 +49,7 @@ echo "Updating SystemManagerWWW"
 
 cd www/SystemManagerWWW && \
 sh clean.sh && \
+git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch origin $BRANCH && \
 git checkout -f $BRANCH && \
 git pull origin $BRANCH || exit 1
