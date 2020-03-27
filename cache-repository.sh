@@ -46,11 +46,12 @@ echo "  Updating cache..."
 echo "    Fetching from origin..."
 git fetch origin $BRANCH
 echo "    Checking out $BRANCH..."
-git checkout $BRANCH || exit 1
+git checkout -f origin/$BRANCH || exit 1
 echo "    Pulling $BRANCH from origin..."
 git pull origin -X theirs $BRANCH || exit 1
 echo "    Updating submodules..."
 git submodule update --init || exit 1
+bash update-submodules.sh || exit 1
 
 cd $DIR
 
