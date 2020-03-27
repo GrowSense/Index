@@ -42,9 +42,9 @@ fi
 
 cd $CACHE_PATH
 echo "  Updating cache..."
-#git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 echo "    Fetching from origin..."
-git fetch origin $BRANCH
+git fetch origin
 echo "    Checking out $BRANCH..."
 git checkout -f origin/$BRANCH || exit 1
 echo "    Pulling $BRANCH from origin..."
