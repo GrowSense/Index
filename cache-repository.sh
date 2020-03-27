@@ -51,7 +51,7 @@ echo "    Pulling $BRANCH from origin..."
 git pull origin -X theirs $BRANCH || exit 1
 echo "    Updating submodules..."
 git submodule update --init || exit 1
-bash update-submodules.sh || exit 1
+bash update-submodules.sh $BRANCH || exit 1
 
 cd $DIR
 
