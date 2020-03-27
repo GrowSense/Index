@@ -175,7 +175,7 @@ $SUDO bash update.sh || exit 1
 echo ""
 echo "Updating submodules..."
 
-$SUDO bash update-submodules.sh || exit 1
+$SUDO bash update-submodules.sh $BRANCH || exit 1
 
 echo ""
 echo "Initializing runtime components..."
