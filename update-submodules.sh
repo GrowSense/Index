@@ -25,7 +25,7 @@ for GROUP_DIR in sketches/*; do
       echo "Updating submodule..."
       bash clean.sh || exit 1
       git fetch origin $BRANCH || exit 1
-      git checkout -b origin/$BRANCH || exit 1
+      git checkout -b $BRANCH || exit 1
       git pull origin $BRANCH || exit 1
     else
       echo "clean.sh script not found. Skipping."
