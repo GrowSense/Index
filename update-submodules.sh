@@ -24,6 +24,7 @@ for GROUP_DIR in sketches/*; do
     if [ -f "clean.sh" ]; then
       echo "Updating submodule..."
       echo "  Fetching..."
+      git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
       git fetch origin || exit 1
       echo "  Cleaning..."
       bash clean.sh || exit 1
