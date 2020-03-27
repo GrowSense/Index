@@ -39,7 +39,7 @@ echo "Updating SystemManagerWWW"
 
 cd www/SystemManagerWWW && \
 sh clean.sh && \
-git fetch $BRANCH && \
+git fetch origin $BRANCH && \
 git checkout -b $BRANCH && \
 git pull origin $BRANCH || exit 1
 
