@@ -22,7 +22,7 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
 
   docker pull compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
 
-  if [ "$didSucceed" == "1" ]; then
+  #if [ "$didSucceed" == "1" ]; then
     docker run -d \
       --restart=always \
       --name=mosquitto \
@@ -35,7 +35,7 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
 	  -p 1883:1883 \
 	  -p 8080:8080 \
 	  compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
-  fi
+  #fi
 
   if [ "$didSucceed" == "0" ]; then
     echo "Error: Failed to start mosquitto docker container"
