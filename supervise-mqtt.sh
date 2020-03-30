@@ -7,6 +7,18 @@ MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 MQTT_PORT=$(cat mqtt-port.security)
 
+echo "  Checking docker processes..."
+DOCKER_PS_RESULT="$(docker ps)"
+echo "    Result:"
+echo "$DOCKER_PS_RESULT"
+echo ""
+
+if [[ ! $(echo $DOCKER_PS_RESULT) =~ "mosquitto" ]]; then
+  echo "    Mosquitto docker service not found. Creating..."
+  bash create-mqtt-service.sh
+fi
+
+echo ""
 echo "  Pinging MQTT server..."
 echo "    MQTT Host: $MQTT_HOST"
 PING_MQTT_RESULT="$(ping -c 1 $MQTT_HOST)"
