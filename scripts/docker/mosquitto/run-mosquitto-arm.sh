@@ -22,6 +22,7 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
 
   docker pull compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
 
+  # If statement commented out so if docker pull fails it will attempt to start the container anyway using an existing image
   #if [ "$didSucceed" == "1" ]; then
     docker run -d \
       --restart=always \
