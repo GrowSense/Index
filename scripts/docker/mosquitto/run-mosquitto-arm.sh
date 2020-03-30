@@ -1,7 +1,4 @@
-#docker stop mosquitto || echo "Skipping stop"
-#docker rm mosquitto || echo "Skipping remove" 
-
-MAX_LOOPS=5
+MAX_LOOPS=50
 
 if [ ! "$LOOP_NUMBER" ]; then
   LOOP_NUMBER=1
@@ -22,9 +19,9 @@ loopNumber=1
 while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
   echo "Running mosquitto docker container..."
   echo "  Loop number $loopNumber"
-  
+
   docker pull compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
-  
+
   if [ "$didSucceed" == "1" ]; then
     docker run -d \
       --restart=always \
@@ -39,7 +36,7 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
 	  -p 8080:8080 \
 	  compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
   fi
-	
+
   if [ "$didSucceed" == "0" ]; then
     echo "Error: Failed to start mosquitto docker container"
     if [[ "$LOOP_NUMBER" -lt "$MAX_LOOPS" ]]; then
