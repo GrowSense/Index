@@ -1,4 +1,4 @@
-MAX_LOOPS=15
+MAX_LOOPS=50
 
 if [ ! "$LOOP_NUMBER" ]; then
   LOOP_NUMBER=1
