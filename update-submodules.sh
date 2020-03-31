@@ -23,13 +23,17 @@ for GROUP_DIR in sketches/*; do
 
     if [ -f "clean.sh" ]; then
       echo "Updating submodule..."
+
       echo "  Fetching..."
       git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-      git fetch origin || exit 1
+      git fetch origin $BRANCH || exit 1
+
       echo "  Cleaning..."
       bash clean.sh || exit 1
+
       echo "  Checking out $BRANCH..."
       git checkout -f $BRANCH || exit 1
+
       echo "  Pulling $BRANCH from origin..."
       git pull origin $BRANCH || exit 1
 
@@ -48,10 +52,14 @@ done
 echo "Updating SystemManagerWWW"
 
 cd www/SystemManagerWWW && \
+
 sh clean.sh && \
+
 git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch origin $BRANCH && \
+
 git checkout -f $BRANCH && \
+
 git pull origin $BRANCH || exit 1
 
 cd $DIR
