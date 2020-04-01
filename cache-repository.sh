@@ -46,7 +46,7 @@ git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 echo "    Fetching from origin..."
 git fetch origin $BRANCH
 echo "    Checking out $BRANCH..."
-git checkout -f origin/$BRANCH || exit 1
+git checkout -f $BRANCH || exit 1
 echo "    Pulling $BRANCH from origin..."
 git pull origin -X theirs $BRANCH || exit 1
 echo "    Updating submodules..."
