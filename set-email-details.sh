@@ -26,5 +26,6 @@ echo $ADMIN_EMAIL > "admin-email.security"
 
 bash "set-email-details-for-mqtt-bridge.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" && \
 bash "set-email-details-for-1602-ui.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" && \
+bash "set-email-details-for-arduino-plug-and-play.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" && \
 
 echo "Finished setting email details."
