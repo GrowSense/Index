@@ -13,8 +13,12 @@ echo "  Updating repository cache..."
 bash cache-repository.sh $BRANCH || exit 1
 
 echo ""
+echo "  Checking out $BRANCH..."
+git checkout -f $BRANCH || exit 1
+
+echo ""
 echo "  Pulling from origin..."
-git pull origin $BRANCH || exit 1
+git pull origin -X theirs $BRANCH || exit 1
 
 echo ""
 echo "  Updating submodules..."
