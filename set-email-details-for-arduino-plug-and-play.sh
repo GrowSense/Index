@@ -66,9 +66,13 @@ echo "  Inserting details into install package directory..."
 #echo "    To:"
 #echo "      $INSTALL_PACKAGE_CONFIG_FILE"
 
-$SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
-$SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
-$SUDO cp -f $INSTALL_PACKAGE_CONFIG_FILE $INSTALL_CONFIG_FILE || exit 1
+if [ -f "$INSTALL_PACKAGE_CONFIG_FILE" ]; then
+  $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
+  $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
+  $SUDO cp -f $INSTALL_PACKAGE_CONFIG_FILE $INSTALL_CONFIG_FILE || exit 1
+else
+  echo "  Arduino plug and play config file not found. Skipping..."
+fi
 
 echo ""
 echo "Finished setting email details for Arduino Plug and Play"
