@@ -80,6 +80,10 @@ echo ""
 echo "  Recreating supervisor service..."
 bash create-supervisor-service.sh || exit 1
 
+echo ""
+echo "  Recreating upgrade service..."
+bash create-upgrade-service.sh || exit 1
+
 SUDO=""
 if [ ! "$(id -u)" -eq 0 ]; then
     SUDO='sudo'
