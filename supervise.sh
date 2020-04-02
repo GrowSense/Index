@@ -2,10 +2,8 @@
 
 LOOP_NUMBER=$1
 
-UPGRADE_FREQUENCY=$(cat supervisor-upgrade-frequency.txt)
-
 if [ ! $LOOP_NUMBER ]; then
-  LOOP_NUMBER=0
+  LOOP_NUMBER=1
 fi
 
 echo ""
@@ -60,6 +58,8 @@ echo "Supervising devices..."
 bash supervise-devices.sh $LOOP_NUMBER || echo "Supervise devices failed"
 
 AUTO_UPGRADE_ENABLED=$(cat auto-upgrade-enabled.txt)
+
+UPGRADE_FREQUENCY=$(cat supervisor-upgrade-frequency.txt)
 
 echo ""
 if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then

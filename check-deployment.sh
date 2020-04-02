@@ -181,8 +181,8 @@ echo "${SUPERVISOR_RESULT}"
 echo ""
 echo "Checking installed GrowSense version..."
 
-LATEST_BUILD_NUMBER=$(curl -s -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/buildnumber.txt")
-LATEST_VERSION_NUMBER=$(curl -s -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/version.txt")
+LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/buildnumber.txt")
+LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/version.txt")
 
 LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
