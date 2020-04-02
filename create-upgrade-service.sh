@@ -21,4 +21,7 @@ echo "$SERVICE_FILE_PATH"
 echo "Installing service..."
 bash install-service.sh $SERVICE_FILE_PATH 0 || exit 1
 
+echo "Disabling service so it doesn't start unless triggered by supervisor..."
+bash systemctl.sh disable $SERVICE_FILE
+
 echo "Finished GrowSense system upgrade service"
