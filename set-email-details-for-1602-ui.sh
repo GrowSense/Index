@@ -6,7 +6,9 @@ echo ""
 
 SMTP_SERVER=$1
 ADMIN_EMAIL=$2
-
+SMTP_USERNAME=$3
+SMTP_PASSWORD=$4
+SMTP_PORT=$5
 
 if [ ! "$SMTP_SERVER" ]; then
   echo "Please provide an SMTP server as an argument."
@@ -18,14 +20,29 @@ if [ ! "$ADMIN_EMAIL" ]; then
   exit 1
 fi
 
+if [ ! "$SMTP_USERNAME" ]; then
+  SMTP_USERNAME="na"
+fi
+
+if [ ! "$SMTP_PASSWORD" ]; then
+  SMTP_PASSWORD="na"
+fi
+
+if [ ! "$SMTP_PORT" ]; then
+  SMTP_PORT="25"
+fi
+
 IS_MOCK_UI_CONTROLLER=0
 if [ -f "is-mock-ui-controller.txt" ]; then
   IS_MOCK_UI_CONTROLLER=1
   echo "Is mock setup"
 fi
 
-echo "SMTP server: $SMTP_SERVER"
-echo "Admin email: $ADMIN_EMAIL"
+echo "  SMTP server: $SMTP_SERVER"
+echo "  Admin email: $ADMIN_EMAIL"
+echo "  SMTP username: $SMTP_USERNAME"
+echo "  SMTP password: [hidden]"
+echo "  SMTP port: $SMTP_PORT"
 
 echo ""
 echo "Setting UI controller config file:"
@@ -49,6 +66,9 @@ echo "    $INDEX_APP_PACKAGE_CONFIG_FILE"
 echo "  Inserting email values into config file..."
 bash inject-xml-value.sh "$INDEX_APP_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
 bash inject-xml-value.sh "$INDEX_APP_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
+bash inject-xml-value.sh "$INDEX_APP_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpUsername\"]/@value" "$SMTP_USERNAME" || exit 1
+bash inject-xml-value.sh "$INDEX_APP_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpPassword\"]/@value" "$SMTP_PASSWORD" || exit 1
+bash inject-xml-value.sh "$INDEX_APP_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpPort\"]/@value" "$SMTP_PORT" || exit 1
 
 #CONFIG_FILE2="scripts/apps/Serial1602ShieldSystemUIController/$CONFIG_FILE_NAME"
 
@@ -84,12 +104,15 @@ if [ ! -d $INSTALL_PACKAGE_DIR ]; then
   echo ""
   echo "  Creating install package directory..."
   $SUDO mkdir -p $INSTALL_PACKAGE_DIR || exit 1
-fi  
+fi
 
 #echo "  $INSTALL_DIR/$CONFIG_FILE_NAME"
 
 $SUDO bash inject-xml-value.sh "$INSTALL_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
 $SUDO bash inject-xml-value.sh "$INSTALL_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
+$SUDO bash inject-xml-value.sh "$INSTALL_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpUsername\"]/@value" "$SMTP_USERNAME" || exit 1
+$SUDO bash inject-xml-value.sh "$INSTALL_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpPassword\"]/@value" "$SMTP_PASSWORD" || exit 1
+$SUDO bash inject-xml-value.sh "$INSTALL_PACKAGE_CONFIG_FILE" "/configuration/appSettings/add[@key=\"SmtpPort\"]/@value" "$SMTP_PORT" || exit 1
 
 echo ""
 echo "Finished setting email details for 1602 LCD UI controller"

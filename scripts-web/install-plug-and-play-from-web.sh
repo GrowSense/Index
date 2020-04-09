@@ -14,8 +14,11 @@ MQTT_PORT=$8
 
 SMTP_SERVER=$9
 ADMIN_EMAIL=${10}
+SMTP_USERNAME=${11}
+SMTP_PASSWORD=${12}
+SMTP_PORT=${13}
 
-EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUsername] [MqttPassword] [MqttPort] [SmtpServer] [AdminEmail]"
+EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUsername] [MqttPassword] [MqttPort] [SmtpServer] [AdminEmail] [SmtpUsername] [SmtpPassword] [SmtpPort]"
 
 if [ ! $WIFI_NAME ]; then
     echo "Specify WiFi network name as an argument."
@@ -68,6 +71,9 @@ echo "  MQTT Port: $MQTT_PORT"
 
 echo "  SMTP server: $SMTP_SERVER"
 echo "  Admin email: $ADMIN_EMAIL"
+echo "  SMTP username: $SMTP_USERNAME"
+echo "  SMTP password: $SMTP_PASSWORD"
+echo "  SMTP port: $SMTP_PORT"
 
 INDEX_DIR="$INSTALL_DIR"
 GREENSENSE_DIR="$(dirname $INSTALL_DIR)"
@@ -201,12 +207,12 @@ $SUDO bash set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQT
 echo ""
 echo "Setting email details..."
 
-$SUDO bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL || exit 1
+$SUDO bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD || exit 1
 
 echo ""
 echo "Installing plug and play..."
 
-$SUDO wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL || exit 1
+$SUDO wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT || exit 1
 
 echo ""
 echo "Creating garden..."

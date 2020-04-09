@@ -22,8 +22,11 @@ namespace GrowSense.Index.Tests.Integration
       var random = new Random ();
       var smtpServer = "smtp.example" + random.Next (200) + ".com";
       var adminEmail = "user" + random.Next (9) + "@example.com";
+      var smtpUsername = "user" + random.Next (100);
+      var smtpPassword = "pass" + random.Next (100);
+      var smtpPort = random.Next (100);
 
-      var arguments = smtpServer + " " + adminEmail;
+      var arguments = smtpServer + " " + adminEmail + " " + smtpUsername + " " + smtpPassword + " " + smtpPort;
 
       var starter = GetTestProcessStarter ();
 
@@ -43,31 +46,31 @@ namespace GrowSense.Index.Tests.Integration
       //CheckConfigFile (internalMqttBridgeConfigFile, smtpServer, adminEmail);
 
       var internalPackageMqttBridgeConfigFile = "scripts/apps/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
-      CheckConfigFile (internalPackageMqttBridgeConfigFile, smtpServer, adminEmail);
+      CheckConfigFile (internalPackageMqttBridgeConfigFile, smtpServer, adminEmail, smtpUsername, smtpPassword, smtpPort);
 
 
       //var installedMqttBridgeConfigFile = "mock/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv.exe.config";
       //CheckConfigFile (installedMqttBridgeConfigFile, smtpServer, adminEmail);
 
       var installedPackageMqttBridgeConfigFile = "mock/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
-      CheckConfigFile (installedPackageMqttBridgeConfigFile, smtpServer, adminEmail);
+      CheckConfigFile (installedPackageMqttBridgeConfigFile, smtpServer, adminEmail, smtpUsername, smtpPassword, smtpPort);
 
 
       Console.WriteLine ("Checking serial UI controller config files...");
 
       var internalPackageUIControllerConfigFile = "scripts/apps/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
-      CheckConfigFile (internalPackageUIControllerConfigFile, smtpServer, adminEmail);
+      CheckConfigFile (internalPackageUIControllerConfigFile, smtpServer, adminEmail, smtpUsername, smtpPassword, smtpPort);
 
       //var installedUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIControllerConsole.exe.config";
       //CheckConfigFile (installedUIControllerConfigFile, smtpServer, adminEmail);
 
       var installedPackageUIControllerConfigFile = "mock/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
-      CheckConfigFile (installedPackageUIControllerConfigFile, smtpServer, adminEmail);
+      CheckConfigFile (installedPackageUIControllerConfigFile, smtpServer, adminEmail, smtpUsername, smtpPassword, smtpPort);
 
       Assert.IsFalse (starter.Starter.IsError, "An error occurred.");
     }
 
-    public void CheckConfigFile (string configFileName, string smtpServer, string adminEmail)
+    public void CheckConfigFile (string configFileName, string smtpServer, string adminEmail, string smtpUsername, string smtpPassword, int smtpPort)
     {
       Console.WriteLine ("Checking config file for email details...");
       Console.WriteLine ("  " + configFileName);
@@ -76,6 +79,9 @@ namespace GrowSense.Index.Tests.Integration
 			
       AssertConfigFileContains (configFileContent, "SmtpServer", smtpServer);
       AssertConfigFileContains (configFileContent, "EmailAddress", adminEmail);
+      AssertConfigFileContains (configFileContent, "SmtpUsername", smtpUsername);
+      AssertConfigFileContains (configFileContent, "SmtpPassword", smtpPassword);
+      AssertConfigFileContains (configFileContent, "SmtpPort", smtpPort.ToString ());
 
     }
 
