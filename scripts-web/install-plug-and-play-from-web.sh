@@ -207,7 +207,7 @@ $SUDO bash set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQT
 echo ""
 echo "Setting email details..."
 
-$SUDO bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD || exit 1
+$SUDO bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT || exit 1
 
 echo ""
 echo "Installing plug and play..."
