@@ -9,7 +9,6 @@ SMTP_USERNAME=$3
 SMTP_PASSWORD=$4
 SMTP_PORT=$5
 
-
 if [ ! "$SMTP_SERVER" ]; then
   echo "Please provide an SMTP server as an argument."
   exit 1
