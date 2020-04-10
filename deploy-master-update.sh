@@ -25,7 +25,7 @@ if [ "$BRANCH" = "master" ]; then
     echo ""
     echo "Setting MQTT settings in case they've changed..."
 
-    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT" || echo "Failed to set email details."
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash set-mqtt-credentials.sh $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT" || echo "Failed to set email details."
 
     echo ""
     echo "Updating GrowSense plug and play on remote host..."
