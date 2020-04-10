@@ -72,7 +72,7 @@ echo "  MQTT Port: $MQTT_PORT"
 echo "  SMTP server: $SMTP_SERVER"
 echo "  Admin email: $ADMIN_EMAIL"
 echo "  SMTP username: $SMTP_USERNAME"
-echo "  SMTP password: $SMTP_PASSWORD"
+echo "  SMTP password: [hidden]"
 echo "  SMTP port: $SMTP_PORT"
 
 INDEX_DIR="$INSTALL_DIR"
