@@ -52,6 +52,6 @@ XML_FILE_CONTENT=$(cat "$XML_FILE")
 # Disabled. Only used for debugging.
 #echo "${XML_FILE_CONTENT}"
 
-[[ ! $(echo "$XML_FILE_CONTENT") =~ "$XML_VALUE" ]] && echo "The value wasn't inserted into the XML file" && exit 1
+[[ ! $(echo "$XML_FILE_CONTENT") =~ "$XML_VALUE" ]] && echo "The value wasn't inserted into the XML file..." && echo "  File: $XML_FILE" && echo "  Value: $XML_VALUE" && exit 1
 
 echo "Finished injecting value into XML file"

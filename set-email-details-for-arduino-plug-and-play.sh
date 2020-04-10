@@ -5,6 +5,9 @@ echo "Setting email details for Arduino Plug and Play..."
 
 SMTP_SERVER=$1
 ADMIN_EMAIL=$2
+SMTP_USERNAME=$3
+SMTP_PASSWORD=$4
+SMTP_PORT=$5
 
 
 if [ ! "$SMTP_SERVER" ]; then
@@ -17,6 +20,18 @@ if [ ! "$ADMIN_EMAIL" ]; then
   exit 1
 fi
 
+if [ ! "$SMTP_USERNAME" ]; then
+  SMTP_USERNAME="na"
+fi
+
+if [ ! "$SMTP_PASSWORD" ]; then
+  SMTP_PASSWORD="na"
+fi
+
+if [ ! "$SMTP_PORT" ]; then
+  SMTP_PORT="25"
+fi
+
 IS_MOCK_MQTT_BRIDGE=0
 if [ -f "is-mock-mqtt-bridge.txt" ]; then
   IS_MOCK_MQTT_BRIDGE=1
@@ -25,6 +40,9 @@ fi
 
 echo "  SMTP server: $SMTP_SERVER"
 echo "  Admin email: $ADMIN_EMAIL"
+echo "  SMTP username: $SMTP_USERNAME"
+echo "  SMTP password: [hidden]"
+echo "  SMTP port: $SMTP_PORT"
 
 
 CONFIG_FILE_NAME="ArduinoPlugAndPlay.exe.config"
@@ -69,6 +87,9 @@ echo "  Inserting details into install package directory..."
 if [ -f "$INSTALL_PACKAGE_CONFIG_FILE" ]; then
   $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpServer\"]/@value" "$SMTP_SERVER" || exit 1
   $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"EmailAddress\"]/@value" "$ADMIN_EMAIL" || exit 1
+  $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpUsername\"]/@value" "$SMTP_USERNAME" || exit 1
+  $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpPassword\"]/@value" "$SMTP_PASSWORD" || exit 1
+  $SUDO bash inject-xml-value.sh $INSTALL_PACKAGE_CONFIG_FILE "/configuration/appSettings/add[@key=\"SmtpPort\"]/@value" "$SMTP_PORT" || exit 1
   $SUDO cp -f $INSTALL_PACKAGE_CONFIG_FILE $INSTALL_CONFIG_FILE || exit 1
 else
   echo "  Arduino plug and play config file not found. Skipping..."

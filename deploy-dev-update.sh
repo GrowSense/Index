@@ -18,6 +18,16 @@ if [ "$BRANCH" = "dev" ]; then
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
 
     echo ""
+    echo "Setting email details in case they've changed..."
+
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash set-email-details.sh $SMTP_SERVER $EMAIL_ADDRESS $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT" || echo "Failed to set email details."
+
+    echo ""
+    echo "Setting MQTT settings in case they've changed..."
+
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash set-mqtt-credentials.sh $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT" || echo "Failed to set email details."
+
+    echo ""
     echo "Updating GrowSense plug and play on remote computer..."
 
     FORCE_UPDATE=1

@@ -5,6 +5,9 @@
         <add key="USBDeviceDisconnectedCommand" value="cd /usr/local/GrowSense/Index; bash auto-disconnect-usb-device.sh {PORT}" />
         <add key="SmtpServer" value="mail.example.com" />
         <add key="EmailAddress" value="user@example.com" />
+        <add key="SmtpUsername" value="user" />
+        <add key="SmtpPassword" value="pass" />
+        <add key="SmtpPort" value="25" />
         <add key="SleepTime" value="2" />
         <add key="TimeoutReadingDeviceInfo" value="30" />
         <add key="CommandTimeout" value="120" />

@@ -31,6 +31,6 @@ sh set-mqtt-credentials.sh 127.0.0.1 user pass123 1883 || exit 1
 
 # Reset the MQTT details
 echo "Resettings email details..."
-sh set-email-details.sh mail.example.com user@example.com || exit 1
+sh set-email-details.sh mail.example.com user@example.com na na 25 || exit 1
 
 echo "Finished cleaning project"

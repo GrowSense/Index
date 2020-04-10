@@ -1,6 +1,10 @@
 echo "Supervising network..."
 
-NETWORK_CONNECTION_TYPE=$(cat network-connection-type.txt)
+if [ -f "network-connection-type.txt" ]; then
+  NETWORK_CONNECTION_TYPE=$(cat network-connection-type.txt)
+else
+  echo "  Can't find network-connection-type.txt file. Skipping load..."
+fi
 
 echo "  Connection type: $NETWORK_CONNECTION_TYPE"
 
