@@ -156,12 +156,18 @@ elif [[ "$FORCE_UPGRADE" -eq "1" ]] || [ "$INSTALLED_VERSION" != "$LATEST_FULL_V
 
     SMTP_SERVER=$(cat smtp-server.security)
     ADMIN_EMAIL=$(cat admin-email.security)
+    SMTP_USERNAME=$(cat smtp-username.security)
+    SMTP_PASSWORD=$(cat smtp-password.security)
+    SMTP_PORT=$(cat smtp-port.security)
 
     echo ""
     echo "    SMTP Server: $SMTP_SERVER"
     echo "    Adming Email: $ADMIN_EMAIL"
+    echo "    SMTP Server: $SMTP_USERNAME"
+    echo "    SMTP Username: [hidden]"
+    echo "    SMTP Password: $SMTP_PORT"
 
-    bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL
+    bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT
   fi
 
   if [ "$?" -eq "0" ]; then
