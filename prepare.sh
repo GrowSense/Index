@@ -15,7 +15,7 @@ if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -10080)" ]; then
   $SUDO apt-get update
 fi
 
-$SUDO apt-get install -y build-essential wget git zip unzip curl sendemail software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients
+$SUDO apt-get install -y build-essential wget git zip unzip curl software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients
 
 #APT_UPDATE_EXECUTED=0
 
@@ -121,6 +121,10 @@ bash install-docker.sh || exit 1
 echo ""
 echo "Installing mono..."
 bash install-mono.sh || exit 1
+
+echo ""
+echo "Installing email..."
+bash install-email.sh || exit 1
 
 #echo ""
 #echo "Installing hotspot..."
