@@ -102,6 +102,12 @@ elif [[ "$FORCE_UPGRADE" -eq "1" ]] || [ "$INSTALLED_VERSION" != "$LATEST_FULL_V
 
   if [ "$?" -eq "0" ]; then
     echo ""
+    echo "  Preparing system software..."
+    $SUDO bash prepare.sh
+  fi
+
+  if [ "$?" -eq "0" ]; then
+    echo ""
     echo "  Initializing runtime..."
     bash init-runtime.sh
   fi
