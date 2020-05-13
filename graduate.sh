@@ -3,6 +3,8 @@
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$BRANCH" = "dev" ];  then
+  bash pre-graduate.sh "master" || exit 1
+
   echo "Graduating dev branch to master branch"
 
   echo ""
