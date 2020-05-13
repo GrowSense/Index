@@ -2,6 +2,8 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+bash pre-graduate.sh "rc" || exit 1
+
 echo "Graduating master branch to rc branch..."
 
 sh clean.sh || exit 1
