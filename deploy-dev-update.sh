@@ -18,6 +18,11 @@ if [ "$BRANCH" = "dev" ]; then
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash wait-for-unlock.sh" || echo "Failed to wait for unlock. Script likely doesn't exist because it hasn't been installed."
 
     echo ""
+
+    echo "Removing git config user and email to ensure update will still work without them..."
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && git config --global --unset user.name && git config --global --unset user.email" || echo "Failed to remove git config user and email"
+
+    echo ""
     echo "Setting email details in case they've changed..."
 
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash set-email-details.sh $SMTP_SERVER $EMAIL_ADDRESS $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT" || echo "Failed to set email details."

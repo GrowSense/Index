@@ -17,6 +17,11 @@ if [ "$BRANCH" = "dev" ]; then
 
     echo ""
 
+    echo "Removing git config user and email to ensure deployment will still work without them..."
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && git config --global --unset user.name && git config --global --unset user.email" || echo "Failed to remove git config user and email"
+
+    echo ""
+
     echo "Renaming illuminator1 to NewIlluminator so automatic device naming can be tested during deployment..."
     sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash rename-device.sh illuminator1 NewIlluminator" || echo "Failed to rename illuminator1 to NewIlluminator."
 
