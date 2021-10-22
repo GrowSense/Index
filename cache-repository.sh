@@ -37,7 +37,8 @@ echo "    $CACHE_PATH"
 
 if [ ! -d "$CACHE_PATH/.git" ]; then
   echo "  Cache doesn't exist. Cloning."
-  git clone -j 10 -b $BRANCH --recursive https://github.com/GrowSense/Index.git $CACHE_PATH
+  #git clone -j 10 -b $BRANCH --recursive https://github.com/GrowSense/Index.git $CACHE_PATH
+  git clone -b $BRANCH --recursive https://github.com/GrowSense/Index.git $CACHE_PATH
 fi
 
 cd $CACHE_PATH
