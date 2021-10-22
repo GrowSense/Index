@@ -15,7 +15,7 @@ if ! type "python3" > /dev/null; then
   echo "  Installing python3..."
   $SUDO apt-get install -y python3 python3-setuptools python3-serial || exit 1
 else
-  echo "  Python is already installed. Skipping install."
+  echo "  python3 is already installed. Skipping install."
 fi
 
 #echo "Installing pip..."
@@ -37,7 +37,7 @@ if ! type "pip3" &>/dev/null; then
 
   $SUDO apt-get install -y python3-pip || exit 1
 else
-  echo "  Pip is already installed. Skipping install."
+  echo "  pip3 is already installed. Skipping install."
 fi
 
 echo "Installing python3-setuptools and python3-serial"
