@@ -34,6 +34,10 @@ for GROUP_DIR in sketches/*; do
       echo "  Checking out $BRANCH..."
       git checkout -f $BRANCH || exit 1
 
+      # New: Attempting to fix merge error
+      echo "  Resetting $BRANCH"
+      git reset -- hard || exit 1
+
       echo "  Pulling $BRANCH from origin..."
       git pull origin $BRANCH || exit 1
 
