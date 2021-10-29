@@ -1,17 +1,20 @@
 stages:
+  - checkout
   - init
   - build
 
+checkout-job:
+  stage: checkout
+  script:
+    - echo "Branch: $CI_COMMIT_BRANCH"
+    - git checkout $CI_COMMIT_BRANCH
+
 init-job:
   stage: init
-  tags:
-    - ubuntu-loaded
   script:
     - sh init-all.sh
 
 build-job:
   stage: build
-  tags:
-    - ubuntu-loaded
   script:
     - sh build.sh
