@@ -1,15 +1,18 @@
 image: 10.0.0.232:5000/ubuntu-loaded
 
-
-stages:
-  - build
-
 build-job:
-  stage: build
   tags:
     - ubuntu-loaded
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init-all.sh
     - sh build-all.sh
+
+test-software-job:
+  tags:
+    - ubuntu-loaded
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh init-all.sh
+    - sh build-tests.sh
     - sh test-software.sh
