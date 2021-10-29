@@ -1,0 +1,13 @@
+stages:
+  - init
+  - build
+
+init-job:
+  stage: init
+  script:
+    - sh init-all.sh
+
+build-job:
+  stage: build
+  script:
+    - sh build.sh
