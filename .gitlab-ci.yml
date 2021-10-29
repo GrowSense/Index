@@ -28,7 +28,8 @@ deploy-staging:
   tags:
     - ubuntu-loaded
   script:
+    - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev-update.sh
   environment:
-    name: staging
+    name: devstaging
     url: http://10.0.0.9/
