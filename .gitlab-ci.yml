@@ -23,11 +23,12 @@ test-software-job:
     - sh build-tests.sh
     - sh test-software.sh
 
-deploy-job:
+deploy-staging:
   stage: deploy
   tags:
     - ubuntu-loaded
   script:
     - sh deploy-dev-update.sh
-    - sh deploy-master-update.sh
-    - sh sh deploy-rc-update.sh
+  environment:
+    name: staging
+    url: http://10.0.0.9/
