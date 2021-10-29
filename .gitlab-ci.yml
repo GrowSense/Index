@@ -1,5 +1,6 @@
 image: ubuntu-loaded
 
+
 stages:
   - checkout
   - init
@@ -7,15 +8,21 @@ stages:
 
 checkout-job:
   stage: checkout
+  tags:
+    - ubuntu-loaded
   script:
     - git checkout "$CI_COMMIT_BRANCH"
 
 init-job:
   stage: init
+  tags:
+    - ubuntu-loaded
   script:
     - sh init-all.sh
 
 build-job:
   stage: build
+  tags:
+    - ubuntu-loaded
   script:
     - sh build.sh
