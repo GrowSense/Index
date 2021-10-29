@@ -3,6 +3,7 @@ image: 10.0.0.232:5000/ubuntu-loaded
 stages:
   - verify
   - deploy
+  - graduate
 
 build-job:
   stage: verify
@@ -44,3 +45,12 @@ deploy-staging:
   environment:
     name: devstaging
     url: http://10.0.0.9/
+
+graduate-job:
+  stage: graduate
+  tags:
+    - ubuntu-loaded
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh clean.sh
+    - sh graduate.sh
