@@ -16,3 +16,4 @@ test-software-job:
     - sh init-all.sh
     - sh build-tests.sh
     - sh test-software.sh
+
