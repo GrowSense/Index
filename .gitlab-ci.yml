@@ -19,6 +19,8 @@ init-job:
     - ubuntu-loaded
   script:
     - sh init-all.sh
+  dependencies:
+    - checkout-job
 
 build-job:
   stage: build
