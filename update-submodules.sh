@@ -61,7 +61,7 @@ sh clean.sh && \
 
 git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch origin $BRANCH && \
-
+git reset --hard && \
 git checkout -f $BRANCH || exit 1
 
 git pull origin $BRANCH
