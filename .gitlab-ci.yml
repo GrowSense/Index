@@ -6,8 +6,7 @@ stages:
 checkout-job:
   stage: checkout
   script:
-    - echo "Branch: $CI_COMMIT_BRANCH"
-    - git checkout $CI_COMMIT_BRANCH
+    - git checkout "$CI_COMMIT_BRANCH"
 
 init-job:
   stage: init
