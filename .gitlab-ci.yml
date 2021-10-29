@@ -4,14 +4,10 @@ stages:
 
 init-job:
   stage: init
-  tags:
-    - ubuntu-loaded
   script:
     - sh init-all.sh
 
 build-job:
   stage: build
-  tags:
-    - ubuntu-loaded
   script:
     - sh build.sh
