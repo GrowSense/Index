@@ -11,4 +11,5 @@ build-job:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init-all.sh
-    - sh build.sh
+    - sh build-all.sh
+    - sh test-software.sh
