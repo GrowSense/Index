@@ -2,7 +2,8 @@ image: 10.0.0.232:5000/ubuntu-loaded
 
 stages:
   - verify
-  - deploy
+  - update
+  - install
   - graduate
 
 build-job:
@@ -25,7 +26,7 @@ test-software-job:
     - sh test-software.sh
 
 deploy-update-staging:
-  stage: deploy
+  stage: update
   tags:
     - ubuntu-loaded
   script:
@@ -33,7 +34,7 @@ deploy-update-staging:
     - sh deploy-dev-update.sh
 
 deploy-staging:
-  stage: deploy
+  stage: install
   tags:
     - ubuntu-loaded
   script:
