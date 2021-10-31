@@ -31,9 +31,6 @@ deploy-update-staging:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev-update.sh
-  environment:
-    name: devstaging
-    url: http://10.0.0.9/
 
 deploy-staging:
   stage: deploy
@@ -42,9 +39,6 @@ deploy-staging:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev.sh
-  environment:
-    name: devstaging
-    url: http://10.0.0.9/
 
 graduate-job:
   stage: graduate
