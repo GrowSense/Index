@@ -48,5 +48,8 @@ graduate-job:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh clean.sh
-    - sh graduate.sh
+    - sh graduate.
+  dependencies:
+    - build-job
+
 
