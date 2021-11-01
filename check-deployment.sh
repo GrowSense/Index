@@ -186,8 +186,18 @@ echo "${SUPERVISOR_RESULT}"
 echo ""
 echo "Checking installed GrowSense version..."
 
-LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/buildnumber.txt")
-LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/version.txt")
+if [ ! "$GROWSENSE_INDEX_RAW_REPOSITORY_URL" ]; then
+  echo "  No raw repository URL environment variable detected. Using GitHub."
+  GROWSENSE_INDEX_RAW_REPOSITORY_URL="https://raw.githubusercontent.com/GrowSense/Index"
+else
+  echo "  Raw repository URL environment variable detected:"
+  echo "    $GROWSENSE_INDEX_RAW_REPOSITORY_URL"
+fi
+
+#LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/buildnumber.txt")
+#LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/version.txt")
+LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "$GROWSENSE_INDEX_RAW_REPOSITORY_URL/$BRANCH/buildnumber.txt")
+LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "$GROWSENSE_INDEX_RAW_REPOSITORY_URL/$BRANCH/version.txt")
 
 LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
