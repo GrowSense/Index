@@ -2,7 +2,9 @@ image: 10.0.0.232:5000/ubuntu-loaded
 
 stages:
   - verify
-  - deploy
+  - update
+  - install
+  - graduate
 
 build-job:
   stage: verify
@@ -24,23 +26,30 @@ test-software-job:
     - sh test-software.sh
 
 deploy-update-staging:
-  stage: deploy
+  stage: update
   tags:
     - ubuntu-loaded
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev-update.sh
-  environment:
-    name: devstaging
-    url: http://10.0.0.9/
 
 deploy-staging:
-  stage: deploy
+  stage: install
   tags:
     - ubuntu-loaded
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev.sh
-  environment:
-    name: devstaging
-    url: http://10.0.0.9/
+
+graduate-job:
+  stage: graduate
+  tags:
+    - ubuntu-loaded
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh clean.sh
+    - sh graduate.
+  dependencies:
+    - build-job
+
+
