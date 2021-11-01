@@ -48,4 +48,6 @@ $SUDO usermod -a -G dialout $USER
 
 echo "Finished installing platformio"
 
+# Alternative python and pio install method:
+#https://community.platformio.org/t/can-i-install-an-older-platformio/21533/4
 
