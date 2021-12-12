@@ -27,7 +27,7 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
 
   echo "Mosquitto data dir: $MOSQUITTO_DIR/data"
 
-  $SUDO cp $MOSQUITTO_DIR/data $MOSQUITTO_INSTALL_DIR/data -r
+  $SUDO cp -v $MOSQUITTO_DIR/data $MOSQUITTO_INSTALL_DIR -r
 
   # If statement commented out so if docker pull fails it will attempt to start the container anyway using an existing image
   #if [ "$didSucceed" == "1" ]; then
