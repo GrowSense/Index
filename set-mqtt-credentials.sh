@@ -33,9 +33,11 @@ if [ "$PASSWORD" ]; then
 #  echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
 
   # Clear existing file
-  echo "" > $CREDENTIALS_FILE
+  rm $CREDENTIALS_FILE
+  touch $CREDENTIALS_FILE
   mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
-  cp $CREDENTIALS_FILE /usr/local/mosquitto/data/mosquitto.userfile
+  sudo mkdir -p /usr/local/mosquitto/data || exit 1
+  sudo cp -v $CREDENTIALS_FILE /usr/local/mosquitto/data/mosquitto.userfile || exit 1
 
 
   bash set-mqtt-credentials-for-www.sh $HOST $USERNAME $PASSWORD $PORT || exit 1
