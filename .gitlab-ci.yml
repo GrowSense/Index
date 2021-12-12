@@ -50,6 +50,6 @@ graduate:
     - sh clean.sh
     - sh graduate.
   dependencies:
-    - build-job
+    - build
 
 
