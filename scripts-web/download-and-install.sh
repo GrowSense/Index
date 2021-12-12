@@ -129,6 +129,9 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 #  echo "Caching repository..."
 #  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/cache-repository.sh | bash -s $BRANCH $REPO_CACHE_PATH
 
+  echo "Installing required libraries..."
+  apt-get install -y jq || exit 1
+
   echo ""
   echo "Downloading the GrowSense Index..."
 
