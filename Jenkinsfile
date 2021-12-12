@@ -59,13 +59,13 @@ pipeline {
         stage('Create Release Zip') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh create-release-zip.sh'
+                sh 'bash create-release-zip.sh'
             }
         }
         stage('Publish GitHub Release') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh publish-github-release.sh'
+                sh 'bash publish-github-release.sh'
             }
         }
         stage('Deploy Update') {
