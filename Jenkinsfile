@@ -56,12 +56,16 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
-        stage('Deploy Update') {
+        stage('Create Release Zip') {
             when { expression { !shouldSkipBuild() } }
             steps {
-               sh 'sh deploy-dev-update.sh'
-               sh 'sh deploy-master-update.sh'
-               sh 'sh deploy-rc-update.sh'
+                sh 'sh create-release-zip.sh'
+            }
+        }
+        stage('Publish GitHub Release') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh publish-github-release.sh'
             }
         }
         stage('Deploy') {

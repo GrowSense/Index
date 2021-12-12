@@ -1,8 +1,17 @@
-echo "Installing required apps..."
+echo "[install-apps.sh] Installing required apps..."
+
+BRANCH=$1
+
+if [ ! "$BRANCH" ]; then
+  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+fi
+if [ ! "$BRANCH" ]; then
+  BRANCH=lts
+fi
 
 DIR=$PWD
 
-echo "Installing system UI controller..."
+echo "[install-apps.sh] Installing system UI controller..."
 
 UI_CONTROLLER_INSTALL_DIR=""
 if [ -f "is-mock-system.txt" ]; then
@@ -10,10 +19,10 @@ if [ -f "is-mock-system.txt" ]; then
 fi
 
 cd scripts/apps/Serial1602ShieldSystemUIController
-sh install.sh $UI_CONTROLLER_INSTALL_DIR || exit 1
+bash install.sh $UI_CONTROLLER_INSTALL_DIR || exit 1
 cd $DIR
 
-echo "Installing MQTT bridge..."
+echo "[install-apps.sh] Installing MQTT bridge..."
 
 MQTT_BRIDGE_INSTALL_DIR=""
 if [ -f "is-mock-system.txt" ]; then
@@ -21,9 +30,9 @@ if [ -f "is-mock-system.txt" ]; then
 fi
 
 cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv
-sh install.sh $MQTT_BRIDGE_INSTALL_DIR || exit 1
+bash install.sh $BRANCH $MQTT_BRIDGE_INSTALL_DIR || exit 1
 cd $DIR
 
-echo "Finished installing required apps."
+echo "[install-apps.sh] Finished installing required apps."
 
 

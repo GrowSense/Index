@@ -3,28 +3,34 @@
 PACKAGE_OWNER=$1
 PACKAGE_NAME=$2
 PACKAGE_VERSION=$3
-INCLUDE_VERSION_IN_FOLDER=$4
+BRANCH=$4
+INCLUDE_VERSION_IN_FOLDER=$5
+
+echo "[MqttBridge - install-package-from-github-release.sh] Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
+echo 
+
+if [ ! "$BRANCH" ]; then
+	echo "[MqttBridge - install-package-from-github-release.sh] Please provide a branch as an argument."
+	exit 1
+fi
 
 if [ ! "$PACKAGE_OWNER" ]; then
-	echo "Please provide a package owner as an argument."
+	echo "[MqttBridge - install-package-from-github-release.sh] Please provide a package owner as an argument."
 	exit 1
 fi
 
 if [ ! "$PACKAGE_NAME" ]; then
-	echo "Please provide a package name as an argument."
+	echo "[MqttBridge - install-package-from-github-release.sh] Please provide a package name as an argument."
 	exit 1
 fi
 
 if [ ! "$PACKAGE_VERSION" ]; then
-	echo "Please provide a package version as an argument."
+	echo "[MqttBridge - install-package-from-github-release.sh] Please provide a package version as an argument."
 	exit 1
 fi
 
 INCLUDE_VERSION_IN_FOLDER="false"
 
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p') || BRANCH=lts
-
-echo "Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
 
 POSTFIX=""
 
@@ -64,18 +70,18 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
 
 	  # Check if the package exists in the GrowSense inject lib directory
     if [ -d "$INDEX_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION" ]; then
-      echo "  From GrowSense index lib directory"
+      echo "[MqttBridge - install-package-from-github-release.sh]   From GrowSense index lib directory"
       # Copy the package from the GrowSense index lib directory
       cp -r $INDEX_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION $PACKAGE_FOLDER || exit 1
       cp -r $INDEX_LIB_DIR/$PACKAGE_FILE_EXT $PACKAGE_FILE_EXT || exit 1
     else
-      echo "  Not found in GrowSense index lib directory"
+      echo "[MqttBridge - install-package-from-github-release.sh]   Not found in GrowSense index lib directory"
     fi
   fi
 
   # If the package still isn't found
   if [ ! -f "$PACKAGE_FILE_EXT" ]; then
-    echo "  From the web (GitHub release)"
+    echo "[MqttBridge - install-package-from-github-release.sh]   From the web (GitHub release)"
 
     # Download the package from the web
   	curl -L https://github.com/$PACKAGE_OWNER/$PACKAGE_NAME/releases/download/v$PACKAGE_VERSION$POSTFIX/$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX.zip --output $PACKAGE_FILE_EXT || exit 1
@@ -94,7 +100,7 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
   fi
 
 else
-	echo "  Already exists. Skipping download."
+	echo "[MqttBridge - install-package-from-github-release.sh]   Already exists. Skipping download."
 fi
 
 
