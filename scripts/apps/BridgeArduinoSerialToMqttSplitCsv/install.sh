@@ -17,6 +17,8 @@ if [ ! $BRANCH ]; then
 fi
 
 
+echo "  Branch dir:"
+echo "    $INSTALL_DIR"
 echo "  Install dir:"
 echo "    $INSTALL_DIR"
 

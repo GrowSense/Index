@@ -2,6 +2,8 @@ echo "Retrieving required libraries..."
 
 echo "Installing libraries..."
 
+BRANCH=$1
+
 CONFIG_FILE="BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
 CONFIG_FILE_TMP="BridgeArduinoSerialToMqttSplitCsv.exe.config";
 
@@ -15,7 +17,7 @@ fi
 
 VERSION="$(cat version.txt)"
 
-bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv $VERSION || exit 1
+bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv $BRANCH $VERSION || exit 1
 
 echo "Installation complete."
 
