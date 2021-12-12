@@ -149,7 +149,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   LOCAL_RELEASE_FILE="GrowSenseRelease.zip"
 
   curl -L -o $LOCAL_RELEASE_FILE $RELEASE_URL || exit 1
-  unzip $LOCAL_RELEASE_FILE -d $INDEX_DIR || exit 1
+  unzip -q $LOCAL_RELEASE_FILE -d $INDEX_DIR || exit 1
 
   rm $LOCAL_RELEASE_FILE
 
