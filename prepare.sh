@@ -17,6 +17,10 @@ fi
 
 $SUDO apt-get install -y build-essential wget git zip unzip curl software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients mosquitto
 
+# Disable and stop mosquitto service so it doesn't interfere with docker container
+$SUDO sh systemctl.sh stop mosquitto || exit 1
+$SUDO sh systemctl.sh disable mosquitto || exit 1
+
 #APT_UPDATE_EXECUTED=0
 
 #if ! type "gcc" &>/dev/null; then

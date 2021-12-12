@@ -16,6 +16,7 @@ DOCKER_SCRIPT="docker.sh"
 #SYSTEMCTL_SCRIPT="systemctl.sh"
 
 MOSQUITTO_INSTALL_DIR="/usr/local/mosquitto"
+MOSQUITTO_DIR="scripts/docker/mosquitto"
 
 if [ -f "is-mock-mqtt.txt" ]; then
   echo "  Is mock MQTT"
@@ -34,10 +35,11 @@ $SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR/data" || exit 1
 
 echo ""
 echo "  Creating mosquitto credentials file..."
-CREDENTIALS_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
+CREDENTIALS_FILE="$MOSQUITTO_DIR/data/mosquitto.userfile"
+CREDENTIALS_INSTALL_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
 echo "    $CREDENTIALS_FILE"
 
-touch $CREDENTIALS_FILE
+echo "" > $CREDENTIALS_FILE
 
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
@@ -47,6 +49,10 @@ if [ -f "is-mock-mqtt.txt" ]; then
 else
   mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
 fi
+
+echo ""
+echo "  Copying mosquitto files to install dir..."
+$SUDO cp -v $MOSQUITTO_DIR/data/ $MOSQUITTO_INSTALL_DIR/ -r
 
 echo ""
 echo "  Setting $MOSQUITTO_INSTALL_DIR/data/ permissions"
@@ -103,6 +109,6 @@ if [ ! -f "is-mock-mqtt.txt" ] && [ ! -f "is-mock-docker.txt" ]; then
 else
   echo "  [mock] Start mosquitto docker container"
 fi
-
+	
 echo ""
 echo "Finished installing mosquitto docker service"
