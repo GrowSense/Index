@@ -56,12 +56,6 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
-        stage('Increment Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-              sh 'sh increment-version.sh'
-            }
-        }
         stage('Create Release Zip') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -95,6 +89,12 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh clean.sh'
+            }
+        }
+        stage('Increment Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+              sh 'sh increment-version.sh'
             }
         }
         stage('Push Version') {
