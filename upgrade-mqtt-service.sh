@@ -25,9 +25,9 @@ echo ${PULL_RESULT}
 if [[ ! $(echo $PULL_RESULT) =~ "Image is up to date" ]]; then
   echo "  Newer docker image found. Updating."
 
-  echo ""
-  echo "  Stopping the mosquitto docker service..."
-  $SUDO bash $SYSTEMCTL_SCRIPT stop $MOSQUITTO_SERVICE || exit 1
+  #echo ""
+  #echo "  Stopping the mosquitto docker service..."
+  #$SUDO bash $SYSTEMCTL_SCRIPT stop $MOSQUITTO_SERVICE || exit 1
 
   echo ""
   echo "  Stopping the docker container..."
@@ -36,13 +36,13 @@ if [[ ! $(echo $PULL_RESULT) =~ "Image is up to date" ]]; then
   echo ""
   echo "  Removing the docker container..."
   sh $DOCKER_SCRIPT rm mosquitto || exit 1
-
-  echo ""
-  echo "  Recreating the MQTT service..."
-  bash create-mqtt-service.sh
 else
   echo "  Docker image is up to date."
 fi
+
+echo ""
+echo "  Recreating the MQTT service..."
+bash create-mqtt-service.sh
 
 echo ""
 echo "Finished upgrading mosquitto docker service."
