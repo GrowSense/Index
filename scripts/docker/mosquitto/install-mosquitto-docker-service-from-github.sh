@@ -22,7 +22,7 @@ if ! type "docker" > /dev/null; then
 fi
 
 echo "  Pulling mosquitto docker container..."
-docker pull compulsivecoder/mosquitto-arm
+docker pull eclipse-mosquitto
 
 echo "  Creating mosquitto directory..."
 
@@ -44,15 +44,18 @@ START_SCRIPT_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scrip
 
 sudo wget $START_SCRIPT_URL -O "$MOSQUITTO_DIR/run-mosquitto-arm.sh"
 
-echo "  Installing mosquitto service file..."
+sudo bash $MOSQUITTO_DIR/run-mosquitto-arm.sh
 
-SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/growsense-mosquitto-docker.service"
+# TODO: Clean up. MQTT systemctl service is obsolete. Using docker only.
+#echo "  Installing mosquitto service file..."
 
-sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/growsense-mosquitto-docker.service
+#SERVICE_FILE_URL="https://raw.githubusercontent.com/GrowSense/Index/master/scripts/docker/mosquitto/growsense-mosquitto-docker.service"
 
-sudo chmod 644 /lib/systemd/system/growsense-mosquitto-docker.service
+#sudo wget $SERVICE_FILE_URL -O /lib/systemd/system/growsense-mosquitto-docker.service
 
-sudo systemctl enable growsense-mosquitto-docker.service
-sudo systemctl restart growsense-mosquitto-docker.service
+#sudo chmod 644 /lib/systemd/system/growsense-mosquitto-docker.service
+
+#sudo systemctl enable growsense-mosquitto-docker.service
+#sudo systemctl restart growsense-mosquitto-docker.service
 
 echo "Finished installing service"

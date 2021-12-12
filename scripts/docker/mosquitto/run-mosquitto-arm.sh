@@ -38,8 +38,8 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
 	  -e MQTT_USERNAME=j \
 	  -e MQTT_PASSWORD=pass \
 	  -e MQTT_TOPIC=Test \
-          --network="host" \
-          -p 127.0.0.1:1883:1883/tcp \
+      --network="host" \
+      -p 127.0.0.1:1883:1883/tcp \
 	  -p 8080:8080 \
 	  eclipse-mosquitto && didSucceed=1 || didSucceed=0
   #fi

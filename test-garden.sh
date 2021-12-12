@@ -9,16 +9,17 @@ echo "----------" && \
 echo "Checking results" && \
 echo "----------" && \
 
-SERVICE_FILE="/lib/systemd/system/growsense-mosquitto-docker.service" && \
+# TODO: Clean up. MQTT systemctl service is obsolete. Using docker only.
+#SERVICE_FILE="/lib/systemd/system/growsense-mosquitto-docker.service" && \
 
-if [ ! -f "$SERVICE_FILE" ]; then
-    echo "Mosquitto docker service file not found at:" && \
-    echo "$SERVICE_FILE" && \
-    exit 1
-else
-    echo "Mosquitto docker service file found:" && \
-    echo "$SERVICE_FILE"
-fi
+#if [ ! -f "$SERVICE_FILE" ]; then
+#    echo "Mosquitto docker service file not found at:" && \
+#    echo "$SERVICE_FILE" && \
+#    exit 1
+#else
+#    echo "Mosquitto docker service file found:" && \
+#    echo "$SERVICE_FILE"
+#fi
 
 echo "----------" && \
 echo "Cleaning up" && \

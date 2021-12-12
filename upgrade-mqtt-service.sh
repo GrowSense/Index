@@ -10,13 +10,15 @@ if [ ! "$(id -u)" -eq 0 ]; then
 fi
 
 DOCKER_SCRIPT="docker.sh"
-SYSTEMCTL_SCRIPT="systemctl.sh"
 
-MOSQUITTO_SERVICE="growsense-mosquitto-docker.service"
+# TODO: Clean up. MQTT systemctl service is obsolete. Using docker only.
+#SYSTEMCTL_SCRIPT="systemctl.sh"
+
+#MOSQUITTO_SERVICE="growsense-mosquitto-docker.service"
 
 echo ""
 echo "  Pulling the mosquitto docker image..."
-PULL_RESULT=$(sh $DOCKER_SCRIPT pull compulsivecoder/mosquitto-arm) || exit 1
+PULL_RESULT=$(sh $DOCKER_SCRIPT pull eclipse-mosquitto) || exit 1
 
 echo ${PULL_RESULT}
 
