@@ -97,6 +97,12 @@ pipeline {
                 sh 'sh clean.sh'
             }
         }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
+            }
+        }
         stage('Graduate') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -106,7 +112,6 @@ pipeline {
     }
     post {
         success() {
-          sh 'push-version.sh'
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
