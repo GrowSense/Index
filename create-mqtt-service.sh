@@ -36,6 +36,9 @@ echo ""
 echo "  Creating mosquitto credentials file..."
 CREDENTIALS_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
 echo "    $CREDENTIALS_FILE"
+
+touch $CREDENTIALS_FILE
+
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 
