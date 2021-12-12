@@ -29,6 +29,9 @@ fi
 echo "Resettings MQTT credentials..."
 sh set-mqtt-credentials.sh 127.0.0.1 user pass123 1883 || exit 1
 
+echo "Removing mosquitto user file..."
+rm scripts/docker/mosquitto/data/mosquitto.userfile
+
 # Reset the MQTT details
 echo "Resettings email details..."
 sh set-email-details.sh mail.example.com user@example.com na na 25 || exit 1
