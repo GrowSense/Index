@@ -1,5 +1,11 @@
 echo "Installing required apps..."
 
+BRANCH=$1
+
+if [ ! "$BRANCH" ]; then
+  BRANCH=lts
+fi
+
 DIR=$PWD
 
 echo "Installing system UI controller..."
@@ -21,7 +27,7 @@ if [ -f "is-mock-system.txt" ]; then
 fi
 
 cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv
-sh install.sh $MQTT_BRIDGE_INSTALL_DIR || exit 1
+sh install.sh $BRANCH $MQTT_BRIDGE_INSTALL_DIR || exit 1
 cd $DIR
 
 echo "Finished installing required apps."
