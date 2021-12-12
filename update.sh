@@ -31,8 +31,14 @@ echo "  Branch: $BRANCH"
 
   LOCAL_RELEASE_FILE="GrowSenseRelease.zip"
 
+  mkdir -p .tmp
+
+  cp *.txt .tmp/
+
   curl -L -o $LOCAL_RELEASE_FILE $RELEASE_URL || exit 1
-  unzip $LOCAL_RELEASE_FILE -d . || exit 1
+  unzip -o $LOCAL_RELEASE_FILE -d . || exit 1
+
+  mv .tmp/*.txt ./
 
   rm $LOCAL_RELEASE_FILE
 

@@ -37,7 +37,7 @@ if [ "$BRANCH" = "dev" ]; then
 
     FORCE_UPDATE=1
 
-    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/download-and-updated.sh | bash -s -- $BRANCH ? $FORCE_UPDATE" || exit 1
+    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/download-and-update.sh | bash -s -- $BRANCH ? $FORCE_UPDATE" || exit 1
 #    sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/update-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $FORCE_UPDATE" || exit 1
 
     echo ""
