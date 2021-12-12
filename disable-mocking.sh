@@ -1,1 +1,1 @@
-rm is-mock*.txt
+rm is-mock*.txt || echo "No mocking files found"

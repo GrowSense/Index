@@ -29,6 +29,7 @@ fi
 INCLUDE_VERSION_IN_FOLDER="false"
 
 echo "Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
+echo 
 
 POSTFIX=""
 

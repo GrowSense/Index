@@ -139,7 +139,7 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 
 #INDEX_DIR="$PWD/.tmp"
 
-  RELEASE_URL=$(curl -s https://api.github.com/repos/GrowSense/Index/releases   | jq -r '.[0].assets[0].browser_download_url') || exit 1
+  RELEASE_URL=$(curl -s https://api.github.com/repos/GrowSense/Index/releases | jq -r '.[0].assets[0].browser_download_url') || exit 1
 
   echo "$RELEASE_URL"
 
@@ -197,7 +197,7 @@ cd $INDEX_DIR || exit 1
 echo ""
 echo "Initializing runtime components..."
 
-$SUDO bash init-runtime.sh || exit 1
+$SUDO bash init-runtime.sh $BRANCH || exit 1
 
 echo ""
 echo "Installing apps (so it's ready to run offline)..."

@@ -5,9 +5,13 @@ BRANCh=$1
 if [ ! "$BRANCH" ]; then
   BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 fi
-if [ ! $BRANCH ]; then
+if [ ! "$BRANCH" ]; then
   BRANCH="lts"
 fi
+
+echo "Initializing apps..."
+echo ""
+echo "  Branch: $BRANCH"
 
 
 echo ""

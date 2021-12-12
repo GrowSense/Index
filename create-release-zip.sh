@@ -57,5 +57,6 @@ zip -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip *
 
 #rm .tmp -r
 
+
 echo ""
 echo "Finished packaging release zip file."
