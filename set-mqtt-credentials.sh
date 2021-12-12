@@ -25,13 +25,16 @@ if [ "$PASSWORD" ]; then
   echo $PASSWORD > "mqtt-password.security"
   echo $PORT > "mqtt-port.security"
 
-  CREDENTIALS_FILE="scripts/docker/mosquitto/data/mosquitto.userfile"
+  CREDENTIALS_FILE="$PWD/scripts/docker/mosquitto/data/mosquitto.userfile"
 
   echo ""
   echo "  Setting mosquitto credentials file:"
   echo "    $CREDENTIALS_FILE"
 #  echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
-  mosquitto_passwd -b "$PWD/scripts/docker/mosquitto/data/mosquitto.userfile" "$USERNAME" "$PASSWORD" || exit 1
+
+  # Clear existing file
+  echo "" > $CREDENTIALS_FILE
+  mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
 
 
   bash set-mqtt-credentials-for-www.sh $HOST $USERNAME $PASSWORD $PORT || exit 1
