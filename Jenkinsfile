@@ -56,15 +56,6 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
-        stage('Deploy') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy-dev.sh'
-               sh 'sh deploy-master.sh'
-               sh 'sh deploy-rc.sh'
-               sh 'sh deploy-lts.sh'
-            }
-        }
         stage('Create Release Zip') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -75,6 +66,15 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh publish-github-release.sh'
+            }
+        }
+        stage('Deploy') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+               sh 'sh deploy-dev.sh'
+               sh 'sh deploy-master.sh'
+               sh 'sh deploy-rc.sh'
+               sh 'sh deploy-lts.sh'
             }
         }
         stage('Clean') {
