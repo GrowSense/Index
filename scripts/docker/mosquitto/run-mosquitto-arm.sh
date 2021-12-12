@@ -4,7 +4,8 @@ if [ ! "$LOOP_NUMBER" ]; then
   LOOP_NUMBER=1
 fi
 
-MOSQUITTO_DIR="/usr/local/mosquitto"
+MOSQUITTO_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+#MOSQUITTO_DIR="/usr/local/mosquitto"
 
 #docker pull compulsivecoder/mosquitto-arm
 
@@ -20,22 +21,27 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
   echo "Running mosquitto docker container..."
   echo "  Loop number $loopNumber"
 
-  docker pull compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
+  docker pull eclipse-mosquitto && didSucceed=1 || didSucceed=0
+
+  docker rm -f mosquitto
+
+  echo "Mosquitto Data File: $MOSQUITTO_DIR/data"
 
   # If statement commented out so if docker pull fails it will attempt to start the container anyway using an existing image
   #if [ "$didSucceed" == "1" ]; then
     docker run -d \
       --restart=always \
       --name=mosquitto \
-	  --volume $MOSQUITTO_DIR/data:/mosquitto_data \
+          --volume $MOSQUITTO_DIR/data:/mosquitto/config \
 	  -e MQTT_HOST=localhost \
 	  -e MQTT_CLIENTID=client1234 \
 	  -e MQTT_USERNAME=j \
 	  -e MQTT_PASSWORD=pass \
 	  -e MQTT_TOPIC=Test \
-	  -p 1883:1883 \
+          --network="host" \
+          -p 127.0.0.1:1883:1883/tcp \
 	  -p 8080:8080 \
-	  compulsivecoder/mosquitto-arm && didSucceed=1 || didSucceed=0
+	  eclipse-mosquitto && didSucceed=1 || didSucceed=0
   #fi
 
   if [ "$didSucceed" == "0" ]; then

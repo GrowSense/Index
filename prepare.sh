@@ -15,7 +15,7 @@ if [ -z "$(find /var/cache/apt/pkgcache.bin -mmin -10080)" ]; then
   $SUDO apt-get update
 fi
 
-$SUDO apt-get install -y build-essential wget git zip unzip curl software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients
+$SUDO apt-get install -y build-essential wget git zip unzip curl software-properties-common ca-certificates apt-transport-https xmlstarlet sshpass mosquitto-clients mosquitto
 
 #APT_UPDATE_EXECUTED=0
 

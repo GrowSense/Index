@@ -30,7 +30,9 @@ if [ "$PASSWORD" ]; then
   echo ""
   echo "  Setting mosquitto credentials file:"
   echo "    $CREDENTIALS_FILE"
-  echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
+#  echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
+  mosquitto_passwd -b "$PWD/scripts/docker/mosquitto/data/mosquitto.userfile" "$USERNAME" "$PASSWORD" || exit 1
+
 
   bash set-mqtt-credentials-for-www.sh $HOST $USERNAME $PASSWORD $PORT || exit 1
   bash set-mqtt-credentials-for-bridge.sh $HOST $USERNAME $PASSWORD $PORT || exit 1

@@ -35,7 +35,9 @@ echo "  Creating $MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
 CREDENTIALS_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
-$SUDO echo "$MQTT_USERNAME:$MQTT_PASSWORD" > $CREDENTIALS_FILE || exit 1
+
+mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
+#$SUDO echo "$MQTT_USERNAME:$MQTT_PASSWORD" > $CREDENTIALS_FILE || exit 1
 
 echo ""
 echo "  Setting $MOSQUITTO_INSTALL_DIR/data/ permissions"
