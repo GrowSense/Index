@@ -1,0 +1,12 @@
+# Project settings
+
+PROJECT_NAME="Index"
+PROJECT_FAMILY="GrowSense"
+
+
+
+# GitHub variables
+
+GITHUB_PROJECT="$PROJECT_NAME"
+GITHUB_OWNER="$PROJECT_FAMILY"
+
