@@ -1,9 +1,15 @@
 #!/bin/bash
 
-PACKAGE_OWNER=$1
-PACKAGE_NAME=$2
-PACKAGE_VERSION=$3
-INCLUDE_VERSION_IN_FOLDER=$4
+BRANCH=$1
+PACKAGE_OWNER=$2
+PACKAGE_NAME=$3
+PACKAGE_VERSION=$4
+INCLUDE_VERSION_IN_FOLDER=$5
+
+if [ ! "$BRANCH" ]; then
+	echo "Please provide a branch as an argument."
+	exit 1
+fi
 
 if [ ! "$PACKAGE_OWNER" ]; then
 	echo "Please provide a package owner as an argument."
@@ -21,8 +27,6 @@ if [ ! "$PACKAGE_VERSION" ]; then
 fi
 
 INCLUDE_VERSION_IN_FOLDER="false"
-
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p') || BRANCH=lts
 
 echo "Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
 

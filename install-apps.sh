@@ -3,6 +3,9 @@ echo "Installing required apps..."
 BRANCH=$1
 
 if [ ! "$BRANCH" ]; then
+  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+fi
+if [ ! "$BRANCH" ]; then
   BRANCH=lts
 fi
 
