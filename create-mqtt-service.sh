@@ -28,17 +28,22 @@ echo "    $MOSQUITTO_INSTALL_DIR"
 $SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR" || exit 1
 
 echo ""
-echo "  Creating $MOSQUITTO_INSTALL_DIR/data/"
+echo "  Creating mosquitto data directory..."
+echo "    $MOSQUITTO_INSTALL_DIR/data/"
 $SUDO mkdir -p "$MOSQUITTO_INSTALL_DIR/data" || exit 1
 
 echo ""
-echo "  Creating $MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
+echo "  Creating mosquitto credentials file..."
+CREDENTIALS_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
+echo "    $CREDENTIALS_FILE"
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)
-CREDENTIALS_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
 
-mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
-#$SUDO echo "$MQTT_USERNAME:$MQTT_PASSWORD" > $CREDENTIALS_FILE || exit 1
+if [ -f "is-mock-mqtt.txt" ]; then
+  $SUDO echo "$MQTT_USERNAME:$MQTT_PASSWORD" > $CREDENTIALS_FILE || exit 1
+else
+  mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
+fi
 
 echo ""
 echo "  Setting $MOSQUITTO_INSTALL_DIR/data/ permissions"
