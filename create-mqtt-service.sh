@@ -39,7 +39,8 @@ CREDENTIALS_FILE="$MOSQUITTO_DIR/data/mosquitto.userfile"
 CREDENTIALS_INSTALL_FILE="$MOSQUITTO_INSTALL_DIR/data/mosquitto.userfile"
 echo "    $CREDENTIALS_FILE"
 
-echo "" > $CREDENTIALS_FILE
+rm $CREDENTIALS_FILE
+touch $CREDENTIALS_FILE
 
 MQTT_USERNAME=$(cat mqtt-username.security)
 MQTT_PASSWORD=$(cat mqtt-password.security)

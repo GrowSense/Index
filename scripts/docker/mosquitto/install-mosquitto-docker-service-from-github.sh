@@ -38,7 +38,8 @@ echo "  Creating credentials file" && \
 
 #echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE && \
 
-echo "" > $CREDENTIALS_FILE || exit 1
+rm $CREDENTIALS_FILE || exit 1
+touch $CREDENTIALS_FILE || exit 1
 mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
 mkdir -p /usr/local/mosquitto/data || exit 1
 cp $CREDENTIALS_FILE /usr/local/mosquitto/data/mosquitto.userfile || exit 1
