@@ -48,6 +48,8 @@ $SUDO apt-get install -y python3-setuptools python3-serial
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+python3 -m pip install --upgrade requests
+
 #python3 $CURRENT_DIR/install-python-modules.py || exit 1
 python3 $CURRENT_DIR/install-python-modules.py || echo "Error installing python modules"
 
