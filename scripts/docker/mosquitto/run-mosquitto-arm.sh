@@ -32,12 +32,12 @@ while [ "$didSucceed" -eq "0" ] && [ "$loopNumber" -lt "$MAX_LOOPS" ]; do
     docker run -d \
       --restart=always \
       --name=mosquitto \
-          --volume $MOSQUITTO_DIR/data:/mosquitto/config \
-	  -e MQTT_HOST=localhost \
-	  -e MQTT_CLIENTID=client1234 \
-	  -e MQTT_USERNAME=j \
-	  -e MQTT_PASSWORD=pass \
-	  -e MQTT_TOPIC=Test \
+      --volume $MOSQUITTO_DIR/data:/mosquitto/config \
+      --e MQTT_HOST=localhost \
+      --e MQTT_CLIENTID=client1234 \
+      --e MQTT_USERNAME=j \
+      --e MQTT_PASSWORD=pass \
+      --e MQTT_TOPIC=Test \
       --network="host" \
       -p 127.0.0.1:1883:1883/tcp \
 	  eclipse-mosquitto && didSucceed=1 || didSucceed=0
