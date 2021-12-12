@@ -1,4 +1,4 @@
-image: 10.0.0.232:5000/ubuntu-loaded
+image: 10.0.0.101:5000/ubuntu-loaded
 
 stages:
   - verify
