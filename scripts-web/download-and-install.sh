@@ -148,6 +148,8 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
   curl -L -o $LOCAL_RELEASE_FILE $RELEASE_URL || exit 1
   unzip $LOCAL_RELEASE_FILE -d $INDEX_DIR || exit 1
 
+  rm $LOCAL_RELEASE_FILE
+
   if [ -d $INDEX_DIR.old ]; then
     echo "Importing pre-existing *.txt files..."
     mv $INDEX_DIR.old/*.txt $INDEX_DIR/
@@ -194,55 +196,57 @@ cd $INDEX_DIR || exit 1
 
 #$SUDO bash update-submodules.sh $BRANCH || exit 1
 
-echo ""
-echo "Initializing runtime components..."
-
-$SUDO bash init-runtime.sh $BRANCH || exit 1
+echo "  Branch: $BRANCH"
 
 echo ""
-echo "Installing apps (so it's ready to run offline)..."
+echo "[download-and-install.sh] Initializing runtime components..."
 
-$SUDO bash install-apps.sh $BRANCH || exit 1
+$SUDO bash init-runtime.sh "$BRANCH" || exit 1
 
 echo ""
-echo "Setting WiFi credentials..."
+echo "[download-and-install.sh] Installing apps (so it's ready to run offline)..."
+
+$SUDO bash install-apps.sh "$BRANCH" || exit 1
+
+echo ""
+echo "[download-and-install.sh] Setting WiFi credentials..."
 
 $SUDO bash set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
 $SUDO bash set-wifi-network-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
 
 echo ""
-echo "Setting MQTT credentials..."
+echo "[download-and-install.sh] Setting MQTT credentials..."
 
 $SUDO bash set-mqtt-credentials.sh $MQTT_HOST $MQTT_USERNAME $MQTT_PASSWORD $MQTT_PORT || exit 1
 
 echo ""
-echo "Setting email details..."
+echo "[download-and-install.sh] Setting email details..."
 
 $SUDO bash set-email-details.sh $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT || exit 1
 
 echo ""
-echo "Installing plug and play..."
+echo "[download-and-install.sh] Installing plug and play..."
 
 $SUDO wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/$BRANCH/scripts-ols/install.sh | bash -s -- $BRANCH $PNP_INSTALL_DIR $SMTP_SERVER $ADMIN_EMAIL $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT || exit 1
 
 echo ""
-echo "Creating garden..."
+echo "[download-and-install.sh] Creating garden..."
 
 $SUDO bash create-garden.sh || exit 1
 
 echo ""
-echo "Publishing status to MQTT..."
+echo "[download-and-install.sh] Publishing status to MQTT..."
 bash mqtt-publish.sh "garden/StatusMessage" "Installed" -r
 
 HOST=$(cat /etc/hostname)
 
 echo ""
-echo "Sending email report..."
+echo "[download-and-install.sh] Sending email report..."
 bash send-email.sh "GrowSense software installed on $HOST" "The GrowSense software was successfully installed on $HOST."
 
 echo ""
-echo "Creating status message file..."
+echo "[download-and-install.sh] Creating status message file..."
 bash create-message-file.sh "GrowSense software installed"
 
 echo ""
-echo "Finished installing GrowSense plug and play."
+echo "[download-and-install.sh] Finished installing GrowSense plug and play."

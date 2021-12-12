@@ -56,14 +56,6 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
-        stage('Deploy Update') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-               sh 'sh deploy-dev-update.sh'
-               sh 'sh deploy-master-update.sh'
-               sh 'sh deploy-rc-update.sh'
-            }
-        }
         stage('Deploy') {
             when { expression { !shouldSkipBuild() } }
             steps {
