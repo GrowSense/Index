@@ -54,4 +54,6 @@ else
   echo "  MQTT bridge release found."
 fi
 
+sh clean.sh
+
 echo "Finished checking code is ready to graduate to master branch"
