@@ -1,10 +1,20 @@
 DIR=$PWD
 
+BRANCh=$1
+
+if [ ! "$BRANCH" ]; then
+  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+fi
+if [ ! $BRANCH ]; then
+  BRANCH="lts"
+fi
+
+
 echo ""
 echo "Initializing MQTT bridge utility"
 
 cd scripts/apps/BridgeArduinoSerialToMqttSplitCsv/ && \
-sh init.sh || exit 1
+sh init.sh $BRANCH || exit 1
 cd $DIR
 
 echo ""
