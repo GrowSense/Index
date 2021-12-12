@@ -36,4 +36,7 @@ rm scripts/docker/mosquitto/data/mosquitto.userfile
 echo "Resettings email details..."
 sh set-email-details.sh mail.example.com user@example.com na na 25 || exit 1
 
+echo "Disabling mocking..."
+bash disable-mocking.sh
+
 echo "Finished cleaning project"
