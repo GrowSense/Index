@@ -17,7 +17,7 @@ fi
 
 VERSION="$(cat version.txt)"
 
-bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv $BRANCH $VERSION || exit 1
+bash install-package-from-github-release.sh CompulsiveCoder BridgeArduinoSerialToMqttSplitCsv $VERSION $BRANCH || exit 1
 
 echo "[MqttBridge - init.sh] Installation complete."
 

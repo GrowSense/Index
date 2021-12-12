@@ -1,9 +1,9 @@
 #!/bin/bash
 
-BRANCH=$1
-PACKAGE_OWNER=$2
-PACKAGE_NAME=$3
-PACKAGE_VERSION=$4
+PACKAGE_OWNER=$1
+PACKAGE_NAME=$2
+PACKAGE_VERSION=$3
+BRANCH=$4
 INCLUDE_VERSION_IN_FOLDER=$5
 
 echo "[MqttBridge - install-package-from-github-release.sh] Installing package $PACKAGE_NAME $PACKAGE_VERSION..."
