@@ -56,6 +56,18 @@ pipeline {
                 sh 'sh test-software.sh'
             }
         }
+        stage('Increment Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+              sh 'sh increment-version.sh'
+            }
+        }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
+            }
+        }
         stage('Create Release Zip') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -91,18 +103,6 @@ pipeline {
                 sh 'sh clean.sh'
             }
         }
-        stage('Increment Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-              sh 'sh increment-version.sh'
-            }
-        }
-        stage('Push Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-version.sh'
-            }
-        }
         stage('Graduate') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -111,6 +111,10 @@ pipeline {
         }
     }
     post {
+        always{
+          sh 'sh increment-cycle.sh'
+          sh 'sh push-cycle.sh'
+        }
         success() {
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",

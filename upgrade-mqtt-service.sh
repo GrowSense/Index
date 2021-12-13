@@ -45,4 +45,4 @@ echo "  Recreating the MQTT service..."
 bash create-mqtt-service.sh
 
 echo ""
-echo "Finished upgrading mosquitto docker service."
+echo "Finished upgrading mosquitto docker service."	
