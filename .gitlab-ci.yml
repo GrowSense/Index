@@ -14,6 +14,7 @@ build-sketches:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull origin "$CI_COMMIT_BRANCH"
     - sh init-sketches.sh
     - sh build-sketches.sh
     
@@ -23,6 +24,7 @@ build:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull origin "$CI_COMMIT_BRANCH"
     - sh init.sh
     - sh init-tests.sh
     - sh build.sh

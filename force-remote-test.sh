@@ -12,7 +12,7 @@ then
   
   git pull origin dev && \
   git commit Jenkinsfile -m "Forcing retest" && \
-  git push origin dev && \
+  bash push.sh || exit 1
   
   echo "Repository has been updated. Test should now start on test server."
 else
