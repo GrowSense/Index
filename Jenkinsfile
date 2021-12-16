@@ -11,8 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                sh 'curl -s https://raw.githubusercontent.com/GrowSense/Index/$BRANCH_NAME/cache-repository.sh | bash -s $BRANCH_NAME'
-                shHide( '[ -d /usr/local/git-cache/GrowSense/Index ] && git clone -j 10 --recursive -b $BRANCH_NAME /usr/local/git-cache/GrowSense/Index . || git clone -j 10 --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/Index.git .' )
+                sh 'git clone -j 10 --recursive -b $BRANCH_NAME http://server1/growsense/index.git .'
                 shHide('git remote rm origin')
                 shHide('git remote add origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
                 shHide('#git remote set-url --add --push origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
