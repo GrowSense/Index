@@ -84,7 +84,7 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("    Branch: " + Context.Settings.Branch);
       
       var url = "https://raw.githubusercontent.com/GrowSense/Index/" + Context.Settings.Branch + "/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system";
-    var destinationFolder = Path.GetFullPath(Context.WorkingDirectory + "/../ArduinoPlugAndPlay.exe.config");
+      var destinationFolder = Path.GetFullPath(Context.WorkingDirectory + "/../ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config");
 
       Downloader.Download(url, destinationFolder);
     }
