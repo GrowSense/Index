@@ -1,19 +1,23 @@
 image: 10.0.0.101:5000/ubuntu-loaded
 
 stages:
+  - build
   - verify
   - update
   - install
   - graduate
 
 build:
-  stage: verify
+  stage: build
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init-all.sh
     - sh build-all.sh
+  artifacts:
+  paths:
+    - bin/Release
 
 test-software-slow:
   stage: verify
@@ -21,20 +25,29 @@ test-software-slow:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh init-all.sh
-    - sh build.sh
     - sh test.sh slow
+  dependencies:
+    - build
     
-test-software-slow:
+test-software-fast:
   stage: verify
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh init-all.sh
-    - sh build.sh
-    - sh test.sh unit
     - sh test.sh fast
+  dependencies:
+    - build
+    
+test-software-unit:
+  stage: verify
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh test.sh fast
+  dependencies:
+    - build
 
 deploy-update-staging:
   stage: update
