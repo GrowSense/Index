@@ -10,7 +10,7 @@ namespace GrowSense.Core
 
     public void Download(string url, string destination)
     {
-      Console.WriteLine("  Downloading GrowSense...");
+      Console.WriteLine("  Downloading file...");
       Console.WriteLine("    URL: " + url);
       Console.WriteLine("    Destination: " + destination);
       
