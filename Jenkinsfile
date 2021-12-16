@@ -47,6 +47,7 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
+                sh 'sh build-cli.sh'
                 sh 'sh build-tests.sh'
             }
         }

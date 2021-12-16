@@ -2,7 +2,9 @@ echo "Testing the GrowSense index project..."
 
 DIR=$PWD
 
-mono lib/NUnit.Runners.2.6.4/tools/nunit-console.exe bin/Release/*.dll || exit 1
+bash test.sh Unit
+bash test.sh Fast
+bash test.sh Slow
 
 #cd tests/nunit/ && \
 #sh test-software.sh && \
