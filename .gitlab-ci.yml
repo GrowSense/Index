@@ -13,7 +13,6 @@ build-sketches:
   tags:
     - docker
   script:
-    - git checkout "$CI_COMMIT_BRANCH"
     - sh init-sketches.sh
     - sh build-sketches.sh
     
@@ -22,7 +21,6 @@ build:
   tags:
     - docker
   script:
-    - git checkout "$CI_COMMIT_BRANCH"
     - sh init.sh
     - sh build.sh
   artifacts:
