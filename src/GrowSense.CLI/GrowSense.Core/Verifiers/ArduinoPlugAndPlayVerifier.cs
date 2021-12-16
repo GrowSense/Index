@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using GrowSense.Core.Model;
 namespace GrowSense.Core.Verifiers
 {
   public class ArduinoPlugAndPlayVerifier : BaseVerifier
@@ -10,8 +11,13 @@ namespace GrowSense.Core.Verifiers
 
     public void Verify()
     {
+      var arduinoPlugAndPlayName = "ArduinoPlugAndPlay";
+      var installDir = Path.GetFullPath(Context.WorkingDirectory + "/../../" + arduinoPlugAndPlayName);
+
       VerifyIsInstalled();
-      
+
+      VerifyAppConfig(installDir);
+
       VerifyServiceIsRunning();
     }
 
@@ -20,6 +26,24 @@ namespace GrowSense.Core.Verifiers
       var installPath = GetInstallPath();
 
       AssertDirectoryExists(installPath);
+    }
+    
+    public void VerifyAppConfig(string installDir)
+    {
+      var installedConfigPath = installDir + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
+
+      var config = DeserializeAppConfig(installedConfigPath);
+
+      VerifyAppConfig(config);
+    }
+
+    public void VerifyAppConfig(AppConfig config)
+    {
+      AssertAppConfig(config, "SmtpServer", Context.Settings.SmtpServer);
+      AssertAppConfig(config, "SmtpUsername", Context.Settings.SmtpUsername);
+      AssertAppConfig(config, "SmtpPassword", Context.Settings.SmtpPassword);
+      AssertAppConfig(config, "SmtpPort", Context.Settings.SmtpPort.ToString());
+      AssertAppConfig(config, "EmailAddress", Context.Settings.Email);
     }
 
     public void VerifyServiceIsRunning()

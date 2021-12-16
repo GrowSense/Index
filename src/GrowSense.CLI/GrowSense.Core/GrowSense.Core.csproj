@@ -67,6 +67,7 @@
     <Compile Include="Installers\ArduinoPlugAndPlayInstaller.cs" />
     <Compile Include="Verifiers\ArduinoPlugAndPlayVerifier.cs" />
     <Compile Include="Model\AppConfig.cs" />
+    <Compile Include="Verifiers\SettingsVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

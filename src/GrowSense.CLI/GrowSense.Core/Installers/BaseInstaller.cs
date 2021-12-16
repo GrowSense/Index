@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using GrowSense.Core.Model;
+using System.Xml.Serialization;
 namespace GrowSense.Core.Installers
 {
   public class BaseInstaller
@@ -84,5 +86,35 @@ namespace GrowSense.Core.Installers
         }
       }
     }
+    
+    public AppConfig DeserializeAppConfig(string configFilePath)
+    {
+    
+      if (!File.Exists(configFilePath))
+        throw new FileNotFoundException("Config file not found: " + configFilePath);
+        
+      var serializer = new XmlSerializer(typeof(AppConfig));
+
+      AppConfig config = null;
+
+      using (var stream = File.OpenRead(configFilePath))
+      {
+        config = (AppConfig)serializer.Deserialize(stream);
+        config.FilePath = configFilePath;
+      }
+     
+
+      return config;
+    }
+
+    public void SerializeAppConfig(AppConfig config, string filePath)
+    {
+      var serializer = new XmlSerializer(typeof(AppConfig));
+      using (var stream = File.OpenWrite(filePath))
+      {
+        serializer.Serialize(stream, config);
+      }
+    }
+
   }
 }

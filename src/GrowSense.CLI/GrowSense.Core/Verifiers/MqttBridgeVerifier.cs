@@ -48,13 +48,11 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyConfig(string installDir)
     {
-    var installedConfigPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+      var installedConfigPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
 
       var config = DeserializeAppConfig(installedConfigPath);
 
       VerifyAppConfig(config);
-      //var xml = XElement.Load(installedConfigPath);
-
     }
 
     public void VerifyAppConfig(AppConfig config)
@@ -63,6 +61,12 @@ namespace GrowSense.Core.Verifiers
       AssertAppConfig(config, "Password", Context.Settings.MqttPassword);
       AssertAppConfig(config, "MqttPort", Context.Settings.MqttPort.ToString());
       AssertAppConfig(config, "Host", Context.Settings.MqttHost);
+      
+      AssertAppConfig(config, "SmtpServer", Context.Settings.SmtpServer);
+      AssertAppConfig(config, "SmtpUsername", Context.Settings.SmtpUsername);
+      AssertAppConfig(config, "SmtpPassword", Context.Settings.SmtpPassword);
+      AssertAppConfig(config, "SmtpPort", Context.Settings.SmtpPort.ToString());
+      AssertAppConfig(config, "EmailAddress", Context.Settings.Email);
     }
   }
 }

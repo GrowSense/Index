@@ -48,6 +48,7 @@ namespace GrowSense.Core.Verifiers
 
     public AppConfig DeserializeAppConfig(string configFilePath)
     {
+    // TODO: This is a duplicate of BaseInstaller function. Move both to a common location.
     
       if (!File.Exists(configFilePath))
         throw new FileNotFoundException("Config file not found: " + configFilePath);
@@ -66,5 +67,17 @@ namespace GrowSense.Core.Verifiers
       return config;
     }
 
+    public void AssertLegacySecurityFile(string fileKey, string value)
+    {
+      var filePath = Context.WorkingDirectory + "/" + fileKey + ".security";
+
+      if (!File.Exists(filePath))
+        throw new FileNotFoundException("Can't find file: " + filePath);
+    
+      var foundValue = File.ReadAllText(filePath).Trim();
+
+      if (foundValue != value)
+        throw new Exception("Legacy security file value '" + foundValue + "' doesn't match expected '" + value + "' in file '" + filePath);
+    }
   }
 }

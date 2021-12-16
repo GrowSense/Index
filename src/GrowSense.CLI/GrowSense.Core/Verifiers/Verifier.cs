@@ -14,6 +14,8 @@ namespace GrowSense.Core.Verifiers
     public UIControllerVerifier UIController;
 
     public ArduinoPlugAndPlayVerifier ArduinoPlugAndPlay;
+
+    public SettingsVerifier Settings;
     
     
     public Verifier(CLIContext context) : base(context)
@@ -27,6 +29,8 @@ namespace GrowSense.Core.Verifiers
       Mosquitto = new MosquittoVerifier(context);
       MqttBridge = new MqttBridgeVerifier(context);
       UIController = new UIControllerVerifier(context);
+
+      Settings = new SettingsVerifier(context);
     }
 
     public void VerifyInstallation()

@@ -16,8 +16,8 @@ namespace GrowSense.Core.Tests.Installers
       var random = new Random();
 
       var settings = new CLISettings();
-      //settings.MqttUsername = "user" + random.Next(1000, 9000);
-      //settings.MqttPassword = "pass" + random.Next(1000, 9000);
+      settings.MqttUsername = "user" + random.Next(1000, 9000);
+      settings.MqttPassword = "pass" + random.Next(1000, 9000);
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);
       var mqttBridgeInstaller = new MqttBridgeInstaller(context);

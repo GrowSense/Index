@@ -159,6 +159,29 @@ namespace GrowSense.Core
       Console.WriteLine("  Path: " + settingsFile);
 
       File.WriteAllText(settingsFile, json);
+
+      SaveSettingsToLegacyFiles(settings);
+    }
+
+    public void SaveSettingsToLegacyFiles(CLISettings settings)
+    {
+      // TODO: Phase this out once scripts no longer rely on it.
+    
+      var basePath = WorkingDirectory;
+
+      File.WriteAllText(basePath + "/mqtt-host.security", settings.MqttHost);
+      File.WriteAllText(basePath + "/mqtt-username.security", settings.MqttUsername);
+      File.WriteAllText(basePath + "/mqtt-password.security", settings.MqttPassword);
+      File.WriteAllText(basePath + "/mqtt-port.security", settings.MqttPort.ToString());
+      
+      File.WriteAllText(basePath + "/wifi-name.security", settings.WiFiName);
+      File.WriteAllText(basePath + "/wifi-password.security", settings.WiFiPassword);
+      
+      File.WriteAllText(basePath + "/smtp-server.security", settings.SmtpServer);
+      File.WriteAllText(basePath + "/smpt-username.security", settings.SmtpUsername);
+      File.WriteAllText(basePath + "/smtp-password.security", settings.SmtpPassword);
+      File.WriteAllText(basePath + "/smtp-port.security", settings.SmtpPort.ToString());
+      File.WriteAllText(basePath + "/admin-email.security", settings.Email);
     }
 
     public string GetSettingsFilePath()

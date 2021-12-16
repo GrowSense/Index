@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using GrowSense.Core.Verifiers;
+using System.Linq;
 namespace GrowSense.Core.Installers
 {
   public class ArduinoPlugAndPlayInstaller : BaseInstaller
@@ -37,7 +38,24 @@ namespace GrowSense.Core.Installers
       if (Starter.Output.ToLower().IndexOf("failed") > -1)
         throw new Exception("Arduino plug and play installation failed.");
 
+      SetAppConfigValues(installPath);
+
       Verifier.Verify();
+    }
+    
+    public void SetAppConfigValues(string installDir)
+    {
+    var installedConfigPath = installDir + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
+
+      var config = DeserializeAppConfig(installedConfigPath);
+
+      config.AppSettings.Add.Where(e => e.Key == "SmtpServer").FirstOrDefault().Value = Context.Settings.SmtpServer;
+      config.AppSettings.Add.Where(e => e.Key == "SmtpUsername").FirstOrDefault().Value = Context.Settings.SmtpUsername;
+      config.AppSettings.Add.Where(e => e.Key == "SmtpPassword").FirstOrDefault().Value = Context.Settings.SmtpPassword;
+      config.AppSettings.Add.Where(e => e.Key == "SmtpPort").FirstOrDefault().Value = Context.Settings.SmtpPort.ToString();
+      config.AppSettings.Add.Where(e => e.Key == "EmailAddress").FirstOrDefault().Value = Context.Settings.Email;
+
+      SerializeAppConfig(config, installedConfigPath);
     }
 
     public string GetInstallPath()

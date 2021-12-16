@@ -1,6 +1,7 @@
 ﻿using System;
 using GrowSense.Core.Verifiers;
 using System.IO;
+using System.Linq;
 namespace GrowSense.Core.Installers
 {
   public class UIControllerInstaller : BaseInstaller
@@ -30,8 +31,30 @@ public CLIContext Context;
 
       CopyFilesToInstallDir(uiControllerInstallPath);
 
+      SetAppConfigValues(uiControllerInstallPath);
 
       Verify();
+    }
+
+
+    public void SetAppConfigValues(string installDir)
+    {
+    var installedConfigPath = installDir + "/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
+
+      var config = DeserializeAppConfig(installedConfigPath);
+
+      config.AppSettings.Add.Where(e => e.Key == "Host").FirstOrDefault().Value = Context.Settings.MqttHost;
+      config.AppSettings.Add.Where(e => e.Key == "UserId").FirstOrDefault().Value = Context.Settings.MqttUsername;
+      config.AppSettings.Add.Where(e => e.Key == "Password").FirstOrDefault().Value = Context.Settings.MqttPassword;
+      config.AppSettings.Add.Where(e => e.Key == "MqttPort").FirstOrDefault().Value = Context.Settings.MqttPort.ToString();
+
+      config.AppSettings.Add.Where(e => e.Key == "SmtpServer").FirstOrDefault().Value = Context.Settings.SmtpServer;
+      config.AppSettings.Add.Where(e => e.Key == "SmtpUsername").FirstOrDefault().Value = Context.Settings.SmtpUsername;
+      config.AppSettings.Add.Where(e => e.Key == "SmtpPassword").FirstOrDefault().Value = Context.Settings.SmtpPassword;
+      config.AppSettings.Add.Where(e => e.Key == "SmtpPort").FirstOrDefault().Value = Context.Settings.SmtpPort.ToString();
+      config.AppSettings.Add.Where(e => e.Key == "EmailAddress").FirstOrDefault().Value = Context.Settings.Email;
+
+      SerializeAppConfig(config, installedConfigPath);
     }
 
     public void EnsureDirectoriesExist(string uiControllerInstallPath)
