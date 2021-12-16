@@ -33,6 +33,8 @@ namespace GrowSense.Core
       {
         var command = arguments.KeylessArguments[0];
 
+        Console.WriteLine("  Command: " + command);
+
         switch (command)
         {
           case "hello-world":
