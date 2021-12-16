@@ -57,7 +57,7 @@ namespace GrowSense.Core.Installers
 
       Docker.Remove("mosquitto", true);
 
-      var runCmd = String.Format(@"docker rm -f mosquitto
+      var runCmd = String.Format(@"
           docker run -d \
       --restart=always \
       --name=mosquitto \
