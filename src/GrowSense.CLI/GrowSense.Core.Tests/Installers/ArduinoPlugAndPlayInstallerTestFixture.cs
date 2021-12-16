@@ -34,9 +34,10 @@ namespace GrowSense.Core.Tests.Installers
 
       installer.Install();
 
-      var starter = new ProcessStarter();
-      starter.StartBash("sudo systemctl disable arduino-plug-and-play.service");
-      starter.StartBash("sudo systemctl stop arduino-plug-and-play.service");
+      //var starter = new ProcessStarter();
+      
+      //starter.StartBash("sudo systemctl disable arduino-plug-and-play.service");
+      //starter.StartBash("sudo systemctl stop arduino-plug-and-play.service");
     }
   }
 }
