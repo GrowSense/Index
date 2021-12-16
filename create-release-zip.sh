@@ -35,6 +35,7 @@ VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 #echo "$VERSION" > $TMP_RELEASE_FOLDER/full-version.txt
 echo "$VERSION" > full-version.txt
 
+rm $RELEASES_FOLDER -R
 mkdir -p $RELEASES_FOLDER
 
 #cd .tmp/BridgeArduinoSerialToMqttSplitCsv
