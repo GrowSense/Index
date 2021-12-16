@@ -39,14 +39,16 @@ echo "  SMTP username: $SMTP_USERNAME"
 echo "  SMTP password: [hidden]"
 echo "  SMTP port: $SMTP_PORT"
 
-echo $SMTP_SERVER > "smtp-server.security"
-echo $ADMIN_EMAIL > "admin-email.security"
-echo $SMTP_USERNAME > "smtp-username.security"
-echo $SMTP_PASSWORD > "smtp-password.security"
-echo $SMTP_PORT > "smtp-port.security"
+bash gs.sh --smtp-server=$SMTP_SERVER --smtp-username=$SMTP_USERNAME --smtp-password=$SMTP_PASSWORD --smtp-port=$SMTP_PORT --email=$ADMIN_EMAIL
 
-bash "set-email-details-for-mqtt-bridge.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" "$SMTP_USERNAME" "$SMTP_PASSWORD" "$SMTP_PORT" && \
-bash "set-email-details-for-1602-ui.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" "$SMTP_USERNAME" "$SMTP_PASSWORD" "$SMTP_PORT" && \
-bash "set-email-details-for-arduino-plug-and-play.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" "$SMTP_USERNAME" "$SMTP_PASSWORD" "$SMTP_PORT" && \
+#echo $SMTP_SERVER > "smtp-server.security"
+#echo $ADMIN_EMAIL > "admin-email.security"
+#echo $SMTP_USERNAME > "smtp-username.security"
+#echo $SMTP_PASSWORD > "smtp-password.security"
+#echo $SMTP_PORT > "smtp-port.security"
+
+#bash "set-email-details-for-mqtt-bridge.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" "$SMTP_USERNAME" "$SMTP_PASSWORD" "$SMTP_PORT" && \
+#bash "set-email-details-for-1602-ui.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" "$SMTP_USERNAME" "$SMTP_PASSWORD" "$SMTP_PORT" && \
+#bash "set-email-details-for-arduino-plug-and-play.sh" "$SMTP_SERVER" "$ADMIN_EMAIL" "$SMTP_USERNAME" "$SMTP_PASSWORD" "$SMTP_PORT" && \
 
 echo "Finished setting email details."
