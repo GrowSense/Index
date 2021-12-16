@@ -3,7 +3,7 @@ using NUnit.Framework;
 using GrowSense.Core.Installers;
 namespace GrowSense.Core.Tests.Installers
 {
-[TestFixture]
+[TestFixture(Category="Unit")]
   public class PlatformIOInstallerTestFixture
   {
   [Test]

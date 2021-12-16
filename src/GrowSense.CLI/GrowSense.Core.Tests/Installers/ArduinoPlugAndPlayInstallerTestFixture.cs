@@ -4,7 +4,7 @@ using GrowSense.Core.Installers;
 using System.IO;
 namespace GrowSense.Core.Tests.Installers
 {
-[TestFixture]
+[TestFixture(Category="Unit")]
   public class ArduinoPlugAndPlayInstallerTestFixture : BaseTestFixture
   {
     [Test]
@@ -17,10 +17,11 @@ namespace GrowSense.Core.Tests.Installers
       var random = new Random();
 
       var settings = new CLISettings();
-      settings.SmtpServer = "smtp.server" + random.Next(1000, 9000) + ".com";
+      
+      settings.SmtpServer = "smtp.myserver" + random.Next(1000, 9000) + ".com";
       settings.SmtpUsername = "user" + random.Next(1000, 9000);
       settings.SmtpPassword = "pass" + random.Next(1000, 9000);
-      settings.SmtpPort = random.Next(100, 999);
+      settings.Email = "me@mydomain" + random.Next(1000, 9000) + ".com";
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);
       var installer = new ArduinoPlugAndPlayInstaller(context);

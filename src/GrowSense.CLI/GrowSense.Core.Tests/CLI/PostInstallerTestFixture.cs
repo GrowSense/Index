@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System.Threading;
 namespace GrowSense.Core.Tests.CLI
 {
-[TestFixture]
+[TestFixture(Category="Slow")]
   public class PostInstallerTestFixture : BaseTestFixture
   {
   [Test]
