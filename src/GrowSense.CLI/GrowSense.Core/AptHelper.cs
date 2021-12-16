@@ -13,6 +13,10 @@ namespace GrowSense.Core
     {
       Console.WriteLine("Performing apt-get update...");
       Starter.Start("apt-get update");
+
+      if (Starter.Output.ToLower().IndexOf("permission denied") > -1)
+        throw new Exception("Error: Permission denied. Do you need to run with sudo?");
+        
       //Console.WriteLine(Starter.Output);
     }
 
@@ -59,7 +63,10 @@ namespace GrowSense.Core
       Console.WriteLine("  Packages: " + packages);
       
       Starter.Start("apt-get install -y " + packages);
-      Console.WriteLine(Starter.Output);
+      //Console.WriteLine(Starter.Output);
+      
+      if (Starter.Output.ToLower().IndexOf("permission denied") > -1)
+        throw new Exception("Error: Permission denied. Do you need to run with sudo?");
     }
   }
 }
