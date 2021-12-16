@@ -7,17 +7,27 @@ stages:
   - install
   - graduate
 
+
+build-sketches:
+  stage: build
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh init-sketches.sh
+    - sh build-sketches.sh
+    
 build:
   stage: build
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh init-all.sh
-    - sh build-all.sh
+    - sh init.sh
+    - sh build.sh
   artifacts:
     paths:
-      - bin/Release
+      - bin/Release/**
 
 test-software-slow:
   stage: verify
