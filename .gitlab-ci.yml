@@ -23,6 +23,7 @@ build:
   script:
     - sh init.sh
     - sh build.sh
+    - sh build-tests.sh
   artifacts:
     paths:
       - bin/Release/**

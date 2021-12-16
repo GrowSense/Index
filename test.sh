@@ -9,7 +9,7 @@ fi
 CATEGORY_INCLUDE=" --include=$CATEGORY"
 
 
-mono lib/NUnit.Runners.2.6.4/tools/nunit-console.exe bin/Release/*.dll $CATEGORY_INCLUDE || exit 1
+mono lib/NUnit.Runners.2.6.4/tools/nunit-console.exe bin/Release/*Tests.dll --include="$CATEGORY"
 
 #cd tests/nunit/ && \
 #sh test-software.sh && \
