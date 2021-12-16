@@ -26,6 +26,7 @@ build:
     - sh build-tests.sh
   artifacts:
     paths:
+      - lib/**
       - bin/Release/**
 
 test-software-slow:
