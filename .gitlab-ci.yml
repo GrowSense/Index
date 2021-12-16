@@ -15,15 +15,26 @@ build:
     - sh init-all.sh
     - sh build-all.sh
 
-test-software:
+test-software-slow:
   stage: verify
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init-all.sh
-    - sh build-tests.sh
-    - sh test-software.sh
+    - sh build.sh
+    - sh test.sh slow
+    
+test-software-slow:
+  stage: verify
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh init-all.sh
+    - sh build.sh
+    - sh test.sh unit
+    - sh test.sh fast
 
 deploy-update-staging:
   stage: update
