@@ -102,14 +102,14 @@ fi
 echo ""
 echo "Setting up GrowSense index..."
 
-if [ ! -d "$INDEX_DIR/.git" ]; then
-  $SUDO mkdir -p $INDEX_DIR || exit 1
+#if [ ! -d "$INDEX_DIR/.git" ]; then
+#  $SUDO mkdir -p $INDEX_DIR || exit 1
 
-  if [ -d $INDEX_DIR ]; then
-    echo "Moving the existing GrowSense index..."
+#  if [ -d $INDEX_DIR ]; then
+#    echo "Moving the existing GrowSense index..."
 
-    $SUDO mv $INDEX_DIR $INDEX_DIR.old
-  fi
+#    $SUDO mv $INDEX_DIR $INDEX_DIR.old
+#  fi
 
 #  echo ""
 #  echo "Installing/updating git if needed"
@@ -144,50 +144,50 @@ if [ ! -d "$INDEX_DIR/.git" ]; then
 
   RELEASE_URL=$(curl -s https://api.github.com/repos/GrowSense/Index/releases | jq -r '.[0].assets[0].browser_download_url') || exit 1
 
-  echo "$RELEASE_URL"
+#  echo "$RELEASE_URL"
 
-  LOCAL_RELEASE_FILE="GrowSenseRelease.zip"
+#  LOCAL_RELEASE_FILE="GrowSenseRelease.zip"
 
-  curl -L -o $LOCAL_RELEASE_FILE $RELEASE_URL || exit 1
-  unzip -q $LOCAL_RELEASE_FILE -d $INDEX_DIR || exit 1
+#  curl -L -o $LOCAL_RELEASE_FILE $RELEASE_URL || exit 1
+#  unzip -q $LOCAL_RELEASE_FILE -d $INDEX_DIR || exit 1
 
-  rm $LOCAL_RELEASE_FILE
+#  rm $LOCAL_RELEASE_FILE
 
-  if [ -d $INDEX_DIR.old ]; then
-    echo "Importing pre-existing *.txt files..."
-    mv $INDEX_DIR.old/*.txt $INDEX_DIR/
+#  if [ -d $INDEX_DIR.old ]; then
+#    echo "Importing pre-existing *.txt files..."
+#    mv $INDEX_DIR.old/*.txt $INDEX_DIR/
 
 
-    if [ -d $INDEX_DIR.old/remote ]; then
-      echo "Importing pre-existing remote folder..."
-      mv $INDEX_DIR.old/remote $INDEX_DIR/remote
-    fi
+#    if [ -d $INDEX_DIR.old/remote ]; then
+#      echo "Importing pre-existing remote folder..."
+#      mv $INDEX_DIR.old/remote $INDEX_DIR/remote
+#    fi
 
-    echo ""
-    echo "Removing old index directory..."
-    sudo rm -r $INDEX_DIR.old
+#    echo ""
+#    echo "Removing old index directory..."
+#    sudo rm -r $INDEX_DIR.old
+#  fi
+
+#  echo ""
+#  echo "Moving into index directory..."
+#  echo "  $INDEX_DIR"
+
+#  cd $INDEX_DIR || exit 1
+
+#  echo ""
+#  echo "Preparing index..."
+
+#  if [ ! -f "is-mock-system.txt" ]; then
+#    $SUDO bash prepare.sh || exit 1
+#  else
+#    echo "[mock] $SUDO bash prepare.sh"
   fi
+#fi
 
-  echo ""
-  echo "Moving into index directory..."
-  echo "  $INDEX_DIR"
+#echo ""
+#echo "Moving into the index directory..."
 
-  cd $INDEX_DIR || exit 1
-
-  echo ""
-  echo "Preparing index..."
-
-  if [ ! -f "is-mock-system.txt" ]; then
-    $SUDO bash prepare.sh || exit 1
-  else
-    echo "[mock] $SUDO bash prepare.sh"
-  fi
-fi
-
-echo ""
-echo "Moving into the index directory..."
-
-cd $INDEX_DIR || exit 1
+#cd $INDEX_DIR || exit 1
 
 #echo ""
 #echo "Updating the index..."
