@@ -56,8 +56,8 @@ namespace GrowSense.Core
       Apt.Install(AptPackageList);
 
       Docker.InstallDocker();
-      //Python.Install();
-      //PlatformIO.Install();
+      Python.Install();
+      PlatformIO.Install();
       Mqtt.Install();
       MqttBridge.Install();
       UIController.Install();
