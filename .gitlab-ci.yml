@@ -16,8 +16,8 @@ build:
     - sh init-all.sh
     - sh build-all.sh
   artifacts:
-  paths:
-    - bin/Release
+    paths:
+      - bin/Release
 
 test-software-slow:
   stage: verify
