@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                sh 'git clone -j 10 --recursive -b $BRANCH_NAME http://server1/growsense/index.git .'
+                sh 'git clone -j 10 --recursive -b $BRANCH_NAME http://10.0.0.101:180/growsense/index.git .'
                 shHide('git remote rm origin')
                 shHide('git remote add origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
                 shHide('#git remote set-url --add --push origin https://${GHTOKEN}@github.com/GrowSense/Index.git')
