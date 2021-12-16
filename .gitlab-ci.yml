@@ -24,6 +24,7 @@ build:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init.sh
+    - sh init-tests.sh
     - sh build.sh
     - sh build-tests.sh
   artifacts:
