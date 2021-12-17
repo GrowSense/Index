@@ -25,6 +25,9 @@ build:
   tags:
     - docker
   script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
     - sh init.sh
     - sh init-tests.sh
     - sh build-cli.sh
