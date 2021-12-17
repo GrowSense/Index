@@ -13,8 +13,8 @@ build-sketches:
   tags:
     - docker
   script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
     - sh init-sketches.sh
@@ -25,9 +25,11 @@ build:
   tags:
     - docker
   script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
+    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
+    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
     - git pull
     - sh init.sh
     - sh init-tests.sh
