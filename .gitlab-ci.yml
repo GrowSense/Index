@@ -35,7 +35,7 @@ build:
     - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
     - sh init.sh
     - sh init-tests.sh
-    - sh build.sh
+    - sh build-cli.sh
     - sh build-tests.sh
   artifacts:
     paths:
