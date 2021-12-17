@@ -9,7 +9,7 @@ namespace GrowSense.Core
     public DockerHelper(CLIContext context)
     {
       Context = context;
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
     }
 
     public string Logs(string containerName)

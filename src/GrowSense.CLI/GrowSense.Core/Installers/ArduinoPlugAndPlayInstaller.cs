@@ -15,13 +15,18 @@ namespace GrowSense.Core.Installers
     public ArduinoPlugAndPlayInstaller(CLIContext context)
     {
       Context = context;
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
       Verifier = new ArduinoPlugAndPlayVerifier(context);
     }
 
     public void Install()
     {
+      Console.WriteLine("Installing ArduinoPlugAndPlay...");
+      
       var installPath = GetInstallPath();
+      
+      Console.WriteLine("  Install dir: " + installPath);
+      
 
       var cmd = String.Format("wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/{0}/scripts-ols/install.sh | bash -s -- {0} {1} {2} {3} {4} {5} {6}",
       Context.Settings.Branch,
@@ -34,6 +39,8 @@ namespace GrowSense.Core.Installers
     );
 
       Starter.StartBash(cmd);
+
+      Environment.Exit(1);
 
       if (Starter.Output.ToLower().IndexOf("failed") > -1)
         throw new Exception("Arduino plug and play installation failed.");
@@ -60,20 +67,31 @@ namespace GrowSense.Core.Installers
 
     public string GetInstallPath()
     {
-      return Path.GetFullPath(Context.WorkingDirectory + "/../../ArduinoPlugAndPlay");
+      return Context.Paths.GetApplicationPath("ArduinoPlugAndPlay");
     }
 
     public void EnsureInstallDirectoryExists()
     {
-      var installPath = Path.GetFullPath(Context.WorkingDirectory + "/../../ArduinoPlugAndPlay");
+      Console.WriteLine("    Ensuring install directory exists...");
+      
+      var installPath = GetInstallPath();
 
       if (!Directory.Exists(installPath))
+      {
+        Console.WriteLine("      Creating directory: " + installPath);
         Directory.CreateDirectory(installPath);
+      }
+      else
+        Console.WriteLine("      Directory exists: " + installPath);
     }
     
     public void ImportArduinoPlugAndPlayConfig()
     {
       Console.WriteLine("  Importing arduino plug and play config...");
+
+      var installPath = GetInstallPath();
+
+      Console.WriteLine("    Install path: " + installPath);
 
       if (Context == null)
         throw new Exception("Context == null");
@@ -84,9 +102,11 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("    Branch: " + Context.Settings.Branch);
       
       var url = "https://raw.githubusercontent.com/GrowSense/Index/" + Context.Settings.Branch + "/scripts/apps/ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config.system";
-      var destinationFolder = Path.GetFullPath(Context.WorkingDirectory + "/../ArduinoPlugAndPlay/ArduinoPlugAndPlay.exe.config");
+      var destination = Path.Combine(installPath, "ArduinoPlugAndPlay.exe.config");
 
-      Downloader.Download(url, destinationFolder);
+      EnsureInstallDirectoryExists();
+
+      Downloader.Download(url, destination);
     }
   }
 }

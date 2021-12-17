@@ -19,7 +19,7 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("Verifying MQTT bridge app is installed...");
       
       var mqttBridgeName = "BridgeArduinoSerialToMqttSplitCsv";
-      var installDir = Path.GetFullPath(Context.WorkingDirectory + "/../../" + mqttBridgeName);
+      var installDir = Path.GetFullPath(Context.IndexDirectory + "/../../" + mqttBridgeName);
 
       AssertDirectoryExists(installDir);
 
@@ -30,7 +30,7 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyVersion(string installDir)
     {
-    var internalVersion = File.ReadAllText(Context.WorkingDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/version.txt").Trim();
+    var internalVersion = File.ReadAllText(Context.IndexDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/version.txt").Trim();
       var installedVersionPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/version.txt";
 
       AssertFileExists(installedVersionPath);

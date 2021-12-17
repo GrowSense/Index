@@ -14,7 +14,7 @@ public CLIContext Context;
     public UIControllerInstaller(CLIContext context)
     {
       Context = context;
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new UIControllerVerifier(context);
     }
@@ -23,7 +23,7 @@ public CLIContext Context;
     {
       Console.WriteLine("Installing system UI controller...");
       
-      var uiControllerInstallPath = Path.GetFullPath(Context.WorkingDirectory + "/../../Serial1602ShieldSystemUIController");
+      var uiControllerInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../Serial1602ShieldSystemUIController");
 
       Console.WriteLine("  Install path: " + uiControllerInstallPath);
 
@@ -67,7 +67,7 @@ public CLIContext Context;
     {
       Console.WriteLine("  Copying files to install dir...");
       
-      var internalPath = Context.WorkingDirectory + "/scripts/apps/Serial1602ShieldSystemUIController";
+      var internalPath = Context.IndexDirectory + "/scripts/apps/Serial1602ShieldSystemUIController";
 
       Console.WriteLine("    Internal path: " + internalPath);
       Console.WriteLine("    Install path: " + uiControllerInstallPath);

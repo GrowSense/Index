@@ -22,7 +22,7 @@ namespace GrowSense.Core.Verifiers
     {
       Context = context;
       Docker = new DockerVerifier(context);
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
 
       ArduinoPlugAndPlay = new ArduinoPlugAndPlayVerifier(context);
 

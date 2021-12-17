@@ -1,23 +1,24 @@
 ﻿using System;
 using GrowSense.Core.Verifiers;
+using GrowSense.Core.Installers;
 namespace GrowSense.Core
 {
   public class CLIManager
   {
     public CLIContext Context;
     public ProcessStarter Starter;
-    public PostInstaller PostInstall;
+    public Installers.PostInstaller PostInstall;
     public Verifier Verifier;
     
     public CLIManager(CLIContext context)
     {
-      Console.WriteLine("  Working directory: " + context.WorkingDirectory);
+      Console.WriteLine("  Working directory: " + context.IndexDirectory);
       
       Context = context;
       Starter = new ProcessStarter();
-      Starter.WorkingDirectory = Context.WorkingDirectory;
+      Starter.WorkingDirectory = Context.IndexDirectory;
 
-      PostInstall = new PostInstaller(context);
+      PostInstall = new Installers.PostInstaller(context);
       Verifier = new Verifier(context);
     }
 
@@ -35,7 +36,7 @@ namespace GrowSense.Core
 
     public void PostInstallActions()
     {
-      PostInstall.ExecutePostInstallActions();
+      PostInstall.PrepareInstallation();
     }
 
     public void Verify()

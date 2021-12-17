@@ -13,20 +13,41 @@ namespace GrowSense.Core.Installers
     public void Install()
     {
     Console.WriteLine("");
-      Console.WriteLine("Installing platform.io...");
 
-      Console.WriteLine("  Installing/upgrading pip extras...");
-      Starter.StartBash(Python.PythonName + " -m pip install --ignore-installed --upgrade setuptools wheel");
 
-      Console.WriteLine("  Installing platformio via pip3");
+      if (!IsInstalled())
+      {
+        Console.WriteLine("Installing platform.io...");
 
-      Starter.StartBash(Python.PythonName + " -m pip install --ignore-installed -U platformio");
+        Console.WriteLine("  Installing/upgrading pip extras...");
+        Starter.StartBash(Python.PythonName + " -m pip install --ignore-installed --upgrade setuptools wheel");
 
-      Console.WriteLine(Starter.Output);
-      Starter.OutputBuilder.Clear();
+        Console.WriteLine("  Installing platformio via pip3");
 
-      Console.WriteLine("Finished installing platform.io");
-      Console.WriteLine("");
+        Starter.StartBash(Python.PythonName + " -m pip install --ignore-installed -U platformio");
+
+        Console.WriteLine(Starter.Output);
+        Starter.OutputBuilder.Clear();
+
+        Console.WriteLine("Finished installing platform.io");
+        Console.WriteLine("");
+      }
+      else
+        Console.WriteLine("Platform.io is already installed.");
+        
+    }
+
+    public bool IsInstalled()
+    {
+      var starter = new ProcessStarter();
+      starter.StartBash("pio --version");
+
+      var output = starter.Output;
+
+      if (output.IndexOf("PlatformIO Core, version") == -1)
+        return false;
+      else
+        return true;
     }
   }
 }

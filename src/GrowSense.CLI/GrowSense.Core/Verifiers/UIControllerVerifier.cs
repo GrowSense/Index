@@ -15,7 +15,7 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("Verifying UI controller is installed...");
       
       var appName = "Serial1602ShieldSystemUIController";
-      var installDir = Path.GetFullPath(Context.WorkingDirectory + "/../../" + appName);
+      var installDir = Path.GetFullPath(Context.IndexDirectory + "/../../" + appName);
 
       AssertDirectoryExists(installDir);
 
@@ -26,7 +26,7 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyVersion(string installDir)
     {
-    var internalVersion = File.ReadAllText(Context.WorkingDirectory + "/scripts/apps/Serial1602ShieldSystemUIController/version.txt").Trim();
+    var internalVersion = File.ReadAllText(Context.IndexDirectory + "/scripts/apps/Serial1602ShieldSystemUIController/version.txt").Trim();
       var installedVersionPath = installDir + "/Serial1602ShieldSystemUIController/lib/net40/version.txt";
 
       AssertFileExists(installedVersionPath);

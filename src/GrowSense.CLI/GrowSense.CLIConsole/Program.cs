@@ -24,39 +24,47 @@ namespace GrowSense.Core
       var settings = settingsManager.LoadSettings();
 
       settingsManager.ProcessSettingsFromArguments(arguments, settings);
-      
-      var context = new CLIContext(workingDirectory, settings);
 
-      var manager = new CLIManager(context);
-      
-      if (arguments.KeylessArguments.Length > 0)
+      try
       {
-        var command = arguments.KeylessArguments[0];
 
-        Console.WriteLine("  Command: " + command);
+        var context = new CLIContext(workingDirectory, settings);
 
-        switch (command)
+        var manager = new CLIManager(context);
+
+        if (arguments.KeylessArguments.Length > 0)
         {
-          case "hello-world":
-            manager.ExecuteScript("hello-world.sh");
-            break;
-          case "prepare":
-            manager.ExecuteScript("prepare.sh");
-            break;
-          case "post-install":
-            Console.WriteLine("Post install");
-            manager.PostInstallActions();
-            break;
-          case "verify":
-            Console.WriteLine("Verify");
-            manager.Verify();
-            break;
-          default:
-            Console.WriteLine("Unknown command: " + command);
-            break;
+          var command = arguments.KeylessArguments[0];
+
+          Console.WriteLine("  Command: " + command);
+
+          switch (command)
+          {
+            case "hello-world":
+              manager.ExecuteScript("hello-world.sh");
+              break;
+            case "prepare":
+              manager.ExecuteScript("prepare.sh");
+              break;
+            case "post-install":
+              Console.WriteLine("Post install");
+              manager.PostInstallActions();
+              break;
+            case "verify":
+              Console.WriteLine("Verify");
+              manager.Verify();
+              break;
+            default:
+              Console.WriteLine("Unknown command: " + command);
+              break;
+          }
         }
       }
-      
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex.ToString());
+        Environment.Exit(1);
+      }      
     }
   }
 }

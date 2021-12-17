@@ -14,7 +14,7 @@ namespace GrowSense.Core.Installers
     public MosquittoInstaller(CLIContext context)
     {
       Context = context;
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new MosquittoVerifier(context);
     }
@@ -23,7 +23,7 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("Installing mosquitto MQTT docker service...");
       
-      var mosquittoInstallPath = Path.GetFullPath(Context.WorkingDirectory + "/../../mosquitto");
+      var mosquittoInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../mosquitto");
 
       Console.WriteLine("  Install path: " + mosquittoInstallPath);
 
@@ -76,7 +76,7 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("  Copying config file to install dir...");
       
-      var mqttInternalConfigPath = Path.GetFullPath(Context.WorkingDirectory + "/scripts/docker/mosquitto/data/mosquitto.conf");
+      var mqttInternalConfigPath = Path.GetFullPath(Context.IndexDirectory + "/scripts/docker/mosquitto/data/mosquitto.conf");
       
       var mqttInstallConfigPath = mqttInstallPath + "/data/mosquitto.conf";
       Console.WriteLine("    From: " + mqttInternalConfigPath);

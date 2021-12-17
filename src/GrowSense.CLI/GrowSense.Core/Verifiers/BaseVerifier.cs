@@ -13,7 +13,7 @@ namespace GrowSense.Core.Verifiers
     public BaseVerifier(CLIContext context)
     {
       Context = context;
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
     }
     
     public void AssertDirectoryExists(string directory)
@@ -69,7 +69,7 @@ namespace GrowSense.Core.Verifiers
 
     public void AssertLegacySecurityFile(string fileKey, string value)
     {
-      var filePath = Context.WorkingDirectory + "/" + fileKey + ".security";
+      var filePath = Context.IndexDirectory + "/" + fileKey + ".security";
 
       if (!File.Exists(filePath))
         throw new FileNotFoundException("Can't find file: " + filePath);

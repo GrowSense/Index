@@ -12,7 +12,7 @@ namespace GrowSense.Core.Verifiers
     public void Verify()
     {
       var arduinoPlugAndPlayName = "ArduinoPlugAndPlay";
-      var installDir = Path.GetFullPath(Context.WorkingDirectory + "/../../" + arduinoPlugAndPlayName);
+      var installDir = Path.GetFullPath(Context.IndexDirectory + "/../../" + arduinoPlugAndPlayName);
 
       VerifyIsInstalled();
 
@@ -26,6 +26,10 @@ namespace GrowSense.Core.Verifiers
       var installPath = GetInstallPath();
 
       AssertDirectoryExists(installPath);
+      
+      var installedExePath = installPath + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe";
+
+      AssertFileExists(installedExePath);
     }
     
     public void VerifyAppConfig(string installDir)
@@ -64,7 +68,7 @@ namespace GrowSense.Core.Verifiers
 
     public string GetInstallPath()
     {
-      return Path.Combine(Context.WorkingDirectory, "../../ArduinoPlugAndPlay");
+      return Path.Combine(Context.IndexDirectory, "../../ArduinoPlugAndPlay");
     }
   }
 }

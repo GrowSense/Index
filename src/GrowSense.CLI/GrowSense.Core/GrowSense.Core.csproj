@@ -43,8 +43,6 @@
     <Compile Include="CLISettings.cs" />
     <Compile Include="FileDownloader.cs" />
     <Compile Include="InstallationVerifier.cs" />
-    <Compile Include="PostInstaller.cs" />
-    <Compile Include="Preparer.cs" />
     <Compile Include="ProcessStarter.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Arguments.cs" />
@@ -68,6 +66,8 @@
     <Compile Include="Verifiers\ArduinoPlugAndPlayVerifier.cs" />
     <Compile Include="Model\AppConfig.cs" />
     <Compile Include="Verifiers\SettingsVerifier.cs" />
+    <Compile Include="PathHelper.cs" />
+    <Compile Include="Installers\PostInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />

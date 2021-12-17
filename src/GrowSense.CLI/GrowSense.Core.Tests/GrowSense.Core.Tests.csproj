@@ -49,6 +49,8 @@
     <Compile Include="Installers\UIControllerInstallerTestFixture.cs" />
     <Compile Include="CLI\PostInstallerTestHelper.cs" />
     <Compile Include="Installers\ArduinoPlugAndPlayInstallerTestFixture.cs" />
+    <Compile Include="PathHelperTestFixture.cs" />
+    <Compile Include="Installers\DockerInstallerTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />

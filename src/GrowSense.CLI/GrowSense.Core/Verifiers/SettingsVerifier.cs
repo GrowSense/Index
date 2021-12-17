@@ -9,7 +9,7 @@ namespace GrowSense.Core.Verifiers
 
     public void Verify()
     {
-      VerifyLegacyFiles(Context.WorkingDirectory);
+      VerifyLegacyFiles(Context.IndexDirectory);
     }
     
     public void VerifyLegacyFiles(string installDir)

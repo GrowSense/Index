@@ -14,7 +14,7 @@ namespace GrowSense.Core.Installers
     public MqttBridgeInstaller(CLIContext context)
     {
       Context = context;
-      Starter = new ProcessStarter(context.WorkingDirectory);
+      Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new MqttBridgeVerifier(context);
     }
@@ -23,7 +23,7 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("Installing MQTT bridge...");
       
-      var mqttBridgeInstallPath = Path.GetFullPath(Context.WorkingDirectory + "/../../BridgeArduinoSerialToMqttSplitCsv");
+      var mqttBridgeInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../BridgeArduinoSerialToMqttSplitCsv");
 
       Console.WriteLine("  Install path: " + mqttBridgeInstallPath);
 
@@ -95,7 +95,7 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("  Copying files to install dir...");
       
-      var internalPath = Context.WorkingDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv";
+      var internalPath = Context.IndexDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv";
 
       Console.WriteLine("    Internal path: " + internalPath);
       Console.WriteLine("    Install path: " + mqttBridgeInstallPath);

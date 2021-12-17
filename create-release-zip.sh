@@ -1,4 +1,4 @@
-echo "Packaging release zip file..."
+echo "[create-release-zip.sh] Packaging release zip file..."
 
 DIR=$PWD
 
@@ -41,7 +41,7 @@ mkdir -p $RELEASES_FOLDER
 #cd .tmp/BridgeArduinoSerialToMqttSplitCsv
 
 echo ""
-echo "  Zipping release..."
+echo "[create-release-zip.sh]   Zipping release..."
 zip -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip *
 
 #cd $DIR/releases
@@ -60,4 +60,4 @@ zip -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip *
 
 
 echo ""
-echo "Finished packaging release zip file."
+echo "[create-release-zip.sh] Finished packaging release zip file."

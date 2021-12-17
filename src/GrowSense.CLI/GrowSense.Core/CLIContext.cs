@@ -1,16 +1,26 @@
 ﻿using System;
+using System.IO;
 namespace GrowSense.Core
 {
   public class CLIContext
   {
     public string MqttBrokerDockerContainerName = "mosquitto";
-  
-    public string WorkingDirectory;
-    public CLISettings Settings;
     
-    public CLIContext(string workingDirectory, CLISettings settings)
+    public string ParentDirectory;
+    public string IndexDirectory
     {
-      WorkingDirectory = workingDirectory;
+      get { return Path.Combine(ParentDirectory, "GrowSense/Index"); }
+    }
+    
+    public CLISettings Settings;
+
+    public PathHelper Paths;
+    
+    public CLIContext(string indexDirectory, CLISettings settings)
+    {
+      Paths = new PathHelper(this);
+      Paths.Initialize(indexDirectory);
+      
       Settings = settings;
     }
   }
