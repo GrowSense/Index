@@ -18,7 +18,7 @@ build-sketches:
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
     - sh init-sketches.sh
-    - sh build-sketches.sh
+    - #sh build-sketches.sh
     
 build:
   stage: build
