@@ -3,6 +3,7 @@ image: 10.0.0.101:5000/ubuntu-loaded
 stages:
   - build
   - verify
+  - release
   - update
   - install
   - graduate
@@ -65,6 +66,17 @@ test-software-unit:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh test.sh fast
+  dependencies:
+    - build
+    
+release:
+  stage: release
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - bash create-release-zip.sh
+    - bash publish-github-release.sh
   dependencies:
     - build
 
