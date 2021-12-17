@@ -1,0 +1,46 @@
+﻿using System;
+using System.IO;
+namespace GrowSense.Core
+{
+  public class PathHelper
+  {
+    public CLIContext Context;
+    
+    public PathHelper(CLIContext context)
+    {
+      Context = context;
+    }
+
+    public void Initialize(string startingDirectory)
+    {
+      Console.WriteLine("Initializing paths...");
+      Console.WriteLine("  Starting directory: " + startingDirectory);
+      
+      var strippedDirectory = RemoveSubDirs(startingDirectory);
+
+      Context.ParentDirectory = strippedDirectory;
+
+      Console.WriteLine("  Parent directory: " + Context.ParentDirectory);
+
+      Console.WriteLine("  Index directory: " + Context.IndexDirectory);
+    }
+
+    public string RemoveSubDirs(string startingDirectory)
+    {
+      var strippedDir = startingDirectory.TrimEnd('/');
+
+      if (strippedDir.Trim('/').EndsWith("Index"))
+        strippedDir = Path.GetDirectoryName(strippedDir);
+        
+      if (strippedDir.Trim('/').EndsWith("GrowSense"))
+        strippedDir = Path.GetDirectoryName(strippedDir);
+
+      return strippedDir;
+    }
+
+    public string GetApplicationPath(string applicationName)
+    {
+      return Path.Combine(Context.ParentDirectory, applicationName.Trim('/'));
+    }
+  }
+}
