@@ -1,5 +1,6 @@
 ﻿using System;
 using GrowSense.Core.Verifiers;
+using System.Threading;
 namespace GrowSense.Core.Installers
 {
   public class DockerInstaller
@@ -27,17 +28,23 @@ namespace GrowSense.Core.Installers
 
         Starter.StartBash("curl -fsSL get.docker.com -o get-docker.sh");
         Starter.StartBash("bash get-docker.sh");
-        Console.Write(Starter.Output);
+        //Console.Write(Starter.Output);
 
         //Starter.Start("usermod -aG docker $USER");
         //Starter.Start("dockerd-rootless-setuptool.sh install");
-        Starter.OutputBuilder.Clear();
+       // Starter.OutputBuilder.Clear();
 
         Console.WriteLine("Finished installing docker");
         Console.WriteLine("");
       }
       else
         Console.WriteLine("Docker is already installed");
+
+//      Console.WriteLine("  Ensuring docker is started...");
+//        Starter.StartBash("service docker start");
+//        Starter.StartBash("systemctl start docker.service");
+
+      //Thread.Sleep(5000);
 
       Verifier.Verify();
     }

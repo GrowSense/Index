@@ -31,7 +31,8 @@ namespace GrowSense.Core.Installers
     "mosquitto-clients",
     "mosquitto",
     "zip",
-    "unzip" };
+    "unzip",
+    "systemctl" };
     
     public PostInstaller(CLIContext context)
     {

@@ -14,8 +14,8 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("Verifying docker is running...");
 
       VerifyDockerPSCommand();
-
-      VerifySystemCtlStatus();
+  
+      //VerifySystemCtlStatus();
     }
 
     public void VerifySystemCtlStatus()
@@ -32,6 +32,10 @@ namespace GrowSense.Core.Verifiers
         Console.WriteLine("----- Start Output -----");
         Console.WriteLine(output);
         Console.WriteLine("----- End Output -----");
+        
+      var starter2 = new ProcessStarter(Context.IndexDirectory);
+      starter.StartBash("dockerd");
+      var output2 = starter.Output;
         
         throw new Exception("Docker service is not running. Didn't find 'active' in systemctl status docker output");
       }
