@@ -17,8 +17,6 @@ build-sketches:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
-    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
     - sh init-sketches.sh
     - sh build-sketches.sh
     
@@ -31,8 +29,6 @@ build:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
-    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
     - sh init.sh
     - sh init-tests.sh
     - sh build-cli.sh
