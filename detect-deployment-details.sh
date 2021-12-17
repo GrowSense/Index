@@ -3,6 +3,11 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 echo ""
 echo "Detecting deployment details..."
 
+if [ -f "set-deployment-details.sh.security" ]; then
+  echo "  Found set-deployment-details.sh.security script. Executing."
+  . ./set-deployment-details.sh.security
+fi
+
 if [ "$BRANCH" = "lts" ]; then
   echo "  Garden: lts"
   INSTALL_HOST=$LTS_INSTALL_HOST
@@ -48,10 +53,6 @@ if [ "$BRANCH" = "dev" ]; then
   INSTALL_MQTT_PORT=$DEV_MQTT_PORT
 fi
 
-if [ -f "set-deployment-details.sh.security" ]; then
-  echo "  Found set-deployment-details.sh.security script. Executing."
-  . ./set-deployment-details.sh.security
-fi
 
 echo "  Install host: $INSTALL_HOST"
 echo "    SSH username: $INSTALL_SSH_USERNAME"

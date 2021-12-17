@@ -19,39 +19,39 @@ SMTP_PORT=${13}
 
 EXAMPLE_COMMAND="Example:\n..sh [Branch] [InstallDir] [WiFiName] [WiFiPassword] [MqttHost] [MqttUsername] [MqttPassword] [MqttPort] [SmtpServer] [AdminEmail] [SmtpUsername] [SmtpPassword] [SmtpPort]"
 
-if [ ! $WIFI_NAME ]; then
-    echo "Specify WiFi network name as an argument."
-    echo "$EXAMPLE_COMMAND"
-    exit 1
-fi
+#if [ ! $WIFI_NAME ]; then
+#    echo "Specify WiFi network name as an argument."
+#    echo "$EXAMPLE_COMMAND"
+#    exit 1
+#fi
 
-if [ ! $WIFI_PASSWORD ]; then
-    echo "Specify WiFi network password as an argument."
-    echo "$EXAMPLE_COMMAND"
-    exit 1
-fi
+#if [ ! $WIFI_PASSWORD ]; then
+#    echo "Specify WiFi network password as an argument."
+#    echo "$EXAMPLE_COMMAND"
+#    exit 1
+#fi
 
-if [ ! $MQTT_HOST ]; then
-    echo "Specify MQTT host address as an argument."
-    echo "$EXAMPLE_COMMAND"
-    exit 1
-fi
+#if [ ! $MQTT_HOST ]; then
+#    echo "Specify MQTT host address as an argument."
+#    echo "$EXAMPLE_COMMAND"
+#    exit 1
+#fi
 
-if [ ! $MQTT_USERNAME ]; then
-    echo "Specify MQTT username as an argument."
-    echo "$EXAMPLE_COMMAND"
-    exit 1
-fi
+#if [ ! $MQTT_USERNAME ]; then
+#    echo "Specify MQTT username as an argument."
+#    echo "$EXAMPLE_COMMAND"
+#    exit 1
+#fi
 
-if [ ! $MQTT_PASSWORD ]; then
-    echo "Specify MQTT password as an argument."
-    echo "$EXAMPLE_COMMAND"
-    exit 1
-fi
+#if [ ! $MQTT_PASSWORD ]; then
+#    echo "Specify MQTT password as an argument."
+#    echo "$EXAMPLE_COMMAND"
+#    exit 1
+#fi
 
-if [ ! $MQTT_PORT ]; then
-    MQTT_PORT="1883"
-fi
+#if [ ! $MQTT_PORT ]; then
+#    MQTT_PORT="1883"
+#fi
 
 if [ "$INSTALL_DIR" = "?" ]; then
     INSTALL_DIR="/usr/local/GrowSense/Index"
