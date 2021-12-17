@@ -13,8 +13,10 @@ build-sketches:
   tags:
     - docker
   script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull origin "$CI_COMMIT_BRANCH"
+    - git pull
     - sh init-sketches.sh
     - sh build-sketches.sh
     
@@ -23,8 +25,10 @@ build:
   tags:
     - docker
   script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull origin "$CI_COMMIT_BRANCH"
+    - git pull
     - sh init.sh
     - sh init-tests.sh
     - sh build.sh
