@@ -28,8 +28,6 @@ build:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
     - git pull
     - sh init.sh
     - sh init-tests.sh
