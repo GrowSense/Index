@@ -76,7 +76,7 @@ BASE_DIR="$(dirname $GROWSENSE_DIR)"
   echo ""
   echo "Downloading and installing GrowSense..."
 
-  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/scripts-download/download-installer.sh | bash -s $BRANCH $INSTALL_DIR
+  curl -sL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/scripts-download/download-installer.sh | bash -s "$BRANCH" "$INSTALL_DIR"
 
 #$SUDO bash set-wifi-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
 #$SUDO bash set-wifi-network-credentials.sh $WIFI_NAME $WIFI_PASSWORD || exit 1
