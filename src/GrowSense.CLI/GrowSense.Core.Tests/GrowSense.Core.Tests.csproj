@@ -51,6 +51,7 @@
     <Compile Include="Installers\ArduinoPlugAndPlayInstallerTestFixture.cs" />
     <Compile Include="PathHelperTestFixture.cs" />
     <Compile Include="Installers\DockerInstallerTestFixture.cs" />
+    <Compile Include="Installers\SupervisorServiceInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />

@@ -33,6 +33,10 @@ namespace GrowSense.Core.Installers
     "zip",
     "unzip",
     "systemd" };
+
+    public string[] OtherCommands = new string[]{
+    
+    };
     
     public PostInstaller(CLIContext context)
     {
@@ -43,6 +47,11 @@ namespace GrowSense.Core.Installers
       MqttBridge = new MqttBridgeInstaller(context);
       UIController = new UIControllerInstaller(context);
       ArduinoPlugAndPlay = new ArduinoPlugAndPlayInstaller(context);
+
+      foreach (var command in OtherCommands)
+      {
+        Starter.StartBash(command);
+      }
 
       Verifier = new Verifier(context);
     }

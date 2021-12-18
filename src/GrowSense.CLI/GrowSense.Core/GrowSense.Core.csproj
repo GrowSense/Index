@@ -68,6 +68,8 @@
     <Compile Include="Verifiers\SettingsVerifier.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Installers\PostInstaller.cs" />
+    <Compile Include="Installers\SupervisorInstaller.cs" />
+    <Compile Include="Verifiers\SupervisorVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />

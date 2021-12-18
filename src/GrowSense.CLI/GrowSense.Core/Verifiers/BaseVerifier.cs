@@ -79,5 +79,39 @@ namespace GrowSense.Core.Verifiers
       if (foundValue != value)
         throw new Exception("Legacy security file value '" + foundValue + "' doesn't match expected '" + value + "' in file '" + filePath);
     }
+    
+    public void AssertSystemctlService(string serviceName)
+    {
+      AssertSystemctlServiceExists(serviceName);
+      AssertSystemctlServiceIsRunning(serviceName);
+    }
+
+    public void AssertSystemctlServiceExists(string serviceName)
+    {
+    var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
+
+      var servicePath = "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
+      
+      if (File.Exists(mockSystemctlFile))
+        servicePath = Context.IndexDirectory + "/mock/services/" + serviceName.Replace(".service", "") + ".service";
+
+      AssertFileExists(servicePath);
+    }
+    
+    public void AssertSystemctlServiceIsRunning(string serviceName)
+    {
+    var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
+
+     if (!File.Exists(mockSystemctlFile))
+     {
+        var cmd = "systemctl status " + serviceName.Replace(".service", "") + ".service";
+
+        Starter.StartBash(cmd);
+
+        var output = Starter.Output;
+
+        AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
+     }
+    }
   }
 }
