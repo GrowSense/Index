@@ -104,39 +104,41 @@ if [[ "$UI_CONTROLLER_VERSION" != "$UI_CONTROLLER_INSTALLED_VERSION" ]]; then
   exit 1
 fi
 
-echo ""
-echo "Checking MQTT bridge config file..."
+#echo ""
+#echo "Checking MQTT bridge config file..."
 
-MQTT_BRIDGE_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config")
+#MQTT_BRIDGE_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config")
 
 # Disabled because this would expose the MQTT password
-#echo "${MQTT_BRIDGE_CONFIG_CONTENT}"
+#
+echo "${MQTT_BRIDGE_CONFIG_CONTENT}"
+# TODO: Remove if not needed. Should be obsolete now CLI verifies config values
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT host: $INSTALL_MQTT_HOST" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT username: $INSTALL_MQTT_USERNAME" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Password\" value=\"$INSTALL_MQTT_PASSWORD\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT password" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpServer\" value=\"$SMTP_SERVER\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP server: $SMTP_SERVER" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"EmailAddress\" value=\"$EMAIL_ADDRESS\"" ]] && echo "MQTT bridge config file doesn't contain the correct email address: $EMAIL_ADDRESS" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpUsername\" value=\"$SMTP_USERNAME\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP username: $SMTP_USERNAME" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpPassword\" value=\"$SMTP_PASSWORD\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP password" && exit 1
+#[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpPort\" value=\"$SMTP_PORT\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP port: $SMTP_PORT" && exit 1
 
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT host: $INSTALL_MQTT_HOST" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT username: $INSTALL_MQTT_USERNAME" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"Password\" value=\"$INSTALL_MQTT_PASSWORD\"" ]] && echo "MQTT bridge config file doesn't contain the correct MQTT password" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpServer\" value=\"$SMTP_SERVER\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP server: $SMTP_SERVER" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"EmailAddress\" value=\"$EMAIL_ADDRESS\"" ]] && echo "MQTT bridge config file doesn't contain the correct email address: $EMAIL_ADDRESS" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpUsername\" value=\"$SMTP_USERNAME\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP username: $SMTP_USERNAME" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpPassword\" value=\"$SMTP_PASSWORD\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP password" && exit 1
-[[ ! $(echo $MQTT_BRIDGE_CONFIG_CONTENT) =~ "key=\"SmtpPort\" value=\"$SMTP_PORT\"" ]] && echo "MQTT bridge config file doesn't contain the correct SMTP port: $SMTP_PORT" && exit 1
+#echo ""
+#echo "Checking serial UI controller config file..."
 
-echo ""
-echo "Checking serial UI controller config file..."
-
-UI_CONTROLLER_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config")
+#UI_CONTROLLER_CONFIG_CONTENT=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config")
 
 # Disabled because this would expose the MQTT password
 #echo "${UI_CONTROLLER_CONFIG_CONTENT}"
 
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT host: $INSTALL_MQTT_HOST" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT username: $INSTALL_MQTT_USERNAME" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Password\" value=\"$INSTALL_MQTT_PASSWORD\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT password" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpServer\" value=\"$SMTP_SERVER\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP server: $SMTP_SERVER" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"EmailAddress\" value=\"$EMAIL_ADDRESS\"" ]] && echo "Serial UI controller config file doesn't contain the correct email address: $EMAIL_ADDRESS" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpUsername\" value=\"$SMTP_USERNAME\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP username: $SMTP_USERNAME" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpPassword\" value=\"$SMTP_PASSWORD\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP password" && exit 1
-[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpPort\" value=\"$SMTP_PORT\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP port: $SMTP_PORT" && exit 1
+# TODO: Remove if not needed. Should be obsolete now CLI verifies config values
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Host\" value=\"$INSTALL_MQTT_HOST\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT host: $INSTALL_MQTT_HOST" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"UserId\" value=\"$INSTALL_MQTT_USERNAME\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT username: $INSTALL_MQTT_USERNAME" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"Password\" value=\"$INSTALL_MQTT_PASSWORD\"" ]] && echo "Serial UI controller config file doesn't contain the correct MQTT password" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpServer\" value=\"$SMTP_SERVER\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP server: $SMTP_SERVER" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"EmailAddress\" value=\"$EMAIL_ADDRESS\"" ]] && echo "Serial UI controller config file doesn't contain the correct email address: $EMAIL_ADDRESS" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpUsername\" value=\"$SMTP_USERNAME\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP username: $SMTP_USERNAME" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpPassword\" value=\"$SMTP_PASSWORD\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP password" && exit 1
+#[[ ! $(echo $UI_CONTROLLER_CONFIG_CONTENT) =~ "key=\"SmtpPort\" value=\"$SMTP_PORT\"" ]] && echo "Serial UI controller config file doesn't contain the correct SMTP port: $SMTP_PORT" && exit 1
 
 #echo ""
 #echo "Supervising devices..."
