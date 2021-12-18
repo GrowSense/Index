@@ -74,7 +74,10 @@ release:
   tags:
     - docker
   script:
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
     - bash create-release-zip.sh
     - bash publish-github-release.sh
   dependencies:
