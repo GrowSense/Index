@@ -45,7 +45,11 @@ namespace GrowSense.Core.Installers
 
     public void SetAppConfigValues()
     {
+      Console.WriteLine("Setting MQTT bridge app config values...");
+      
     var installedConfigPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv") + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+
+      Console.WriteLine("  Installed config path: " + installedConfigPath);
 
       var config = DeserializeAppConfig(installedConfigPath);
 
@@ -62,6 +66,8 @@ namespace GrowSense.Core.Installers
 
 
       SerializeAppConfig(config, installedConfigPath);
+
+      Console.WriteLine("Finished setting MQTT bridge app config values.");
     }
 
     public void EnsureDirectoriesExist(string mqttInstallPath)
