@@ -32,7 +32,7 @@ namespace GrowSense.Core.Installers
     "mosquitto",
     "zip",
     "unzip",
-    "systemctl" };
+    "systemd" };
     
     public PostInstaller(CLIContext context)
     {
