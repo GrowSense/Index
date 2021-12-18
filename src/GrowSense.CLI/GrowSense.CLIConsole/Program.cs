@@ -29,6 +29,8 @@ namespace GrowSense.Core
         var context = new CLIContext(workingDirectory, settings);
 
         var manager = new CLIManager(context);
+        
+        settingsManager.ProcessSettingsFromArguments(arguments, settings);
 
         if (arguments.KeylessArguments.Length > 0)
         {
@@ -40,9 +42,6 @@ namespace GrowSense.Core
           {
             case "hello-world":
               manager.ExecuteScript("hello-world.sh");
-              break;
-            case "prepare":
-              manager.ExecuteScript("prepare.sh");
               break;
             case "post-install":
               Console.WriteLine("Post install");

@@ -19,7 +19,7 @@ namespace GrowSense.Core.Verifiers
     {
       Console.WriteLine("Verifying supervisor service is installed and running...");
       
-      AssertSystemctlServiceIsRunning("growsense-supervisor");
+      AssertSystemctlService("growsense-supervisor");
     }
   }
 }

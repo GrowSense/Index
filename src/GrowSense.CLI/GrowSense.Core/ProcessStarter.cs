@@ -235,6 +235,9 @@ namespace GrowSense.Core
     {
       if (Output.IndexOf("No such file or directory") > -1)
         throw new Exception("No such file or directory");
+        
+      if (Output.IndexOf("Exception") > -1)
+        throw new Exception("An exception was thrown.");
     }
 
   }

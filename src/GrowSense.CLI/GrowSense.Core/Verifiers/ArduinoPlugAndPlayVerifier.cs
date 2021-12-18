@@ -52,6 +52,8 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyServiceIsRunning()
     {
+      Console.WriteLine("Verifying Arduino Plug and Play service is running...");
+      
     var mockSystemctlFile = GetInstallPath() + "/is-mock-systemctl.txt";
 
       if (!File.Exists(mockSystemctlFile))

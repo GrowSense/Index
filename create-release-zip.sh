@@ -15,6 +15,7 @@ if [ "$BRANCH" != "lts" ]; then
 fi
 
 sh clean.sh
+bash disable-mocking.sh
 
 VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 

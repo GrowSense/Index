@@ -17,7 +17,7 @@ namespace GrowSense.Core
     public string SmtpServer = "";
     public string SmtpUsername = "";
     public string SmtpPassword = "";
-    public int SmtpPort = 1;
+    public int SmtpPort = 25;
     
     public string Email = "";
     
