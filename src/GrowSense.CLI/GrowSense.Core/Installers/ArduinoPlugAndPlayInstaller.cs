@@ -45,14 +45,14 @@ namespace GrowSense.Core.Installers
       if (Starter.Output.ToLower().IndexOf("failed") > -1)
         throw new Exception("Arduino plug and play installation failed.");
 
-      SetAppConfigValues(installPath);
+      SetAppConfigValues();
 
       Verifier.Verify();
     }
     
-    public void SetAppConfigValues(string installDir)
+    public void SetAppConfigValues()
     {
-    var installedConfigPath = installDir + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
+    var installedConfigPath = Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
 
       var config = DeserializeAppConfig(installedConfigPath);
 

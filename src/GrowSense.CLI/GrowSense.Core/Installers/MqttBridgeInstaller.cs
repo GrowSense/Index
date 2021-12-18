@@ -23,7 +23,7 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("Installing MQTT bridge...");
       
-      var mqttBridgeInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../BridgeArduinoSerialToMqttSplitCsv");
+      var mqttBridgeInstallPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv");
 
       Console.WriteLine("  Install path: " + mqttBridgeInstallPath);
 
@@ -31,7 +31,7 @@ namespace GrowSense.Core.Installers
 
       CopyFilesToInstallDir(mqttBridgeInstallPath);
 
-      SetAppConfigValues(mqttBridgeInstallPath);
+      SetAppConfigValues();
 
       //CreateUserFile(mosquittoInstallPath);
 
@@ -43,9 +43,9 @@ namespace GrowSense.Core.Installers
       Verify(mqttBridgeInstallPath);
     }
 
-    public void SetAppConfigValues(string installDir)
+    public void SetAppConfigValues()
     {
-    var installedConfigPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+    var installedConfigPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv") + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
 
       var config = DeserializeAppConfig(installedConfigPath);
 

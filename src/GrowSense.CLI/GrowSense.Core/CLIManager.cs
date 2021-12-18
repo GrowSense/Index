@@ -43,5 +43,20 @@ namespace GrowSense.Core
     {
       Verifier.VerifyInstallation();
     }
+
+    public void ApplySettings()
+    {
+      Console.WriteLine("Applying new settings...");
+      
+      PostInstall.MqttBridge.SetAppConfigValues();
+      PostInstall.UIController.SetAppConfigValues();
+      
+      PostInstall.ArduinoPlugAndPlay.SetAppConfigValues();
+
+      PostInstall.Verifier.VerifyInstallation();
+      
+      Console.WriteLine("Finished applying new settings.");
+    }
+    
   }
 }

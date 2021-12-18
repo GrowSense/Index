@@ -23,8 +23,6 @@ namespace GrowSense.Core
 
       var settings = settingsManager.LoadSettings();
 
-      settingsManager.ProcessSettingsFromArguments(arguments, settings);
-
       try
       {
 
@@ -53,6 +51,11 @@ namespace GrowSense.Core
             case "verify":
               Console.WriteLine("Verify");
               manager.Verify();
+              break;
+            case "config":
+              Console.WriteLine("Config");
+              if (settingsManager.ProcessSettingsFromArguments(arguments, settings))
+                manager.ApplySettings();
               break;
             default:
               Console.WriteLine("Unknown command: " + command);
