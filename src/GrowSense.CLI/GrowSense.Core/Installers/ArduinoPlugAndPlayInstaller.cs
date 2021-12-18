@@ -45,6 +45,8 @@ namespace GrowSense.Core.Installers
       if (Starter.Output.ToLower().IndexOf("failed") > -1)
         throw new Exception("Arduino plug and play installation failed.");
 
+      ImportArduinoPlugAndPlayConfig();
+
       SetAppConfigValues();
 
       Verifier.Verify();

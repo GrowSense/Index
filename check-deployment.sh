@@ -198,18 +198,18 @@ fi
 
 #LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/buildnumber.txt")
 #LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/version.txt")
-LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "$GROWSENSE_INDEX_RAW_REPOSITORY_URL/$BRANCH/buildnumber.txt")
-LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "$GROWSENSE_INDEX_RAW_REPOSITORY_URL/$BRANCH/version.txt")
+#LATEST_BUILD_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "$GROWSENSE_INDEX_RAW_REPOSITORY_URL/$BRANCH/buildnumber.txt")
+#LATEST_VERSION_NUMBER=$(curl -s --connect-timeout 10 --retry 5 -H 'Cache-Control: no-cache' "$GROWSENSE_INDEX_RAW_REPOSITORY_URL/$BRANCH/version.txt")
 
-LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
+#LATEST_FULL_VERSION="$LATEST_VERSION_NUMBER-$LATEST_BUILD_NUMBER"
 
-INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && echo $(cat version.txt)-$(cat buildnumber.txt)")
+#INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && echo $(cat version.txt)-$(cat buildnumber.txt)")
 
-echo "  Branch: $BRANCH"
-echo "  Installed version: $INSTALLED_VERSION"
-echo "  Latest version: $LATEST_FULL_VERSION"
+#echo "  Branch: $BRANCH"
+#echo "  Installed version: $INSTALLED_VERSION"
+#echo "  Latest version: $LATEST_FULL_VERSION"
 
-[[ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]] && echo "Error: Installed version number doesn't match latest version number from git repository." && exit 1
+#[[ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]] && echo "Error: Installed version number doesn't match latest version number from git repository." && exit 1
 
 echo ""
 echo "Sleeping for 10 seconds to let devices load..."

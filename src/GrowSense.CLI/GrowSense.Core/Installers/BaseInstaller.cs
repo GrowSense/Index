@@ -2,6 +2,7 @@
 using System.IO;
 using GrowSense.Core.Model;
 using System.Xml.Serialization;
+using System.Xml;
 namespace GrowSense.Core.Installers
 {
   public class BaseInstaller
@@ -73,7 +74,7 @@ namespace GrowSense.Core.Installers
       foreach (FileInfo file in files)
       {
         string tempPath = Path.Combine(destDirName, file.Name);
-        file.CopyTo(tempPath, false);
+        file.CopyTo(tempPath, true);
       }
 
       // If copying subdirectories, copy them and their contents to new location.
@@ -109,12 +110,35 @@ namespace GrowSense.Core.Installers
 
     public void SerializeAppConfig(AppConfig config, string filePath)
     {
-      var serializer = new XmlSerializer(typeof(AppConfig));
+      /*var serializer = new XmlSerializer(typeof(AppConfig));
       using (var stream = File.OpenWrite(filePath))
       {
         serializer.Serialize(stream, config);
-      }
-    }
+      }*/
+      
+        // Remove Declaration
+  var settings = new XmlWriterSettings
+         {
+              Indent = true,
+              OmitXmlDeclaration = true
+         };
+    
+  // Remove Namespace
+     var ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+     
+      File.Delete(filePath);
+      
+    // using (var stream = File.Create(filePath))
+     using (var writer = XmlWriter.Create(filePath))
+     {
+         var serializer = new XmlSerializer(typeof(AppConfig));
+         serializer.Serialize(writer, config, ns);
+         //return stream.ToString();
+     }
 
+      Console.WriteLine("----- Start Output -----");
+      Console.WriteLine(File.ReadAllText(filePath));
+      Console.WriteLine("----- End Output -----");
+    }
   }
 }

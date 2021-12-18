@@ -16,6 +16,8 @@ namespace GrowSense.Core.Installers
     public UIControllerInstaller UIController;
     public ArduinoPlugAndPlayInstaller ArduinoPlugAndPlay;
 
+    public SupervisorInstaller Supervisor;
+
     public Verifier Verifier;
 
     public string[] AptPackageList = new string[]{
@@ -48,6 +50,8 @@ namespace GrowSense.Core.Installers
       UIController = new UIControllerInstaller(context);
       ArduinoPlugAndPlay = new ArduinoPlugAndPlayInstaller(context);
 
+      Supervisor = new SupervisorInstaller(context);
+
       foreach (var command in OtherCommands)
       {
         Starter.StartBash(command);
@@ -60,8 +64,6 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("Preparing installation...");
       
-      ArduinoPlugAndPlay.ImportArduinoPlugAndPlayConfig();
-      
       Apt.Update();
       Apt.Install(AptPackageList);
 
@@ -73,6 +75,8 @@ namespace GrowSense.Core.Installers
       UIController.Install();
 
       ArduinoPlugAndPlay.Install();
+
+      Supervisor.Install();
 
       Verifier.VerifyInstallation();
     }

@@ -17,11 +17,13 @@ namespace GrowSense.Core.Model
     public List<Entry> Add { get; set; }
   }
 
-  [XmlRoot(ElementName="configuration")]
-  public class AppConfig {
-    [XmlElement(ElementName="appSettings")]
+  [XmlRoot(ElementName = "configuration")]
+  public class AppConfig
+  {
+    [XmlElement(ElementName = "appSettings")]
     public AppSettings AppSettings { get; set; }
 
+    [XmlIgnore]
     public string FilePath;
   }
 }

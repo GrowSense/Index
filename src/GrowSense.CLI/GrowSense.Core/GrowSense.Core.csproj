@@ -42,7 +42,6 @@
     <Compile Include="CLIManager.cs" />
     <Compile Include="CLISettings.cs" />
     <Compile Include="FileDownloader.cs" />
-    <Compile Include="InstallationVerifier.cs" />
     <Compile Include="ProcessStarter.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Arguments.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="Installers\PostInstaller.cs" />
     <Compile Include="Installers\SupervisorInstaller.cs" />
     <Compile Include="Verifiers\SupervisorVerifier.cs" />
+    <Compile Include="Verifiers\VersionVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />

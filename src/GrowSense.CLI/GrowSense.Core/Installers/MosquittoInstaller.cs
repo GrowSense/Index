@@ -91,7 +91,7 @@ namespace GrowSense.Core.Installers
       if (!Directory.Exists(Path.GetDirectoryName(mqttInstallConfigPath)))
         Directory.CreateDirectory(Path.GetDirectoryName(mqttInstallConfigPath));
 
-      File.Copy(mqttInternalConfigPath, mqttInstallConfigPath);
+      File.Copy(mqttInternalConfigPath, mqttInstallConfigPath, true);
     }
 
     public void CreateUserFile(string mqttInstallPath)
