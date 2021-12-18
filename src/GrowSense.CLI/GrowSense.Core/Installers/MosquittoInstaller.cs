@@ -57,6 +57,8 @@ namespace GrowSense.Core.Installers
 
       Docker.Remove("mosquitto", true);
 
+      Starter.StartBash("chown -R $USER " + mosquittoInstallPath);
+
       var runCmd = String.Format(@"docker run -d \
         --privileged \
         --restart=always \
@@ -64,6 +66,7 @@ namespace GrowSense.Core.Installers
         --volume {0}/data:/mosquitto/config \
         --network=host \
         -p 127.0.0.1:{1}:1883/tcp \
+        -p 9001:9001 \
         eclipse-mosquitto",
         mosquittoInstallPath,
         Context.Settings.MqttPort
