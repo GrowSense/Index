@@ -39,7 +39,7 @@ build:
     paths:
       - lib/**
       - bin/Release/**
-      - apps/**
+      - scripts/apps/**
 
 test-software-slow:
   stage: verify
