@@ -150,9 +150,10 @@ namespace GrowSense.Core.Installers
 
       Starter.StartBash(cmd);
 
-      var content = File.ReadAllText(mqttInstallUserFilePath);
+// TODO: Make it possible to enable this output but leave it disable by default. Exposes password to console
+      //var content = File.ReadAllText(mqttInstallUserFilePath);
       
-      Console.WriteLine("    File content: " + content);
+      //Console.WriteLine("    File content: " + content);
 
     }
 
