@@ -91,7 +91,7 @@ deploy-update-staging:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh deploy-dev-update.sh
+    - echo "Skipping update" # sh deploy-dev-update.sh
 
 deploy-staging:
   stage: install
