@@ -57,17 +57,20 @@ namespace GrowSense.Core.Installers
 
       Docker.Remove("mosquitto", true);
 
-      var runCmd = String.Format(@"
-          docker run -d \
-      --restart=always \
-      --name=mosquitto \
-      --volume {0}/data:/mosquitto/config \
-      --network=host \
-      -p 127.0.0.1:{1}:1883/tcp \
-    eclipse-mosquitto",
-    mosquittoInstallPath,
-    Context.Settings.MqttPort
-    );
+      var runCmd = String.Format(@"docker run -d \
+        --privileged \
+        --restart=always \
+        --name=mosquitto \
+        --volume {0}/data:/mosquitto/config \
+        --network=host \
+        -p 127.0.0.1:{1}:1883/tcp \
+        eclipse-mosquitto",
+        mosquittoInstallPath,
+        Context.Settings.MqttPort
+      );
+
+      Console.WriteLine("  Mosquitto docker command:");
+      Console.WriteLine("    " + runCmd);
 
       Docker.RunCommand(runCmd);
     }
