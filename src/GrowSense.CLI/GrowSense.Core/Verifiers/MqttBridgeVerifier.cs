@@ -26,6 +26,15 @@ namespace GrowSense.Core.Verifiers
       VerifyVersion(installDir);
 
       VerifyConfig(installDir);
+
+      VerifyBinary(installDir);
+    }
+    
+    public void VerifyBinary(string installDir)
+    {
+      var installedExePath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe";
+
+      AssertFileExists(installedExePath);
     }
 
     public void VerifyVersion(string installDir)
