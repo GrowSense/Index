@@ -55,7 +55,7 @@ build-www:
   artifacts:
     paths:
       - www/SystemManagerWWW/lib/**
-      - www/SystemManagerWWW/bin/Release/**
+      - www/SystemManagerWWW/src/GrowSense.SystemManager.WWW/bin/**
 
 
 test-software-slow:
