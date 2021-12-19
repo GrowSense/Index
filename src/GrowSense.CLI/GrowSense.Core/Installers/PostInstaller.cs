@@ -79,6 +79,7 @@ namespace GrowSense.Core.Installers
       Supervisor.Install();
 
       Verifier.VerifyInstallation();
+      
     }
     
     

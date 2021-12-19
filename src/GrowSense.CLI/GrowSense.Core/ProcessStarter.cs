@@ -166,12 +166,12 @@ namespace GrowSense.Core
 
         process.WaitForExit();
 
-        CheckForErrors();
-
         Directory.SetCurrentDirectory(OriginalDirectory);
 
         // If the exit code is NOT zero then an error must have occurred
         IsError = (process.ExitCode != 0);
+        
+        CheckForErrors();
       }
       catch (Exception ex)
       {
@@ -236,8 +236,12 @@ namespace GrowSense.Core
       if (Output.IndexOf("No such file or directory") > -1)
         throw new Exception("No such file or directory");
         
-      if (Output.IndexOf("Exception") > -1)
-        throw new Exception("An exception was thrown.");
+        // TODO: Disabled because it throws false positives
+      //if (Output.IndexOf("Exception") > -1)
+      //  throw new Exception("An exception was thrown.");
+
+      if (IsError)
+        throw new Exception("Error");
     }
 
   }

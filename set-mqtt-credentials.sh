@@ -33,7 +33,9 @@ if [ "$PASSWORD" ]; then
 #  echo "$USERNAME:$PASSWORD" > $CREDENTIALS_FILE
 
   # Clear existing file
-  rm $CREDENTIALS_FILE
+  if [ -f "$CREDENTIALS_FILE" ]; then
+    rm $CREDENTIALS_FILE
+  fi
   touch $CREDENTIALS_FILE
   mosquitto_passwd -b "$CREDENTIALS_FILE" "$USERNAME" "$PASSWORD" || exit 1
   sudo mkdir -p /usr/local/mosquitto/data || exit 1

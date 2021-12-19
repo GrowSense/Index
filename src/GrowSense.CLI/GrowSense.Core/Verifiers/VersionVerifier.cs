@@ -13,7 +13,7 @@ namespace GrowSense.Core.Verifiers
 
     public void Verify()
     {
-     var targetVersion = Context.Settings.Version;
+      var targetVersion = Context.Settings.Version;
 
       var detectedVersion = File.ReadAllText(Context.IndexDirectory + "/full-version.txt").Trim();
 

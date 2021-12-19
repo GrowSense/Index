@@ -37,6 +37,8 @@ namespace GrowSense.Core.Verifiers
       Supervisor = new SupervisorVerifier(context);
 
       Version = new VersionVerifier(context);
+
+      Console.WriteLine("GrowSense installation verified");
     }
 
     public void VerifyInstallation()

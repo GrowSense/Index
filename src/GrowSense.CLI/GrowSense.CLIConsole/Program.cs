@@ -9,7 +9,6 @@ namespace GrowSense.Core
     public static void Main(string[] args)
     {
       Console.WriteLine("===== GrowSense CLI Console =====");
-     
       
       var arguments = new Arguments(args);
 
