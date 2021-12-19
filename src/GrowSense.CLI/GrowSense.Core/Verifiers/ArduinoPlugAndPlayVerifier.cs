@@ -5,8 +5,11 @@ namespace GrowSense.Core.Verifiers
 {
   public class ArduinoPlugAndPlayVerifier : BaseVerifier
   {
+    public SystemCtlHelper SystemCtl;
+    
     public ArduinoPlugAndPlayVerifier(CLIContext context) : base(context)
     {
+      SystemCtl = new SystemCtlHelper(context);
     }
 
     public void Verify()
@@ -58,7 +61,7 @@ namespace GrowSense.Core.Verifiers
 
       if (!File.Exists(mockSystemctlFile))
       {
-        var cmd = "systemctl status arduino-plug-and-play.service";
+        var cmd = SystemCtl.Status("arduino-plug-and-play");
 
         Starter.StartBash(cmd);
 

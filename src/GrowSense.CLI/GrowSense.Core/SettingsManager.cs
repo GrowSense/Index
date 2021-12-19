@@ -144,6 +144,14 @@ namespace GrowSense.Core
         Console.WriteLine("  Setting email address: " + settings.Email);
       }
 
+      if (arguments.Contains("mock-systemctl"))
+      {
+        settings.IsMockSystemCtl = Convert.ToBoolean(arguments["mock-systemctl"]);
+
+        if (settings.IsMockSystemCtl)
+          Console.WriteLine("  Is mock systemctl: " + settings.IsMockSystemCtl);
+      }
+      
       if (settingsChanged)
         SaveSettings(settings);
 

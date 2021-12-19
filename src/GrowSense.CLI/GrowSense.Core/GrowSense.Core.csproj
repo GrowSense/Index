@@ -72,6 +72,7 @@
     <Compile Include="Verifiers\VersionVerifier.cs" />
     <Compile Include="Verifiers\WwwVerifier.cs" />
     <Compile Include="Installers\WwwInstaller.cs" />
+    <Compile Include="SystemCtlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />

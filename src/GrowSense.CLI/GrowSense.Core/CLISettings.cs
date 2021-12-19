@@ -20,6 +20,8 @@ namespace GrowSense.Core
     public int SmtpPort = 25;
     
     public string Email = "";
+
+    public bool IsMockSystemCtl = false;
     
     public CLISettings()
     {

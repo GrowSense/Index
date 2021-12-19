@@ -26,6 +26,12 @@ namespace GrowSense.Core.Installers
       var installPath = GetInstallPath();
       
       Console.WriteLine("  Install dir: " + installPath);
+
+      if (Context.Settings.IsMockSystemCtl)
+      {
+        EnsureInstallDirectoryExists();
+        File.CreateText(Context.ParentDirectory + "/ArduinoPlugAndPlay/is-mock-systemctl.txt");
+      }
       
 
       var cmd = String.Format("wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/{0}/scripts-ols/install.sh | bash -s -- {0} {1} {2} {3} {4} {5} {6}",

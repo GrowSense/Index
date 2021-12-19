@@ -22,15 +22,17 @@ namespace GrowSense.Core.Tests.Installers
       settings.SmtpUsername = "user" + random.Next(1000, 9000);
       settings.SmtpPassword = "pass" + random.Next(1000, 9000);
       settings.Email = "me@mydomain" + random.Next(1000, 9000) + ".com";
+      settings.IsMockSystemCtl = true;
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);
+      
       var installer = new ArduinoPlugAndPlayInstaller(context);
 
       installer.EnsureInstallDirectoryExists();
       
       var installPath = installer.GetInstallPath();
       
-      File.WriteAllText(Path.Combine(installPath, "is-mock-systemctl.txt"), "true");
+      //File.WriteAllText(Path.Combine(installPath, "is-mock-systemctl.txt"), "true");
 
       installer.Install();
 

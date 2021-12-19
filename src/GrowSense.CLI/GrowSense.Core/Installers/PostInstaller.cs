@@ -1,6 +1,7 @@
 ﻿using System;
 using GrowSense.Core.Installers;
 using GrowSense.Core.Verifiers;
+using System.IO;
 namespace GrowSense.Core.Installers
 {
   public class PostInstaller
@@ -20,6 +21,8 @@ namespace GrowSense.Core.Installers
     public WwwInstaller WWW;
 
     public Verifier Verifier;
+
+    public CLIContext Context;
 
     public string[] AptPackageList = new string[]{
     "build-essential",
@@ -43,6 +46,8 @@ namespace GrowSense.Core.Installers
     
     public PostInstaller(CLIContext context)
     {
+      Context = context;
+      
       Python = new PythonInstaller();
       Docker = new DockerInstaller(context);
       PlatformIO = new PlatformIOInstaller();
@@ -65,6 +70,8 @@ namespace GrowSense.Core.Installers
     public void PrepareInstallation()
     {
       Console.WriteLine("Preparing installation...");
+
+      CreateMockFiles();
       
       Apt.Update();
       Apt.Starter.EnableErrorCheckingByTextMatching = false; // Disabled error checking because it causes false positives
@@ -85,7 +92,11 @@ namespace GrowSense.Core.Installers
       Verifier.VerifyInstallation();
       
     }
-    
-    
+
+    public void CreateMockFiles()
+    {
+      if (Context.Settings.IsMockSystemCtl)
+        File.CreateText(Context.IndexDirectory + "/is-mock-systemctl.txt");
+    }    
   }
 }
