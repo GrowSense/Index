@@ -9,12 +9,7 @@ namespace GrowSense.Core.Installers
     public string PythonName = "python3";
 
     public string[] Packages = new string[]{
-    //"python",
-    //"python-pip",
-    //"python-setuptools",
-    //"python-distutils",
       "python3",
-      "python3-distutils",
       "python3-setuptools",
       "python3-serial",
       "python3-venv",
