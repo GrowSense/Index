@@ -42,7 +42,7 @@ build:
       - scripts/apps/**
 
 build-www:
-  stage: build-www
+  stage: build
   tags:
     - docker
   script:
