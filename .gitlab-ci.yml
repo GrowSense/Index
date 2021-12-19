@@ -54,9 +54,7 @@ build-www:
     - sh build-www.sh
   artifacts:
     paths:
-      - www/SystemManagerWWW/lib/**
       - www/SystemManagerWWW/src/GrowSense.SystemManager.WWW/bin/**
-
 
 test-software-slow:
   stage: verify
