@@ -70,6 +70,8 @@
     <Compile Include="Installers\SupervisorInstaller.cs" />
     <Compile Include="Verifiers\SupervisorVerifier.cs" />
     <Compile Include="Verifiers\VersionVerifier.cs" />
+    <Compile Include="Verifiers\WwwVerifier.cs" />
+    <Compile Include="Installers\WwwInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />

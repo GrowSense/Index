@@ -12,7 +12,7 @@ namespace GrowSense.Core
     public void Update()
     {
       Console.WriteLine("Performing apt-get update...");
-      Starter.Start("apt-get update");
+      Starter.Start("sudo apt-get update");
 
       if (Starter.Output.ToLower().IndexOf("permission denied") > -1)
         throw new Exception("Error: Permission denied. Do you need to run with sudo?");
@@ -42,7 +42,7 @@ namespace GrowSense.Core
       if (!IsInstalled(package))
       {
       Console.WriteLine("Installing apt package: " + package);
-        Starter.Start("apt-get install -y " + package);
+        Starter.Start("sudo apt-get install -y " + package);
         //Console.WriteLine(Starter.Output);
 
         if (Starter.Output.IndexOf("Unable to locate package") > -1)
@@ -62,11 +62,23 @@ namespace GrowSense.Core
       Console.WriteLine("Performing apt-get install...");
       Console.WriteLine("  Packages: " + packages);
       
-      Starter.Start("apt-get install -y " + packages);
+      Starter.Start("sudo apt-get install -y " + packages);
       //Console.WriteLine(Starter.Output);
       
       if (Starter.Output.ToLower().IndexOf("permission denied") > -1)
         throw new Exception("Error: Permission denied. Do you need to run with sudo?");
+    }
+
+    public bool IsPackageInstalled(string packageName)
+    {
+      var starter = new ProcessStarter();
+      starter.ThrowExceptionOnError = false;
+      starter.StartBash("dpkg -s " + packageName);
+
+      if (starter.Output.IndexOf("is not installed") > -1)
+        return false;
+      else
+        return true;
     }
   }
 }

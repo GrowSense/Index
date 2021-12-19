@@ -21,7 +21,7 @@ namespace GrowSense.Core
       get { return OutputBuilder.ToString(); }
     }
 
-    public bool EnableErrorChecking = true;
+    public bool EnableErrorCheckingByTextMatching = true;
 
     public StringBuilder OutputBuilder = new StringBuilder();
 
@@ -233,15 +233,18 @@ namespace GrowSense.Core
 
     public void CheckForErrors()
     {
-      if (Output.IndexOf("No such file or directory") > -1)
-        throw new Exception("No such file or directory");
-        
-        // TODO: Disabled because it throws false positives
-      //if (Output.IndexOf("Exception") > -1)
-      //  throw new Exception("An exception was thrown.");
+      if (EnableErrorCheckingByTextMatching)
+      {
+        if (Output.IndexOf("No such file or directory") > -1)
+          throw new Exception("No such file or directory");
 
-      if (IsError)
-        throw new Exception("Error");
+        // TODO: Disabled because it throws false positives
+        //if (Output.IndexOf("Exception") > -1)
+        //  throw new Exception("An exception was thrown.");
+
+        if (IsError && ThrowExceptionOnError)
+          throw new Exception("Error");
+      }
     }
 
   }

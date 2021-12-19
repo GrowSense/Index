@@ -52,6 +52,7 @@
     <Compile Include="PathHelperTestFixture.cs" />
     <Compile Include="Installers\DockerInstallerTestFixture.cs" />
     <Compile Include="Installers\SupervisorServiceInstaller.cs" />
+    <Compile Include="Installers\WwwServiceInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />

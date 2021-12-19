@@ -17,6 +17,7 @@ namespace GrowSense.Core.Installers
     public ArduinoPlugAndPlayInstaller ArduinoPlugAndPlay;
 
     public SupervisorInstaller Supervisor;
+    public WwwInstaller WWW;
 
     public Verifier Verifier;
 
@@ -51,6 +52,7 @@ namespace GrowSense.Core.Installers
       ArduinoPlugAndPlay = new ArduinoPlugAndPlayInstaller(context);
 
       Supervisor = new SupervisorInstaller(context);
+      WWW = new WwwInstaller(context);
 
       foreach (var command in OtherCommands)
       {
@@ -65,6 +67,7 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("Preparing installation...");
       
       Apt.Update();
+      Apt.Starter.EnableErrorCheckingByTextMatching = false; // Disabled error checking because it causes false positives
       Apt.Install(AptPackageList);
 
       Docker.Install();
@@ -77,6 +80,7 @@ namespace GrowSense.Core.Installers
       ArduinoPlugAndPlay.Install();
 
       Supervisor.Install();
+      WWW.Install();
 
       Verifier.VerifyInstallation();
       

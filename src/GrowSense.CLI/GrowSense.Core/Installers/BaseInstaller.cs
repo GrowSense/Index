@@ -7,8 +7,11 @@ namespace GrowSense.Core.Installers
 {
   public class BaseInstaller
   {
+    public AptHelper Apt;
+    
     public BaseInstaller()
     {
+      Apt = new AptHelper();
     }
 
 

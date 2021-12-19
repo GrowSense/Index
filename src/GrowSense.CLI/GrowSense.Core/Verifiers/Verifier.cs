@@ -17,6 +17,7 @@ namespace GrowSense.Core.Verifiers
     public SettingsVerifier Settings;
 
     public SupervisorVerifier Supervisor;
+    public WwwVerifier WWW;
 
     public VersionVerifier Version;
     
@@ -35,6 +36,7 @@ namespace GrowSense.Core.Verifiers
       Settings = new SettingsVerifier(context);
 
       Supervisor = new SupervisorVerifier(context);
+      WWW = new WwwVerifier(context);
 
       Version = new VersionVerifier(context);
 
