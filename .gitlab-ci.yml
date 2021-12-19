@@ -41,6 +41,23 @@ build:
       - bin/Release/**
       - scripts/apps/**
 
+build-www:
+  stage: build-www
+  tags:
+    - docker
+  script:
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+    - sh init-www.sh
+    - sh build-www.sh
+  artifacts:
+    paths:
+      - www/SystemManagerWWW/lib/**
+      - www/SystemManagerWWW/bin/Release/**
+
+
 test-software-slow:
   stage: verify
   tags:
@@ -84,6 +101,7 @@ release:
     - bash publish-github-release.sh
   dependencies:
     - build
+    - build-www
 
 deploy-update-staging:
   stage: update
