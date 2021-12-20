@@ -112,21 +112,10 @@ namespace GrowSense.Core.Tests.Deploy
 
       starter.OutputBuilder.Clear();
 
-      Console.WriteLine("");
-      Console.WriteLine("Pushing release zip to target host...");
 
       var releaseFile = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
 
-      var cmd = "sshpass -p " + deployment.Ssh.Password + " scp " + releaseFile + " " + deployment.Ssh.Username + "@" + deployment.Ssh.Host + ":~/GrowSenseIndex.zip";
-      Console.WriteLine("  Command: " + cmd);
-      starter.StartBash(cmd);
-
-      starter.OutputBuilder.Clear();
-
-      Console.WriteLine("");
-      Console.WriteLine("Moving release zip into correct folder...");
-
-      ssh.Execute("sudo mv ~/GrowSenseIndex.zip /usr/local/GrowSense/Installer/GrowSenseIndex.zip");
+      ssh.CopyFileTo(releaseFile, "/usr/local/GrowSense/Installer/GrowSenseIndex.zip");
     }
   }
 }

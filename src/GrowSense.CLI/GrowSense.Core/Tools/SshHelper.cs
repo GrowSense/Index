@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 namespace GrowSense.Core.Tools
 {
   public class SshHelper
@@ -8,6 +9,8 @@ namespace GrowSense.Core.Tools
     public bool UseSshPass = true;
 
     public string StartDirectory;
+
+    public bool NoHostKeyChecking = true;
 
     public SshHelper(SshTarget target)
     {
@@ -25,7 +28,11 @@ namespace GrowSense.Core.Tools
 
       command += " || exit 1";
 
-      var fullCommand = String.Format("ssh {0}@{1} \"{2}\"", Target.Username, Target.Host, EscapeCommand(command));
+      var options = "";
+      if (NoHostKeyChecking)
+      options = " -o \"StrictHostKeyChecking no\" ";
+
+      var fullCommand = String.Format("ssh {3} {0}@{1} \"{2}\"", Target.Username, Target.Host, EscapeCommand(command), options);
       if (UseSshPass)
         fullCommand = String.Format("sshpass -p {0} {1}", Target.Password, fullCommand);
 
@@ -53,6 +60,33 @@ namespace GrowSense.Core.Tools
       var output = Execute(cmd);
       var result = Convert.ToBoolean(output.Trim());
       return result;
+    }
+
+    public void CopyFileTo(string sourceFile, string destinationFile)
+    {
+      Console.WriteLine("Copying file via SSH to target host...");
+      Console.WriteLine("  Source: " + sourceFile);
+      Console.WriteLine("  Destination: " + destinationFile);
+      
+      var homeFile = "~/" + Path.GetFileName(destinationFile);
+
+      var starter = new ProcessStarter();
+
+      Console.WriteLine("");
+      Console.WriteLine("  Pushing file via scp to home directory...");
+      
+      var cmd = "sshpass -p " + Target.Password + " scp " + sourceFile + " " + Target.Username + "@" + Target.Host + ":" + homeFile;
+      //Console.WriteLine("  Command: " + cmd);     
+      starter.StartBash(cmd);
+
+      starter.OutputBuilder.Clear();
+
+      Console.WriteLine("");
+      Console.WriteLine("  Moving file into correct folder...");
+
+      Execute("sudo mv " + homeFile + " " + destinationFile);
+
+      Console.WriteLine("Finished pushing file to host target.");
     }
   }
 }
