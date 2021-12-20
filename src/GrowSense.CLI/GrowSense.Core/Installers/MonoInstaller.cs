@@ -20,7 +20,6 @@ namespace GrowSense.Core.Installers
     public void Install()
     {
       Apt.Install(Packages);
-      
     }
   }
 }
