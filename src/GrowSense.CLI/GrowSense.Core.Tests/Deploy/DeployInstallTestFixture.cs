@@ -41,6 +41,7 @@ namespace GrowSense.Core.Tests.Deploy
         manager.WaitForUnlock();
       }*/
 
+      manager.Ssh.Execute("echo helloworld");
       //manager.Ssh.Execute("sudo echo hello > /usr/local/GrowSense/Installer/hello.txt");
 
       manager.DownloadAndLaunchInstaller();
