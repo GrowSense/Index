@@ -13,22 +13,22 @@ namespace GrowSense.Core.Tests.Deploy
     {
       Console.WriteLine("Testing deploy install...");
 
-      //var starter = new ProcessStarter();
-      //starter.Start("./detect-deployment-details.sh");
+      var version = File.ReadAllText(ProjectDirectory + "/full-version.txt").Trim();
+      var branch = new BranchDetector(ProjectDirectory).Branch;
 
-      var deployment = GetDeploymentInfo();
-
+      var deployment = GetDeploymentInfo(branch);
 
       Console.WriteLine("  Host: " + deployment.Ssh.Host);
       Console.WriteLine("  SSH Username: " + deployment.Ssh.Username);
       Console.WriteLine("  SSH Password: hidden (length " + (String.IsNullOrEmpty(deployment.Ssh.Password) ? deployment.Ssh.Password.Length : 0) + ")");
       Console.WriteLine("  SSH Port: " + deployment.Ssh.Port);
       
-      
-      var version = File.ReadAllText(ProjectDirectory + "/full-version.txt").Trim();
-      var branch = new BranchDetector(ProjectDirectory).Branch;
+      Console.WriteLine("  MQTT Host: " + deployment.Mqtt.Host);
+      Console.WriteLine("  MQTT Username: " + deployment.Mqtt.Username);
+      Console.WriteLine("  MQTT Password: hidden (length " + (String.IsNullOrEmpty(deployment.Mqtt.Password) ? deployment.Mqtt.Password.Length : 0) + ")");
+      Console.WriteLine("  MQTT Port: " + deployment.Mqtt.Port);
 
-      CreateAndPushRelease(deployment);
+      CreateReleaseZipAndPushToHost(deployment);
       
       var manager = new DeploymentManager(deployment, branch, version);
 
@@ -48,14 +48,14 @@ namespace GrowSense.Core.Tests.Deploy
       manager.SetConfigValues();
     }
 
-    public DeploymentInfo GetDeploymentInfo()
+    public DeploymentInfo GetDeploymentInfo(string branch)
     {
       Console.WriteLine("  Getting deployment info...");
       
       if (Directory.Exists("deployments"))
         return GetDeploymentInfoFromSecurityFile();
       else
-        return GetDeploymentInfoFromEnvironmentVariables();
+        return GetDeploymentInfoFromEnvironmentVariables(branch);
     }
 
     public DeploymentInfo GetDeploymentInfoFromSecurityFile()
@@ -66,7 +66,7 @@ namespace GrowSense.Core.Tests.Deploy
       return deployment;
     }
 
-    public DeploymentInfo GetDeploymentInfoFromEnvironmentVariables()
+    public DeploymentInfo GetDeploymentInfoFromEnvironmentVariables(string branch)
     {
       Console.WriteLine("    From environment variables...");
       
@@ -74,33 +74,33 @@ namespace GrowSense.Core.Tests.Deploy
       //var branch = 
       //deployment.Name = "devstaging";
       deployment.Ssh = new SshTarget();
-      deployment.Ssh.Host = Environment.GetEnvironmentVariable("INSTALL_HOST");
-      deployment.Ssh.Username = Environment.GetEnvironmentVariable("INSTALL_SSH_USERNAME");
-      deployment.Ssh.Password = Environment.GetEnvironmentVariable("INSTALL_SSH_PASSWORD");
-      deployment.Ssh.Port = Convert.ToInt32(Environment.GetEnvironmentVariable("INSTALL_SSH_PORT"));
+      deployment.Ssh.Host = GetEnvironmentVariable("SSH_HOST", branch);
+      deployment.Ssh.Username = GetEnvironmentVariable("SSH_USERNAME", branch);
+      deployment.Ssh.Password = GetEnvironmentVariable("SSH_PASSWORD", branch);
+      deployment.Ssh.Port = Convert.ToInt32(GetEnvironmentVariable("SSH_PORT", branch));
 
       deployment.Mqtt = new MqttTarget();
-      deployment.Mqtt.Host = "";
-      deployment.Mqtt.Username = "";
-      deployment.Mqtt.Password = "";
-      deployment.Mqtt.Port = 1883;
+      deployment.Mqtt.Host =  GetEnvironmentVariable("MQTT_HOST", branch);
+      deployment.Mqtt.Username = GetEnvironmentVariable("MQTT_USERNAME", branch);
+      deployment.Mqtt.Password = GetEnvironmentVariable("MQTT_PASSWORD", branch);
+      deployment.Mqtt.Port = Convert.ToInt32(GetEnvironmentVariable("MQTT_PORT", branch));
 
       return deployment;
     }
 
-    public string GetEnvironmentVariable(string variableName)
+    public string GetEnvironmentVariable(string variableName, string branch)
     {
 
-      var value = Environment.GetEnvironmentVariable(variableName);
+      var value = Environment.GetEnvironmentVariable("DEPLOY_" + branch.ToUpper() + "_" + variableName);
 
-      if (String.IsNullOrEmpty(value))
-        throw new ArgumentException("No environment variable found for: " + variableName);
+      //if (String.IsNullOrEmpty(value))
+      //  throw new ArgumentException("No environment variable found for: " + variableName);
 
       return value;
     
     }
 
-    public void CreateAndPushRelease(DeploymentInfo deployment)
+    public void CreateReleaseZipAndPushToHost(DeploymentInfo deployment)
     {
       var starter = new ProcessStarter(ProjectDirectory);
 
