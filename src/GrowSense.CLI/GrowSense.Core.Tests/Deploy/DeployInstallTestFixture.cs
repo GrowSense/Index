@@ -22,19 +22,20 @@ namespace GrowSense.Core.Tests.Deploy
       Console.WriteLine("  SSH Username: " + deployment.Ssh.Username);
       Console.WriteLine("  SSH Password: hidden (length " + (String.IsNullOrEmpty(deployment.Ssh.Password) ? deployment.Ssh.Password.Length : 0) + ")");
       Console.WriteLine("  SSH Port: " + deployment.Ssh.Port);
-      
+
       Console.WriteLine("  MQTT Host: " + deployment.Mqtt.Host);
       Console.WriteLine("  MQTT Username: " + deployment.Mqtt.Username);
       Console.WriteLine("  MQTT Password: hidden (length " + (String.IsNullOrEmpty(deployment.Mqtt.Password) ? deployment.Mqtt.Password.Length : 0) + ")");
       Console.WriteLine("  MQTT Port: " + deployment.Mqtt.Port);
 
-      CreateReleaseZipAndPushToHost(deployment);
-      
-      var manager = new DeploymentManager(deployment, branch, version);
-
       var ssh = new SshHelper(deployment.Ssh);
       ssh.UseSshPass = true;
-      
+
+      CreateReleaseZipAndPushToHost(deployment, ssh);
+
+      var manager = new DeploymentManager(deployment, branch, version);
+
+
 
       /*if (ssh.DirectoryExists("/usr/local/GrowSense/Index"))
       {
@@ -52,7 +53,7 @@ namespace GrowSense.Core.Tests.Deploy
     public DeploymentInfo GetDeploymentInfo(string branch)
     {
       Console.WriteLine("  Getting deployment info...");
-      
+
       if (Directory.Exists("deployments"))
         return GetDeploymentInfoFromSecurityFile();
       else
@@ -70,7 +71,7 @@ namespace GrowSense.Core.Tests.Deploy
     public DeploymentInfo GetDeploymentInfoFromEnvironmentVariables(string branch)
     {
       Console.WriteLine("    From environment variables...");
-      
+
       var deployment = new DeploymentInfo();
       //var branch = 
       //deployment.Name = "devstaging";
@@ -81,7 +82,7 @@ namespace GrowSense.Core.Tests.Deploy
       deployment.Ssh.Port = Convert.ToInt32(GetEnvironmentVariable("SSH_PORT", branch));
 
       deployment.Mqtt = new MqttTarget();
-      deployment.Mqtt.Host =  GetEnvironmentVariable("MQTT_HOST", branch);
+      deployment.Mqtt.Host = GetEnvironmentVariable("MQTT_HOST", branch);
       deployment.Mqtt.Username = GetEnvironmentVariable("MQTT_USERNAME", branch);
       deployment.Mqtt.Password = GetEnvironmentVariable("MQTT_PASSWORD", branch);
       deployment.Mqtt.Port = Convert.ToInt32(GetEnvironmentVariable("MQTT_PORT", branch));
@@ -98,19 +99,34 @@ namespace GrowSense.Core.Tests.Deploy
       //  throw new ArgumentException("No environment variable found for: " + variableName);
 
       return value;
-    
+
     }
 
-    public void CreateReleaseZipAndPushToHost(DeploymentInfo deployment)
+    public void CreateReleaseZipAndPushToHost(DeploymentInfo deployment, SshHelper ssh)
     {
+      Console.WriteLine("");
+      Console.WriteLine("Creating release zip...");
       var starter = new ProcessStarter(ProjectDirectory);
 
       starter.StartBash("bash create-release-zip.sh");
 
+      starter.OutputBuilder.Clear();
+
+      Console.WriteLine("");
+      Console.WriteLine("Pushing release zip to target host...");
+
       var releaseFile = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
 
-      var cmd = "sshpass -p " + deployment.Ssh.Password + " scp " + releaseFile + " " + deployment.Ssh.Username + "@" + deployment.Ssh.Host + ":/usr/local/GrowSense/Installer/GrowSenseIndex.zip";
+      var cmd = "sshpass -p " + deployment.Ssh.Password + " scp " + releaseFile + " " + deployment.Ssh.Username + "@" + deployment.Ssh.Host + ":~/GrowSenseIndex.zip";
+      Console.WriteLine("  Command: " + cmd);
       starter.StartBash(cmd);
+
+      starter.OutputBuilder.Clear();
+
+      Console.WriteLine("");
+      Console.WriteLine("Moving release zip into correct folder...");
+
+      ssh.Execute("sudo mv ~/GrowSenseIndex.zip /usr/local/GrowSense/Installer/GrowSenseIndex.zip");
     }
   }
 }
