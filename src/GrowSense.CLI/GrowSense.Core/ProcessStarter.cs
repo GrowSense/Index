@@ -177,6 +177,8 @@ namespace GrowSense.Core
       {
         IsError = true;
 
+        Console.WriteLine(Output);
+
         var title = "\"Error starting process.\"";
 
         OutputBuilder.Append(title);
@@ -199,7 +201,7 @@ namespace GrowSense.Core
     public Process StartBash(string command)
     {
 
-      var fullCommand = "/bin/bash -c \"" + command.Replace("\"", "\"\"") + "\"";
+      var fullCommand = "bash -c \"" + command.Replace("\"", "\"\"") + "\"";
       return Start(fullCommand);
 
     }

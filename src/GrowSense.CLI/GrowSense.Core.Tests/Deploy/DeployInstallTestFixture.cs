@@ -36,12 +36,12 @@ namespace GrowSense.Core.Tests.Deploy
       ssh.UseSshPass = true;
       
 
-      if (ssh.DirectoryExists("/usr/local/GrowSense/Index"))
+      /*if (ssh.DirectoryExists("/usr/local/GrowSense/Index"))
       {
         manager.WaitForUnlock();
-      }
+      }*/
 
-      manager.Ssh.Execute("sudo echo hello > /usr/local/GrowSense/Installer/hello.txt");
+      //manager.Ssh.Execute("sudo echo hello > /usr/local/GrowSense/Installer/hello.txt");
 
       manager.DownloadAndLaunchInstaller();
 
