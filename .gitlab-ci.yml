@@ -20,6 +20,8 @@ build-sketches:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
     - cat full-version.txt
   script:
     - sh init-sketches.sh
@@ -34,9 +36,9 @@ build:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull -f
-    - cat full-version.txt
     - git submodule sync --recursive
     - git submodule update --init --recursive
+    - cat full-version.txt
   script:
     - sh init.sh
     - sh init-apps.sh
