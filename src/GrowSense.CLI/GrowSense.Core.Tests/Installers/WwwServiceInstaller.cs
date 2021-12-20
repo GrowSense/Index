@@ -18,6 +18,7 @@ namespace GrowSense.Core.Tests.Installers
       File.WriteAllText(Path.GetFullPath("is-mock-systemctl.txt"), "true");
 
       var settings = new CLISettings();
+      settings.IsMockSystemCtl = true;
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);
       var installer = new WwwInstaller(context);

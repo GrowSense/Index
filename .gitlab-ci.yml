@@ -120,9 +120,9 @@ test-deploy:
   before_script:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
+    - cp .gitmodules.lan .gitmodules
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull -f
-    - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
     - git submodule update --init --recursive
     - cat full-version.txt
