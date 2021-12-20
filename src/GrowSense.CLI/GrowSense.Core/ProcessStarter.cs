@@ -171,7 +171,7 @@ namespace GrowSense.Core
         // If the exit code is NOT zero then an error must have occurred
         IsError = (process.ExitCode != 0);
         
-        CheckForErrors();
+        CheckForErrors(command);
       }
       catch (Exception ex)
       {
@@ -231,7 +231,7 @@ namespace GrowSense.Core
         return argument;
     }
 
-    public void CheckForErrors()
+    public void CheckForErrors(string command)
     {
       if (EnableErrorCheckingByTextMatching)
       {
@@ -243,7 +243,7 @@ namespace GrowSense.Core
         //  throw new Exception("An exception was thrown.");
 
         if (IsError && ThrowExceptionOnError)
-          throw new Exception("Error");
+          throw new Exception("Error running: " + command);
       }
     }
 
