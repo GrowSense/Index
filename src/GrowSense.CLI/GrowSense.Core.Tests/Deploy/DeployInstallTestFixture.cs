@@ -65,14 +65,16 @@ namespace GrowSense.Core.Tests.Deploy
 
     public DeploymentInfo GetDeploymentInfoFromEnvironmentVariables()
     {
-      var deployment = new DeploymentInfo(); 
+      var deployment = new DeploymentInfo();
       //var branch = 
       //deployment.Name = "devstaging";
+      deployment.Ssh = new SshTarget();
       deployment.Ssh.Host = Environment.GetEnvironmentVariable("INSTALL_HOST");
       deployment.Ssh.Username = Environment.GetEnvironmentVariable("INSTALL_SSH_USERNAME");
       deployment.Ssh.Password = Environment.GetEnvironmentVariable("INSTALL_SSH_PASSWORD");
       deployment.Ssh.Port = Convert.ToInt32(Environment.GetEnvironmentVariable("INSTALL_SSH_PORT"));
 
+      deployment.Mqtt = new MqttTarget();
       deployment.Mqtt.Host = "";
       deployment.Mqtt.Username = "";
       deployment.Mqtt.Password = "";
