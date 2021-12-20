@@ -13,11 +13,12 @@ build-sketches:
   stage: build
   tags:
     - docker
-  script:
-    - git config --global user.email "compulsivecoder@gmail.com"
-    - git config --global user.name "CompulsiveCoder"
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+  script:
     - sh init-sketches.sh
     - echo "..." #sh build-sketches.sh
     
@@ -25,11 +26,12 @@ build:
   stage: build
   tags:
     - docker
-  script:
-    - git config --global user.email "compulsivecoder@gmail.com"
-    - git config --global user.name "CompulsiveCoder"
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+  script:
     - sh init.sh
     - sh init-apps.sh
     - sh init-tests.sh
@@ -45,11 +47,12 @@ build-www:
   stage: build
   tags:
     - docker
-  script:
-    - git config --global user.email "compulsivecoder@gmail.com"
-    - git config --global user.name "CompulsiveCoder"
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+  script:
     - sh init-www.sh
     - sh build-www.sh
   artifacts:
@@ -60,8 +63,12 @@ test-cli-slow:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+  script:
     - sh test.sh Slow
   dependencies:
     - build
@@ -70,8 +77,12 @@ test-cli-fast:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+  script:
     - sh test.sh Fast
   dependencies:
     - build
@@ -80,8 +91,12 @@ test-unit:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+  script:
     - sh test.sh Unit
   dependencies:
     - build
@@ -90,8 +105,12 @@ test-deploy:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+  script:
     - sh test.sh DeployInstall
   dependencies:
     - build
