@@ -60,6 +60,7 @@ namespace GrowSense.Core.Tests.Deploy
 
     public DeploymentInfo GetDeploymentInfoFromSecurityFile()
     {
+      Console.WriteLine("    From security file...");
       var filePath = ProjectDirectory + "/deployments/dev.json.security";
       var deployment = JsonConvert.DeserializeObject<DeploymentInfo>(File.ReadAllText(filePath));
       return deployment;
@@ -67,6 +68,8 @@ namespace GrowSense.Core.Tests.Deploy
 
     public DeploymentInfo GetDeploymentInfoFromEnvironmentVariables()
     {
+      Console.WriteLine("    From environment variables...");
+      
       var deployment = new DeploymentInfo();
       //var branch = 
       //deployment.Name = "devstaging";
