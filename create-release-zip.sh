@@ -36,7 +36,7 @@ VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 #echo "$VERSION" > $TMP_RELEASE_FOLDER/full-version.txt
 echo "$VERSION" > full-version.txt
 
-if [ -f "releases" ]; then
+if [ -d "releases" ]; then
   echo"  Removing releases folder..."
   rm $RELEASES_FOLDER -R
 fi
