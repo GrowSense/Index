@@ -1,0 +1,30 @@
+[submodule "sketches/monitor/SoilMoistureSensorCalibratedSerial"]
+	path = sketches/monitor/SoilMoistureSensorCalibratedSerial
+	url = http://10.0.0.101:180/growsense/SoilMoistureSensorCalibratedSerial.git
+[submodule "sketches/irrigator/SoilMoistureSensorCalibratedPumpESP"]
+	path = sketches/irrigator/SoilMoistureSensorCalibratedPumpESP
+	url = http://10.0.0.101:180/growsense/SoilMoistureSensorCalibratedPumpESP
+[submodule "sketches/irrigator/SoilMoistureSensorCalibratedPump"]
+	path = sketches/irrigator/SoilMoistureSensorCalibratedPump
+	url = http://10.0.0.101:180/growsense/SoilMoistureSensorCalibratedPump.git
+[submodule "sketches/monitor/SoilMoistureSensorCalibratedSerialESP"]
+	path = sketches/monitor/SoilMoistureSensorCalibratedSerialESP
+	url = http://10.0.0.101:180/growsense/SoilMoistureSensorCalibratedSerialESP.git
+[submodule "sketches/ventilator/TemperatureHumidityDHTSensorFan"]
+	path = sketches/ventilator/TemperatureHumidityDHTSensorFan
+	url = http://10.0.0.101:180/growsense/TemperatureHumidityDHTSensorFan.git
+[submodule "sketches/illuminator/LightPRSensorCalibratedLight"]
+	path = sketches/illuminator/LightPRSensorCalibratedLight
+	url = http://10.0.0.101:180/growsense/LightPRSensorCalibratedLight.git
+[submodule "sketches/ui/Serial1602ShieldSystemUI"]
+	path = sketches/ui/Serial1602ShieldSystemUI
+	url = http://10.0.0.101:180/growsense/Serial1602ShieldSystemUI.git
+[submodule "sketches/monitor/TemperatureHumidityDHTSensorSerial"]
+	path = sketches/monitor/TemperatureHumidityDHTSensorSerial
+	url = http://10.0.0.101:180/growsense/TemperatureHumidityDHTSensorSerial.git
+[submodule "sketches/monitor/LightPRSensorCalibratedSerial"]
+	path = sketches/monitor/LightPRSensorCalibratedSerial
+	url = http://10.0.0.101:180/growsense/LightPRSensorCalibratedSerial.git
+[submodule "www/SystemManagerWWW"]
+	path = www/SystemManagerWWW
+	url = http://10.0.0.101:180/growsense/SystemManagerWWW.git
