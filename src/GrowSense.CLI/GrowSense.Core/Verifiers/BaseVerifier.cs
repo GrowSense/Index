@@ -97,12 +97,12 @@ namespace GrowSense.Core.Verifiers
 
       AssertFileExists(servicePath);
     }
-    
+
     public void AssertSystemctlServiceIsRunning(string serviceName)
     {
-    var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
+      var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
 
-     if (!File.Exists(mockSystemctlFile) && !Context.Settings.IsMockSystemCtl)
+      if (!File.Exists(mockSystemctlFile) || !Context.Settings.IsMockSystemCtl)
      {
         var cmd = "systemctl status " + serviceName.Replace(".service", "") + ".service";
 
