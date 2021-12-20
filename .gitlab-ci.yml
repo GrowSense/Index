@@ -18,6 +18,7 @@ build-sketches:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+    - cat full-version.txt
   script:
     - sh init-sketches.sh
     - echo "..." #sh build-sketches.sh
@@ -31,6 +32,7 @@ build:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+    - cat full-version.txt
   script:
     - sh init.sh
     - sh init-apps.sh
@@ -53,6 +55,7 @@ build-www:
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
     - git submodule update --init
+    - cat full-version.txt
   script:
     - sh init-www.sh
     - sh build-www.sh
@@ -111,6 +114,7 @@ test-deploy:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+    - cat full-version.txt
   script:
     - sh test.sh DeployInstall
   dependencies:
