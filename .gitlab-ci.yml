@@ -52,6 +52,7 @@ build-www:
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+    - git submodule update --init
   script:
     - sh init-www.sh
     - sh build-www.sh
