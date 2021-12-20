@@ -21,7 +21,7 @@ namespace GrowSense.Core.Tests.Deploy
 
       Console.WriteLine("  Host: " + deployment.Ssh.Host);
       Console.WriteLine("  SSH Username: " + deployment.Ssh.Username);
-      Console.WriteLine("  SSH Password: hidden (length " + deployment.Ssh.Password.Length + ")");
+      Console.WriteLine("  SSH Password: hidden (length " + (String.IsNullOrEmpty(deployment.Ssh.Password) ? deployment.Ssh.Password.Length : 0) + ")");
       Console.WriteLine("  SSH Port: " + deployment.Ssh.Port);
       
       
@@ -50,6 +50,8 @@ namespace GrowSense.Core.Tests.Deploy
 
     public DeploymentInfo GetDeploymentInfo()
     {
+      Console.WriteLine("  Getting deployment info...");
+      
       if (Directory.Exists("deployments"))
         return GetDeploymentInfoFromSecurityFile();
       else
