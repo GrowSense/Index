@@ -7,7 +7,9 @@ stages:
   - update
   - install
   - graduate
-
+  
+variables:
+     GIT_SUBMODULE_STRATEGY: recursive
 
 build-sketches:
   stage: build
