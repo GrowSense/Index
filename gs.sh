@@ -15,7 +15,7 @@ do
 done
 
 if [ ! "$mode" ]; then
-  mode="Debug"
+  mode="Release"
 fi
 
 echo "  Mode: $mode"
