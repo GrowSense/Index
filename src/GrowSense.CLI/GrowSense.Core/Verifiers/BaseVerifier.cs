@@ -102,7 +102,7 @@ namespace GrowSense.Core.Verifiers
     {
     var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
 
-     if (!File.Exists(mockSystemctlFile))
+     if (!File.Exists(mockSystemctlFile) && !Context.Settings.IsMockSystemCtl)
      {
         var cmd = "systemctl status " + serviceName.Replace(".service", "") + ".service";
 

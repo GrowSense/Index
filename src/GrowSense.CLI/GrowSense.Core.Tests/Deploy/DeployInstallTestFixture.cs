@@ -107,6 +107,8 @@ namespace GrowSense.Core.Tests.Deploy
       var remote = new DeploymentInfo();
       
       remote.Ssh = new SshTarget();
+      remote.Name = branch + "2";
+      
       remote.Ssh.Host = GetEnvironmentVariable("SSH_HOST", branch + "2");
       remote.Ssh.Username = GetEnvironmentVariable("SSH_USERNAME", branch + "2");
       remote.Ssh.Password = GetEnvironmentVariable("SSH_PASSWORD", branch + "2");
