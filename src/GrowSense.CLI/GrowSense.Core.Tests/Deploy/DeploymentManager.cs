@@ -29,10 +29,16 @@ namespace GrowSense.Core.Tests.Deploy
 
     public void SetConfigValues()
     {
-          Console.WriteLine("");
+      Console.WriteLine("");
       Console.WriteLine("  Setting configuration values...");
 
+      var mode = "Release";
+#if DEBUG
+      mode = "Debug";
+#endif
+
       var configCommand = "bash gs.sh config" +
+      " --mode=" + mode +
       " --wifi-name=''" +
       " --wifi-password=''" +
       " --mqtt-host=" + Deployment.Mqtt.Host +

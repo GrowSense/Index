@@ -36,6 +36,9 @@ namespace GrowSense.Core.Tools
 
       starter.Start(fullCommand);
 
+      if (starter.IsError)
+        throw new Exception("An error occurred.");
+
       return starter.Output;
     }
 

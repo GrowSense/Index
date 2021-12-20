@@ -28,7 +28,7 @@ namespace GrowSense.Core.Tests.Deploy
       var version = File.ReadAllText(ProjectDirectory + "/full-version.txt").Trim();
       var branch = new BranchDetector(ProjectDirectory).Branch;
 
-     // CreateAndPushRelease(deployment);
+      CreateAndPushRelease(deployment);
       
       var manager = new DeploymentManager(deployment, branch, version);
 
