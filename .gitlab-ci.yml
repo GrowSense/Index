@@ -31,7 +31,7 @@ build:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
     - cat full-version.txt
   script:
     - sh init.sh
@@ -113,7 +113,7 @@ test-deploy:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
     - cat full-version.txt
   script:
     - sh test.sh DeployInstall
