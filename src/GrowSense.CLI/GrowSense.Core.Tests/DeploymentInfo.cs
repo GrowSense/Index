@@ -6,6 +6,7 @@ namespace GrowSense.Core.Tests
   {
     public SshTarget Ssh = new SshTarget();
     public MqttTarget Mqtt = new MqttTarget();
+    public DeploymentInfo[] Remotes = new DeploymentInfo[] { };
   
     public DeploymentInfo()
     {

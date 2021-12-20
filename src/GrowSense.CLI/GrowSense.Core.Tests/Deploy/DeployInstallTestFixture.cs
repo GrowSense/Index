@@ -37,18 +37,35 @@ namespace GrowSense.Core.Tests.Deploy
 
 
 
-      /*if (ssh.DirectoryExists("/usr/local/GrowSense/Index"))
+      if (manager.IsInstalledOnTarget())
       {
         manager.WaitForUnlock();
-      }*/
 
-      manager.Ssh.Execute("echo helloworld");
+        Console.WriteLine("Renaming GrowSense devices to ensure the name is set correctly after installation...");
+
+        manager.RenameDevice("irrigatorW1", "NewIrrigatorW");
+        manager.RenameDevice("illuminator1", "NewIlluminator");
+      }
+
+
+      Console.WriteLine("");
+      Console.WriteLine("Adding GrowSense remotes...");
+      manager.AddRemotes();
+
+      // TODO: Remove if not needed. Used for debugging
+      //manager.Ssh.Execute("echo helloworld");
       //manager.Ssh.Execute("sudo echo hello > /usr/local/GrowSense/Installer/hello.txt");
 
       manager.DownloadAndLaunchInstaller();
 
       manager.SetConfigValues();
+
+      Console.WriteLine("Setting supervisor settings...");
+      manager.Ssh.Execute("echo 10 > supervisor-status-check-frequency.txt && echo 10 > supervisor-docker-check-frequency.txt && echo 10 > supervisor-mqtt-check-frequency.txt");
+
+      Console.WriteLine("Deploying installation successful.");
     }
+
 
     public DeploymentInfo GetDeploymentInfo(string branch)
     {
@@ -87,13 +104,31 @@ namespace GrowSense.Core.Tests.Deploy
       deployment.Mqtt.Password = GetEnvironmentVariable("MQTT_PASSWORD", branch);
       deployment.Mqtt.Port = Convert.ToInt32(GetEnvironmentVariable("MQTT_PORT", branch));
 
+      var remote = new DeploymentInfo();
+      
+      remote.Ssh = new SshTarget();
+      remote.Ssh.Host = GetEnvironmentVariable("SSH_HOST", branch + "2");
+      remote.Ssh.Username = GetEnvironmentVariable("SSH_USERNAME", branch + "2");
+      remote.Ssh.Password = GetEnvironmentVariable("SSH_PASSWORD", branch + "2");
+      remote.Ssh.Port = Convert.ToInt32(GetEnvironmentVariable("SSH_PORT", branch + "2"));
+
+      remote.Mqtt = new MqttTarget();
+      remote.Mqtt.Host = GetEnvironmentVariable("MQTT_HOST", branch + "2");
+      remote.Mqtt.Username = GetEnvironmentVariable("MQTT_USERNAME", branch + "2");
+      remote.Mqtt.Password = GetEnvironmentVariable("MQTT_PASSWORD", branch + "2");
+      remote.Mqtt.Port = Convert.ToInt32(GetEnvironmentVariable("MQTT_PORT", branch + "2"));
+
+      deployment.Remotes = new DeploymentInfo[]{
+      remote
+      };
+
       return deployment;
     }
 
     public string GetEnvironmentVariable(string variableName, string branch)
     {
-
-      var value = Environment.GetEnvironmentVariable("DEPLOY_" + branch.ToUpper() + "_" + variableName);
+      var fullName = "DEPLOY_" + branch.ToUpper() + "_" + variableName;
+      var value = Environment.GetEnvironmentVariable(fullName);
 
       //if (String.IsNullOrEmpty(value))
       //  throw new ArgumentException("No environment variable found for: " + variableName);

@@ -7,10 +7,10 @@ namespace GrowSense.Core.Tools
     public SshTarget Target;
 
     public bool UseSshPass = true;
+    public bool NoHostKeyChecking = true;    
 
     public string StartDirectory;
-
-    public bool NoHostKeyChecking = true;
+    public bool MoveToStartDirectory;
 
     public SshHelper(SshTarget target)
     {
@@ -23,7 +23,7 @@ namespace GrowSense.Core.Tools
       
       var starter = new ProcessStarter();
       
-      if (!String.IsNullOrEmpty(StartDirectory))
+      if (!String.IsNullOrEmpty(StartDirectory) && MoveToStartDirectory)
         command = "cd " + StartDirectory + " && " + command;
 
       command += " || exit 1";
@@ -91,6 +91,11 @@ namespace GrowSense.Core.Tools
       Execute("sudo mv " + homeFile + " " + destinationFile);
 
       Console.WriteLine("Finished pushing file to host target.");
+    }
+
+    public void DeleteDirectory(string directory)
+    {
+      Execute("sudo rm -R " + directory);
     }
   }
 }
