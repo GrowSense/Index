@@ -22,7 +22,11 @@ namespace GrowSense.Core
 
     public void Install(params string[] packages)
     {
-      InstallAll(String.Join(" ", packages));
+      var combinedList = String.Join(" ", packages);
+      if (!IsPackageInstalled(combinedList))
+      {
+        InstallAll(combinedList);
+      }
       /*foreach (var package in packages)
       {
         Install(package);
@@ -32,7 +36,8 @@ namespace GrowSense.Core
 
     public bool IsInstalled(string package)
     {
-      return false;
+      return IsPackageInstalled(package);
+      //return false;
      // Starter.Start("which " + package);
      // return !String.IsNullOrEmpty(Starter.Output.Trim());
     }
