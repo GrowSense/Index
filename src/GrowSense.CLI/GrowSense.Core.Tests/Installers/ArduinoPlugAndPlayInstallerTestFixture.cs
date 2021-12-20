@@ -12,8 +12,6 @@ namespace GrowSense.Core.Tests.Installers
     {
       MoveToTemporaryDirectory();
 
-      //PullFileFromProject("scripts/docker/mosquitto/data/mosquitto.conf");
-
       var random = new Random();
 
       var settings = new CLISettings();

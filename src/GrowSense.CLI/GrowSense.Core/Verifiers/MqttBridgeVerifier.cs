@@ -57,7 +57,12 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyConfig(string installDir)
     {
+      Console.WriteLine("  Verifying MQTT bridge config file...");
       var installedConfigPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+
+      Console.WriteLine("    " + installedConfigPath);
+
+      AssertFileExists(installedConfigPath);
 
       var config = DeserializeAppConfig(installedConfigPath);
 

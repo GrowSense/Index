@@ -73,12 +73,16 @@
     <Compile Include="Verifiers\WwwVerifier.cs" />
     <Compile Include="Installers\WwwInstaller.cs" />
     <Compile Include="SystemCtlHelper.cs" />
+    <Compile Include="Tools\SshHelper.cs" />
+    <Compile Include="Tools\SshTarget.cs" />
+    <Compile Include="Tools\MqttTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />
     <Folder Include="Installers\" />
     <Folder Include="Verifiers\" />
     <Folder Include="Model\" />
+    <Folder Include="Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

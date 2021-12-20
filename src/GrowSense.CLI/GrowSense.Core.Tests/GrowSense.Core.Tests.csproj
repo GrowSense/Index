@@ -32,6 +32,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\lib\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,10 +56,14 @@
     <Compile Include="Installers\DockerInstallerTestFixture.cs" />
     <Compile Include="Installers\SupervisorServiceInstaller.cs" />
     <Compile Include="Installers\WwwServiceInstaller.cs" />
+    <Compile Include="Deploy\DeployInstallTestFixture.cs" />
+    <Compile Include="DeploymentInfo.cs" />
+    <Compile Include="Deploy\DeploymentManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />
     <Folder Include="Installers\" />
+    <Folder Include="Deploy\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GrowSense.Core\GrowSense.Core.csproj">
