@@ -56,33 +56,43 @@ build-www:
     paths:
       - www/SystemManagerWWW/src/GrowSense.SystemManager.WWW/bin/**
 
-test-software-slow:
+test-cli-slow:
   stage: verify
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh test.sh slow
+    - sh test.sh Slow
   dependencies:
     - build
     
-test-software-fast:
+test-cli-fast:
   stage: verify
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh test.sh fast
+    - sh test.sh Fast
   dependencies:
     - build
     
-test-software-unit:
+test-unit:
   stage: verify
   tags:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh test.sh fast
+    - sh test.sh Unit
+  dependencies:
+    - build
+    
+test-deploy:
+  stage: verify
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh test.sh DeployInstall
   dependencies:
     - build
     
@@ -109,13 +119,6 @@ deploy-update-staging:
     - git checkout "$CI_COMMIT_BRANCH"
     - echo "Skipping update" # sh deploy-dev-update.sh
 
-deploy-staging:
-  stage: install
-  tags:
-    - docker
-  script:
-    - git checkout "$CI_COMMIT_BRANCH"
-    - sh deploy-dev.sh
 
 graduate:
   stage: graduate

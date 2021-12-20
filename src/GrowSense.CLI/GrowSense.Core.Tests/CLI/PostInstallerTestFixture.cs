@@ -3,10 +3,10 @@ using NUnit.Framework;
 using System.Threading;
 namespace GrowSense.Core.Tests.CLI
 {
-[TestFixture(Category="Slow")]
+  [TestFixture(Category = "Slow")]
   public class PostInstallerTestFixture : BaseTestFixture
   {
-  [Test]
+    [Test]
     public void Test_Slow()
     {
       MoveToTemporaryDirectory();
@@ -14,8 +14,8 @@ namespace GrowSense.Core.Tests.CLI
       var helper = new PostInstallerTestHelper(ProjectDirectory, TemporaryDirectory);
       helper.Test();
     }
-    
-[Test]
+
+    [Test]
     public void Test_Fast()
     {
       MoveToTemporaryDirectory();
