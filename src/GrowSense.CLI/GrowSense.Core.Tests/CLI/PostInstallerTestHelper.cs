@@ -40,7 +40,7 @@ mode = "Debug";
 #endif
 
       var commands = new string[]{
-       "sh gs.sh post-install --mock-systemctl=true --mode=" + mode + " --version=" + version,
+       "bash gs.sh post-install --mock-systemctl=true --mode=" + mode + " --version=" + version//,
        //"bash build-all.sh",
        //"sh gs.sh verify --mock-systemctl=true --mode=" + mode
       };
