@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using GrowSense.Core.Installers;
 using System.IO;
+using GrowSense.Core.Tools.Mock;
 namespace GrowSense.Core.Tests.Installers
 {
 [TestFixture(Category="Unit")]

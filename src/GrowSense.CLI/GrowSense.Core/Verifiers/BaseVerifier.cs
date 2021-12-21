@@ -3,6 +3,7 @@ using System.IO;
 using GrowSense.Core.Model;
 using System.Xml.Serialization;
 using System.Linq;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Verifiers
 {
   public class BaseVerifier

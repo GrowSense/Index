@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using GrowSense.Core.Model;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Verifiers
 {
   public class ArduinoPlugAndPlayVerifier : BaseVerifier

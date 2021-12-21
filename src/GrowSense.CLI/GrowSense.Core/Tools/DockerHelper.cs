@@ -1,5 +1,5 @@
 ﻿using System;
-namespace GrowSense.Core
+namespace GrowSense.Core.Tools
 {
   public class DockerHelper
   {
@@ -12,7 +12,7 @@ namespace GrowSense.Core
       Starter = new ProcessStarter(context.IndexDirectory);
     }
 
-    public string Logs(string containerName)
+    public virtual string Logs(string containerName)
     {
       Starter.OutputBuilder.Clear();
       Starter.StartBash("docker logs " + containerName);
@@ -21,7 +21,7 @@ namespace GrowSense.Core
       return output;
     }
 
-    public void Remove(string containerName, bool force)
+    public virtual void Remove(string containerName, bool force)
     {
       Starter.StartBash("docker ps");
       var psOutput = Starter.Output;
@@ -36,9 +36,27 @@ namespace GrowSense.Core
       }
     }
 
-    public void RunCommand(string runCmd)
+    public virtual string Execute(string runCmd)
     {
+      if (!runCmd.StartsWith("docker"))
+        runCmd = "docker " + runCmd;
+        
+      Starter.OutputBuilder.Clear();
       Starter.StartBash(runCmd);
+      return Starter.Output;
+    }
+
+    public virtual string Processes()
+    {
+      return Execute("ps");
+    }
+
+    public virtual bool IsRunning(string containerName)
+    {
+      var logs = Logs(containerName);
+
+      return logs.IndexOf("running") > -1;
+        
     }
   }
 }

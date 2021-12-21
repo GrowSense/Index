@@ -1,9 +1,9 @@
 ﻿using System;
 namespace GrowSense.Core.Tests
 {
-  public class DockerStarter
+  public class DockerHelper
   {
-    public DockerStarter()
+    public DockerHelper()
     {
     }
     

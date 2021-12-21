@@ -45,7 +45,6 @@
     <Compile Include="CLI\PostInstallerTestFixture.cs" />
     <Compile Include="Installers\PythonInstallerTestFixture.cs" />
     <Compile Include="Installers\PlatformIOInstaller.cs" />
-    <Compile Include="DockerStarter.cs" />
     <Compile Include="Installers\MosquittoInstallerTestFixture.cs" />
     <Compile Include="Installers\MqttBridgeInstallerTestFixture.cs" />
     <Compile Include="Installers\UIControllerInstallerTestFixture.cs" />

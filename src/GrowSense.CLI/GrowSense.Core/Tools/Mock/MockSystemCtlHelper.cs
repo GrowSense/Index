@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-namespace GrowSense.Core
+namespace GrowSense.Core.Tools.Mock
 {
   public class MockSystemCtlHelper : SystemCtlHelper
   {

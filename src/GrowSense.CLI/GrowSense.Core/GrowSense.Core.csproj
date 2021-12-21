@@ -49,7 +49,6 @@
     <Compile Include="Installers\PlatformIOInstaller.cs" />
     <Compile Include="Installers\MonoInstaller.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="DockerHelper.cs" />
     <Compile Include="Installers\MosquittoInstaller.cs" />
     <Compile Include="Verifiers\MosquittoVerifier.cs" />
     <Compile Include="Installers\MqttBridgeInstaller.cs" />
@@ -71,11 +70,13 @@
     <Compile Include="Verifiers\VersionVerifier.cs" />
     <Compile Include="Verifiers\WwwVerifier.cs" />
     <Compile Include="Installers\WwwInstaller.cs" />
-    <Compile Include="SystemCtlHelper.cs" />
     <Compile Include="Tools\SshHelper.cs" />
     <Compile Include="Tools\SshTarget.cs" />
     <Compile Include="Tools\MqttTarget.cs" />
-    <Compile Include="MockSystemCtlHelper.cs" />
+    <Compile Include="Tools\DockerHelper.cs" />
+    <Compile Include="Tools\Mock\MockDockerHelper.cs" />
+    <Compile Include="Tools\SystemCtlHelper.cs" />
+    <Compile Include="Tools\Mock\MockSystemCtlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />
@@ -83,6 +84,7 @@
     <Folder Include="Verifiers\" />
     <Folder Include="Model\" />
     <Folder Include="Tools\" />
+    <Folder Include="Tools\Mock\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

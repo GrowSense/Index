@@ -151,6 +151,13 @@ namespace GrowSense.Core
         if (settings.IsMockSystemCtl)
           Console.WriteLine("  Is mock systemctl: " + settings.IsMockSystemCtl);
       }
+      if (arguments.Contains("mock-docker"))
+      {
+        settings.IsMockSystemCtl = Convert.ToBoolean(arguments["mock-v"]);
+
+        if (settings.IsMockDocker)
+          Console.WriteLine("  Is mock docker: " + settings.IsMockDocker);
+      }
       
       if (settingsChanged)
         SaveSettings(settings);

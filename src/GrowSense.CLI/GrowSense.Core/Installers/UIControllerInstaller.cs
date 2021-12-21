@@ -2,6 +2,7 @@
 using GrowSense.Core.Verifiers;
 using System.IO;
 using System.Linq;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Installers
 {
   public class UIControllerInstaller : BaseInstaller

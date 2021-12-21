@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Verifiers
 {
   public class MosquittoVerifier
@@ -48,10 +49,8 @@ namespace GrowSense.Core.Verifiers
     {
       Console.WriteLine("Verifying MQTT docker service is running...");
 
-      var logs = Docker.Logs(Context.MqttBrokerDockerContainerName);
-
-      if (logs.IndexOf("running") == -1)
-        throw new Exception("Mosquitto docker container is not running");
+      if (!Docker.IsRunning("mosquitto"))
+      throw new Exception("Mosquitto docker container is not running");
     }
   }
 }

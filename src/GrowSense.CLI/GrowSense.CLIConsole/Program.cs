@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using GrowSense.Core.Tools.Mock;
 
 namespace GrowSense.Core
 {
@@ -80,6 +81,12 @@ namespace GrowSense.Core
         manager.PostInstall.Verifier.Docker.SystemCtl = mockSystemCtl;
         manager.PostInstall.Verifier.Supervisor.SystemCtl = mockSystemCtl;
         manager.PostInstall.Verifier.WWW.SystemCtl = mockSystemCtl;
+      }
+
+      if (context.Settings.IsMockDocker)
+      {
+        var mockDocker = new MockDockerHelper(context);
+        manager.PostInstall.Mqtt.Docker = mockDocker;
       }
 
       return manager;

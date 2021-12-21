@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using GrowSense.Core.Verifiers;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Installers
 {
   public class MosquittoInstaller
@@ -75,7 +76,7 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("  Mosquitto docker command:");
       Console.WriteLine("    " + runCmd);
 
-      Docker.RunCommand(runCmd);
+      Docker.Execute(runCmd);
     }
 
     public void CopyConfigFileToInstallDir(string mqttInstallPath)

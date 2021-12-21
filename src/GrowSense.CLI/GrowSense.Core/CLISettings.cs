@@ -26,5 +26,7 @@ namespace GrowSense.Core
     public CLISettings()
     {
     }
+
+    public bool IsMockDocker { get; set; }
   }
 }
