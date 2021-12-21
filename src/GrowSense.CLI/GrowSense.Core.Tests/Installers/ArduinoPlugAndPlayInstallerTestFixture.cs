@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using GrowSense.Core.Installers;
 using System.IO;
+using GrowSense.Core.Tools.Mock;
 namespace GrowSense.Core.Tests.Installers
 {
 [TestFixture(Category="Unit")]
@@ -25,6 +26,7 @@ namespace GrowSense.Core.Tests.Installers
       var context = new CLIContext(Environment.CurrentDirectory, settings);
       
       var installer = new ArduinoPlugAndPlayInstaller(context);
+      installer.Verifier.SystemCtl = new MockSystemCtlHelper(context);
 
       installer.EnsureInstallDirectoryExists();
       
