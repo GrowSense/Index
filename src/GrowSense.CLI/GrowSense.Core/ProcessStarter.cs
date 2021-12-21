@@ -201,7 +201,7 @@ namespace GrowSense.Core
     public Process StartBash(string command)
     {
 
-      var fullCommand = "bash -c \"" + command.Replace("\"", "\"\"") + "\"";
+      var fullCommand = "/bin/bash -c \"" + command.Replace("\"", "\"\"") + "\"";
       return Start(fullCommand);
 
     }

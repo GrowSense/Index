@@ -15,7 +15,7 @@ namespace GrowSense.Core.Tools
     public virtual string Logs(string containerName)
     {
       Starter.OutputBuilder.Clear();
-      Starter.StartBash("docker logs " + containerName);
+      Starter.Start("docker logs " + containerName);
       var output = Starter.Output;
       Starter.OutputBuilder.Clear();
       return output;
@@ -23,7 +23,7 @@ namespace GrowSense.Core.Tools
 
     public virtual void Remove(string containerName, bool force)
     {
-      Starter.StartBash("docker ps");
+      Starter.Start("docker ps");
       var psOutput = Starter.Output;
 
       if (psOutput.IndexOf(containerName) > -1)
@@ -32,7 +32,7 @@ namespace GrowSense.Core.Tools
         if (force)
           cmd += " -f";
 
-        Starter.StartBash(cmd);
+        Starter.Start(cmd);
       }
     }
 
@@ -42,7 +42,7 @@ namespace GrowSense.Core.Tools
         runCmd = "docker " + runCmd;
         
       Starter.OutputBuilder.Clear();
-      Starter.StartBash(runCmd);
+      Starter.Start(runCmd);
       return Starter.Output;
     }
 
