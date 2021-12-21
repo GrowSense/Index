@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 namespace GrowSense.Core
 {
   public class SystemCtlHelper
@@ -12,12 +13,24 @@ namespace GrowSense.Core
       Starter = new ProcessStarter(Context.IndexDirectory);
     }
 
-    public string Status(string serviceName)
+    public virtual string Status(string serviceName)
     {
       return Run("status " + serviceName);
     }
 
-    public string Run(string command)
+    public virtual bool Exists(string serviceName)
+    {
+      //var isMockSystemCtl = IsMockSystemCtl();
+
+      var servicePath = "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
+      
+      //if (File.Exists(mockSystemctlFile))
+      //  servicePath = Context.IndexDirectory + "/mock/services/" + serviceName.Replace(".service", "") + ".service";
+
+      return File.Exists(servicePath);
+    }
+
+    public virtual string Run(string command)
     {
       if (Context.Settings.IsMockSystemCtl)
       {

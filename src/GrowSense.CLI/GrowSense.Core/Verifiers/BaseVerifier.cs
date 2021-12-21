@@ -9,11 +9,13 @@ namespace GrowSense.Core.Verifiers
   {
     public CLIContext Context;
     public ProcessStarter Starter;
+    public SystemCtlHelper SystemCtl;
     
     public BaseVerifier(CLIContext context)
     {
       Context = context;
       Starter = new ProcessStarter(context.IndexDirectory);
+      SystemCtl = new SystemCtlHelper(context);
     }
     
     public void AssertDirectoryExists(string directory)
@@ -100,10 +102,22 @@ namespace GrowSense.Core.Verifiers
 
     public void AssertSystemctlServiceIsRunning(string serviceName)
     {
+      Console.WriteLine("  Asserting systemctl service is running...");
+
+      var output = SystemCtl.Status(serviceName);
+      
+        AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
+      /*
       var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
 
-      if (!File.Exists(mockSystemctlFile) || !Context.Settings.IsMockSystemCtl)
-     {
+      var isMockSystemCtl = File.Exists(mockSystemctlFile) || Context.Settings.IsMockSystemCtl;
+
+      Console.WriteLine("  Mock flag file exists: " + File.Exists(mockSystemctlFile));
+      Console.WriteLine("  Mock setting: " + Context.Settings.IsMockSystemCtl);
+      Console.WriteLine("  Is mock systemctl:" + isMockSystemCtl);
+
+      if (isMockSystemCtl)
+      {
         var cmd = "systemctl status " + serviceName.Replace(".service", "") + ".service";
 
         Starter.StartBash(cmd);
@@ -111,7 +125,7 @@ namespace GrowSense.Core.Verifiers
         var output = Starter.Output;
 
         AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
-     }
+      }*/
     }
   }
 }

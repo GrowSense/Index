@@ -29,7 +29,7 @@ namespace GrowSense.Core
 
         var context = new CLIContext(workingDirectory, settings);
 
-        var manager = new CLIManager(context);
+        var manager = CreateManager(context);
         
         settingsManager.ProcessSettingsFromArguments(arguments, settings);
 
@@ -68,6 +68,21 @@ namespace GrowSense.Core
         Console.WriteLine(ex.ToString());
         Environment.Exit(1);
       }      
+    }
+
+    static public CLIManager CreateManager(CLIContext context)
+    {
+      var manager = new CLIManager(context);
+
+      if (context.Settings.IsMockSystemCtl)
+      {
+        var mockSystemCtl = new MockSystemCtlHelper(context);
+        manager.PostInstall.Docker.Verifier.SystemCtl = mockSystemCtl;
+        manager.PostInstall.Supervisor.Verifier.SystemCtl = mockSystemCtl;
+        manager.PostInstall.WWW.Verifier.SystemCtl = mockSystemCtl;
+      }
+
+      return manager;
     }
   }
 }

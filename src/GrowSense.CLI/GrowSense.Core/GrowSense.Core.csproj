@@ -75,6 +75,7 @@
     <Compile Include="Tools\SshHelper.cs" />
     <Compile Include="Tools\SshTarget.cs" />
     <Compile Include="Tools\MqttTarget.cs" />
+    <Compile Include="MockSystemCtlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArduinoPlugAndPlay\" />

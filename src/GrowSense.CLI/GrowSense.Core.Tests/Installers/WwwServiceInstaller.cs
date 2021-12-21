@@ -22,6 +22,7 @@ namespace GrowSense.Core.Tests.Installers
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);
       var installer = new WwwInstaller(context);
+      installer.Verifier.SystemCtl = new MockSystemCtlHelper(context);
 
       installer.Install();
     }
