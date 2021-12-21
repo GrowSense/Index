@@ -151,15 +151,6 @@ release:
     - build
     - build-www
 
-deploy-update-staging:
-  stage: update
-  tags:
-    - docker
-  script:
-    - git checkout "$CI_COMMIT_BRANCH"
-    - echo "Skipping update" # sh deploy-dev-update.sh
-
-
 graduate:
   stage: graduate
   tags:
