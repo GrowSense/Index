@@ -97,6 +97,8 @@ test-cli-fast:
     - git pull -f
     - cat full-version.txt
   script:
+    - echo "PWD: $PWD"
+    - ls
     - sh test.sh Fast
   dependencies:
     - build

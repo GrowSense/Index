@@ -30,8 +30,8 @@ namespace GrowSense.Core.Tests
       dir = dir.Replace ("/bin/Debug", "");
 
       ProjectDirectory = dir;
-      Console.WriteLine ("Project directory: ");
-      Console.WriteLine ("  " + ProjectDirectory);
+      Console.WriteLine ("  Project directory: ");
+      Console.WriteLine ("    " + ProjectDirectory);
       Console.WriteLine ("");
 
       Directory.SetCurrentDirectory (ProjectDirectory);
