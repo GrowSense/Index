@@ -171,7 +171,7 @@ graduate:
     - git pull -f
   script:
     - bash clean.sh
-    - bash graduate.
+    - bash graduate.sh
   dependencies:
     - build
 
