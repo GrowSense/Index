@@ -60,7 +60,7 @@ namespace GrowSense.Core.Tests.CLI
       Console.WriteLine("");
       Console.WriteLine("Launching docker container and running commands...");
       
-      var command = "docker run --restart=no --privileged -v " + ProjectDirectory + ":/usr/local/GrowSense/Index  --tmpfs /tmp --tmpfs /run -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run/systemd/system:/run/systemd/system -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket -v /var/run/docker.sock:/var/run/docker.sock --name " + dockerName + " " + fullDockerImage + " /bin/bash -c \"cd /usr/local/GrowSense/Index && " + commandsString + " && echo '" + finishedMessage + "' || exit 1\"";
+      var command = "docker run --restart=no --privileged -v " + ProjectDirectory + ":/usr/local/GrowSense/Index  --tmpfs /tmp --tmpfs /run -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run/systemd/system:/run/systemd/system -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket -v /var/run/docker.sock:/var/run/docker.sock --name " + dockerName + " " + fullDockerImage + " /bin/bash -c \"cd /usr/local/GrowSense/Index && ls && " + commandsString + " && echo '" + finishedMessage + "' || exit 1\"";
       Console.WriteLine("  " + command);
       starter.Start(command);
       //starter.Start("docker run -d -v " + ProjectDirectory + ":/usr/local /GrowSense/Index --name " + dockerName + " " + dockerImage + " --entrypoint=/bin/bash echo hello");
