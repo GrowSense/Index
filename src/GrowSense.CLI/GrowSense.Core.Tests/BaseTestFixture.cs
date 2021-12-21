@@ -15,9 +15,11 @@ namespace GrowSense.Core.Tests
     [SetUp]
     public void Initialize ()
     {
-      Console.WriteLine ("");
-      Console.WriteLine ("=== Starting test");
-      Console.WriteLine ("Test: " + TestContext.CurrentContext.Test.FullName);
+      Console.WriteLine("");
+      Console.WriteLine("=== Starting test");
+      Console.WriteLine("  Test: " + TestContext.CurrentContext.Test.FullName);
+      Console.WriteLine("  Current directory:");
+      Console.WriteLine("    " + Environment.CurrentDirectory);
 
       var dir = Environment.CurrentDirectory;
 
