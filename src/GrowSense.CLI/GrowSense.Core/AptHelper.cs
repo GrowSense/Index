@@ -11,6 +11,7 @@ namespace GrowSense.Core
 
     public void Update()
     {
+      Console.WriteLine("");
       Console.WriteLine("Performing apt-get update...");
       Starter.StartBash("sudo apt-get update");
 
@@ -22,6 +23,9 @@ namespace GrowSense.Core
 
     public void Install(params string[] packages)
     {
+      Console.WriteLine("");
+      Console.WriteLine("Installing packages...");
+      
       var combinedList = String.Join(" ", packages);
       if (!IsPackageInstalled(combinedList))
       {
@@ -77,6 +81,7 @@ namespace GrowSense.Core
     public bool IsPackageInstalled(string packageName)
     {
       var starter = new ProcessStarter();
+      starter.WriteOutputToConsole = false;
       starter.ThrowExceptionOnError = false;
       starter.StartBash("dpkg -s " + packageName);
 

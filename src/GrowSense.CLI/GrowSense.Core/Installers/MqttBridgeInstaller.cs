@@ -34,13 +34,6 @@ namespace GrowSense.Core.Installers
 
       SetAppConfigValues();
 
-      //CreateUserFile(mosquittoInstallPath);
-
-      //StartDockerContainer(mosquittoInstallPath);
-
-// Wait for container to start
-      //Thread.Sleep(1000);
-
       Verify(mqttBridgeInstallPath);
     }
 

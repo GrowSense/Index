@@ -79,7 +79,8 @@ test-cli-slow:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
+    - cat full-version.txt
   script:
     - sh test.sh Slow
   dependencies:
@@ -93,7 +94,8 @@ test-cli-fast:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
+    - cat full-version.txt
   script:
     - sh test.sh Fast
   dependencies:
@@ -107,7 +109,8 @@ test-unit:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
+    - cat full-version.txt
   script:
     - sh test.sh Unit
   dependencies:

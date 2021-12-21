@@ -60,7 +60,7 @@ namespace GrowSense.Core.Installers
 
      //Starter.StartBash("chown -R $USER " + mosquittoInstallPath);
 
-      var runCmd = String.Format(@"sudo docker run -d \
+      var runCmd = String.Format(@"run -d \
         --privileged \
         --restart=always \
         --name=mosquitto \

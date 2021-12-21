@@ -57,19 +57,19 @@ namespace GrowSense.Core.Verifiers
     public void VerifyServiceIsRunning()
     {
       Console.WriteLine("Verifying Arduino Plug and Play service is running...");
-      
-    var mockSystemctlFile = GetInstallPath() + "/is-mock-systemctl.txt";
 
-      if (!File.Exists(mockSystemctlFile))
-      {
-        var cmd = SystemCtl.Status("arduino-plug-and-play");
+      //var mockSystemctlFile = GetInstallPath() + "/is-mock-systemctl.txt";
 
-        Starter.StartBash(cmd);
+      //if (!File.Exists(mockSystemctlFile))
+      //{
+      //var cmd = 
 
-        var output = Starter.Output;
+      //Starter.StartBash(cmd);
 
-        AssertTextContains(output, "active (running)", "Arduino plug and play service is not running.");
-      }
+      var output = SystemCtl.Status("arduino-plug-and-play");
+
+      AssertTextContains(output, "active (running)", "Arduino plug and play service is not running.");
+      //}
     }
 
     public string GetInstallPath()

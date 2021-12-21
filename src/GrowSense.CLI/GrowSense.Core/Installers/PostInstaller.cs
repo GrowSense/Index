@@ -59,18 +59,13 @@ namespace GrowSense.Core.Installers
       Supervisor = new SupervisorInstaller(context);
       WWW = new WwwInstaller(context);
 
-      foreach (var command in OtherCommands)
-      {
-        Starter.StartBash(command);
-      }
-
       Verifier = new Verifier(context);
     }
 
     public void PrepareInstallation()
     {
       Console.WriteLine("Preparing installation...");
-
+      
       CreateMockFiles();
       
       Apt.Update();
@@ -88,6 +83,11 @@ namespace GrowSense.Core.Installers
 
       Supervisor.Install();
       WWW.Install();
+
+      foreach (var command in OtherCommands)
+      {
+        Starter.StartBash(command);
+      }
 
       Verifier.VerifyInstallation();
       

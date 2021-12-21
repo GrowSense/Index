@@ -79,7 +79,6 @@
     <Compile Include="Tools\Mock\MockSystemCtlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ArduinoPlugAndPlay\" />
     <Folder Include="Installers\" />
     <Folder Include="Verifiers\" />
     <Folder Include="Model\" />
