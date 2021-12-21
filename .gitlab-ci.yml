@@ -144,7 +144,7 @@ release:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
     - bash create-release-zip.sh
     - bash publish-github-release.sh
   dependencies:
@@ -164,10 +164,14 @@ graduate:
   stage: graduate
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh clean.sh
-    - sh graduate.
+    - git pull -f
+  script:
+    - bash clean.sh
+    - bash graduate.
   dependencies:
     - build
 
