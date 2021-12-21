@@ -57,7 +57,7 @@ namespace GrowSense.Core.Installers
 
       Docker.Remove("mosquitto", true);
 
-      Starter.StartBash("chown -R $USER " + mosquittoInstallPath);
+     //Starter.StartBash("chown -R $USER " + mosquittoInstallPath);
 
       var runCmd = String.Format(@"sudo docker run -d \
         --privileged \

@@ -22,7 +22,7 @@ namespace GrowSense.Core
     {
       //var isMockSystemCtl = IsMockSystemCtl();
 
-      var servicePath = "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
+      var servicePath = GetServiceFilePath(serviceName);
       
       //if (File.Exists(mockSystemctlFile))
       //  servicePath = Context.IndexDirectory + "/mock/services/" + serviceName.Replace(".service", "") + ".service";
@@ -43,6 +43,11 @@ namespace GrowSense.Core
         Starter.StartBash("systemctl " + command);
         return Starter.Output;
       }
+    }
+
+    public virtual string GetServiceFilePath(string serviceName)
+    {
+    return "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
     }
   }
 }

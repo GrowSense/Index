@@ -37,7 +37,7 @@ VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 echo "$VERSION" > full-version.txt
 
 if [ -d "releases" ]; then
-  echo"  Removing releases folder..."
+  echo "  Removing releases folder..."
   rm $RELEASES_FOLDER -R
 fi
 mkdir -p $RELEASES_FOLDER

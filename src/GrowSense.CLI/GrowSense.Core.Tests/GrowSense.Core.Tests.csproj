@@ -53,7 +53,7 @@
     <Compile Include="Installers\ArduinoPlugAndPlayInstallerTestFixture.cs" />
     <Compile Include="PathHelperTestFixture.cs" />
     <Compile Include="Installers\DockerInstallerTestFixture.cs" />
-    <Compile Include="Installers\SupervisorServiceInstaller.cs" />
+    <Compile Include="Installers\SupervisorServiceInstallerTestFixture.cs" />
     <Compile Include="Installers\WwwServiceInstaller.cs" />
     <Compile Include="Deploy\DeployInstallTestFixture.cs" />
     <Compile Include="DeploymentInfo.cs" />

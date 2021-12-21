@@ -46,7 +46,7 @@ namespace GrowSense.Core
 
     public void ApplySettings()
     {
-      Console.WriteLine("Applying new settings...");
+      Console.WriteLine("Applying and saving new settings...");
       
       PostInstall.MqttBridge.SetAppConfigValues();
       PostInstall.UIController.SetAppConfigValues();

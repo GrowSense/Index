@@ -20,4 +20,11 @@ fi
 
 echo "  Mode: $mode"
 
-mono bin/$mode/gs.exe --dir=$PWD $1 $2 $3 $4 $5 $6 $7 $8 $9
+if [ ! -f "bin/$mode/gs.exe" ]; then
+  echo "Error: Can't find bin/$mode/gs.exe binary file. Has the project been compiled?"
+  exit 1
+fi
+
+mono bin/$mode/gs.exe --dir=$PWD $1 $2 $3 $4 $5 $6 $7 $8 $9 || exit 1
+
+echo "Finished launching GrowSense CLI"

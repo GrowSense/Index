@@ -17,8 +17,6 @@ namespace GrowSense.Core.Tests.Installers
 
       File.WriteAllText(Path.GetFullPath("is-mock-systemctl.txt"), "true");
 
-      var random = new Random();
-
       var settings = new CLISettings();
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);

@@ -15,12 +15,17 @@ namespace GrowSense.Core
 
     public override bool Exists(string serviceName)
     {
-      return File.Exists("mock/services/" + serviceName + ".service");
+      return File.Exists(GetServiceFilePath(serviceName));
     }
 
     public override string Status(string serviceName)
     {
-      return "  [mock] systemctl status " + serviceName + "\nStatus: active (running)";
+      return "  [mock] systemctl status " + serviceName + "  Status: active (running)";
+    }
+
+    public override string GetServiceFilePath(string serviceName)
+    {
+      return "mock/services/" + serviceName.Replace(".service", "") + ".service";
     }
   }
 }

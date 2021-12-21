@@ -20,19 +20,16 @@ namespace GrowSense.Core
         workingDirectory = Path.GetFullPath(arguments["dir"]);
 
 
-      var settingsManager = new SettingsManager(workingDirectory);
+      //var settingsManager = new SettingsManager(workingDirectory);
 
-      var settings = settingsManager.LoadSettings();
-
-      try
-      {
+      var settings = GetSettings(workingDirectory, arguments);
 
         var context = new CLIContext(workingDirectory, settings);
 
         var manager = CreateManager(context);
         
-        settingsManager.ProcessSettingsFromArguments(arguments, settings);
-
+      try
+      {
         if (arguments.KeylessArguments.Length > 0)
         {
           var command = arguments.KeylessArguments[0];
@@ -54,8 +51,7 @@ namespace GrowSense.Core
               break;
             case "config":
               Console.WriteLine("Config");
-              if (settingsManager.ProcessSettingsFromArguments(arguments, settings))
-                manager.ApplySettings();
+              manager.ApplySettings();
               break;
             default:
               Console.WriteLine("Unknown command: " + command);
@@ -80,9 +76,24 @@ namespace GrowSense.Core
         manager.PostInstall.Docker.Verifier.SystemCtl = mockSystemCtl;
         manager.PostInstall.Supervisor.Verifier.SystemCtl = mockSystemCtl;
         manager.PostInstall.WWW.Verifier.SystemCtl = mockSystemCtl;
+        manager.PostInstall.Verifier.SystemCtl = mockSystemCtl;
+        manager.PostInstall.Verifier.Docker.SystemCtl = mockSystemCtl;
+        manager.PostInstall.Verifier.Supervisor.SystemCtl = mockSystemCtl;
+        manager.PostInstall.Verifier.WWW.SystemCtl = mockSystemCtl;
       }
 
       return manager;
+    }
+
+    static public CLISettings GetSettings(string workingDirectory, Arguments arguments)
+    {
+      var settingsManager = new SettingsManager(workingDirectory);
+
+      var settings = settingsManager.LoadSettings();
+      
+      settingsManager.LoadSettingsFromArguments(arguments, settings);
+
+      return settings;
     }
   }
 }

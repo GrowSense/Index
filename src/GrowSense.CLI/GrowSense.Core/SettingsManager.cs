@@ -31,7 +31,7 @@ namespace GrowSense.Core
         return new CLISettings();
     }
 
-    public bool ProcessSettingsFromArguments(Arguments arguments, CLISettings settings)
+    public bool LoadSettingsFromArguments(Arguments arguments, CLISettings settings)
     {
       var settingsChanged = false;
       var wifiSettingsChanged = false;

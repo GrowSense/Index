@@ -32,8 +32,18 @@ namespace GrowSense.Core.Verifiers
 
     public void AssertTextContains(string entireText, string searchTerm, string errorMessage)
     {
-      if (entireText.IndexOf(searchTerm) == -1)
+      Console.WriteLine("  Asserting that a particular search term is found in provided text...");
+      Console.WriteLine("    Search term:");
+      Console.WriteLine("      " + searchTerm);
+      Console.WriteLine("");
+      Console.WriteLine("----- Start Provided Text -----");
+      Console.WriteLine(entireText);
+      Console.WriteLine("----- End Provided Text -----");
+      Console.WriteLine("");
+      if (entireText.ToLower().IndexOf(searchTerm.ToLower()) == -1)
         throw new Exception(errorMessage);
+      else
+        Console.WriteLine("  Search term found: true");
     }
     
     
@@ -90,23 +100,29 @@ namespace GrowSense.Core.Verifiers
 
     public void AssertSystemctlServiceExists(string serviceName)
     {
-    var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
+      Console.WriteLine("Asserting systemctl service file exists...");
 
-      var servicePath = "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
+      Console.WriteLine("  Is mock systemctl: " + (this.SystemCtl.GetType().Name.IndexOf("Mock") > -1));
       
-      if (File.Exists(mockSystemctlFile))
-        servicePath = Context.IndexDirectory + "/mock/services/" + serviceName.Replace(".service", "") + ".service";
+      var fileExists = SystemCtl.Exists(serviceName);
 
-      AssertFileExists(servicePath);
+      if (!fileExists)
+      {
+        var filePath = SystemCtl.GetServiceFilePath(serviceName);
+        
+        throw new Exception("Systemctl service file " + serviceName + " doesn't exist at " + filePath);
+      }
     }
 
     public void AssertSystemctlServiceIsRunning(string serviceName)
     {
       Console.WriteLine("  Asserting systemctl service is running...");
 
+      Console.WriteLine("    Is mock systemctl: " + (this.SystemCtl.GetType().Name.IndexOf("Mock") > -1));
+
       var output = SystemCtl.Status(serviceName);
-      
-        AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
+
+      AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
       /*
       var mockSystemctlFile = Context.IndexDirectory + "/is-mock-systemctl.txt";
 

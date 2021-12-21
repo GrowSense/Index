@@ -12,7 +12,7 @@ namespace GrowSense.Core
     public void Update()
     {
       Console.WriteLine("Performing apt-get update...");
-      Starter.Start("sudo apt-get update");
+      Starter.StartBash("sudo apt-get update");
 
       if (Starter.Output.ToLower().IndexOf("permission denied") > -1)
         throw new Exception("Error: Permission denied. Do you need to run with sudo?");
@@ -47,7 +47,7 @@ namespace GrowSense.Core
       if (!IsInstalled(package))
       {
       Console.WriteLine("Installing apt package: " + package);
-        Starter.Start("sudo apt-get install -y " + package);
+        Starter.StartBash("sudo apt-get install -y " + package);
         //Console.WriteLine(Starter.Output);
 
         if (Starter.Output.IndexOf("Unable to locate package") > -1)

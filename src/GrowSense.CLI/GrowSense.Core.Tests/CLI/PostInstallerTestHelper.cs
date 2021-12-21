@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using NUnit.Framework;
+using System.IO;
 namespace GrowSense.Core.Tests.CLI
 {
   public class PostInstallerTestHelper
@@ -29,20 +30,33 @@ namespace GrowSense.Core.Tests.CLI
 
       var dockerName = "test" + new Random().Next(1000, 9000);
 
+      var version = File.ReadAllText(ProjectDirectory + "/full-version.txt").Trim();
+
+
+      var mode = "Release";
+
+#if DEBUG
+mode = "Debug";
+#endif
+
       var commands = new string[]{
-       "sh gs.sh post-install",
+       "sh gs.sh post-install --mock-systemctl=true --mode=" + mode + " --version=" + version,
        //"bash build-all.sh",
-       "sh gs.sh verify"
+       //"sh gs.sh verify --mock-systemctl=true --mode=" + mode
       };
 
       var commandsString = String.Join(" && ", commands);
 
       var fullDockerImage = DockerRegistryHost + "/" + DockerImage;
-       
-      starter.Start("docker run -d --privileged -v " + ProjectDirectory + ":/usr/local/GrowSense/Index -v /var/run/docker.sock:/var/run/docker.sock --name " + dockerName + " " + fullDockerImage + " /bin/bash -c \"cd /usr/local/GrowSense/Index && " + commandsString + "; echo '" + finishedMessage + "'\"");
-      //starter.Start("docker run -d -v " + ProjectDirectory + ":/usr/local/GrowSense/Index --name " + dockerName + " " + dockerImage + " --entrypoint=/bin/bash echo hello");
 
-     // WaitForTestToFinish(dockerName, finishedMessage);
+      starter.Start("docker pull " + fullDockerImage);
+       
+      starter.Start("docker run --restart=no -d --privileged -v " + ProjectDirectory + ":/usr/local/GrowSense/Index  --tmpfs /tmp --tmpfs /run -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run/systemd/system:/run/systemd/system -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket -v /var/run/docker.sock:/var/run/docker.sock --name " + dockerName + " " + fullDockerImage + " /bin/bash -c \"cd /usr/local/GrowSense/Index && " + commandsString + " && echo '" + finishedMessage + "' || exit 1\"");
+      //starter.Start("docker run -d -v " + ProjectDirectory + ":/usr/local /GrowSense/Index --name " + dockerName + " " + dockerImage + " --entrypoint=/bin/bash echo hello");
+
+      // WaitForTestToFinish(dockerName, finishedMessage);
+
+      Assert.IsFalse(starter.IsError, "An error occurred.");
 
       var output = GetDockerOutput(dockerName, finishedMessage);
   

@@ -179,7 +179,7 @@ namespace GrowSense.Core
 
         Console.WriteLine(Output);
 
-        var title = "\"Error starting process.\"";
+        var title = "\"Error starting process\"" + ": " + command + " " + arguments;
 
         OutputBuilder.Append(title);
         OutputBuilder.Append(ex.ToString());
