@@ -76,8 +76,10 @@ namespace GrowSense.Core
         var mockSystemCtl = new MockSystemCtlHelper(context);
         manager.PostInstall.ArduinoPlugAndPlay.Verifier.SystemCtl = mockSystemCtl;
         manager.PostInstall.Docker.Verifier.SystemCtl = mockSystemCtl;
+        
         manager.PostInstall.Supervisor.Verifier.SystemCtl = mockSystemCtl;
         manager.PostInstall.WWW.Verifier.SystemCtl = mockSystemCtl;
+        manager.PostInstall.Mqtt.SystemCtl = mockSystemCtl;
         manager.PostInstall.Verifier.SystemCtl = mockSystemCtl;
         manager.PostInstall.Verifier.ArduinoPlugAndPlay.SystemCtl = mockSystemCtl;
         manager.PostInstall.Verifier.Docker.SystemCtl = mockSystemCtl;
@@ -89,6 +91,8 @@ namespace GrowSense.Core
       {
         var mockDocker = new MockDockerHelper(context);
         manager.PostInstall.Mqtt.Docker = mockDocker;
+        manager.PostInstall.Mqtt.Verifier.Docker = mockDocker;
+        manager.PostInstall.Verifier.Mosquitto.Docker = mockDocker;
       }
 
       return manager;

@@ -24,6 +24,7 @@ namespace GrowSense.Core.Tests.Installers
       var mosquittoInstaller = new MosquittoInstaller(context);
       mosquittoInstaller.Docker = new MockDockerHelper(context);
       mosquittoInstaller.Verifier.Docker = mosquittoInstaller.Docker;
+      mosquittoInstaller.SystemCtl = new MockSystemCtlHelper(context);
 
       mosquittoInstaller.Install();
 
