@@ -46,7 +46,7 @@ mkdir -p $RELEASES_FOLDER
 
 echo ""
 echo "[create-release-zip.sh]   Zipping release..."
-zip -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip * -x */obj/* *.git/*
+zip -qq -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip * -x */obj/* *.git/*
 
 #cd $DIR/releases
 

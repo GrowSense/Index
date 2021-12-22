@@ -3,9 +3,9 @@ using System.Threading;
 using NUnit.Framework;
 using System.IO;
 using GrowSense.Core.Tools;
-namespace GrowSense.Core.Tests.CLI
+namespace GrowSense.Core.Tests.CLI.Docker
 {
-  public class PostInstallerTestHelper
+  public class PostInstallerDockerTestHelper
   {
     public string DockerRegistryHost = "10.0.0.101:5000";
     public string DockerImage = "ubuntu-mono";
@@ -13,7 +13,7 @@ namespace GrowSense.Core.Tests.CLI
     public string ProjectDirectory;
     public string WorkingDirectory;
   
-    public PostInstallerTestHelper(string projectDirectory, string workingDirectory)
+    public PostInstallerDockerTestHelper(string projectDirectory, string workingDirectory)
     {
       ProjectDirectory = projectDirectory;
       WorkingDirectory = workingDirectory;

@@ -34,7 +34,7 @@ namespace GrowSense.Core.Tools
     {
       if (Context.Settings.IsMockSystemCtl)
       {
-      var output = "[mock] systemctl " + command;
+        var output = "[mock] systemctl " + command;
         Console.WriteLine(output);
         return output;
       }
@@ -48,6 +48,16 @@ namespace GrowSense.Core.Tools
     public virtual string GetServiceFilePath(string serviceName)
     {
     return "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
+    }
+
+    public void Stop(string serviceName)
+    {
+      Run("stop " + serviceName);
+    }
+
+    public void Disable(string serviceName)
+    {
+      Run("disable " + serviceName);
     }
   }
 }

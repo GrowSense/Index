@@ -2,11 +2,11 @@
 using NUnit.Framework;
 using System.Threading;
 using System.ComponentModel;
-namespace GrowSense.Core.Tests.CLI
+namespace GrowSense.Core.Tests.CLI.Docker
 {
 
   [TestFixture(Category = "Fast")]
-  public class PostInstallerTestFixture : BaseTestFixture
+  public class PostInstallerDockerTestFixture : BaseTestFixture
   {
   // TODO: Reenable once issue with docker is sorted
     //[Test]
@@ -14,7 +14,7 @@ namespace GrowSense.Core.Tests.CLI
     {
       MoveToTemporaryDirectory();
 
-      var helper = new PostInstallerTestHelper(ProjectDirectory, TemporaryDirectory);
+      var helper = new PostInstallerDockerTestHelper(ProjectDirectory, TemporaryDirectory);
       helper.Test();
     }
 
@@ -23,7 +23,7 @@ namespace GrowSense.Core.Tests.CLI
     {
       MoveToTemporaryDirectory();
 
-      var helper = new PostInstallerTestHelper(ProjectDirectory, TemporaryDirectory);
+      var helper = new PostInstallerDockerTestHelper(ProjectDirectory, TemporaryDirectory);
       helper.DockerImage = "ubuntu-loaded";
       helper.Test();
     }

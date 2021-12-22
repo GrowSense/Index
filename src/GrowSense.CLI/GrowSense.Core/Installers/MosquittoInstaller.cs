@@ -11,6 +11,7 @@ namespace GrowSense.Core.Installers
     public ProcessStarter Starter;
     public DockerHelper Docker;
     public MosquittoVerifier Verifier;
+    public SystemCtlHelper SystemCtl;
     
     public MosquittoInstaller(CLIContext context)
     {
@@ -18,6 +19,7 @@ namespace GrowSense.Core.Installers
       Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new MosquittoVerifier(context);
+      SystemCtl = new SystemCtlHelper(context);
     }
 
     public void Install()
@@ -33,6 +35,8 @@ namespace GrowSense.Core.Installers
       CopyConfigFileToInstallDir(mosquittoInstallPath);
 
       CreateUserFile(mosquittoInstallPath);
+
+      EnsureSystemCtlServiceIsNotRunning();
 
       StartDockerContainer(mosquittoInstallPath);
 
@@ -120,6 +124,17 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("    File content: " + content);
 
     }
+
+    public void EnsureSystemCtlServiceIsNotRunning()
+    {
+    // Mosquitto is run as docker container. If it's already running as systemctl service it will conflict so needs to be disabled
+      if (SystemCtl.Exists("mosquitto"))
+      {
+        SystemCtl.Stop("mosquitto");
+        SystemCtl.Disable("mosquitto");
+      }
+    }
+    
 
     public void Verify(string mqttInstallPath)
     {
