@@ -20,7 +20,7 @@ build-sketches:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
     - git submodule update --init --recursive
@@ -37,7 +37,7 @@ build:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
     - git submodule update --init --recursive
@@ -62,7 +62,7 @@ build-www:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - bash pull.sh
     - git submodule update --init
     - cat full-version.txt
   script:
@@ -80,7 +80,7 @@ test-cli-slow:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
     - cat full-version.txt
   script:
     - sh test.sh Slow
@@ -95,7 +95,7 @@ test-cli-fast:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
     - cat full-version.txt
   script:
     - echo "Skipped" # echo "PWD $PWD"
@@ -112,7 +112,7 @@ test-unit:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
     - cat full-version.txt
   script:
     - sh test.sh Unit
@@ -128,7 +128,7 @@ test-deploy:
     - git config --global user.name "John Rebbeck"
     - cp .gitmodules.lan .gitmodules
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
     - git submodule sync --recursive
     - git submodule update --init --recursive
     - cat full-version.txt
@@ -145,7 +145,8 @@ release:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
+    - bash increment-version.sh
     - bash delete-github-release.sh
     - bash create-release-zip.sh
     - bash publish-github-release.sh
@@ -163,13 +164,12 @@ graduate:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
   script:
     - bash clean.sh
     - bash graduate.sh
   dependencies:
     - build
-
 
 version:
   stage: version
@@ -181,10 +181,7 @@ version:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull -f
+    - bash pull.sh
   script:
     - bash increment-version.sh
     - bash push-version.sh
-
-
-
