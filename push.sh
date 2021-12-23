@@ -1,9 +1,11 @@
-git pull local dev || echo "Failed to pull from local repository"
-git push local dev || echo "Failed to push to local repository"
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-git pull lan dev || echo "Failed to pull from lan repository"
-git push lan dev || echo "Failed to push to lan repository"
+git pull local $BRANCH || echo "Failed to pull from local repository"
+git push local $BRANCH || echo "Failed to push to local repository"
 
-git pull origin dev && \
-git push origin dev
+git pull lan $BRANCH || echo "Failed to pull from lan repository"
+git push lan $BRANCH || echo "Failed to push to lan repository"
+
+git pull origin $BRANCH && \
+git push origin $BRANCH
 

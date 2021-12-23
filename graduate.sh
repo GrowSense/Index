@@ -27,7 +27,8 @@ if [ "$BRANCH" = "dev" ];  then
 
   echo ""
   echo "  Pushing the updated master branch to origin..."
-  git push origin master || exit 1
+  #git push origin master || exit 1
+  bash push.sh
 
   echo ""
   echo "  Checking out the dev branch..."
