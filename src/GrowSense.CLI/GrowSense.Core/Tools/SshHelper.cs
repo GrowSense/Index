@@ -69,6 +69,8 @@ namespace GrowSense.Core.Tools
       Console.WriteLine("  Destination: " + destinationFile);
       
       var homeFile = "~/" + Path.GetFileName(destinationFile);
+      
+      Console.WriteLine("  Temporary location in home (copied to here first): " + homeFile);
 
       var starter = new ProcessStarter();
 
@@ -84,6 +86,13 @@ namespace GrowSense.Core.Tools
       starter.StartBash(cmd);
 
       starter.OutputBuilder.Clear();
+
+
+      Console.WriteLine("");
+      Console.WriteLine("  Making destination directory...");
+      Console.WriteLine("    " + Path.GetDirectoryName(destinationFile));
+
+      Execute("sudo mkdir -p " + Path.GetDirectoryName(destinationFile));
 
       Console.WriteLine("");
       Console.WriteLine("  Moving file into correct folder...");

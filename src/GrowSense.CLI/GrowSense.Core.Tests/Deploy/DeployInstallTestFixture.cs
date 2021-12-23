@@ -72,15 +72,15 @@ namespace GrowSense.Core.Tests.Deploy
       Console.WriteLine("  Getting deployment info...");
 
       if (Directory.Exists("deployments"))
-        return GetDeploymentInfoFromSecurityFile();
+        return GetDeploymentInfoFromSecurityFile(branch);
       else
         return GetDeploymentInfoFromEnvironmentVariables(branch);
     }
 
-    public DeploymentInfo GetDeploymentInfoFromSecurityFile()
+    public DeploymentInfo GetDeploymentInfoFromSecurityFile(string branch)
     {
       Console.WriteLine("    From security file...");
-      var filePath = ProjectDirectory + "/deployments/dev.json.security";
+      var filePath = ProjectDirectory + "/deployments/" + branch + ".json.security";
       var deployment = JsonConvert.DeserializeObject<DeploymentInfo>(File.ReadAllText(filePath));
       return deployment;
     }
