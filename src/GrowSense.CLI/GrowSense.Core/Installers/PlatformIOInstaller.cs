@@ -28,7 +28,7 @@ namespace GrowSense.Core.Installers
         Starter.StartBash(Python.PythonName + " -m pip install --ignore-installed -U platformio");
         //Starter.StartBash("sudo python3 -c \"$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py\")");
 
-        Console.WriteLine(Starter.Output);
+        //Console.WriteLine(Starter.Output);
         Starter.OutputBuilder.Clear();
 
         if (!IsInstalled())
