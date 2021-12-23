@@ -54,15 +54,32 @@ namespace GrowSense.Core
 
       PostInstall.ArduinoPlugAndPlay.SetAppConfigValues();
 
-      if (Context.Settings.IsMockSystemCtl)
-        File.WriteAllText(Context.IndexDirectory + "/is-mock-systemctl.txt", true.ToString());
-
-      if (Context.Settings.IsMockDocker)
-        File.WriteAllText(Context.IndexDirectory + "/is-mock-docker.txt", true.ToString());
-
+      SetMockingFlags();
+      
       PostInstall.Verifier.VerifyInstallation();
 
       Console.WriteLine("Finished applying new settings.");
+    }
+
+    public void SetMockingFlags()
+    {
+    
+      if (Context.Settings.IsMockSystemCtl)
+      {
+        File.WriteAllText(Context.IndexDirectory + "/is-mock-systemctl.txt", true.ToString());
+        File.WriteAllText(Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/is-mock-systemctl.txt", true.ToString());
+      }
+      else
+      {
+        File.Delete(Context.IndexDirectory + "/is-mock-systemctl.txt");
+        File.Delete(Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/is-mock-systemctl.txt");
+      }
+
+      if (Context.Settings.IsMockDocker)
+        File.WriteAllText(Context.IndexDirectory + "/is-mock-docker.txt", true.ToString());
+      else
+        File.Delete(Context.IndexDirectory + "/is-mock-docker.txt");
+
     }
   }
 }
