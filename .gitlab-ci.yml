@@ -176,6 +176,8 @@ version:
   tags:
     - docker
   before_script:
+    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Index.git
+    - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
