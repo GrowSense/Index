@@ -1,15 +1,23 @@
 ﻿using System;
+using System.Threading;
 namespace GrowSense.Core
 {
   public class AptHelper
   {
     public ProcessStarter Starter = new ProcessStarter();
 
+    public int MaximumAttempts = 20;
+
     public AptHelper()
     {
     }
 
     public void Update()
+    {
+      Update(1);
+    }
+    
+    public void Update(int attemptNumber)
     {
       Console.WriteLine("");
       Console.WriteLine("Performing apt-get update...");
@@ -20,6 +28,18 @@ namespace GrowSense.Core
 
       if (Starter.Output.ToLower().IndexOf("permission denied") > -1)
         throw new Exception("Error: Permission denied. Do you need to run with sudo?");
+
+      if (Starter.Output.IndexOf("Resource temporarily unavailable") > -1)
+      {
+        if (attemptNumber <= MaximumAttempts)
+        {
+          Console.WriteLine("Resource temporarily unavailable. Retrying after waiting...");
+          Thread.Sleep(2000);
+          Update(attemptNumber + 1);
+        }
+        else
+          throw new Exception("Error: Resource temporarily unavailable.");
+      }
         
       Starter.WriteOutputToConsole = true;
       
