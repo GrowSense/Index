@@ -23,9 +23,7 @@ namespace GrowSense.Core.Verifiers
     
       Console.WriteLine("  Checking output of 'systemctl status docker'...");
 
-      var starter = new ProcessStarter(Context.IndexDirectory);
-      starter.StartBash("systemctl status docker");
-      var output = starter.Output;
+      var output = SystemCtl.Status("docker");
 
       if (output.IndexOf("active (running)") == -1)
       {
@@ -33,7 +31,7 @@ namespace GrowSense.Core.Verifiers
         Console.WriteLine(output);
         Console.WriteLine("----- End Output -----");
         
-      var starter2 = new ProcessStarter(Context.IndexDirectory);
+      var starter = new ProcessStarter(Context.IndexDirectory);
       starter.StartBash("dockerd");
       var output2 = starter.Output;
         

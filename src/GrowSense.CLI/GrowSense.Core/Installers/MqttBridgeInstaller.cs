@@ -2,6 +2,7 @@
 using GrowSense.Core.Verifiers;
 using System.IO;
 using System.Linq;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Installers
 {
   public class MqttBridgeInstaller : BaseInstaller
@@ -23,7 +24,7 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("Installing MQTT bridge...");
       
-      var mqttBridgeInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../BridgeArduinoSerialToMqttSplitCsv");
+      var mqttBridgeInstallPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv");
 
       Console.WriteLine("  Install path: " + mqttBridgeInstallPath);
 
@@ -31,21 +32,18 @@ namespace GrowSense.Core.Installers
 
       CopyFilesToInstallDir(mqttBridgeInstallPath);
 
-      SetAppConfigValues(mqttBridgeInstallPath);
-
-      //CreateUserFile(mosquittoInstallPath);
-
-      //StartDockerContainer(mosquittoInstallPath);
-
-// Wait for container to start
-      //Thread.Sleep(1000);
+      SetAppConfigValues();
 
       Verify(mqttBridgeInstallPath);
     }
 
-    public void SetAppConfigValues(string installDir)
+    public void SetAppConfigValues()
     {
-    var installedConfigPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+      Console.WriteLine("Setting MQTT bridge app config values...");
+      
+    var installedConfigPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv") + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+
+      Console.WriteLine("  Installed config path: " + installedConfigPath);
 
       var config = DeserializeAppConfig(installedConfigPath);
 
@@ -62,6 +60,8 @@ namespace GrowSense.Core.Installers
 
 
       SerializeAppConfig(config, installedConfigPath);
+
+      Console.WriteLine("Finished setting MQTT bridge app config values.");
     }
 
     public void EnsureDirectoriesExist(string mqttInstallPath)
@@ -144,9 +144,10 @@ namespace GrowSense.Core.Installers
 
       Starter.StartBash(cmd);
 
-      var content = File.ReadAllText(mqttInstallUserFilePath);
+// TODO: Make it possible to enable this output but leave it disable by default. Exposes password to console
+      //var content = File.ReadAllText(mqttInstallUserFilePath);
       
-      Console.WriteLine("    File content: " + content);
+      //Console.WriteLine("    File content: " + content);
 
     }
 

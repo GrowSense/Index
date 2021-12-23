@@ -3,100 +3,186 @@ image: 10.0.0.101:5000/ubuntu-loaded
 stages:
   - build
   - verify
+  - release
   - update
   - install
   - graduate
-
+  - version
+  
+variables:
+     GIT_SUBMODULE_STRATEGY: recursive
 
 build-sketches:
   stage: build
   tags:
     - docker
-  script:
+  before_script:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
-    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
+    - cp .gitmodules.lan .gitmodules
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
+    - cat full-version.txt
+  script:
     - sh init-sketches.sh
-    - sh build-sketches.sh
+    - echo "..." #sh build-sketches.sh
     
 build:
   stage: build
   tags:
     - docker
-  script:
+  before_script:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
-    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
+    - git pull -f
+    - cp .gitmodules.lan .gitmodules
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
+    - cat full-version.txt
+  script:
     - sh init.sh
+    - sh init-apps.sh
     - sh init-tests.sh
-    - sh build.sh
+    - sh build-cli.sh
     - sh build-tests.sh
   artifacts:
     paths:
       - lib/**
       - bin/Release/**
+      - scripts/apps/**
 
-test-software-slow:
+build-www:
+  stage: build
+  tags:
+    - docker
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+    - git submodule update --init
+    - cat full-version.txt
+  script:
+    - sh init-www.sh
+    - sh build-www.sh
+  artifacts:
+    paths:
+      - www/SystemManagerWWW/src/GrowSense.SystemManager.WWW/bin/**
+
+test-cli-slow:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh test.sh slow
+    - git pull -f
+    - cat full-version.txt
+  script:
+    - sh test.sh Slow
   dependencies:
     - build
     
-test-software-fast:
+test-cli-fast:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh test.sh fast
+    - git pull -f
+    - cat full-version.txt
+  script:
+    - echo "Skipped" # echo "PWD $PWD"
+    - echo "Skipped" # ls
+    - echo "Skipped" # sh test.sh Fast
   dependencies:
     - build
     
-test-software-unit:
+test-unit:
   stage: verify
   tags:
     - docker
-  script:
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh test.sh fast
+    - git pull -f
+    - cat full-version.txt
+  script:
+    - sh test.sh Unit
   dependencies:
     - build
-
-deploy-update-staging:
-  stage: update
+    
+test-deploy:
+  stage: verify
+  tags:
+    - docker
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - cp .gitmodules.lan .gitmodules
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull -f
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
+    - cat full-version.txt
+  script:
+    - sh test.sh DeployInstall
+  dependencies:
+    - build
+    
+release:
+  stage: release
   tags:
     - docker
   script:
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh deploy-dev-update.sh
-
-deploy-staging:
-  stage: install
-  tags:
-    - docker
-  script:
-    - git checkout "$CI_COMMIT_BRANCH"
-    - sh deploy-dev.sh
+    - git pull -f
+    - bash delete-github-release.sh
+    - bash create-release-zip.sh
+    - bash publish-github-release.sh
+  dependencies:
+    - build
+    - build-www
 
 graduate:
   stage: graduate
   tags:
     - docker
-  script:
+  before_script:
+    - git remote set-url origin https://${GHTOKEN}@github.com/GrowSense/Index.git
+    - git remote add lan http://Internal:${GLTOKEN}@10.0.0.101:180/growsense/index.git
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh clean.sh
-    - sh graduate.
+    - git pull -f
+  script:
+    - bash clean.sh
+    - bash graduate.sh
   dependencies:
     - build
+
+
+version:
+  stage: version
+  tags:
+    - docker
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull -f
+  script:
+    - bash increment-version.sh
+    - bash push-version.sh
+
 
 

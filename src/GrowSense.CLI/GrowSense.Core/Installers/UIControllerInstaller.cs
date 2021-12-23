@@ -2,6 +2,7 @@
 using GrowSense.Core.Verifiers;
 using System.IO;
 using System.Linq;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Installers
 {
   public class UIControllerInstaller : BaseInstaller
@@ -23,7 +24,7 @@ public CLIContext Context;
     {
       Console.WriteLine("Installing system UI controller...");
       
-      var uiControllerInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../Serial1602ShieldSystemUIController");
+      var uiControllerInstallPath = Context.Paths.GetApplicationPath("Serial1602ShieldSystemUIController");
 
       Console.WriteLine("  Install path: " + uiControllerInstallPath);
 
@@ -31,15 +32,15 @@ public CLIContext Context;
 
       CopyFilesToInstallDir(uiControllerInstallPath);
 
-      SetAppConfigValues(uiControllerInstallPath);
+      SetAppConfigValues();
 
       Verify();
     }
 
 
-    public void SetAppConfigValues(string installDir)
+    public void SetAppConfigValues()
     {
-    var installedConfigPath = installDir + "/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
+    var installedConfigPath = Context.Paths.GetApplicationPath("Serial1602ShieldSystemUIController") + "/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
 
       var config = DeserializeAppConfig(installedConfigPath);
 

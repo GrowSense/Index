@@ -1,6 +1,7 @@
 ﻿using System;
 using GrowSense.Core.Installers;
 using GrowSense.Core.Verifiers;
+using System.IO;
 namespace GrowSense.Core.Installers
 {
   public class PostInstaller
@@ -16,7 +17,12 @@ namespace GrowSense.Core.Installers
     public UIControllerInstaller UIController;
     public ArduinoPlugAndPlayInstaller ArduinoPlugAndPlay;
 
+    public SupervisorInstaller Supervisor;
+    public WwwInstaller WWW;
+
     public Verifier Verifier;
+
+    public CLIContext Context;
 
     public string[] AptPackageList = new string[]{
     "build-essential",
@@ -32,10 +38,16 @@ namespace GrowSense.Core.Installers
     "mosquitto",
     "zip",
     "unzip",
-    "systemctl" };
+    "systemd" };
+
+    public string[] OtherCommands = new string[]{
+    
+    };
     
     public PostInstaller(CLIContext context)
     {
+      Context = context;
+      
       Python = new PythonInstaller();
       Docker = new DockerInstaller(context);
       PlatformIO = new PlatformIOInstaller();
@@ -44,6 +56,9 @@ namespace GrowSense.Core.Installers
       UIController = new UIControllerInstaller(context);
       ArduinoPlugAndPlay = new ArduinoPlugAndPlayInstaller(context);
 
+      Supervisor = new SupervisorInstaller(context);
+      WWW = new WwwInstaller(context);
+
       Verifier = new Verifier(context);
     }
 
@@ -51,9 +66,10 @@ namespace GrowSense.Core.Installers
     {
       Console.WriteLine("Preparing installation...");
       
-      ArduinoPlugAndPlay.ImportArduinoPlugAndPlayConfig();
+      CreateMockFiles();
       
       Apt.Update();
+      Apt.Starter.EnableErrorCheckingByTextMatching = false; // Disabled error checking because it causes false positives
       Apt.Install(AptPackageList);
 
       Docker.Install();
@@ -65,9 +81,22 @@ namespace GrowSense.Core.Installers
 
       ArduinoPlugAndPlay.Install();
 
+      Supervisor.Install();
+      WWW.Install();
+
+      foreach (var command in OtherCommands)
+      {
+        Starter.StartBash(command);
+      }
+
       Verifier.VerifyInstallation();
+      
     }
-    
-    
+
+    public void CreateMockFiles()
+    {
+      if (Context.Settings.IsMockSystemCtl)
+        File.CreateText(Context.IndexDirectory + "/is-mock-systemctl.txt");
+    }    
   }
 }

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using GrowSense.Core.Installers;
 using System.IO;
+using GrowSense.Core.Tools.Mock;
 namespace GrowSense.Core.Tests.Installers
 {
 [TestFixture(Category="Unit")]
@@ -12,8 +13,6 @@ namespace GrowSense.Core.Tests.Installers
     {
       MoveToTemporaryDirectory();
 
-      //PullFileFromProject("scripts/docker/mosquitto/data/mosquitto.conf");
-
       var random = new Random();
 
       var settings = new CLISettings();
@@ -22,15 +21,18 @@ namespace GrowSense.Core.Tests.Installers
       settings.SmtpUsername = "user" + random.Next(1000, 9000);
       settings.SmtpPassword = "pass" + random.Next(1000, 9000);
       settings.Email = "me@mydomain" + random.Next(1000, 9000) + ".com";
+      settings.IsMockSystemCtl = true;
       
       var context = new CLIContext(Environment.CurrentDirectory, settings);
+      
       var installer = new ArduinoPlugAndPlayInstaller(context);
+      installer.Verifier.SystemCtl = new MockSystemCtlHelper(context);
 
       installer.EnsureInstallDirectoryExists();
       
       var installPath = installer.GetInstallPath();
       
-      File.WriteAllText(Path.Combine(installPath, "is-mock-systemctl.txt"), "true");
+      //File.WriteAllText(Path.Combine(installPath, "is-mock-systemctl.txt"), "true");
 
       installer.Install();
 

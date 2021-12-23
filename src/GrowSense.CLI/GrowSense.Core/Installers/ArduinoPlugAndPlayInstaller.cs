@@ -26,6 +26,12 @@ namespace GrowSense.Core.Installers
       var installPath = GetInstallPath();
       
       Console.WriteLine("  Install dir: " + installPath);
+
+      if (Context.Settings.IsMockSystemCtl)
+      {
+        EnsureInstallDirectoryExists();
+        File.CreateText(Context.ParentDirectory + "/ArduinoPlugAndPlay/is-mock-systemctl.txt");
+      }
       
 
       var cmd = String.Format("wget -nv --no-cache -O - https://raw.githubusercontent.com/CompulsiveCoder/ArduinoPlugAndPlay/{0}/scripts-ols/install.sh | bash -s -- {0} {1} {2} {3} {4} {5} {6}",
@@ -40,19 +46,21 @@ namespace GrowSense.Core.Installers
 
       Starter.StartBash(cmd);
 
-      Environment.Exit(1);
-
       if (Starter.Output.ToLower().IndexOf("failed") > -1)
         throw new Exception("Arduino plug and play installation failed.");
 
-      SetAppConfigValues(installPath);
+      ImportArduinoPlugAndPlayConfig();
+
+      SetAppConfigValues();
 
       Verifier.Verify();
     }
     
-    public void SetAppConfigValues(string installDir)
+    public void SetAppConfigValues()
     {
-    var installedConfigPath = installDir + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
+      Console.WriteLine("Setting Arduino Plug and Play config values...");
+      
+    var installedConfigPath = Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/ArduinoPlugAndPlay/lib/net40/ArduinoPlugAndPlay.exe.config";
 
       var config = DeserializeAppConfig(installedConfigPath);
 

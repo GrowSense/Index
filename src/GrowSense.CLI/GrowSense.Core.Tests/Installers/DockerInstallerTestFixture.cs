@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using GrowSense.Core.Installers;
+using GrowSense.Core.Tools.Mock;
 
 namespace GrowSense.Core.Tests.Installers
 {
@@ -15,6 +16,7 @@ namespace GrowSense.Core.Tests.Installers
       var context = new CLIContext(Environment.CurrentDirectory, new CLISettings());
       
       var installer = new DockerInstaller(context);
+      installer.Verifier.SystemCtl = new MockSystemCtlHelper(context);
       installer.Install();
     }
   }

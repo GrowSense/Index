@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using GrowSense.Core.Verifiers;
+using GrowSense.Core.Tools;
 namespace GrowSense.Core.Installers
 {
   public class MosquittoInstaller
@@ -10,6 +11,7 @@ namespace GrowSense.Core.Installers
     public ProcessStarter Starter;
     public DockerHelper Docker;
     public MosquittoVerifier Verifier;
+    public SystemCtlHelper SystemCtl;
     
     public MosquittoInstaller(CLIContext context)
     {
@@ -17,6 +19,7 @@ namespace GrowSense.Core.Installers
       Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new MosquittoVerifier(context);
+      SystemCtl = new SystemCtlHelper(context);
     }
 
     public void Install()
@@ -32,6 +35,8 @@ namespace GrowSense.Core.Installers
       CopyConfigFileToInstallDir(mosquittoInstallPath);
 
       CreateUserFile(mosquittoInstallPath);
+
+      EnsureSystemCtlServiceIsNotRunning();
 
       StartDockerContainer(mosquittoInstallPath);
 
@@ -57,19 +62,25 @@ namespace GrowSense.Core.Installers
 
       Docker.Remove("mosquitto", true);
 
-      var runCmd = String.Format(@"
-          docker run -d \
-      --restart=always \
-      --name=mosquitto \
-      --volume {0}/data:/mosquitto/config \
-      --network=host \
-      -p 127.0.0.1:{1}:1883/tcp \
-    eclipse-mosquitto",
-    mosquittoInstallPath,
-    Context.Settings.MqttPort
-    );
+     //Starter.StartBash("chown -R $USER " + mosquittoInstallPath);
 
-      Docker.RunCommand(runCmd);
+      var runCmd = String.Format(@"run -d \
+        --privileged \
+        --restart=always \
+        --name=mosquitto \
+        --volume {0}/data:/mosquitto/config \
+        --network=host \
+        -p 127.0.0.1:{1}:1883/tcp \
+        -p 9001:9001 \
+        eclipse-mosquitto",
+        mosquittoInstallPath,
+        Context.Settings.MqttPort
+      );
+
+      Console.WriteLine("  Mosquitto docker command:");
+      Console.WriteLine("    " + runCmd);
+
+      Docker.Execute(runCmd);
     }
 
     public void CopyConfigFileToInstallDir(string mqttInstallPath)
@@ -85,7 +96,7 @@ namespace GrowSense.Core.Installers
       if (!Directory.Exists(Path.GetDirectoryName(mqttInstallConfigPath)))
         Directory.CreateDirectory(Path.GetDirectoryName(mqttInstallConfigPath));
 
-      File.Copy(mqttInternalConfigPath, mqttInstallConfigPath);
+      File.Copy(mqttInternalConfigPath, mqttInstallConfigPath, true);
     }
 
     public void CreateUserFile(string mqttInstallPath)
@@ -113,6 +124,17 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("    File content: " + content);
 
     }
+
+    public void EnsureSystemCtlServiceIsNotRunning()
+    {
+    // Mosquitto is run as docker container. If it's already running as systemctl service it will conflict so needs to be disabled
+      if (SystemCtl.Exists("mosquitto"))
+      {
+        SystemCtl.Stop("mosquitto");
+        SystemCtl.Disable("mosquitto");
+      }
+    }
+    
 
     public void Verify(string mqttInstallPath)
     {

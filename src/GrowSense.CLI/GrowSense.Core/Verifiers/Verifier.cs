@@ -6,7 +6,6 @@ namespace GrowSense.Core.Verifiers
   public class Verifier : BaseVerifier
   {
     public DockerVerifier Docker;
-    public ProcessStarter Starter;
 
     public MosquittoVerifier Mosquitto;
 
@@ -16,13 +15,17 @@ namespace GrowSense.Core.Verifiers
     public ArduinoPlugAndPlayVerifier ArduinoPlugAndPlay;
 
     public SettingsVerifier Settings;
+
+    public SupervisorVerifier Supervisor;
+    public WwwVerifier WWW;
+
+    public VersionVerifier Version;
     
     
     public Verifier(CLIContext context) : base(context)
     {
       Context = context;
       Docker = new DockerVerifier(context);
-      Starter = new ProcessStarter(context.IndexDirectory);
 
       ArduinoPlugAndPlay = new ArduinoPlugAndPlayVerifier(context);
 
@@ -31,6 +34,13 @@ namespace GrowSense.Core.Verifiers
       UIController = new UIControllerVerifier(context);
 
       Settings = new SettingsVerifier(context);
+
+      Supervisor = new SupervisorVerifier(context);
+      WWW = new WwwVerifier(context);
+
+      Version = new VersionVerifier(context);
+
+      Console.WriteLine("GrowSense installation verified");
     }
 
     public void VerifyInstallation()
@@ -44,6 +54,10 @@ namespace GrowSense.Core.Verifiers
       MqttBridge.Verify();
 
       UIController.Verify();
+
+      Supervisor.Verify();
+
+      Version.Verify();
     }
 
     
