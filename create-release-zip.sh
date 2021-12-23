@@ -15,7 +15,7 @@ fi
 sh clean.sh
 bash disable-mocking.sh
 
-bash increment-version.sh
+#bash increment-version.sh
 
 VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 
@@ -33,8 +33,8 @@ echo "[create-release-zip.sh]   Zipping release..."
 zip -qq -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip * -x */obj/* *.git/*
 
 
-git checkout full-version.txt
-git checkout buildnumber.txt
+#git checkout full-version.txt
+#git checkout buildnumber.txt
 
 echo ""
 echo "[create-release-zip.sh] Finished packaging release zip file."
