@@ -63,22 +63,39 @@ namespace GrowSense.Core
 
     public void SetMockingFlags()
     {
-    
+      Console.WriteLine("Setting mocking flags...");
+
       if (Context.Settings.IsMockSystemCtl)
       {
+        Console.WriteLine("  Creating mock systemctl flag files...");
         File.WriteAllText(Context.IndexDirectory + "/is-mock-systemctl.txt", true.ToString());
         File.WriteAllText(Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/is-mock-systemctl.txt", true.ToString());
       }
       else
       {
-        File.Delete(Context.IndexDirectory + "/is-mock-systemctl.txt");
-        File.Delete(Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/is-mock-systemctl.txt");
+        Console.WriteLine("  Removing mock systemctl flag files...");
+
+        if (File.Exists(Context.IndexDirectory + "/is-mock-systemctl.txt"))
+          File.Delete(Context.IndexDirectory + "/is-mock-systemctl.txt");
+
+        if (File.Exists(Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/is-mock-systemctl.txt"))
+          File.Delete(Context.Paths.GetApplicationPath("ArduinoPlugAndPlay") + "/is-mock-systemctl.txt");
       }
 
       if (Context.Settings.IsMockDocker)
+      {
+        Console.WriteLine("  Creating mock docker flag file...");
         File.WriteAllText(Context.IndexDirectory + "/is-mock-docker.txt", true.ToString());
+      }
       else
-        File.Delete(Context.IndexDirectory + "/is-mock-docker.txt");
+      {
+        Console.WriteLine("  Removing mock docker flag file..");
+
+        if (File.Exists(Context.IndexDirectory + "/is-mock-docker.txt"))
+        {
+          File.Delete(Context.IndexDirectory + "/is-mock-docker.txt");
+        }
+      }
 
     }
   }

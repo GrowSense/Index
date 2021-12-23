@@ -145,6 +145,7 @@ release:
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull -f
+    - bash delete-github-release.sh
     - bash create-release-zip.sh
     - bash publish-github-release.sh
   dependencies:
@@ -166,6 +167,19 @@ graduate:
   dependencies:
     - build
 
+
+version:
+  stage: version
+  tags:
+    - docker
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull -f
+  script:
+    - bash increment-version.sh
+    - bash push-version.sh
 
 
 
