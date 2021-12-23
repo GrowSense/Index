@@ -70,7 +70,7 @@ namespace GrowSense.Core.Tools
       
       var homeFile = "~/" + Path.GetFileName(destinationFile);
       
-      Console.WriteLine("  File in home dir: " + homeFile);
+      Console.WriteLine("  Temporary location in home (copied to here first): " + homeFile);
 
       var starter = new ProcessStarter();
 
