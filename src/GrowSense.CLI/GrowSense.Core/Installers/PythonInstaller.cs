@@ -9,12 +9,7 @@ namespace GrowSense.Core.Installers
     public string PythonName = "python3";
 
     public string[] Packages = new string[]{
-    //"python",
-    //"python-pip",
-    //"python-setuptools",
-    //"python-distutils",
       "python3",
-      "python3-distutils",
       "python3-setuptools",
       "python3-serial",
       "python3-venv",
@@ -29,7 +24,11 @@ namespace GrowSense.Core.Installers
     
 
     public string[] OtherCommands = new string[]{
-    //"alias python3=/usr/bin/python3.8",
+    //"python3 -m pip install --upgrade pip",
+    //"export LC_ALL=C.UTF-8",
+    //"export LANG=C.UTF-8",
+    //"sudo locale-gen \"en_US.UTF-8\"",
+    //"sudo dpkg-reconfigure locales",
     "whereis python3",
     //"python3 -m ensurepip"
     //"python3 -m pip install --upgrade requests"//,
@@ -45,7 +44,8 @@ namespace GrowSense.Core.Installers
     {
       //Console.WriteLine("");
       Console.WriteLine("Installing python...");
-      
+
+      Apt.Starter.EnableErrorCheckingByTextMatching = false; // Disabled error checking because it causes false positives      
       Apt.Install(Packages);
 
       InstallModules(Modules);

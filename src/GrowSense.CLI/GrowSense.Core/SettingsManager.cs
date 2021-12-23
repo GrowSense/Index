@@ -31,7 +31,7 @@ namespace GrowSense.Core
         return new CLISettings();
     }
 
-    public void ProcessSettingsFromArguments(Arguments arguments, CLISettings settings)
+    public bool LoadSettingsFromArguments(Arguments arguments, CLISettings settings)
     {
       var settingsChanged = false;
       var wifiSettingsChanged = false;
@@ -144,8 +144,25 @@ namespace GrowSense.Core
         Console.WriteLine("  Setting email address: " + settings.Email);
       }
 
+      if (arguments.Contains("mock-systemctl"))
+      {
+        settings.IsMockSystemCtl = Convert.ToBoolean(arguments["mock-systemctl"]);
+
+        if (settings.IsMockSystemCtl)
+          Console.WriteLine("  Is mock systemctl: " + settings.IsMockSystemCtl);
+      }
+      if (arguments.Contains("mock-docker"))
+      {
+        settings.IsMockDocker = Convert.ToBoolean(arguments["mock-docker"]);
+
+        if (settings.IsMockDocker)
+          Console.WriteLine("  Is mock docker: " + settings.IsMockDocker);
+      }
+      
       if (settingsChanged)
         SaveSettings(settings);
+
+      return settingsChanged;
     }
 
     public void SaveSettings(CLISettings settings)

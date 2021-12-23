@@ -15,6 +15,7 @@ if [ "$BRANCH" != "lts" ]; then
 fi
 
 sh clean.sh
+bash disable-mocking.sh
 
 VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 
@@ -35,14 +36,17 @@ VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
 #echo "$VERSION" > $TMP_RELEASE_FOLDER/full-version.txt
 echo "$VERSION" > full-version.txt
 
-rm $RELEASES_FOLDER -R
+if [ -d "releases" ]; then
+  echo "  Removing releases folder..."
+  rm $RELEASES_FOLDER -R
+fi
 mkdir -p $RELEASES_FOLDER
 
 #cd .tmp/BridgeArduinoSerialToMqttSplitCsv
 
 echo ""
 echo "[create-release-zip.sh]   Zipping release..."
-zip -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip *
+zip -qq -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip * -x */obj/* *.git/*
 
 #cd $DIR/releases
 

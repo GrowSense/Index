@@ -34,6 +34,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\lib\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -42,7 +43,6 @@
     <Compile Include="CLIManager.cs" />
     <Compile Include="CLISettings.cs" />
     <Compile Include="FileDownloader.cs" />
-    <Compile Include="InstallationVerifier.cs" />
     <Compile Include="ProcessStarter.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Arguments.cs" />
@@ -51,7 +51,6 @@
     <Compile Include="Installers\PlatformIOInstaller.cs" />
     <Compile Include="Installers\MonoInstaller.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="DockerHelper.cs" />
     <Compile Include="Installers\MosquittoInstaller.cs" />
     <Compile Include="Verifiers\MosquittoVerifier.cs" />
     <Compile Include="Installers\MqttBridgeInstaller.cs" />
@@ -68,12 +67,25 @@
     <Compile Include="Verifiers\SettingsVerifier.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Installers\PostInstaller.cs" />
+    <Compile Include="Installers\SupervisorInstaller.cs" />
+    <Compile Include="Verifiers\SupervisorVerifier.cs" />
+    <Compile Include="Verifiers\VersionVerifier.cs" />
+    <Compile Include="Verifiers\WwwVerifier.cs" />
+    <Compile Include="Installers\WwwInstaller.cs" />
+    <Compile Include="Tools\SshHelper.cs" />
+    <Compile Include="Tools\SshTarget.cs" />
+    <Compile Include="Tools\MqttTarget.cs" />
+    <Compile Include="Tools\DockerHelper.cs" />
+    <Compile Include="Tools\Mock\MockDockerHelper.cs" />
+    <Compile Include="Tools\SystemCtlHelper.cs" />
+    <Compile Include="Tools\Mock\MockSystemCtlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ArduinoPlugAndPlay\" />
     <Folder Include="Installers\" />
     <Folder Include="Verifiers\" />
     <Folder Include="Model\" />
+    <Folder Include="Tools\" />
+    <Folder Include="Tools\Mock\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

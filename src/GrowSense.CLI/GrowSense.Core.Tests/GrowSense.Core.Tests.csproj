@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>GrowSense.Core.Tests</RootNamespace>
     <AssemblyName>GrowSense.Core.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +31,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\lib\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -40,21 +42,27 @@
     <Compile Include="TestProcessStarter.cs" />
     <Compile Include="TemporaryDirectoryCreator.cs" />
     <Compile Include="BranchDetector.cs" />
-    <Compile Include="CLI\PostInstallerTestFixture.cs" />
     <Compile Include="Installers\PythonInstallerTestFixture.cs" />
     <Compile Include="Installers\PlatformIOInstaller.cs" />
-    <Compile Include="DockerStarter.cs" />
     <Compile Include="Installers\MosquittoInstallerTestFixture.cs" />
     <Compile Include="Installers\MqttBridgeInstallerTestFixture.cs" />
     <Compile Include="Installers\UIControllerInstallerTestFixture.cs" />
-    <Compile Include="CLI\PostInstallerTestHelper.cs" />
     <Compile Include="Installers\ArduinoPlugAndPlayInstallerTestFixture.cs" />
     <Compile Include="PathHelperTestFixture.cs" />
     <Compile Include="Installers\DockerInstallerTestFixture.cs" />
+    <Compile Include="Installers\SupervisorServiceInstallerTestFixture.cs" />
+    <Compile Include="Installers\WwwServiceInstaller.cs" />
+    <Compile Include="Deploy\DeployInstallTestFixture.cs" />
+    <Compile Include="DeploymentInfo.cs" />
+    <Compile Include="Deploy\DeploymentManager.cs" />
+    <Compile Include="CLI\Docker\PostInstallerDockerTestFixture.cs" />
+    <Compile Include="CLI\Docker\PostInstallerDockerTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />
     <Folder Include="Installers\" />
+    <Folder Include="Deploy\" />
+    <Folder Include="CLI\Docker\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GrowSense.Core\GrowSense.Core.csproj">

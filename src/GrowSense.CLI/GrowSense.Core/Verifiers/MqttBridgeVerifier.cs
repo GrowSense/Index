@@ -26,6 +26,15 @@ namespace GrowSense.Core.Verifiers
       VerifyVersion(installDir);
 
       VerifyConfig(installDir);
+
+      VerifyBinary(installDir);
+    }
+    
+    public void VerifyBinary(string installDir)
+    {
+      var installedExePath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe";
+
+      AssertFileExists(installedExePath);
     }
 
     public void VerifyVersion(string installDir)
@@ -48,7 +57,12 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyConfig(string installDir)
     {
+      Console.WriteLine("  Verifying MQTT bridge config file...");
       var installedConfigPath = installDir + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+
+      Console.WriteLine("    " + installedConfigPath);
+
+      AssertFileExists(installedConfigPath);
 
       var config = DeserializeAppConfig(installedConfigPath);
 

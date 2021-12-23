@@ -9,6 +9,7 @@ if [ "$BRANCH" = "dev" ]; then
 
   . ./detect-deployment-details.sh
 
+
   echo "Install host: $INSTALL_HOST"
 
   if sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST '[ -d /usr/local/GrowSense/Index/ ]'; then
@@ -57,10 +58,16 @@ if [ "$BRANCH" = "dev" ]; then
   echo ""
 
   echo ""
-  echo "Installing GrowSense plug and play on remote computer..."
+  echo "Installing GrowSense remote computer..."
 
-  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/download-and-install.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT" || exit 1
-  #sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Index/$BRANCH/scripts-web/install-plug-and-play-from-web.sh | bash -s -- $BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT" || exit 1
+  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/scripts-download/download-installer.sh | bash -s -- --branch=$BRANCH --to=/usr/local/ --version=$(cat full-version.txt) || exit 1
+# ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT" || exit 
+  #sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/scripts-download/download-installer.sh | bash -s -- --branch=$BRANCH ? $WIFI_NAME $WIFI_PASSWORD $INSTALL_MQTT_HOST $INSTALL_MQTT_USERNAME $INSTALL_MQTT_PASSWORD $INSTALL_MQTT_PORT $SMTP_SERVER $EMAIL_ADDRESS $SMTP_USERNAME $SMTP_PASSWORD $SMTP_PORT" || exit 1
+
+  echo ""
+  echo "Setting GrowSense config values..."
+  
+	  sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cd /usr/local/GrowSense/Index && bash gs.sh config --wifi-name=$WIFI_NAME --wifi-password=$WIFI_PASSWORD --mqtt-host=$INSTALL_MQTT_HOST --mqtt-username=$INSTALL_MQTT_USERNAME --mqtt-password=$INSTALL_MQTT_PASSWORD --mqtt-port=$INSTALL_MQTT_PORT --smtp-server=$SMTP_SERVER --email=$EMAIL_ADDRESS --smtp-username=$SMTP_USERNAME --smtp-password=$SMTP_PASSWORD --smtp-port=$SMTP_PORT"
 
   echo ""
   echo "Setting supervisor settings..."

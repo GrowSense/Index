@@ -10,12 +10,22 @@ namespace GrowSense.Core
 
     public void Download(string url, string destination)
     {
+
       Console.WriteLine("  Downloading file...");
       Console.WriteLine("    URL: " + url);
       Console.WriteLine("    Destination: " + destination);
-      
-      WebClient webClient = new WebClient();
-      webClient.DownloadFile(url, destination);
+
+      try
+      {
+        WebClient webClient = new WebClient();
+        webClient.DownloadFile(url, destination);
+      }
+      catch (Exception ex)
+      {
+        var starter = new ProcessStarter();
+        starter.Start("wget -q " + url + " -O " + destination);
+
+      }
     }
   }
 }
