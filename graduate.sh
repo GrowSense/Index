@@ -7,12 +7,16 @@ if [ "$BRANCH" = "dev" ];  then
 
   echo "Graduating dev branch to master branch"
 
-  echo ""
-  echo "  Fetching from origin..."
-  git fetch origin || exit 1
+#  echo ""
+#  echo "  Fetching from origin..."
+#  git fetch origin || exit 1
 
 #  # Pull the master branch into the dev branch
 #  git pull origin master || exit 1
+
+  echo ""
+  echo "  Pulling git repo..."
+  bash pull.sh
 
   echo ""
   echo "  Checking out the master branch..."
