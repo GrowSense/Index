@@ -127,9 +127,12 @@ else
       remote.Mqtt.Password = GetEnvironmentVariable("MQTT_PASSWORD", branch + "2");
       remote.Mqtt.Port = Convert.ToInt32(GetEnvironmentVariable("MQTT_PORT", branch + "2"));
 
-      deployment.Remotes = new DeploymentInfo[]{
-      remote
-      };
+      if (!String.IsNullOrEmpty(remote.Ssh.Host))
+      {
+        deployment.Remotes = new DeploymentInfo[]{
+          remote
+        };
+      }
 
       return deployment;
     }
