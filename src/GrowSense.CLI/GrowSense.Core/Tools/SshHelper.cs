@@ -10,7 +10,8 @@ namespace GrowSense.Core.Tools
     public bool NoHostKeyChecking = true;    
 
     public string StartDirectory;
-    public bool MoveToStartDirectory;
+    public bool MoveToStartDirectory = true;
+    public bool FailOnError = true;
 
     public SshHelper(SshTarget target)
     {
@@ -19,26 +20,33 @@ namespace GrowSense.Core.Tools
 
     public string Execute(string command)
     {
+      return Execute(command, MoveToStartDirectory, FailOnError);
+    }
+
+    public string Execute(string command, bool moveToStartDirectory, bool failOnError)
+    {
       Console.WriteLine("Executing command via SSH...");
-      
+
       var starter = new ProcessStarter();
-      
-      if (!String.IsNullOrEmpty(StartDirectory) && MoveToStartDirectory)
+
+      if (!String.IsNullOrEmpty(StartDirectory) && moveToStartDirectory)
         command = "cd " + StartDirectory + " && " + command;
 
-      command += " || exit 1";
+      if (failOnError)
+        command += " || exit 1";
 
       var options = "";
       if (NoHostKeyChecking)
-      options = " -o \"StrictHostKeyChecking no\" ";
+        options = " -o \"StrictHostKeyChecking no\" ";
 
       var fullCommand = String.Format("ssh {3} {0}@{1} \"{2}\"", Target.Username, Target.Host, EscapeCommand(command), options);
+
       if (UseSshPass)
         fullCommand = String.Format("sshpass -p {0} {1}", Target.Password, fullCommand);
 
-      
-      
-      
+
+
+
       Console.WriteLine("  " + fullCommand);
 
       starter.Start(fullCommand);
@@ -47,6 +55,14 @@ namespace GrowSense.Core.Tools
         throw new Exception("An error occurred.");
 
       return starter.Output;
+    }
+
+    public bool FileExists(string file)
+    {
+      var cmd = "[ -f \"" + file + "\" ] && echo true || echo false";
+      var output = Execute(cmd);
+      var result = Convert.ToBoolean(output.Trim());
+      return result;
     }
 
     public string EscapeCommand(string command)
@@ -87,7 +103,6 @@ namespace GrowSense.Core.Tools
 
       starter.OutputBuilder.Clear();
 
-
       Console.WriteLine("");
       Console.WriteLine("  Making destination directory...");
       Console.WriteLine("    " + Path.GetDirectoryName(destinationFile));
@@ -100,6 +115,11 @@ namespace GrowSense.Core.Tools
       Execute("sudo mv " + homeFile + " " + destinationFile);
 
       Console.WriteLine("Finished pushing file to host target.");
+    }
+
+    public void CreateDirectory(string directory)
+    {
+      Execute("sudo mkdir -p " + directory, false, false);
     }
 
     public void DeleteDirectory(string directory)
