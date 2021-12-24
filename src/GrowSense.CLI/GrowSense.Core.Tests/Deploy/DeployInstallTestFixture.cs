@@ -14,7 +14,12 @@ namespace GrowSense.Core.Tests.Deploy
       Console.WriteLine("Testing deploy install...");
 
       var version = File.ReadAllText(ProjectDirectory + "/full-version.txt").Trim();
+
       var branch = new BranchDetector(ProjectDirectory).Branch;
+      
+      
+      Console.WriteLine("  Version: " + version);
+      Console.WriteLine("  Branch: " + branch);
 
       var deployment = GetDeploymentInfo(branch);
 
