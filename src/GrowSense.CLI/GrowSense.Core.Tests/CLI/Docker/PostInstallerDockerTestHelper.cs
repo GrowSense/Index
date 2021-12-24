@@ -53,6 +53,9 @@ namespace GrowSense.Core.Tests.CLI.Docker
       //var docker = new DockerHelper(context);
 
       starter.Start("docker pull " + fullDockerImage);
+      
+      
+      starter.Start("bash clean.sh");
 
 
       var finishedMessage = "Test finished!";

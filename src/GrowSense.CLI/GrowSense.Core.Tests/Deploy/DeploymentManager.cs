@@ -22,15 +22,19 @@ namespace GrowSense.Core.Tests.Deploy
     public bool IsInstalledOnTarget()
     {
       Console.WriteLine("Checking if GrowSense is installed on target host...");
-      
+
       Ssh.MoveToStartDirectory = false;
+
+      var indexDirExists = Ssh.DirectoryExists(Ssh.StartDirectory);
+
+      Ssh.MoveToStartDirectory = true;
       
-      var isInstalled = Ssh.DirectoryExists(Ssh.StartDirectory);
+      var gsScriptFileExists = Ssh.FileExists("gs.sh");
+
+      var isInstalled = indexDirExists && gsScriptFileExists;
       
       Console.WriteLine("  Is installed: " + isInstalled);
       Console.WriteLine("");
-      
-      Ssh.MoveToStartDirectory = true;
       
       return isInstalled;
     }
@@ -105,7 +109,7 @@ namespace GrowSense.Core.Tests.Deploy
 
     public void WaitForUnlock()
     {
-      Ssh.Execute("bash wait-for-unlock.sh || echo \"Failed to wait for unlock. The script might not exist so it can be skipped\"");
+      Ssh.Execute("if [ -f wait-for-unlock.sh ]; then bash wait-for-unlock.sh; fi", true, false);
     }
 
   }

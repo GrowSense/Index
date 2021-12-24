@@ -46,6 +46,8 @@ namespace GrowSense.Core.Tests.Deploy
         manager.RenameDevice("irrigatorW1", "NewIrrigatorW");
         manager.RenameDevice("illuminator1", "NewIlluminator");
       }
+else
+      manager.Ssh.CreateDirectory("/usr/local/GrowSense/Index");
 
 
       Console.WriteLine("");
