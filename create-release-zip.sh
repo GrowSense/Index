@@ -42,6 +42,7 @@ zip -qq -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip . \
  -x '*.security' \
  -x '*.txt' \
  -x '/tests/*' \
+ -x '*/tests/*' \
  -x '/tmp/*' \
  -x '/src/*'
 

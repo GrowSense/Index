@@ -39,10 +39,13 @@ namespace GrowSense.Core.Verifiers
     public void VerifyDevicesMqttBridgeServices()
     {
       Console.WriteLine("  Verifying devices MQTT bridge services...");
-      
+
       foreach (var device in Devices.GetDevices())
       {
-        VerifyDeviceMqttBridgeService(device);
+        var isOnThisMachine = device.Host == Context.Settings.HostName;
+
+        if (isOnThisMachine)
+          VerifyDeviceMqttBridgeService(device);
       }
 
       Console.WriteLine("  Finished verifying devices MQTT bridge services.");

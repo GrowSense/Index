@@ -62,10 +62,10 @@ namespace GrowSense.Core.Tools
         return SystemCtlServiceStatus.Active;
       else if (statusReport.IndexOf("failed") > -1)
         return SystemCtlServiceStatus.Failed;
+      else if (statusReport.IndexOf("not-found") > -1)
+        return SystemCtlServiceStatus.NotFound;
       else if (statusReport.IndexOf("dead") > -1)
         return SystemCtlServiceStatus.Dead;
-      else if (statusReport.IndexOf("not found") > -1)
-        return SystemCtlServiceStatus.NotFound;
       else
       {
         Console.WriteLine("----- Start Status Report -----");
