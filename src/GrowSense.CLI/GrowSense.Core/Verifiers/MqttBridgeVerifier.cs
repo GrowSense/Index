@@ -42,9 +42,22 @@ namespace GrowSense.Core.Verifiers
 
       foreach (var device in Devices.GetDevices())
       {
+        Console.WriteLine("    Device: " + device.Name);
+        Console.WriteLine("      Board: " + device.Board);
+        Console.WriteLine("      Host: " + device.Host);
+        Console.WriteLine("      Group: " + device.Group);
+      
         var isOnThisMachine = device.Host == Context.Settings.HostName;
 
-        if (isOnThisMachine)
+        var isUSBConnected = device.Board == "nano" || device.Board == "uno";
+
+        var isNotUIDevice = device.Group != "ui";
+
+        var requiresMqttBridge = isOnThisMachine && isUSBConnected && isNotUIDevice;
+
+        Console.WriteLine("      Requires MQTT bridge: " + requiresMqttBridge);
+
+        if (requiresMqttBridge)
           VerifyDeviceMqttBridgeService(device);
       }
 
@@ -53,8 +66,6 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyDeviceMqttBridgeService(DeviceInfo device)
     {
-      Console.WriteLine("    Device: " + device.Name);
-      
       var serviceName = "growsense-mqtt-bridge-" + device.Name;
 
       var mqttBridgeStatus = SystemCtl.Status(serviceName);
@@ -62,6 +73,15 @@ namespace GrowSense.Core.Verifiers
       if (mqttBridgeStatus != SystemCtlServiceStatus.Active)
       {
         throw new Exception("MQTT bridge service is not active for device: " + device.Name);
+      }
+      else
+      {
+        var statusReport = SystemCtl.StatusReport(serviceName);
+
+        if (statusReport.IndexOf("MqttConnectionException") > -1)
+          throw new Exception("MQTT Bridge failed to connect to broker for device: " + device.Name);
+        else if (statusReport.IndexOf("No such file or directory") > -1)
+          throw new Exception("USB device not found for device: " + device.Name);
       }
     }
 
