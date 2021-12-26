@@ -13,7 +13,7 @@ namespace GrowSense.Core.Tools
       Starter = new ProcessStarter(Context.IndexDirectory);
     }
 
-    public virtual string Status(string serviceName)
+    public virtual string StatusReport(string serviceName)
     {
       return Run("status " + serviceName);
     }
@@ -47,7 +47,33 @@ namespace GrowSense.Core.Tools
 
     public virtual string GetServiceFilePath(string serviceName)
     {
-    return "/lib/systemd/system/" + serviceName.Replace(".service", "") + ".service";
+      var serviceFileName = serviceName.Replace(".service", "") + ".service";
+      if (Context.Settings.IsMockSystemCtl)
+        return Context.IndexDirectory + "/mock/services/" + serviceFileName;
+      else
+        return "/lib/systemd/system/" + serviceFileName;
+    }
+
+    public SystemCtlServiceStatus Status(string serviceName)
+    {
+      var statusReport = StatusReport(serviceName);
+
+      if (statusReport.IndexOf("active (running)") > -1)
+        return SystemCtlServiceStatus.Active;
+      else if (statusReport.IndexOf("failed") > -1)
+        return SystemCtlServiceStatus.Failed;
+      else if (statusReport.IndexOf("dead") > -1)
+        return SystemCtlServiceStatus.Dead;
+      else if (statusReport.IndexOf("not found") > -1)
+        return SystemCtlServiceStatus.NotFound;
+      else
+      {
+        Console.WriteLine("----- Start Status Report -----");
+        Console.WriteLine(statusReport);
+        Console.WriteLine("----- End Status Report");
+        
+        throw new Exception("Failed to detect systemctl service status.");
+      }
     }
 
     public void Stop(string serviceName)

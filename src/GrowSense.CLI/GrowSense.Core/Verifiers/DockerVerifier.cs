@@ -23,7 +23,7 @@ namespace GrowSense.Core.Verifiers
     
       Console.WriteLine("  Checking output of 'systemctl status docker'...");
 
-      var output = SystemCtl.Status("docker");
+      var output = SystemCtl.StatusReport("docker");
 
       if (output.IndexOf("active (running)") == -1)
       {

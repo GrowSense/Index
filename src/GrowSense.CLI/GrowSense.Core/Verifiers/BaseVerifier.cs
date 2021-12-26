@@ -121,7 +121,7 @@ namespace GrowSense.Core.Verifiers
 
       Console.WriteLine("    Is mock systemctl: " + (this.SystemCtl.GetType().Name.IndexOf("Mock") > -1));
 
-      var output = SystemCtl.Status(serviceName);
+      var output = SystemCtl.StatusReport(serviceName);
 
       AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
       /*

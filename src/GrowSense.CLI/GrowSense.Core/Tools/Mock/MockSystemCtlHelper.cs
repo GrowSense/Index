@@ -18,7 +18,7 @@ namespace GrowSense.Core.Tools.Mock
       return File.Exists(GetServiceFilePath(serviceName));
     }
 
-    public override string Status(string serviceName)
+    public override string StatusReport(string serviceName)
     {
       return "  [mock] systemctl status " + serviceName + "  Status: active (running)";
     }

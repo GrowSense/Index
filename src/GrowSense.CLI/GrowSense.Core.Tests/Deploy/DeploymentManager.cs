@@ -39,12 +39,21 @@ namespace GrowSense.Core.Tests.Deploy
       return isInstalled;
     }
     
-    public void DownloadAndLaunchInstaller()
+    public void DownloadAndLaunchInstall()
     {
       Console.WriteLine("");
-      Console.WriteLine("Downloading and launching installer...");
+      Console.WriteLine("Downloading and launching install...");
 
-      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
+      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- install --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
+      Ssh.Execute(installCommand);      
+    }
+    
+    public void DownloadAndLaunchUpgrade()
+    {
+      Console.WriteLine("");
+      Console.WriteLine("Downloading and launching upgrade...");
+
+      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- upgrade --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
       Ssh.Execute(installCommand);      
     }
 
