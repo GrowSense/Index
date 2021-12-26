@@ -134,6 +134,7 @@ test-deploy:
     - cat full-version.txt
   script:
     - sh test.sh DeployInstall
+    - sh check-deployment.sh
   dependencies:
     - build
     
