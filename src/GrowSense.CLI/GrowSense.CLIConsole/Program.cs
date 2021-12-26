@@ -39,19 +39,24 @@ namespace GrowSense.Core
 
           switch (command)
           {
-            case "hello-world":
-              manager.ExecuteScript("hello-world.sh");
-              break;
             case "post-install":
-              Console.WriteLine("Post install");
+              //Console.WriteLine("Post install");
               manager.PostInstallActions();
               break;
+            case "stop":
+              //Console.WriteLine("Stop");
+              manager.Stop();
+              break;
+            case "start":
+              //Console.WriteLine("Stop");
+              manager.Start();
+              break;
             case "verify":
-              Console.WriteLine("Verify");
+              //Console.WriteLine("Verify");
               manager.Verify();
               break;
             case "config":
-              Console.WriteLine("Config");
+              //Console.WriteLine("Config");
               manager.ApplySettings();
               break;
             default:
