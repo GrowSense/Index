@@ -37,10 +37,10 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("    Search term:");
       Console.WriteLine("      " + searchTerm);
       Console.WriteLine("");
-      Console.WriteLine("----- Start Provided Text -----");
-      Console.WriteLine(entireText);
-      Console.WriteLine("----- End Provided Text -----");
-      Console.WriteLine("");
+      //Console.WriteLine("----- Start Provided Text -----");
+      //Console.WriteLine(entireText);
+      //Console.WriteLine("----- End Provided Text -----");
+      //Console.WriteLine("");
       if (entireText.ToLower().IndexOf(searchTerm.ToLower()) == -1)
         throw new Exception(errorMessage);
       else
