@@ -30,7 +30,20 @@ mkdir -p $RELEASES_FOLDER
 
 echo ""
 echo "[create-release-zip.sh]   Zipping release..."
-zip -qq -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip * -x */obj/* *.git/*
+zip -qq -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip . \
+ -x '/.circleci*' \
+ -x '/.git*' \
+ -x '/deployments/*' \
+ -x '/logs/*' \
+ -x '/msgs/*' \
+ -x '/obj/*' \
+ -x '/releases/*' \
+ -x '/security/*' \
+ -x '*.security' \
+ -x '*.txt' \
+ -x '/tests/*' \
+ -x '/tmp/*' \
+ -x '/src/*'
 
 
 #git checkout full-version.txt
