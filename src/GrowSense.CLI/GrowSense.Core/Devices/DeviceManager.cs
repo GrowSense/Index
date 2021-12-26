@@ -47,9 +47,9 @@ namespace GrowSense.Core.Devices
       device.Port = File.ReadAllText(deviceFolder + "/port.txt").Trim();
       device.Host = File.ReadAllText(deviceFolder + "/host.txt").Trim();
       if (File.Exists(deviceFolder + "/is-device-offline.txt"))
-        device.IsDeviceOffline = Convert.ToBoolean(File.ReadAllText(deviceFolder + "/is-device-offline.txt").Trim());
+        Boolean.TryParse(File.ReadAllText(deviceFolder + "/is-device-offline.txt").Trim(), out device.IsDeviceOffline);
       if (File.Exists(deviceFolder + "/is-service-offline.txt"))
-        device.IsServiceOffline = Convert.ToBoolean(File.ReadAllText(deviceFolder + "/is-service-offline.txt").Trim());
+        Boolean.TryParse(File.ReadAllText(deviceFolder + "/is-service-offline.txt").Trim(), out device.IsServiceOffline);
 
       return device;
     }
