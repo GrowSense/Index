@@ -38,19 +38,25 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyDevicesMqttBridgeServices()
     {
+      Console.WriteLine("  Verifying devices MQTT bridge services...");
+      
       foreach (var device in Devices.GetDevices())
       {
         VerifyDeviceMqttBridgeService(device);
-      } 
+      }
+
+      Console.WriteLine("  Finished verifying devices MQTT bridge services.");
     }
 
     public void VerifyDeviceMqttBridgeService(DeviceInfo device)
     {
+      Console.WriteLine("    Device: " + device.Name);
+      
       var serviceName = "growsense-mqtt-bridge-" + device.Name;
 
       var mqttBridgeStatus = SystemCtl.Status(serviceName);
 
-      if (mqttBridgeStatus == SystemCtlServiceStatus.Active)
+      if (mqttBridgeStatus != SystemCtlServiceStatus.Active)
       {
         throw new Exception("MQTT bridge service is not active for device: " + device.Name);
       }
