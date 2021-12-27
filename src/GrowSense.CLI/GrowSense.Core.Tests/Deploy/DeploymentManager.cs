@@ -45,7 +45,10 @@ namespace GrowSense.Core.Tests.Deploy
       Console.WriteLine("Downloading and launching install...");
 
       var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- install --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
-      Ssh.Execute(installCommand);      
+
+      Ssh.Starter.EnableErrorCheckingByTextMatching = false;
+      Ssh.Execute(installCommand);
+      Ssh.Starter.EnableErrorCheckingByTextMatching = true;
     }
     
     public void DownloadAndLaunchUpgrade()
