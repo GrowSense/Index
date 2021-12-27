@@ -1,5 +1,6 @@
 ﻿using System;
 using GrowSense.Core.Tools;
+using System.IO;
 namespace GrowSense.Core.Tests.Deploy
 {
   public class DeploymentManager
@@ -124,5 +125,22 @@ namespace GrowSense.Core.Tests.Deploy
       Ssh.Execute("if [ -f wait-for-unlock.sh ]; then bash wait-for-unlock.sh; fi", true, false);
     }
 
+    public void CreateReleaseZipAndPushToHost(string projectDirectory, DeploymentInfo deployment, SshHelper ssh)
+    {
+      Console.WriteLine("");
+      Console.WriteLine("Creating release zip...");
+      var starter = new ProcessStarter(projectDirectory);
+
+      starter.StartBash("bash create-release-zip.sh");
+
+      starter.OutputBuilder.Clear();
+
+
+      var sourceReleaseFilePath = Directory.GetFiles(projectDirectory + "/releases/")[0];
+
+      var destinationReleaseFilePath = "/usr/local/GrowSense/Installer/" + Path.GetFileName(sourceReleaseFilePath);
+
+      ssh.CopyFileTo(sourceReleaseFilePath, destinationReleaseFilePath);
+    }
   }
 }
