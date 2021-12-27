@@ -40,7 +40,7 @@ namespace GrowSense.Core.Installers
 
       StartDockerContainer(mosquittoInstallPath);
 
-// Wait for container to start
+      // Wait for container to start
       Thread.Sleep(1000);
 
       Verify(mosquittoInstallPath);

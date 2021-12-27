@@ -215,10 +215,10 @@ echo ""
 echo "Sleeping for 10 seconds to let devices load..."
 sleep 10
 
-echo ""
-echo "Checking deployment devices..."
+#echo ""
+#echo "Checking deployment devices..."
 
-bash check-deployment-devices.sh $BRANCH || exit 1
+#bash check-deployment-devices.sh $BRANCH || exit 1
 
 echo ""
 echo "Listing device info directories..."

@@ -55,8 +55,10 @@ namespace GrowSense.Core.Tools
     {
       var logs = Logs(containerName);
 
+      if (logs.IndexOf("can not get logs from container which is dead or marked for removal") > -1)
+        return false;
+
       return logs.IndexOf("running") > -1;
-        
     }
   }
 }

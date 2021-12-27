@@ -3,20 +3,20 @@ using NUnit.Framework;
 using Newtonsoft.Json;
 using System.IO;
 using GrowSense.Core.Tools;
+
 namespace GrowSense.Core.Tests.Deploy
 {
-  [TestFixture(Category = "DeployInstall")]
-  public class DeployInstallTestFixture : BaseTestFixture
+  [TestFixture(Category = "DeployUpgrade")]
+  public class DeployUpgradeTestFixture : BaseTestFixture
   {
     [Test]
-    public void Test_DeployInstall()
+    public void Test_DeployUpgrade()
     {
-      Console.WriteLine("Testing deploy install...");
+      Console.WriteLine("Testing deploy upgrade...");
 
       var version = File.ReadAllText(ProjectDirectory + "/full-version.txt").Trim();
 
       var branch = new BranchDetector(ProjectDirectory).Branch;
-
 
       Console.WriteLine("  Version: " + version);
       Console.WriteLine("  Branch: " + branch);
@@ -40,36 +40,25 @@ namespace GrowSense.Core.Tests.Deploy
 
       var manager = new DeploymentManager(deployment, branch, version);
 
-      if (manager.IsInstalledOnTarget())
+
+
+      if (!manager.IsInstalledOnTarget())
       {
-        manager.WaitForUnlock();
-
-        Console.WriteLine("Renaming GrowSense devices to ensure the name is set correctly after installation...");
-
-     // TODO: Fix and reimplement
-     //   manager.RenameDevice("irrigatorW1", "NewIrrigatorW");
-     //   manager.RenameDevice("illuminator1", "NewIlluminator");
+        Assert.Fail("Can't upgrade when GrowSense is not currently installed.");
       }
-      else
-        manager.Ssh.CreateDirectory("/usr/local/GrowSense/Index");
-
-
-      Console.WriteLine("");
-      Console.WriteLine("Adding GrowSense remotes...");
-      manager.AddRemotes();
 
       // TODO: Remove if not needed. Used for debugging
       //manager.Ssh.Execute("echo helloworld");
       //manager.Ssh.Execute("sudo echo hello > /usr/local/GrowSense/Installer/hello.txt");
 
-      manager.DownloadAndLaunchInstall();
+      manager.DownloadAndLaunchUpgrade();
 
       manager.SetConfigValues();
 
       Console.WriteLine("Setting supervisor settings...");
       manager.Ssh.Execute("echo 10 > supervisor-status-check-frequency.txt && echo 10 > supervisor-docker-check-frequency.txt && echo 10 > supervisor-mqtt-check-frequency.txt");
 
-      Console.WriteLine("Deploy installation successful.");
+      Console.WriteLine("Deploy upgrade successful.");
     }
 
 
@@ -159,11 +148,9 @@ namespace GrowSense.Core.Tests.Deploy
       starter.OutputBuilder.Clear();
 
 
-      var sourceReleaseFilePath = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
+      var releaseFile = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
 
-      var destinationReleaseFilePath = "/usr/local/GrowSense/Installer/" + Path.GetFileName(sourceReleaseFilePath);
-
-      ssh.CopyFileTo(sourceReleaseFilePath, destinationReleaseFilePath);
+      ssh.CopyFileTo(releaseFile, "/usr/local/GrowSense/Installer/GrowSenseIndex.zip");
     }
   }
 }

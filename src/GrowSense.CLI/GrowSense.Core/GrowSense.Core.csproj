@@ -79,6 +79,9 @@
     <Compile Include="Tools\Mock\MockDockerHelper.cs" />
     <Compile Include="Tools\SystemCtlHelper.cs" />
     <Compile Include="Tools\Mock\MockSystemCtlHelper.cs" />
+    <Compile Include="Devices\DeviceInfo.cs" />
+    <Compile Include="Devices\DeviceManager.cs" />
+    <Compile Include="Tools\SystemCtlServiceStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installers\" />
@@ -86,6 +89,7 @@
     <Folder Include="Model\" />
     <Folder Include="Tools\" />
     <Folder Include="Tools\Mock\" />
+    <Folder Include="Devices\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

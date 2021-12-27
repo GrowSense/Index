@@ -66,7 +66,7 @@ namespace GrowSense.Core.Verifiers
 
       //Starter.StartBash(cmd);
 
-      var output = SystemCtl.Status("arduino-plug-and-play");
+      var output = SystemCtl.StatusReport("arduino-plug-and-play");
 
       AssertTextContains(output, "active (running)", "Arduino plug and play service is not running.");
       //}

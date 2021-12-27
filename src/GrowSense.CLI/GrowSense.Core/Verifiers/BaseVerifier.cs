@@ -37,10 +37,10 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("    Search term:");
       Console.WriteLine("      " + searchTerm);
       Console.WriteLine("");
-      Console.WriteLine("----- Start Provided Text -----");
-      Console.WriteLine(entireText);
-      Console.WriteLine("----- End Provided Text -----");
-      Console.WriteLine("");
+      //Console.WriteLine("----- Start Provided Text -----");
+      //Console.WriteLine(entireText);
+      //Console.WriteLine("----- End Provided Text -----");
+      //Console.WriteLine("");
       if (entireText.ToLower().IndexOf(searchTerm.ToLower()) == -1)
         throw new Exception(errorMessage);
       else
@@ -121,7 +121,7 @@ namespace GrowSense.Core.Verifiers
 
       Console.WriteLine("    Is mock systemctl: " + (this.SystemCtl.GetType().Name.IndexOf("Mock") > -1));
 
-      var output = SystemCtl.Status(serviceName);
+      var output = SystemCtl.StatusReport(serviceName);
 
       AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
       /*

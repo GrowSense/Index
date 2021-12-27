@@ -61,6 +61,24 @@ namespace GrowSense.Core
       Console.WriteLine("Finished applying new settings.");
     }
 
+    public void Stop()
+    {
+      Console.WriteLine("Stopping GrowSense system services...");
+
+      Starter.StartBash("bash stop-garden.sh");
+
+      Console.WriteLine("Finished stopping GrowSense system services.");
+    }
+
+    public void Start()
+    {
+      Console.WriteLine("Starting GrowSense system services...");
+
+      Starter.StartBash("bash start-garden.sh");
+
+      Console.WriteLine("Finished starting GrowSense system services.");
+    }
+
     public void SetMockingFlags()
     {
       Console.WriteLine("Setting mocking flags...");

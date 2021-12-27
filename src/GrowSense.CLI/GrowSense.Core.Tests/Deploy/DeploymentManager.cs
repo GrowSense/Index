@@ -22,25 +22,41 @@ namespace GrowSense.Core.Tests.Deploy
     public bool IsInstalledOnTarget()
     {
       Console.WriteLine("Checking if GrowSense is installed on target host...");
-      
+
       Ssh.MoveToStartDirectory = false;
+
+      var indexDirExists = Ssh.DirectoryExists(Ssh.StartDirectory);
+
+      Ssh.MoveToStartDirectory = true;
       
-      var isInstalled = Ssh.DirectoryExists(Ssh.StartDirectory);
+      var gsScriptFileExists = Ssh.FileExists("gs.sh");
+
+      var isInstalled = indexDirExists && gsScriptFileExists;
       
       Console.WriteLine("  Is installed: " + isInstalled);
       Console.WriteLine("");
       
-      Ssh.MoveToStartDirectory = true;
-      
       return isInstalled;
     }
     
-    public void DownloadAndLaunchInstaller()
+    public void DownloadAndLaunchInstall()
     {
       Console.WriteLine("");
-      Console.WriteLine("Downloading and launching installer...");
+      Console.WriteLine("Downloading and launching install...");
 
-      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
+      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- install --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
+
+      Ssh.Starter.EnableErrorCheckingByTextMatching = false;
+      Ssh.Execute(installCommand);
+      Ssh.Starter.EnableErrorCheckingByTextMatching = true;
+    }
+    
+    public void DownloadAndLaunchUpgrade()
+    {
+      Console.WriteLine("");
+      Console.WriteLine("Downloading and launching upgrade...");
+
+      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- upgrade --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
       Ssh.Execute(installCommand);      
     }
 
@@ -105,7 +121,7 @@ namespace GrowSense.Core.Tests.Deploy
 
     public void WaitForUnlock()
     {
-      Ssh.Execute("bash wait-for-unlock.sh || echo \"Failed to wait for unlock. The script might not exist so it can be skipped\"");
+      Ssh.Execute("if [ -f wait-for-unlock.sh ]; then bash wait-for-unlock.sh; fi", true, false);
     }
 
   }

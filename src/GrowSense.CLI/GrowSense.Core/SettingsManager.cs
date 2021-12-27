@@ -25,7 +25,13 @@ namespace GrowSense.Core
       if (File.Exists(settingsFile))
       {
         var settingsJson = File.ReadAllText(settingsFile);
-        return JsonConvert.DeserializeObject<CLISettings>(settingsJson);
+        var settings = JsonConvert.DeserializeObject<CLISettings>(settingsJson);
+
+        var starter = new ProcessStarter(WorkingDirectory);
+        starter.StartBash("hostname");
+        settings.HostName = starter.Output.Trim();
+
+        return settings;
       }
       else
         return new CLISettings();

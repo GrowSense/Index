@@ -57,6 +57,7 @@
     <Compile Include="Deploy\DeploymentManager.cs" />
     <Compile Include="CLI\Docker\PostInstallerDockerTestFixture.cs" />
     <Compile Include="CLI\Docker\PostInstallerDockerTestHelper.cs" />
+    <Compile Include="Deploy\DeployUpgradeTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />

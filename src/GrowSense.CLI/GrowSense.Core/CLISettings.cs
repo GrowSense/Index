@@ -20,13 +20,15 @@ namespace GrowSense.Core
     public int SmtpPort = 25;
     
     public string Email = "";
+    
+    public string HostName { get; set; }
 
     public bool IsMockSystemCtl = false;
+    public bool IsMockDocker = false;
     
     public CLISettings()
     {
     }
 
-    public bool IsMockDocker { get; set; }
   }
 }
