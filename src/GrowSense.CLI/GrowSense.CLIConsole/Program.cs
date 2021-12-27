@@ -111,6 +111,21 @@ namespace GrowSense.Core
       
       settingsManager.LoadSettingsFromArguments(arguments, settings);
 
+      Console.WriteLine("  WiFi Name: " + settings.WiFiName);
+      Console.WriteLine("  WiFi Password: " + settings.WiFiPassword);
+
+      Console.WriteLine("  MQTT Host: " + settings.MqttHost);
+      Console.WriteLine("  MQTT Username: " + settings.MqttUsername);
+      Console.WriteLine("  MQTT Password: " + settings.MqttPassword);
+      Console.WriteLine("  MQTT Port: " + settings.MqttPort);
+
+      Console.WriteLine("  SMTP Server: " + settings.SmtpServer);
+      Console.WriteLine("  SMTP Username: " + settings.SmtpUsername);
+      Console.WriteLine("  SMTP Password: " + settings.SmtpPassword);
+      Console.WriteLine("  SMTP Port: " + settings.SmtpPort);
+      Console.WriteLine("  Email: " + settings.Email);
+
+
       return settings;
     }
   }
