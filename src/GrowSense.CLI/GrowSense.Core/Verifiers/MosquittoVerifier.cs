@@ -50,7 +50,7 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("Verifying MQTT docker service is running...");
 
       if (!Docker.IsRunning("mosquitto"))
-      throw new Exception("Mosquitto docker container is not running");
+        throw new Exception("Mosquitto docker container is not running");
     }
   }
 }
