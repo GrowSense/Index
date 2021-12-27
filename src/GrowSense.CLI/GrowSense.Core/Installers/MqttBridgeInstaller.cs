@@ -34,7 +34,9 @@ namespace GrowSense.Core.Installers
 
       SetAppConfigValues();
 
-      Verify(mqttBridgeInstallPath);
+      // Disabled to allow time for instances to load and connect.
+      // Verification will occur after entire installation process is complete.
+      //Verify(mqttBridgeInstallPath);
     }
 
     public void SetAppConfigValues()
