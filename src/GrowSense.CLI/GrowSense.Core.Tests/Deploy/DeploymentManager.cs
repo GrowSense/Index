@@ -85,7 +85,9 @@ namespace GrowSense.Core.Tests.Deploy
       " --smtp-password=''" +
       " --smtp-port=25";
 
+      Ssh.Starter.EnableErrorCheckingByTextMatching = false;
       Ssh.Execute(configCommand);
+      Ssh.Starter.EnableErrorCheckingByTextMatching = true;
     }
 
     public void AddRemotes()
