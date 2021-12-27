@@ -45,6 +45,8 @@ namespace GrowSense.Core.Verifiers
 
     public void VerifyInstallation()
     {
+      WaitForPlugAndPlay();
+    
       Docker.Verify();
       
       ArduinoPlugAndPlay.Verify();
@@ -60,7 +62,12 @@ namespace GrowSense.Core.Verifiers
       Version.Verify();
     }
 
-    
+    public void WaitForPlugAndPlay()
+    {
+      Starter.EnableErrorCheckingByTextMatching = false;
+      Starter.StartBash("bash wait-for-plug-and-play.sh");
+      Starter.EnableErrorCheckingByTextMatching = true;
+    }
 
 
   }
