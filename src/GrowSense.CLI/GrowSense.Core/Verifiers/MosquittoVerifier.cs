@@ -16,12 +16,42 @@ namespace GrowSense.Core.Verifiers
 
     public void Verify()
     {
-      VerifyConfigFound();
+      VerifyUserFile();
+    
+      VerifyConfig();
       
       VerifyContainerRunning();
     }
+    
+    public void VerifyUserFile()
+    {
+      Console.WriteLine("  Checking mosquitto userfile...");
+      
+      var mosquittoPath = Context.Paths.GetApplicationPath("mosquitto");
+      
+      var userFile = Path.Combine(mosquittoPath, "data/mosquitto.userfile");
 
-    public void VerifyConfigFound()
+      Console.WriteLine("    Path: " + userFile);
+
+      if (!File.Exists(userFile))
+        throw new FileNotFoundException(userFile);
+      else
+        Console.WriteLine("    Mosquitto userfile found");
+
+      var content = File.ReadAllText(userFile);
+
+      Console.WriteLine("");
+      Console.WriteLine("----- Start User File Content -----");
+      Console.WriteLine(content);
+      Console.WriteLine("----- End User File Content -----");
+      Console.WriteLine("");
+      
+      if (content.IndexOf(Context.Settings.MqttUsername) == -1)
+        throw new Exception("MQTT username not found in mosquitto.userfile");
+    }
+    
+
+    public void VerifyConfig()
     {
       Console.WriteLine("  Checking mosquitto config file exists...");
       
