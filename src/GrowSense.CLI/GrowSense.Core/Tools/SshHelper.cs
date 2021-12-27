@@ -99,7 +99,7 @@ namespace GrowSense.Core.Tools
       if (NoHostKeyChecking)
        options = " -o StrictHostKeyChecking=no ";
       
-      var cmd = "sshpass -p " + Target.Password + " scp " + options + " " + sourceFile + " " + Target.Username + "@" + Target.Host + ":" + homeFile;
+      var cmd = "sshpass -p '" + Target.Password + "' scp " + options + " " + sourceFile + " " + Target.Username + "@" + Target.Host + ":" + homeFile;
       //Console.WriteLine("  Command: " + cmd);     
       starter.StartBash(cmd);
 
