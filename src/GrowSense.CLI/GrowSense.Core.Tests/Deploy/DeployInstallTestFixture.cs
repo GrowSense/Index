@@ -160,9 +160,11 @@ namespace GrowSense.Core.Tests.Deploy
       starter.OutputBuilder.Clear();
 
 
-      var releaseFile = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
+      var sourceReleaseFilePath = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
 
-      ssh.CopyFileTo(releaseFile, "/usr/local/GrowSense/Installer/GrowSenseIndex.zip");
+      var destinationReleaseFilePath = "/usr/local/GrowSense/Installer/" + Path.GetFileName(sourceReleaseFilePath);
+
+      ssh.CopyFileTo(sourceReleaseFilePath, destinationReleaseFilePath);
     }
   }
 }
