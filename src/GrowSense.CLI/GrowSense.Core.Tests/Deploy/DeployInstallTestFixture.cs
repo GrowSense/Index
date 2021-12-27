@@ -40,16 +40,15 @@ namespace GrowSense.Core.Tests.Deploy
 
       var manager = new DeploymentManager(deployment, branch, version);
 
-
-
       if (manager.IsInstalledOnTarget())
       {
         manager.WaitForUnlock();
 
         Console.WriteLine("Renaming GrowSense devices to ensure the name is set correctly after installation...");
 
-        manager.RenameDevice("irrigatorW1", "NewIrrigatorW");
-        manager.RenameDevice("illuminator1", "NewIlluminator");
+     // TODO: Fix and reimplement
+     //   manager.RenameDevice("irrigatorW1", "NewIrrigatorW");
+     //   manager.RenameDevice("illuminator1", "NewIlluminator");
       }
       else
         manager.Ssh.CreateDirectory("/usr/local/GrowSense/Index");
