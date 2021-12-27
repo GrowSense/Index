@@ -47,7 +47,7 @@ namespace GrowSense.Core.Verifiers
       Console.WriteLine("");
       
       if (content.IndexOf(Context.Settings.MqttUsername) == -1)
-        throw new Exception("MQTT username not found in mosquitto.userfile");
+        throw new Exception("MQTT username '" + Context.Settings.MqttUsername + "' not found in mosquitto.userfile");
     }
     
 
