@@ -24,6 +24,7 @@ namespace GrowSense.Core
 
       if (File.Exists(settingsFile))
       {
+        Console.WriteLine("  Settings file exists.");
         var settingsJson = File.ReadAllText(settingsFile);
         var settings = JsonConvert.DeserializeObject<CLISettings>(settingsJson);
 
@@ -34,7 +35,39 @@ namespace GrowSense.Core
         return settings;
       }
       else
-        return new CLISettings();
+      {
+        Console.WriteLine("  Settings file doesn't exist. Loading from legacy settings files...");
+        var settings = new CLISettings();
+
+
+        // Load settings from legacy files if they exist
+        if (File.Exists(WorkingDirectory + "/mqtt-host.security"))
+          settings.MqttHost = File.ReadAllText(WorkingDirectory + "/mqtt-host.security").Trim();
+        if (File.Exists(WorkingDirectory + "/mqtt-username.security"))
+          settings.MqttUsername = File.ReadAllText(WorkingDirectory + "/mqtt-username.security").Trim();
+        if (File.Exists(WorkingDirectory + "/mqtt-password.security"))
+          settings.MqttPassword = File.ReadAllText(WorkingDirectory + "/mqtt-password.security").Trim();
+        if (File.Exists(WorkingDirectory + "/mqtt-port.security"))
+          settings.MqttPort = Convert.ToInt32(File.ReadAllText(WorkingDirectory + "/mqtt-port.security").Trim());
+
+        if (File.Exists(WorkingDirectory + "/wifi-name.security"))
+          settings.WiFiName = File.ReadAllText(WorkingDirectory + "/wifi-name.security").Trim();
+        if (File.Exists(WorkingDirectory + "/wifi-password.security"))
+          settings.WiFiPassword = File.ReadAllText(WorkingDirectory + "/wifi-password.security").Trim();
+
+        if (File.Exists(WorkingDirectory + "/smtp-server.security"))
+          settings.SmtpServer = File.ReadAllText(WorkingDirectory + "/smtp-server.security").Trim();
+        if (File.Exists(WorkingDirectory + "/smtp-username.security"))
+          settings.SmtpUsername = File.ReadAllText(WorkingDirectory + "/smtp-username.security").Trim();
+        if (File.Exists(WorkingDirectory + "/smtp-password.security"))
+          settings.SmtpPassword = File.ReadAllText(WorkingDirectory + "/smtp-password.security").Trim();
+        if (File.Exists(WorkingDirectory + "/smtp-port.security"))
+          settings.SmtpPort = Convert.ToInt32(File.ReadAllText(WorkingDirectory + "/smtp-port.security").Trim());
+        if (File.Exists(WorkingDirectory + "/admin-email.security"))
+          settings.Email = File.ReadAllText(WorkingDirectory + "/admin-email.security").Trim();
+
+        return settings;
+      }
     }
 
     public bool LoadSettingsFromArguments(Arguments arguments, CLISettings settings)

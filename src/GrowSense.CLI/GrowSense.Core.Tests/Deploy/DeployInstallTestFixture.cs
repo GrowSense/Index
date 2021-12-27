@@ -36,9 +36,9 @@ namespace GrowSense.Core.Tests.Deploy
       var ssh = new SshHelper(deployment.Ssh);
       ssh.UseSshPass = true;
 
-      CreateReleaseZipAndPushToHost(deployment, ssh);
-
       var manager = new DeploymentManager(deployment, branch, version);
+
+      manager.CreateReleaseZipAndPushToHost(ProjectDirectory, deployment, ssh);
 
       if (manager.IsInstalledOnTarget())
       {
@@ -146,24 +146,6 @@ namespace GrowSense.Core.Tests.Deploy
 
       return value;
 
-    }
-
-    public void CreateReleaseZipAndPushToHost(DeploymentInfo deployment, SshHelper ssh)
-    {
-      Console.WriteLine("");
-      Console.WriteLine("Creating release zip...");
-      var starter = new ProcessStarter(ProjectDirectory);
-
-      starter.StartBash("bash create-release-zip.sh");
-
-      starter.OutputBuilder.Clear();
-
-
-      var sourceReleaseFilePath = Directory.GetFiles(ProjectDirectory + "/releases/")[0];
-
-      var destinationReleaseFilePath = "/usr/local/GrowSense/Installer/" + Path.GetFileName(sourceReleaseFilePath);
-
-      ssh.CopyFileTo(sourceReleaseFilePath, destinationReleaseFilePath);
     }
   }
 }
