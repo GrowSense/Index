@@ -72,7 +72,7 @@ namespace GrowSense.Core.Devices
       
       client.WriteLine(value);
 
-      Thread.Sleep(100);
+      Thread.Sleep(2000);
 
       var response = client.Read();
       
