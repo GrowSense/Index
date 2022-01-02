@@ -7,10 +7,11 @@ namespace GrowSense.Core
 {
   class MainClass
   {
+    public static SettingsManager SettingsManager;
+    public static SettingsArgumentsExtractor SettingsExtractor;
+    
     public static void Main(string[] args)
     {
-    //Environment.SetEnvironmentVariable("MONO_TLS_PROVIDER", "btls");
-    
       Console.WriteLine("===== GrowSense CLI Console =====");
       
       var arguments = new Arguments(args);
@@ -19,9 +20,6 @@ namespace GrowSense.Core
       
       if (arguments.Contains("dir"))
         workingDirectory = Path.GetFullPath(arguments["dir"]);
-
-
-      //var settingsManager = new SettingsManager(workingDirectory);
 
       var settings = GetSettings(workingDirectory, arguments);
 
@@ -58,6 +56,14 @@ namespace GrowSense.Core
             case "config":
               //Console.WriteLine("Config");
               manager.ApplySettings();
+              break;
+            case "add-device":
+              var port = arguments["port"];
+              manager.AddDevice(port);
+              break;
+            case "start-mqtt-bridge":
+              var deviceName = arguments["name"];
+              manager.StartMqttBridge(deviceName);
               break;
             default:
               Console.WriteLine("Unknown command: " + command);
@@ -105,23 +111,28 @@ namespace GrowSense.Core
 
     static public CLISettings GetSettings(string workingDirectory, Arguments arguments)
     {
-      var settingsManager = new SettingsManager(workingDirectory);
+      SettingsManager = new SettingsManager(workingDirectory);
 
-      var settings = settingsManager.LoadSettings();
+      var settings = SettingsManager.LoadSettings();
+
+      SettingsExtractor = new SettingsArgumentsExtractor();
       
-      settingsManager.LoadSettingsFromArguments(arguments, settings);
+      SettingsExtractor.LoadSettingsFromArguments(arguments, settings);
+
+      Console.WriteLine("  Login Username: " + settings.Username);
+      Console.WriteLine("  Login Password: hidden");
+
+      Console.WriteLine("  MQTT Host: " + settings.MqttHost);
+      Console.WriteLine("  MQTT Username: " + settings.MqttUsername);
+      Console.WriteLine("  MQTT Password: hidden");
+      Console.WriteLine("  MQTT Port: " + settings.MqttPort);
 
       Console.WriteLine("  WiFi Name: " + settings.WiFiName);
       Console.WriteLine("  WiFi Password: " + settings.WiFiPassword);
 
-      Console.WriteLine("  MQTT Host: " + settings.MqttHost);
-      Console.WriteLine("  MQTT Username: " + settings.MqttUsername);
-      Console.WriteLine("  MQTT Password: " + settings.MqttPassword);
-      Console.WriteLine("  MQTT Port: " + settings.MqttPort);
-
       Console.WriteLine("  SMTP Server: " + settings.SmtpServer);
       Console.WriteLine("  SMTP Username: " + settings.SmtpUsername);
-      Console.WriteLine("  SMTP Password: " + settings.SmtpPassword);
+      Console.WriteLine("  SMTP Password: hidden");
       Console.WriteLine("  SMTP Port: " + settings.SmtpPort);
       Console.WriteLine("  Email: " + settings.Email);
 

@@ -40,7 +40,7 @@ namespace GrowSense.Core.Tools
       }
       else
       {
-        Starter.StartBash("systemctl " + command);
+        Starter.StartBash("sudo systemctl " + command);
         return Starter.Output;
       }
     }
@@ -56,24 +56,39 @@ namespace GrowSense.Core.Tools
 
     public SystemCtlServiceStatus Status(string serviceName)
     {
-      var statusReport = StatusReport(serviceName);
-
-      if (statusReport.IndexOf("active (running)") > -1)
+      if (Context.Settings.IsMockSystemCtl)
         return SystemCtlServiceStatus.Active;
-      else if (statusReport.IndexOf("failed") > -1)
-        return SystemCtlServiceStatus.Failed;
-      else if (statusReport.IndexOf("not-found") > -1)
-        return SystemCtlServiceStatus.NotFound;
-      else if (statusReport.IndexOf("dead") > -1)
-        return SystemCtlServiceStatus.Dead;
       else
       {
-        Console.WriteLine("----- Start Status Report -----");
-        Console.WriteLine(statusReport);
-        Console.WriteLine("----- End Status Report");
-        
-        throw new Exception("Failed to detect systemctl service status.");
+        var statusReport = StatusReport(serviceName);
+
+        if (statusReport.IndexOf("active (running)") > -1)
+          return SystemCtlServiceStatus.Active;
+        else if (statusReport.IndexOf("failed") > -1)
+          return SystemCtlServiceStatus.Failed;
+        else if (statusReport.IndexOf("not-found") > -1)
+          return SystemCtlServiceStatus.NotFound;
+        else if (statusReport.IndexOf("dead") > -1)
+          return SystemCtlServiceStatus.Dead;
+        else
+        {
+          Console.WriteLine("----- Start Status Report -----");
+          Console.WriteLine(statusReport);
+          Console.WriteLine("----- End Status Report");
+
+          throw new Exception("Failed to detect systemctl service status.");
+        }
       }
+    }
+
+    public void Start(string servicePath)
+    {
+      Run("start " + servicePath);
+    }
+
+    public void Enable(string servicePath)
+    {
+      Run("enable " + servicePath);
     }
 
     public void Stop(string serviceName)

@@ -60,5 +60,10 @@ namespace GrowSense.Core.Tools
 
       return logs.IndexOf("running") > -1;
     }
+
+    public void Restart(string containerName)
+    {
+      Execute("restart " + containerName);
+    }
   }
 }

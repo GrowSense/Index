@@ -35,6 +35,9 @@
       <HintPath>..\..\..\lib\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
+    <Reference Include="duinocom.core">
+      <HintPath>..\..\..\lib\ArduinoSerialControllerClient.1.1.1.17-master\lib\net40\duinocom.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +85,13 @@
     <Compile Include="Devices\DeviceInfo.cs" />
     <Compile Include="Devices\DeviceManager.cs" />
     <Compile Include="Tools\SystemCtlServiceStatus.cs" />
+    <Compile Include="SettingsArgumentsExtractor.cs" />
+    <Compile Include="Devices\DeviceSerialHelper.cs" />
+    <Compile Include="Devices\DeviceInfoSerialExtractor.cs" />
+    <Compile Include="Devices\DeviceServicesManager.cs" />
+    <Compile Include="Installers\MqttBridgeServiceManager.cs" />
+    <Compile Include="Verifiers\MqttBridgeServiceVerifier.cs" />
+    <Compile Include="Installers\MqttBridgeStarter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installers\" />

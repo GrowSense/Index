@@ -5,7 +5,7 @@ if [ ! "$LOOP_NUMBER" ]; then
 fi
 
 MOSQUITTO_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-MOSQUITTO_INSTALL_DIR="/usr/local/mosquitto"
+MOSQUITTO_INSTALL_DIR=$PWD #"/usr/local/mosquitto"
 
 #docker pull compulsivecoder/mosquitto-arm
 

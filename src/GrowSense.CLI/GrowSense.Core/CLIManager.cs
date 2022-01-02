@@ -2,6 +2,7 @@
 using GrowSense.Core.Verifiers;
 using GrowSense.Core.Installers;
 using System.IO;
+using GrowSense.Core.Devices;
 namespace GrowSense.Core
 {
   public class CLIManager
@@ -10,6 +11,8 @@ namespace GrowSense.Core
     public ProcessStarter Starter;
     public PostInstaller PostInstall;
     public Verifier Verifier;
+    public DeviceManager Devices;
+    public MqttBridgeStarter MqttBridge;
 
     public CLIManager(CLIContext context)
     {
@@ -20,6 +23,11 @@ namespace GrowSense.Core
       Starter.WorkingDirectory = Context.IndexDirectory;
 
       PostInstall = new Installers.PostInstaller(context);
+
+      Devices = new DeviceManager(context);
+
+      MqttBridge = new MqttBridgeStarter(context);
+      
       Verifier = new Verifier(context);
     }
 
@@ -49,6 +57,9 @@ namespace GrowSense.Core
     {
       Console.WriteLine("Applying and saving new settings...");
 
+      PostInstall.Mqtt.SetConfigValues();
+      PostInstall.Mqtt.Restart();
+      
       PostInstall.MqttBridge.SetAppConfigValues();
       PostInstall.UIController.SetAppConfigValues();
 
@@ -59,6 +70,35 @@ namespace GrowSense.Core
       PostInstall.Verifier.VerifyInstallation();
 
       Console.WriteLine("Finished applying new settings.");
+    }
+
+    public void ApplyMqttSettings()
+    {
+      /*Console.WriteLine("Applying and saving new MQTT settings...");
+
+      PostInstall.Mqtt.SetConfigValues();
+      
+      PostInstall.MqttBridge.SetAppConfigValues();
+      PostInstall.UIController.SetAppConfigValues();
+      
+      PostInstall.Verifier.VerifyInstallation();
+
+      Console.WriteLine("Finished applying new MQTT settings.");*/
+    }
+
+    public void StartMqttBridge(string deviceName)
+    {
+      var device = Devices.GetDevice(deviceName);
+
+      if (device == null)
+        throw new ArgumentException("No device found with name: " + deviceName);
+        
+      MqttBridge.StartMqttBridge(device);
+    }
+
+    public void AddDevice(string port)
+    {
+      Devices.AddDevice(port);
     }
 
     public void Stop()

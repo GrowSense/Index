@@ -6,6 +6,9 @@ namespace GrowSense.Core
     public string Branch = "dev";
     public string Version = "0.0.0.1";
 
+    public string Username = "user";
+    public string Password = "pass123";
+
     public string MqttHost = "127.0.0.1";
     public string MqttUsername = "user";
     public string MqttPassword = "pass123";

@@ -40,7 +40,10 @@ namespace GrowSense.Core
 
     public string GetApplicationPath(string applicationName)
     {
-      return Path.Combine(Context.ParentDirectory, applicationName.Trim('/'));
+      if (applicationName == "mosquitto")
+        return Path.Combine(Context.IndexDirectory + "/scripts/docker/mosquitto");
+      else
+        return Path.Combine(Context.ParentDirectory, applicationName.Trim('/'));
     }
   }
 }
