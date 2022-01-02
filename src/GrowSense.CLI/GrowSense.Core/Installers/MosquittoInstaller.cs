@@ -25,8 +25,8 @@ namespace GrowSense.Core.Installers
     public void Install()
     {
       Console.WriteLine("Installing mosquitto MQTT docker service...");
-      
-      var mosquittoInstallPath = Path.GetFullPath(Context.IndexDirectory + "/../../mosquitto");
+
+      var mosquittoInstallPath = GetMqttInstallPath();
 
       Console.WriteLine("  Install path: " + mosquittoInstallPath);
 
@@ -34,7 +34,7 @@ namespace GrowSense.Core.Installers
 
       CopyConfigFileToInstallDir(mosquittoInstallPath);
 
-      CreateUserFile(mosquittoInstallPath);
+      SetConfigValues();
 
       EnsureSystemCtlServiceIsNotRunning();
 
@@ -44,6 +44,20 @@ namespace GrowSense.Core.Installers
       Thread.Sleep(1000);
 
       Verify(mosquittoInstallPath);
+    }
+
+    public void SetConfigValues()
+    {
+      CreateUserFile();
+    }
+
+    public void Restart()
+    {
+      Console.WriteLine("Restarting mosquitto MQTT docker container...");
+      
+      Docker.Restart("mosquitto");
+
+      Console.WriteLine("Finished restarting mosquitto MQTT docker container.");
     }
 
     public void EnsureDirectoriesExist(string mqttInstallPath)
@@ -85,6 +99,8 @@ namespace GrowSense.Core.Installers
 
     public void CopyConfigFileToInstallDir(string mqttInstallPath)
     {
+    // TODO: Remove if not needed. This function should be obsolete.
+      return;
       Console.WriteLine("  Copying config file to install dir...");
       
       var mqttInternalConfigPath = Path.GetFullPath(Context.IndexDirectory + "/scripts/docker/mosquitto/data/mosquitto.conf");
@@ -99,10 +115,10 @@ namespace GrowSense.Core.Installers
       File.Copy(mqttInternalConfigPath, mqttInstallConfigPath, true);
     }
 
-    public void CreateUserFile(string mqttInstallPath)
+    public void CreateUserFile()
     {
       Console.WriteLine("  Creating user file...");
-      var mqttInstallUserFilePath = mqttInstallPath + "/data/mosquitto.userfile";
+      var mqttInstallUserFilePath = GetMqttInstallPath() + "/data/mosquitto.userfile";
 
       Console.WriteLine("    Path: " + mqttInstallUserFilePath);
       Console.WriteLine("    Username: " + Context.Settings.MqttUsername);
@@ -134,7 +150,11 @@ namespace GrowSense.Core.Installers
         SystemCtl.Disable("mosquitto");
       }
     }
-    
+
+    public string GetMqttInstallPath()
+    {
+      return Context.IndexDirectory + "/scripts/docker/mosquitto";
+    }
 
     public void Verify(string mqttInstallPath)
     {

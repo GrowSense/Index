@@ -82,27 +82,27 @@ echo "${PNP_RESULT}"
 [[ $(echo $PNP_RESULT) =~ "not found" ]] && echo "Arduino Plug and Play service wasn't found" && exit 1
 [[ $(echo $PNP_RESULT) =~ "(unusable)" ]] && echo "Arduino Plug and Play detected an unusable device when it shouldn't" && exit 1
 
-echo ""
-echo "Checking MQTT bridge version..."
-MQTT_BRIDGE_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/GrowSense/Index/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/version.txt")
-MQTT_BRIDGE_INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/version.txt")
-echo "  Expected version: $MQTT_BRIDGE_VERSION"
-echo "  Installed version: $MQTT_BRIDGE_INSTALLED_VERSION"
-if [[ "$MQTT_BRIDGE_VERSION" != "$MQTT_BRIDGE_INSTALLED_VERSION" ]]; then
-  echo "  Error: Incorrect MQTT bridge version installed."
-  exit 1
-fi
+#echo ""
+#echo "Checking MQTT bridge version..."
+#MQTT_BRIDGE_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/GrowSense/Index/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/version.txt")
+#MQTT_BRIDGE_INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/BridgeArduinoSerialToMqttSplitCsv/BridgeArduinoSerialToMqttSplitCsv/lib/net40/version.txt")
+#echo "  Expected version: $MQTT_BRIDGE_VERSION"
+#echo "  Installed version: $MQTT_BRIDGE_INSTALLED_VERSION"
+#if [[ "$MQTT_BRIDGE_VERSION" != "$MQTT_BRIDGE_INSTALLED_VERSION" ]]; then
+#  echo "  Error: Incorrect MQTT bridge version installed."
+#  exit 1
+#fi
 
-echo ""
-echo "Checking serial UI controller version..."
-UI_CONTROLLER_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/GrowSense/Index/scripts/apps/Serial1602ShieldSystemUIController/version.txt")
-UI_CONTROLLER_INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/version.txt")
-echo "  Expected version: $UI_CONTROLLER_VERSION"
-echo "  Installed version: $UI_CONTROLLER_INSTALLED_VERSION"
-if [[ "$UI_CONTROLLER_VERSION" != "$UI_CONTROLLER_INSTALLED_VERSION" ]]; then
-  echo "  Error: Incorrect UI controller version installed."
-  exit 1
-fi
+#echo ""
+#echo "Checking serial UI controller version..."
+#UI_CONTROLLER_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/GrowSense/Index/scripts/apps/Serial1602ShieldSystemUIController/version.txt")
+#UI_CONTROLLER_INSTALLED_VERSION=$(sshpass -p $INSTALL_SSH_PASSWORD ssh -o "StrictHostKeyChecking no" $INSTALL_SSH_USERNAME@$INSTALL_HOST "cat /usr/local/Serial1602ShieldSystemUIController/Serial1602ShieldSystemUIController/lib/net40/version.txt")
+#echo "  Expected version: $UI_CONTROLLER_VERSION"
+#echo "  Installed version: $UI_CONTROLLER_INSTALLED_VERSION"
+#if [[ "$UI_CONTROLLER_VERSION" != "$UI_CONTROLLER_INSTALLED_VERSION" ]]; then
+#  echo "  Error: Incorrect UI controller version installed."
+#  exit 1
+#fi
 
 #echo ""
 #echo "Checking MQTT bridge config file..."

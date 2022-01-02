@@ -46,6 +46,7 @@ build:
     - sh init.sh
     - sh init-apps.sh
     - sh init-tests.sh
+    - sh init-cli.sh
     - sh build-cli.sh
     - sh build-tests.sh
   artifacts:

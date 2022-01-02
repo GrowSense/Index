@@ -30,7 +30,7 @@ namespace GrowSense.Core.Installers
 
       EnsureDirectoriesExist(mqttBridgeInstallPath);
 
-      CopyFilesToInstallDir(mqttBridgeInstallPath);
+      //CopyFilesToInstallDir(mqttBridgeInstallPath);
 
       SetAppConfigValues();
 
@@ -72,32 +72,11 @@ namespace GrowSense.Core.Installers
         Directory.CreateDirectory(mqttInstallPath);        
     }
 
-    /*public void StartDockerContainer(string mosquittoInstallPath)
-    {
-      Console.WriteLine("  Starting mosquitto docker container...");
-
-      Docker.Remove("mosquitto", true);
-
-      var runCmd = String.Format(@"docker rm -f mosquitto
-          docker run -d \
-      --restart=always \
-      --name=mosquitto \
-      --volume {0}/data:/mosquitto/config \
-      --network=host \
-      -p 127.0.0.1:{1}:1883/tcp \
-    eclipse-mosquitto",
-    mosquittoInstallPath,
-    Context.Settings.MqttPort
-    );
-
-      Docker.RunCommand(runCmd);
-    }*/
-
-    public void CopyFilesToInstallDir(string mqttBridgeInstallPath)
+    /*public void CopyFilesToInstallDir(string mqttBridgeInstallPath)
     {
       Console.WriteLine("  Copying files to install dir...");
       
-      var internalPath = Context.IndexDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv";
+      var internalPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv");
 
       Console.WriteLine("    Internal path: " + internalPath);
       Console.WriteLine("    Install path: " + mqttBridgeInstallPath);
@@ -114,44 +93,17 @@ namespace GrowSense.Core.Installers
 
       CopyFiles(internalPath, mqttBridgeInstallPath, filesToCopy);
       
-     /*var mqttInternalConfigPath = Path.GetFullPath(Context.WorkingDirectory + "/scripts/docker/mosquitto/data/mosquitto.conf");
+//     var mqttInternalConfigPath = Path.GetFullPath(Context.WorkingDirectory + "/scripts/docker/mosquitto/data/mosquitto.conf");
       
-      var mqttInstallConfigPath = mqttBridgeInstallPath + "/data/mosquitto.conf";
-      Console.WriteLine("    From: " + mqttInternalConfigPath);
-      Console.WriteLine("    To: " + mqttInstallConfigPath);
+//      var mqttInstallConfigPath = mqttBridgeInstallPath + "/data/mosquitto.conf";
+//      Console.WriteLine("    From: " + mqttInternalConfigPath);
+//      Console.WriteLine("    To: " + mqttInstallConfigPath);
 
-      if (!Directory.Exists(Path.GetDirectoryName(mqttInstallConfigPath)))
-        Directory.CreateDirectory(Path.GetDirectoryName(mqttInstallConfigPath));
+//      if (!Directory.Exists(Path.GetDirectoryName(mqttInstallConfigPath)))
+//        Directory.CreateDirectory(Path.GetDirectoryName(mqttInstallConfigPath));
 
-      File.Copy(mqttInternalConfigPath, mqttInstallConfigPath);*/
-    }
-
-    public void CreateUserFile(string mqttInstallPath)
-    {
-      Console.WriteLine("  Creating user file...");
-      var mqttInstallUserFilePath = mqttInstallPath + "/data/mosquitto.userfile";
-
-      Console.WriteLine("    Path: " + mqttInstallUserFilePath);
-      Console.WriteLine("    Username: " + Context.Settings.MqttUsername);
-      Console.WriteLine("    Password: " + Context.Settings.MqttPassword);
-
-      File.WriteAllText(mqttInstallUserFilePath, "");
-
-      var cmd = String.Format("mosquitto_passwd -b \"{0}\" \"{1}\" \"{2}\"",
-       mqttInstallUserFilePath,
-       Context.Settings.MqttUsername,
-       Context.Settings.MqttPassword
-       );
-       
-
-      Starter.StartBash(cmd);
-
-// TODO: Make it possible to enable this output but leave it disable by default. Exposes password to console
-      //var content = File.ReadAllText(mqttInstallUserFilePath);
-      
-      //Console.WriteLine("    File content: " + content);
-
-    }
+//      File.Copy(mqttInternalConfigPath, mqttInstallConfigPath);
+    }*/
 
     public void Verify(string mqttInstallPath)
     {

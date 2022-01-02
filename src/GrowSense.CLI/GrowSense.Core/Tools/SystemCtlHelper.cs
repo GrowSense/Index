@@ -40,7 +40,7 @@ namespace GrowSense.Core.Tools
       }
       else
       {
-        Starter.StartBash("systemctl " + command);
+        Starter.StartBash("sudo systemctl " + command);
         return Starter.Output;
       }
     }
@@ -48,36 +48,71 @@ namespace GrowSense.Core.Tools
     public virtual string GetServiceFilePath(string serviceName)
     {
       var serviceFileName = serviceName.Replace(".service", "") + ".service";
+      var serviceFilePath = "";
       if (Context.Settings.IsMockSystemCtl)
-        return Context.IndexDirectory + "/mock/services/" + serviceFileName;
+        serviceFilePath = Context.IndexDirectory + "/mock/services/" + serviceFileName;
       else
-        return "/lib/systemd/system/" + serviceFileName;
+        serviceFilePath = "/lib/systemd/system/" + serviceFileName;
+
+      if (!Directory.Exists(Path.GetDirectoryName(serviceFilePath)))
+        Directory.CreateDirectory(Path.GetDirectoryName(serviceFilePath));
+        
+      return serviceFilePath;
     }
 
     public SystemCtlServiceStatus Status(string serviceName)
     {
-      var statusReport = StatusReport(serviceName);
-
-      if (statusReport.IndexOf("active (running)") > -1)
+      if (Context.Settings.IsMockSystemCtl)
         return SystemCtlServiceStatus.Active;
-      else if (statusReport.IndexOf("failed") > -1)
-        return SystemCtlServiceStatus.Failed;
-      else if (statusReport.IndexOf("not-found") > -1)
-        return SystemCtlServiceStatus.NotFound;
-      else if (statusReport.IndexOf("dead") > -1)
-        return SystemCtlServiceStatus.Dead;
       else
       {
-        Console.WriteLine("----- Start Status Report -----");
-        Console.WriteLine(statusReport);
-        Console.WriteLine("----- End Status Report");
-        
-        throw new Exception("Failed to detect systemctl service status.");
+        var statusReport = StatusReport(serviceName);
+
+        if (statusReport.IndexOf("active (running)") > -1)
+          return SystemCtlServiceStatus.Active;
+        else if (statusReport.IndexOf("failed") > -1)
+          return SystemCtlServiceStatus.Failed;
+        else if (statusReport.IndexOf("not-found") > -1)
+          return SystemCtlServiceStatus.NotFound;
+        else if (statusReport.IndexOf("dead") > -1)
+          return SystemCtlServiceStatus.Dead;
+        else
+        {
+          Console.WriteLine("----- Start Status Report -----");
+          Console.WriteLine(statusReport);
+          Console.WriteLine("----- End Status Report");
+
+          throw new Exception("Failed to detect systemctl service status.");
+        }
       }
+    }
+
+    public void Reload()
+    {
+      Console.WriteLine("Reloading systemctl service...");
+      Run("daemon-reload");
+    }
+
+    public void Start(string serviceName)
+    {
+      Console.WriteLine("Starting systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
+      
+      Run("start " + serviceName);
+    }
+
+    public void Enable(string serviceName)
+    {
+      Console.WriteLine("Enabling systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
+      
+      Run("enable " + serviceName);
     }
 
     public void Stop(string serviceName)
     {
+      Console.WriteLine("Stopping systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
       Run("stop " + serviceName);
     }
 

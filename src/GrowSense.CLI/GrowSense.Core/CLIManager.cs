@@ -2,6 +2,8 @@
 using GrowSense.Core.Verifiers;
 using GrowSense.Core.Installers;
 using System.IO;
+using GrowSense.Core.Devices;
+using System.Threading;
 namespace GrowSense.Core
 {
   public class CLIManager
@@ -10,6 +12,8 @@ namespace GrowSense.Core
     public ProcessStarter Starter;
     public PostInstaller PostInstall;
     public Verifier Verifier;
+    public DeviceManager Devices;
+    public MqttBridgeStarter MqttBridge;
 
     public CLIManager(CLIContext context)
     {
@@ -20,6 +24,11 @@ namespace GrowSense.Core
       Starter.WorkingDirectory = Context.IndexDirectory;
 
       PostInstall = new Installers.PostInstaller(context);
+
+      Devices = new DeviceManager(context);
+
+      MqttBridge = new MqttBridgeStarter(context);
+      
       Verifier = new Verifier(context);
     }
 
@@ -45,9 +54,12 @@ namespace GrowSense.Core
       Verifier.VerifyInstallation();
     }
 
-    public void ApplySettings()
+    public void ApplySettings(bool verify)
     {
       Console.WriteLine("Applying and saving new settings...");
+
+      PostInstall.Mqtt.SetConfigValues();
+      PostInstall.Mqtt.Restart();
 
       PostInstall.MqttBridge.SetAppConfigValues();
       PostInstall.UIController.SetAppConfigValues();
@@ -55,10 +67,57 @@ namespace GrowSense.Core
       PostInstall.ArduinoPlugAndPlay.SetAppConfigValues();
 
       SetMockingFlags();
+
+      // Wait a few seconds for services to start
+      Thread.Sleep(2000);
+
+      if (verify)
+        PostInstall.Verifier.VerifyInstallation();
+
+      Console.WriteLine("Finished applying new settings.");
+    }
+
+    public void ApplyMqttSettings()
+    {
+      /*Console.WriteLine("Applying and saving new MQTT settings...");
+
+      PostInstall.Mqtt.SetConfigValues();
+      
+      PostInstall.MqttBridge.SetAppConfigValues();
+      PostInstall.UIController.SetAppConfigValues();
       
       PostInstall.Verifier.VerifyInstallation();
 
-      Console.WriteLine("Finished applying new settings.");
+      Console.WriteLine("Finished applying new MQTT settings.");*/
+    }
+
+    public void StartMqttBridge(string deviceName)
+    {
+      var device = Devices.GetDevice(deviceName);
+
+      if (device == null)
+        throw new ArgumentException("No device found with name: " + deviceName);
+        
+      MqttBridge.StartMqttBridge(device);
+    }
+
+    public void AddDevice(string port)
+    {
+      Console.WriteLine("Adding device...");
+      Console.WriteLine("  Port: " + port);
+      
+      if (String.IsNullOrEmpty(port))
+        throw new ArgumentNullException(port);
+
+      if (port.IndexOf("/dev/") == -1)
+      {
+        port = "/dev/" + port;
+        Console.WriteLine("  Fixed port: " + port);
+      }
+
+      Devices.AddDevice(port);
+
+      Console.WriteLine("Finished adding device.");
     }
 
     public void Stop()

@@ -3,6 +3,7 @@ echo "Initializing entire GrowSense index and all submodules"
 sh clean-all.sh && \
 
 sh init.sh && \
+sh init-cli.sh && \
 sh init-apps.sh && \
 sh init-tests.sh && \
 sh init-submodules.sh && \

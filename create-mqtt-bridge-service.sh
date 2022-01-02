@@ -65,7 +65,10 @@ cp $SERVICE_EXAMPLE_FILE_PATH $SERVICE_FILE_PATH && \
 echo "Editing service file..."
 sed -i "s/${DEVICE_TYPE}1/$DEVICE_NAME/g" $SERVICE_FILE_PATH && \
 sed -i "s/ttyUSB[0-9]/$DEVICE_PORT/g" $SERVICE_FILE_PATH && \
+sed -i "s/{IndexPath}/$PWD/g" $SERVICE_FILE_PATH && \
 
+cat $SERVICE_FILE_PATH
+exit 0
 echo "Installing service..."
 bash install-service.sh $SERVICE_FILE_PATH && \
 
