@@ -53,7 +53,7 @@ namespace GrowSense.Core.Verifiers
 
       var status = SystemCtlServiceStatus.NotSet;
 
-      var serviceName = "growsense-ui-controller-" + deviceName + ".service";
+      var serviceName = "growsense-ui-1602-" + deviceName + ".service";
 
       while (!isFinished)
       {
