@@ -75,6 +75,8 @@ namespace GrowSense.Core.Tests.Deploy
 
       var configCommand = "bash gs.sh config" +
       " --mode=" + mode +
+      " --username=" + Deployment.Username +
+      " --password=" + Deployment.Password +
       " --wifi-name=''" +
       " --wifi-password=''" +
       " --mqtt-host=" + Deployment.Mqtt.Host +
