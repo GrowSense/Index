@@ -51,8 +51,8 @@ namespace GrowSense.Core.Installers
 
         SystemCtl.Reload();
         
-        SystemCtl.Enable(destinationServicePath);
-        SystemCtl.Start(destinationServicePath);
+        SystemCtl.Enable(destinationServiceName);
+        SystemCtl.Start(destinationServiceName);
 
         Verifier.Verify(device.Name);
       }
