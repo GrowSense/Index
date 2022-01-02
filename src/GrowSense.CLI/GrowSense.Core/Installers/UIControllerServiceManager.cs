@@ -28,10 +28,10 @@ namespace GrowSense.Core.Installers
 
       if (IsOnLocal(device) && device.IsUSBConnected)
       {
-        var servicesPath = Context.IndexDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc";
-        var exampleServiceFile = "growsense-mqtt-bridge-" + device.Group + "1.service.example";
+        var servicesPath = Context.IndexDirectory + "/scripts/apps/Serial1602ShieldSystemUIController/svc";
+        var exampleServiceFile = "growsense-ui-controller-1602.service.example";
         
-        var destinationServiceName = "growsense-mqtt-bridge-" + device.Name + ".service";
+        var destinationServiceName = "growsense-ui-1602-" + device.Name + ".service";
         var destinationServicePath = SystemCtl.GetServiceFilePath(destinationServiceName);
 
         if (File.Exists(destinationServicePath))
