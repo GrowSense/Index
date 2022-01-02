@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "bash /usr/local/GrowSense/Index/wait-for-plug-and-play.sh && cd /usr/local/BridgeArduinoSerialToMqttSplitCsv/; bash start-mqtt-bridge.sh --DeviceName=illuminator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics='M,I,D,B,E,F,G,H,T,Q,C:' --SummaryKey=L"
+ ExecStart=/bin/bash -c "bash {IndexPath}/wait-for-plug-and-play.sh && cd {IndexPath}/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/; bash start-mqtt-bridge.sh --DeviceName=illuminator1 --SerialPort=/dev/ttyUSB0 --SubscribeTopics='M,I,D,B,E,F,G,H,T,Q,C:' --SummaryKey=L"
 
  [Install]
  WantedBy=multi-user.target
