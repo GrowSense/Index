@@ -36,7 +36,7 @@ PACKAGE_FILE="$PACKAGE_NAME.$PACKAGE_VERSION"
 PACKAGE_FILE_EXT="$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX.zip"
 
 PACKAGE_FOLDER_WITH_VERSION="$PACKAGE_NAME.$PACKAGE_VERSION$POSTFIX"
-PACKAGE_FOLDER="$PACKAGE_NAME"
+PACKAGE_FOLDER="$PACKAGE_NAME.$PACKAGE_VERSION"
 
 #echo "  Package name: $PACKAGE_NAME"
 #echo "  Package version: $PACKAGE_VERSION"
@@ -80,15 +80,6 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
 
     # Unzip the package
 	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FOLDER/" || exit 1
-	  
-	  if [ $IS_IN_WORKSPACE ]; then
-      # Make the workspace lib directory if necessary
-	    mkdir -p $WORKSPACE_LIB_DIR
-	    
-	    # Copy the package into the workspace lib directory
-	    cp -r "$PACKAGE_NAME" $WORKSPACE_LIB_DIR/$PACKAGE_FOLDER_WITH_VERSION/ || exit 1
-	    cp -r "$PACKAGE_FILE_EXT" $WORKSPACE_LIB_DIR/$PACKAGE_FILE_EXT || exit 1
-	  fi
   fi
 	
 else
