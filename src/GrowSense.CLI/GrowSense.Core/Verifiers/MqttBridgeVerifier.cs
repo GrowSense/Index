@@ -12,10 +12,12 @@ namespace GrowSense.Core.Verifiers
   public class MqttBridgeVerifier : BaseVerifier
   {
     public DeviceManager Devices;
+    public MqttBridgeServiceVerifier ServiceVerifier;
     
     public MqttBridgeVerifier(CLIContext context) : base(context)
     {
       Devices = new DeviceManager(context);
+      ServiceVerifier = new MqttBridgeServiceVerifier(context);
     }
 
     public void Verify()
@@ -33,56 +35,7 @@ namespace GrowSense.Core.Verifiers
 
       VerifyBinary(installDir);
 
-      VerifyDevicesMqttBridgeServices();
-    }
-
-    public void VerifyDevicesMqttBridgeServices()
-    {
-      Console.WriteLine("  Verifying devices MQTT bridge services...");
-
-      foreach (var device in Devices.GetDevices())
-      {
-        Console.WriteLine("    Device: " + device.Name);
-        Console.WriteLine("      Board: " + device.Board);
-        Console.WriteLine("      Host: " + device.Host);
-        Console.WriteLine("      Group: " + device.Group);
-      
-        var isOnThisMachine = device.Host == Context.Settings.HostName;
-
-        var isUSBConnected = device.Board == "nano" || device.Board == "uno";
-
-        var isNotUIDevice = device.Group != "ui";
-
-        var requiresMqttBridge = isOnThisMachine && isUSBConnected && isNotUIDevice;
-
-        Console.WriteLine("      Requires MQTT bridge: " + requiresMqttBridge);
-
-        if (requiresMqttBridge)
-          VerifyDeviceMqttBridgeService(device);
-      }
-
-      Console.WriteLine("  Finished verifying devices MQTT bridge services.");
-    }
-
-    public void VerifyDeviceMqttBridgeService(DeviceInfo device)
-    {
-      var serviceName = "growsense-mqtt-bridge-" + device.Name;
-
-      var mqttBridgeStatus = SystemCtl.Status(serviceName);
-
-      if (mqttBridgeStatus != SystemCtlServiceStatus.Active)
-      {
-        throw new Exception("MQTT bridge service is not active for device: " + device.Name);
-      }
-      else
-      {
-        var statusReport = SystemCtl.StatusReport(serviceName);
-
-        if (statusReport.IndexOf("MqttConnectionException") > -1)
-          throw new Exception("MQTT Bridge failed to connect to broker for device: " + device.Name);
-        else if (statusReport.IndexOf("No such file or directory") > -1)
-          throw new Exception("USB device not found for device: " + device.Name);
-      }
+      ServiceVerifier.VerifyDevicesMqttBridgeServices(Devices.GetDevices());
     }
 
     public void VerifyBinary(string installDir)
