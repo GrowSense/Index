@@ -50,7 +50,7 @@ if [ ! $DEVICE_PORT ]; then
   exit 1
 fi
 
-bash gs.sh add-device --port=$DEVICE_PORT
+bash gs.sh add-device --port=$DEVICE_PORT || exit 1
 
 #echo "  Device label: $DEVICE_LABEL"
 #echo "  Device name: $DEVICE_NAME"
