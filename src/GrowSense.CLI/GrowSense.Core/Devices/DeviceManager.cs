@@ -72,17 +72,18 @@ namespace GrowSense.Core.Devices
         Console.WriteLine("  Failed to read device info. Is an existing service already connected to it?");
       else
       {
-        if (String.IsNullOrEmpty(device.Name) || device.Name.ToLower().StartsWith("new"))
+        var isNewDevice = String.IsNullOrEmpty(device.Name) || device.Name.ToLower().StartsWith("new");
+        if (isNewDevice)
         {
           GenerateDeviceName(device);
+          
+          Serial.SendDeviceNameCommand(device);
         }
         
         if (String.IsNullOrEmpty(device.Label))
           GenerateDeviceLabel(device);
 
         device.Host = Context.Settings.HostName;
-
-        Serial.SendDeviceNameCommand(device);
 
         CreateDeviceInfo(device);
 
