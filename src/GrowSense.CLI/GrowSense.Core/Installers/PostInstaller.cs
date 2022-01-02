@@ -24,6 +24,8 @@ namespace GrowSense.Core.Installers
 
     public CLIContext Context;
 
+    public SettingsManager SettingsManager;
+
     public string[] AptPackageList = new string[]{
     "build-essential",
     "curl",
@@ -59,6 +61,8 @@ namespace GrowSense.Core.Installers
       Supervisor = new SupervisorInstaller(context);
       WWW = new WwwInstaller(context);
 
+      SettingsManager = new SettingsManager(context.IndexDirectory);
+
       Verifier = new Verifier(context);
     }
 
@@ -88,6 +92,8 @@ namespace GrowSense.Core.Installers
       {
         Starter.StartBash(command);
       }
+      
+      SettingsManager.SaveSettings(Context.Settings);
 
       Verifier.VerifyInstallation();
       
