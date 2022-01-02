@@ -50,27 +50,29 @@ if [ ! $DEVICE_PORT ]; then
   exit 1
 fi
 
-echo "  Device label: $DEVICE_LABEL"
-echo "  Device name: $DEVICE_NAME"
-echo "  Device group: $DEVICE_GROUP"
-echo "  Device project: $DEVICE_PROJECT"
-echo "  Device board: $DEVICE_BOARD"
-echo "  Device port: $DEVICE_PORT"
+bash gs.sh add-device --port=$DEVICE_PORT
 
-echo ""
-echo "Sending device name command..."
-if [ ! -f "is-mock-hardware.txt" ]; then
-  bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1
-else
-  echo "[mock] bash send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT"
-fi
+#echo "  Device label: $DEVICE_LABEL"
+#echo "  Device name: $DEVICE_NAME"
+#echo "  Device group: $DEVICE_GROUP"
+#echo "  Device project: $DEVICE_PROJECT"
+#echo "  Device board: $DEVICE_BOARD"
+#echo "  Device port: $DEVICE_PORT"
 
-echo ""
-echo "  Creating device info..."
-bash create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
+#echo ""
+#echo "Sending device name command..."
+#if [ ! -f "is-mock-hardware.txt" ]; then
+#  bash send-device-name-command.sh $DEVICE_NAME "/dev/$DEVICE_PORT" || exit 1
+#else
+#  echo "[mock] bash send-device-name-command.sh $DEVICE_NAME /dev/$DEVICE_PORT"
+#fi
 
-echo ""
-echo "  Creating device service..."
-bash create-garden-device-services.sh $DEVICE_NAME || exit 1
+#echo ""
+#echo "  Creating device info..."
+#bash create-device-info.sh $DEVICE_BOARD $DEVICE_GROUP $DEVICE_PROJECT $DEVICE_LABEL $DEVICE_NAME $DEVICE_PORT || exit 1
+
+#echo ""
+#echo "  Creating device service..."
+#bash create-garden-device-services.sh $DEVICE_NAME || exit 1
 
 echo "Arduino device created with name '$DEVICE_NAME'"
