@@ -101,6 +101,14 @@ namespace GrowSense.Core.Tools
       Run("start " + serviceName);
     }
 
+    public void Restart(string serviceName)
+    {
+      Console.WriteLine("Restarting systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
+
+      Run("restart " + serviceName);
+    }
+
     public void Enable(string serviceName)
     {
       Console.WriteLine("Enabling systemctl service...");

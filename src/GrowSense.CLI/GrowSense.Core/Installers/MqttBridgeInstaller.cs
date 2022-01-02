@@ -11,6 +11,7 @@ namespace GrowSense.Core.Installers
     public ProcessStarter Starter;
     public DockerHelper Docker;
     public MqttBridgeVerifier Verifier;
+    public MqttBridgeServiceManager Services;
     
     public MqttBridgeInstaller(CLIContext context)
     {
@@ -18,6 +19,7 @@ namespace GrowSense.Core.Installers
       Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new MqttBridgeVerifier(context);
+      Services = new MqttBridgeServiceManager(context);
     }
 
     public void Install()
@@ -42,8 +44,8 @@ namespace GrowSense.Core.Installers
     public void SetAppConfigValues()
     {
       Console.WriteLine("Setting MQTT bridge app config values...");
-      
-    var installedConfigPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv") + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
+
+      var installedConfigPath = Context.Paths.GetApplicationPath("BridgeArduinoSerialToMqttSplitCsv") + "/BridgeArduinoSerialToMqttSplitCsv/lib/net40/BridgeArduinoSerialToMqttSplitCsv.exe.config";
 
       Console.WriteLine("  Installed config path: " + installedConfigPath);
 
@@ -53,7 +55,7 @@ namespace GrowSense.Core.Installers
       config.AppSettings.Add.Where(e => e.Key == "UserId").FirstOrDefault().Value = Context.Settings.MqttUsername;
       config.AppSettings.Add.Where(e => e.Key == "Password").FirstOrDefault().Value = Context.Settings.MqttPassword;
       config.AppSettings.Add.Where(e => e.Key == "MqttPort").FirstOrDefault().Value = Context.Settings.MqttPort.ToString();
-      
+
       config.AppSettings.Add.Where(e => e.Key == "SmtpServer").FirstOrDefault().Value = Context.Settings.SmtpServer;
       config.AppSettings.Add.Where(e => e.Key == "SmtpUsername").FirstOrDefault().Value = Context.Settings.SmtpUsername;
       config.AppSettings.Add.Where(e => e.Key == "SmtpPassword").FirstOrDefault().Value = Context.Settings.SmtpPassword;
