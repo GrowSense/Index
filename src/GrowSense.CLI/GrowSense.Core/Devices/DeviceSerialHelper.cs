@@ -69,10 +69,12 @@ namespace GrowSense.Core.Devices
       var client = new SerialClient(serialPort);
 
       client.Open();
+
+      Thread.Sleep(2000);
       
       client.WriteLine(value);
 
-      Thread.Sleep(2000);
+      Thread.Sleep(1000);
 
       var response = client.Read();
       
