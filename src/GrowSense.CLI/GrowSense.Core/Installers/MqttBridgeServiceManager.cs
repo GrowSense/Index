@@ -30,6 +30,17 @@ namespace GrowSense.Core.Installers
       {
         var servicesPath = Context.IndexDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv/svc";
         var exampleServiceFile = "growsense-mqtt-bridge-" + device.Group + "1.service.example";
+        
+        var destinationServiceName = "growsense-mqtt-bridge-" + device.Name + ".service";
+        var destinationServicePath = SystemCtl.GetServiceFilePath(destinationServiceName);
+
+        if (File.Exists(destinationServicePath))
+        {
+          Console.WriteLine("Service already exists. Stopping and removing...");
+        
+          SystemCtl.Stop(destinationServiceName);
+          File.Delete(destinationServicePath);
+        }
 
         var fullExampleServicePath = servicesPath + "/" + exampleServiceFile;
 
@@ -37,9 +48,6 @@ namespace GrowSense.Core.Installers
 
         if (!File.Exists(fullExampleServicePath))
           throw new FileNotFoundException("Can't find example service path: " + fullExampleServicePath);
-
-        var destinationServiceName = "growsense-mqtt-bridge-" + device.Name + ".service";
-        var destinationServicePath = SystemCtl.GetServiceFilePath(destinationServiceName);
 
         Console.WriteLine("  Destination service file: " + destinationServicePath);
 
