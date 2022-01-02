@@ -3,6 +3,7 @@ using GrowSense.Core.Verifiers;
 using GrowSense.Core.Installers;
 using System.IO;
 using GrowSense.Core.Devices;
+using System.Threading;
 namespace GrowSense.Core
 {
   public class CLIManager
@@ -59,14 +60,17 @@ namespace GrowSense.Core
 
       PostInstall.Mqtt.SetConfigValues();
       PostInstall.Mqtt.Restart();
-      
+
       PostInstall.MqttBridge.SetAppConfigValues();
       PostInstall.UIController.SetAppConfigValues();
 
       PostInstall.ArduinoPlugAndPlay.SetAppConfigValues();
 
       SetMockingFlags();
-      
+
+      // Wait a few seconds for services to start
+      Thread.Sleep(2000);
+
       if (verify)
         PostInstall.Verifier.VerifyInstallation();
 
