@@ -98,7 +98,21 @@ namespace GrowSense.Core
 
     public void AddDevice(string port)
     {
+      Console.WriteLine("Adding device...");
+      Console.WriteLine("  Port: " + port);
+      
+      if (String.IsNullOrEmpty(port))
+        throw new ArgumentNullException(port);
+
+      if (port.IndexOf("/dev/") == -1)
+      {
+        port = "/dev/" + port;
+        Console.WriteLine("  Fixed port: " + port);
+      }
+
       Devices.AddDevice(port);
+
+      Console.WriteLine("Finished adding device.");
     }
 
     public void Stop()

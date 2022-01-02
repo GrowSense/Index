@@ -61,7 +61,7 @@ namespace GrowSense.Core.Devices
     
     public void AddDevice(string port)
     {
-      Console.WriteLine("Adding devices...");
+      Console.WriteLine("Adding device...");
       Console.WriteLine("  Port: " + port);
       
       var device = Serial.ReadDeviceInfoFromSerial(port);
