@@ -23,7 +23,11 @@ namespace GrowSense.Core.Tests.Deploy
 
       var deployment = GetDeploymentInfo(branch);
 
-      Console.WriteLine("  Host: " + deployment.Ssh.Host);
+
+      Console.WriteLine("  Username: " + deployment.Username);
+      Console.WriteLine("  Password: hidden (length " + (String.IsNullOrEmpty(deployment.Password) ? deployment.Password.Length : 0) + ")");
+
+      Console.WriteLine("  SSH Host: " + deployment.Ssh.Host);
       Console.WriteLine("  SSH Username: " + deployment.Ssh.Username);
       Console.WriteLine("  SSH Password: hidden (length " + (String.IsNullOrEmpty(deployment.Ssh.Password) ? deployment.Ssh.Password.Length : 0) + ")");
       Console.WriteLine("  SSH Port: " + deployment.Ssh.Port);
@@ -98,6 +102,11 @@ namespace GrowSense.Core.Tests.Deploy
       var deployment = new DeploymentInfo();
       //var branch = 
       //deployment.Name = "devstaging";
+      
+      
+      deployment.Username = GetEnvironmentVariable("USERNAME", branch);
+      deployment.Password = GetEnvironmentVariable("PASSWORD", branch);
+      
       deployment.Ssh = new SshTarget();
       deployment.Ssh.Host = GetEnvironmentVariable("SSH_HOST", branch);
       deployment.Ssh.Username = GetEnvironmentVariable("SSH_USERNAME", branch);
