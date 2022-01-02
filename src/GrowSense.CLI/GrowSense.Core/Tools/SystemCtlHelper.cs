@@ -89,21 +89,30 @@ namespace GrowSense.Core.Tools
 
     public void Reload()
     {
+      Console.WriteLine("Reloading systemctl service...");
       Run("daemon-reload");
     }
 
-    public void Start(string servicePath)
+    public void Start(string serviceName)
     {
-      Run("start " + servicePath);
+      Console.WriteLine("Starting systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
+      
+      Run("start " + serviceName);
     }
 
-    public void Enable(string servicePath)
+    public void Enable(string serviceName)
     {
-      Run("enable " + servicePath);
+      Console.WriteLine("Enabling systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
+      
+      Run("enable " + serviceName);
     }
 
     public void Stop(string serviceName)
     {
+      Console.WriteLine("Stopping systemctl service...");
+      Console.WriteLine("  Name: " + serviceName);
       Run("stop " + serviceName);
     }
 
