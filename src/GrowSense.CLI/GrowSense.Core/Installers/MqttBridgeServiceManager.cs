@@ -49,6 +49,8 @@ namespace GrowSense.Core.Installers
 
         File.WriteAllText(destinationServicePath, serviceContent);
 
+        SystemCtl.Reload();
+        
         SystemCtl.Enable(destinationServicePath);
         SystemCtl.Start(destinationServicePath);
 
