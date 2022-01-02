@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/bash -c "bash /usr/local/GrowSense/Index/wait-for-plug-and-play.sh && cd /usr/local/Serial1602ShieldSystemUIController/ && bash start-ui-controller.sh {BRANCH} --SerialPort=/dev/{PORT} --DeviceName {DEVICE_NAME} --DevicesDirectory=/usr/local/GrowSense/Index/devices"
+ ExecStart=/bin/bash -c "bash {IndexPath}/wait-for-plug-and-play.sh && cd {IndexPath}/scripts/apps/Serial1602ShieldSystemUIController/ && bash start-ui-controller.sh --SerialPort={Port} --DeviceName={DeviceName} --DevicesDirectory={IndexPath}/devices"
 
  [Install]
  WantedBy=multi-user.target

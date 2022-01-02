@@ -29,7 +29,7 @@ namespace GrowSense.Core.Installers
       if (IsOnLocal(device) && device.IsUSBConnected)
       {
         var servicesPath = Context.IndexDirectory + "/scripts/apps/Serial1602ShieldSystemUIController/svc";
-        var exampleServiceFile = "growsense-ui-controller-1602.service.example";
+        var exampleServiceFile = "growsense-ui-1602.service.template";
         
         var destinationServiceName = "growsense-ui-1602-" + device.Name + ".service";
         var destinationServicePath = SystemCtl.GetServiceFilePath(destinationServiceName);
@@ -72,8 +72,8 @@ namespace GrowSense.Core.Installers
 
     public string InsertValues(string serviceContent, DeviceInfo device)
     {
-      serviceContent = serviceContent.Replace(device.Group + "1", device.Name);
-      serviceContent = serviceContent.Replace("/dev/ttyUSB0", device.Port);
+      serviceContent = serviceContent.Replace("{DeviceName}", device.Name);
+      serviceContent = serviceContent.Replace("{Port}", device.Port);
       serviceContent = serviceContent.Replace("{IndexPath}", Context.IndexDirectory);
 
       return serviceContent;
