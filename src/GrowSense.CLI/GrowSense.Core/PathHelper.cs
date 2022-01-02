@@ -42,6 +42,8 @@ namespace GrowSense.Core
     {
       if (applicationName == "mosquitto")
         return Path.Combine(Context.IndexDirectory + "/scripts/docker/mosquitto");
+      else if (applicationName == "BridgeArduinoSerialToMqttSplitCsv")
+        return Path.Combine(Context.IndexDirectory + "/scripts/apps/BridgeArduinoSerialToMqttSplitCsv");
       else
         return Path.Combine(Context.ParentDirectory, applicationName.Trim('/'));
     }
