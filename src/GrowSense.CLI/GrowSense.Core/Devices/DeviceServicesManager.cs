@@ -5,10 +5,12 @@ namespace GrowSense.Core.Devices
   public class DeviceServicesManager
   {
     public MqttBridgeServiceManager MqttBridge;
+    public UIControllerServiceManager UIController;
     
     public DeviceServicesManager(CLIContext context)
     {
       MqttBridge = new MqttBridgeServiceManager(context);
+      UIController = new UIControllerServiceManager(context);
     }
 
     public void CreateDeviceServices(DeviceInfo device)
@@ -21,7 +23,7 @@ namespace GrowSense.Core.Devices
       if (device.Board == "esp")
         Console.WriteLine("  ESP device. No services need to be created.");
       else if (device.Group == "ui")
-        throw new NotImplementedException("UI device not yet implemented.");
+        UIController.CreateService(device);
       else
         MqttBridge.CreateService(device);
 

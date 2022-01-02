@@ -7,11 +7,11 @@ namespace GrowSense.Core.Installers
 {
   public class UIControllerInstaller : BaseInstaller
   {
-public CLIContext Context;
+    public CLIContext Context;
     public ProcessStarter Starter;
     public DockerHelper Docker;
     public UIControllerVerifier Verifier;
-    
+
     public UIControllerInstaller(CLIContext context)
     {
       Context = context;
@@ -23,14 +23,15 @@ public CLIContext Context;
     public void Install()
     {
       Console.WriteLine("Installing system UI controller...");
-      
+
       var uiControllerInstallPath = Context.Paths.GetApplicationPath("Serial1602ShieldSystemUIController");
 
       Console.WriteLine("  Install path: " + uiControllerInstallPath);
 
       EnsureDirectoriesExist(uiControllerInstallPath);
 
-      CopyFilesToInstallDir(uiControllerInstallPath);
+      // TODO: Remove if not needed
+      //CopyFilesToInstallDir(uiControllerInstallPath);
 
       SetAppConfigValues();
 
@@ -40,7 +41,7 @@ public CLIContext Context;
 
     public void SetAppConfigValues()
     {
-    var installedConfigPath = Context.Paths.GetApplicationPath("Serial1602ShieldSystemUIController") + "/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
+      var installedConfigPath = Context.Paths.GetApplicationPath("Serial1602ShieldSystemUIController") + "/Serial1602ShieldSystemUIController/lib/net40/Serial1602ShieldSystemUIControllerConsole.exe.config";
 
       var config = DeserializeAppConfig(installedConfigPath);
 
@@ -61,13 +62,14 @@ public CLIContext Context;
     public void EnsureDirectoriesExist(string uiControllerInstallPath)
     {
       if (!Directory.Exists(uiControllerInstallPath))
-        Directory.CreateDirectory(uiControllerInstallPath);        
+        Directory.CreateDirectory(uiControllerInstallPath);
     }
 
-    public void CopyFilesToInstallDir(string uiControllerInstallPath)
+    // TODO: Remove if not needed
+    /*public void CopyFilesToInstallDir(string uiControllerInstallPath)
     {
       Console.WriteLine("  Copying files to install dir...");
-      
+
       var internalPath = Context.IndexDirectory + "/scripts/apps/Serial1602ShieldSystemUIController";
 
       Console.WriteLine("    Internal path: " + internalPath);
@@ -85,8 +87,8 @@ public CLIContext Context;
       CopyDirectories(internalPath, uiControllerInstallPath, dirsToCopy);
 
       CopyFiles(internalPath, uiControllerInstallPath, filesToCopy);
-      
-    }
+
+    }*/
 
     public void Verify()
     {
