@@ -59,26 +59,33 @@ namespace GrowSense.Core.Verifiers
       {
         status = SystemCtl.Status(serviceName);
 
-        attempt++;
-
         if (attempt > 10 || status == SystemCtlServiceStatus.Active)
           isFinished = true;
         else
+        {
+          attempt++;
+          
+          Console.WriteLine("Failed attempt. Trying again...");
+          Console.WriteLine("  Attempt: " + attempt);
+
           Thread.Sleep(1000);
+        }
       }
-              
+
       if (status != SystemCtlServiceStatus.Active)
       {
         throw new Exception("MQTT bridge service is not active for device: " + deviceName);
       }
       else
       {
-        var statusReport = SystemCtl.StatusReport(serviceName);
+        Console.WriteLine("  MQTT bridge service is active.");
+        //var statusReport = SystemCtl.StatusReport(serviceName);
 
-        if (statusReport.IndexOf("MqttConnectionException") > -1)
-          throw new Exception("MQTT Bridge failed to connect to broker for device: " + deviceName);
-        else if (statusReport.IndexOf("No such file or directory") > -1)
-          throw new Exception("USB device not found for device: " + deviceName);
+        // TODO: Remove if not needed. Disabled because it triggers from exceptions caused before connection succeeded.
+        //if (statusReport.IndexOf("MqttConnectionException") > -1)
+        //  throw new Exception("MQTT Bridge failed to connect to broker for device: " + deviceName);
+        //if (statusReport.IndexOf("No such file or directory") > -1)
+        //  throw new Exception("USB device not found for device: " + deviceName);
       }
 
 
