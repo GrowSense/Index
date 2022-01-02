@@ -58,11 +58,18 @@ namespace GrowSense.Core
     {
       Console.WriteLine("Applying and saving new settings...");
 
+      PostInstall.SettingsManager.SaveSettings(Context.Settings);
+
       PostInstall.Mqtt.SetConfigValues();
       PostInstall.Mqtt.Restart();
 
       PostInstall.MqttBridge.SetAppConfigValues();
+      PostInstall.MqttBridge.Services.Restart(Devices.GetDevices());
+      
       PostInstall.UIController.SetAppConfigValues();
+      PostInstall.UIController.Services.Restart(Devices.GetDevices());
+
+      PostInstall.WWW.Restart();
 
       PostInstall.ArduinoPlugAndPlay.SetAppConfigValues();
 

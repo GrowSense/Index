@@ -35,6 +35,10 @@ namespace GrowSense.Core.Installers
     {
       if (device.Group == "irrigator")
         return "D,W,T,M,I,B,O,F,Q";
+      else if (device.Group == "illuminator")
+        return "M,I,D,B,E,F,G,H,T,Q,C:";
+      else if (device.Group == "ventilator")
+        return "I,M,G,J,R,U,S,Q";
       else
         throw new NotImplementedException("Not implemented for device group: " + device.Group);
     }

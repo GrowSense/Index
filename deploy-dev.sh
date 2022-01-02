@@ -1,3 +1,6 @@
+echo "This script is obsolete. Use the DeployInstallTestFixture instead"
+exit 1
+
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 

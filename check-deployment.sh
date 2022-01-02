@@ -211,9 +211,9 @@ fi
 
 #[[ "$INSTALLED_VERSION" != "$LATEST_FULL_VERSION" ]] && echo "Error: Installed version number doesn't match latest version number from git repository." && exit 1
 
-echo ""
-echo "Sleeping for 10 seconds to let devices load..."
-sleep 10
+#echo ""
+#echo "Sleeping for 10 seconds to let devices load..."
+#sleep 10
 
 #echo ""
 #echo "Checking deployment devices..."

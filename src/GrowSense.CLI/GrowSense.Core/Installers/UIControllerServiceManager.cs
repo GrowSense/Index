@@ -70,6 +70,33 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("Finished creating UI controller service.");
     }
 
+    public void Restart(DeviceInfo[] devices)
+    {
+      Console.WriteLine("Restarting UI controller services...");
+      
+      foreach (var device in devices)
+      {
+        Restart(device);
+      }
+
+      Console.WriteLine("Finished restarting UI controller services.");
+    }
+
+    public void Restart(DeviceInfo device)
+    {
+      if (device.Host == Context.Settings.HostName)
+      {
+        if (device.Group == "ui")
+        {
+          var serviceName = "growsense-ui-1602-" + device.Name;
+          if (SystemCtl.Exists(serviceName))
+          {
+            SystemCtl.Restart(serviceName);
+          }
+        }
+      }
+    }
+
     public string InsertValues(string serviceContent, DeviceInfo device)
     {
       serviceContent = serviceContent.Replace("{DeviceName}", device.Name);

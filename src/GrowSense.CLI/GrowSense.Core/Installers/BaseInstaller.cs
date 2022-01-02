@@ -113,35 +113,40 @@ namespace GrowSense.Core.Installers
 
     public void SerializeAppConfig(AppConfig config, string filePath)
     {
+      Console.WriteLine("Serializing app.config...");
+      Console.WriteLine("  " + filePath);
+      
       /*var serializer = new XmlSerializer(typeof(AppConfig));
       using (var stream = File.OpenWrite(filePath))
       {
         serializer.Serialize(stream, config);
       }*/
-      
-        // Remove Declaration
-  var settings = new XmlWriterSettings
-         {
-              Indent = true,
-              OmitXmlDeclaration = true
-         };
-    
-  // Remove Namespace
-     var ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
-     
+
+      // Remove Declaration
+      var settings = new XmlWriterSettings
+      {
+        Indent = true,
+        OmitXmlDeclaration = true
+      };
+
+      // Remove Namespace
+      var ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+
       File.Delete(filePath);
-      
-    // using (var stream = File.Create(filePath))
-     using (var writer = XmlWriter.Create(filePath))
-     {
-         var serializer = new XmlSerializer(typeof(AppConfig));
-         serializer.Serialize(writer, config, ns);
-         //return stream.ToString();
-     }
+
+      // using (var stream = File.Create(filePath))
+      using (var writer = XmlWriter.Create(filePath))
+      {
+        var serializer = new XmlSerializer(typeof(AppConfig));
+        serializer.Serialize(writer, config, ns);
+        //return stream.ToString();
+      }
 
       Console.WriteLine("----- Start Output -----");
       Console.WriteLine(File.ReadAllText(filePath));
       Console.WriteLine("----- End Output -----");
+
+      Console.WriteLine("Finished serializing app.config");
     }
   }
 }

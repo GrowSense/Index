@@ -70,6 +70,34 @@ namespace GrowSense.Core.Installers
       Console.WriteLine("Finished creating MQTT bridge service.");
     }
 
+    public void Restart(DeviceInfo[] devices)
+    {
+      Console.WriteLine("Restarting MQTT bridge services...");
+      
+      foreach (var device in devices)
+      {
+        Restart(device);
+      }
+
+      Console.WriteLine("Finished restarting MQTT bridge services.");
+    }
+
+    public void Restart(DeviceInfo device)
+    {
+      if (device.Host == Context.Settings.HostName)
+      {
+        if (device.Group != "ui")
+        {
+          var serviceName = "growsense-mqtt-bridge-" + device.Name;
+          if (SystemCtl.Exists(serviceName))
+          {
+            SystemCtl.Restart(serviceName);
+          }
+        }
+      }
+     
+    }
+
     public string InsertValues(string serviceContent, DeviceInfo device)
     {
       serviceContent = serviceContent.Replace(device.Group + "1", device.Name);

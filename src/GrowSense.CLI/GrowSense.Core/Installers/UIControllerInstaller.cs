@@ -11,6 +11,7 @@ namespace GrowSense.Core.Installers
     public ProcessStarter Starter;
     public DockerHelper Docker;
     public UIControllerVerifier Verifier;
+    public UIControllerServiceManager Services;
 
     public UIControllerInstaller(CLIContext context)
     {
@@ -18,6 +19,7 @@ namespace GrowSense.Core.Installers
       Starter = new ProcessStarter(context.IndexDirectory);
       Docker = new DockerHelper(context);
       Verifier = new UIControllerVerifier(context);
+      Services = new UIControllerServiceManager(context);
     }
 
     public void Install()
