@@ -55,7 +55,10 @@ namespace GrowSense.Core
               break;
             case "config":
               //Console.WriteLine("Config");
-              manager.ApplySettings();
+              var verify = true;
+              if (arguments.Contains("verify"))
+                verify = Convert.ToBoolean(arguments["verify"]);
+              manager.ApplySettings(verify);
               break;
             case "add-device":
               var port = arguments["port"];
