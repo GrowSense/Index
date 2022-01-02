@@ -31,12 +31,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\lib\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\lib\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="duinocom.core">
-      <HintPath>..\..\..\lib\ArduinoSerialControllerClient.1.1.1.17-master\lib\net40\duinocom.core.dll</HintPath>
+      <HintPath>..\..\..\lib\ArduinoSerialControllerClient\lib\net40\duinocom.core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
