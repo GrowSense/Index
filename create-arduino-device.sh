@@ -14,35 +14,35 @@ DEVICE_LABEL=$4
 DEVICE_NAME=$5
 DEVICE_PORT=$6
 
-if [ ! $DEVICE_LABEL ]; then
-  echo "  Error: Please provide a device label as an argument."
-  echo "${EXAMPLE}"
-  exit 1
-fi
+#if [ ! $DEVICE_LABEL ]; then
+#  echo "  Error: Please provide a device label as an argument."
+#  echo "${EXAMPLE}"
+#  exit 1
+#fi
 
-if [ ! $DEVICE_NAME ]; then
-  echo "  Error: Please provide a device name as an argument."
-  echo "${EXAMPLE}"
-  exit 1
-fi
+#if [ ! $DEVICE_NAME ]; then
+#  echo "  Error: Please provide a device name as an argument."
+#  echo "${EXAMPLE}"
+#  exit 1
+#fi
 
-if [ ! $DEVICE_GROUP ]; then
-  echo "  Error: Please provide a device group as an argument."
-  echo "${EXAMPLE}"
-  exit 1
-fi
+#if [ ! $DEVICE_GROUP ]; then
+#  echo "  Error: Please provide a device group as an argument."
+#  echo "${EXAMPLE}"
+#  exit 1
+#fi
 
-if [ ! $DEVICE_PROJECT ]; then
-  echo "  Error: Please provide a device project as an argument."
-  echo "${EXAMPLE}"
-  exit 1
-fi
+#if [ ! $DEVICE_PROJECT ]; then
+#  echo "  Error: Please provide a device project as an argument."
+#  echo "${EXAMPLE}"
+#  exit 1
+#fi
 
-if [ ! $DEVICE_BOARD ]; then
-  echo "  Error: Please provide a device board as an argument."
-  echo "${EXAMPLE}"
-  exit 1
-fi
+#if [ ! $DEVICE_BOARD ]; then
+#  echo "  Error: Please provide a device board as an argument."
+#  echo "${EXAMPLE}"
+#  exit 1
+#fi
 
 if [ ! $DEVICE_PORT ]; then
   echo "  Error: Please provide a device port as an argument."
