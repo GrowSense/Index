@@ -48,10 +48,16 @@ namespace GrowSense.Core.Tools
     public virtual string GetServiceFilePath(string serviceName)
     {
       var serviceFileName = serviceName.Replace(".service", "") + ".service";
+      var serviceFilePath = "";
       if (Context.Settings.IsMockSystemCtl)
-        return Context.IndexDirectory + "/mock/services/" + serviceFileName;
+        serviceFilePath = Context.IndexDirectory + "/mock/services/" + serviceFileName;
       else
-        return "/lib/systemd/system/" + serviceFileName;
+        serviceFilePath = "/lib/systemd/system/" + serviceFileName;
+
+      if (!Directory.Exists(Path.GetDirectoryName(serviceFilePath)))
+        Directory.CreateDirectory(Path.GetDirectoryName(serviceFilePath));
+        
+      return serviceFilePath;
     }
 
     public SystemCtlServiceStatus Status(string serviceName)
