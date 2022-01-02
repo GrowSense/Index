@@ -87,6 +87,11 @@ namespace GrowSense.Core.Tools
       }
     }
 
+    public void Reload()
+    {
+      Run("daemon-reload");
+    }
+
     public void Start(string servicePath)
     {
       Run("start " + servicePath);
