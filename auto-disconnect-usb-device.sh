@@ -23,6 +23,8 @@ DEVICES_DIR="devices"
 
 DEVICE_NAME=""
 
+HOST=$(cat /etc/hostname)
+
 if [ -d $DEVICES_DIR ]; then
   for d in $DEVICES_DIR/*
   do
@@ -32,7 +34,7 @@ if [ -d $DEVICES_DIR ]; then
 
     echo "Port: $PORT"
 
-    if [ "$PORT" = "$DEVICE_PORT" ]; then
+    if [ "$PORT" = "$DEVICE_PORT" ] && [ "$HOST" == "$(cat "$d/host.txt")" ]; then
       DEVICE_NAME=$(cat "$d/name.txt")
       DEVICE_LABEL=$(cat "$d/label.txt")
     fi
@@ -42,7 +44,6 @@ fi
 # Disabled because it's causing problems with tests
 #notify-send "Removing $DEVICE_NAME device"
 
-HOST=$(cat /etc/hostname)
 
 if [ $DEVICE_NAME ]; then
   bash run-background.sh bash mqtt-publish-device.sh "$DEVICE_NAME" "StatusMessage" "Disconnecting" "-r"
