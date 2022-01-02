@@ -53,7 +53,7 @@ namespace GrowSense.Core
       Verifier.VerifyInstallation();
     }
 
-    public void ApplySettings()
+    public void ApplySettings(bool verify)
     {
       Console.WriteLine("Applying and saving new settings...");
 
@@ -67,7 +67,8 @@ namespace GrowSense.Core
 
       SetMockingFlags();
       
-      PostInstall.Verifier.VerifyInstallation();
+      if (verify)
+        PostInstall.Verifier.VerifyInstallation();
 
       Console.WriteLine("Finished applying new settings.");
     }
