@@ -1,4 +1,4 @@
-image: 10.0.0.232:5000/ubuntu-loaded
+image: local:5000/ubuntu-loaded
 
 stages:
   - verify
@@ -9,7 +9,7 @@ stages:
 build-job:
   stage: verify
   tags:
-    - ubuntu-loaded
+    - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init-all.sh
@@ -18,7 +18,7 @@ build-job:
 test-software-job:
   stage: verify
   tags:
-    - ubuntu-loaded
+    - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh init-all.sh
@@ -28,7 +28,7 @@ test-software-job:
 deploy-update-staging:
   stage: update
   tags:
-    - ubuntu-loaded
+    - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev-update.sh
@@ -36,7 +36,7 @@ deploy-update-staging:
 deploy-staging:
   stage: install
   tags:
-    - ubuntu-loaded
+    - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh deploy-dev.sh
@@ -44,12 +44,10 @@ deploy-staging:
 graduate-job:
   stage: graduate
   tags:
-    - ubuntu-loaded
+    - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh clean.sh
-    - sh graduate.
+    - sh graduate.sh
   dependencies:
     - build-job
-
-
