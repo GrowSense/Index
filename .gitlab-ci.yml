@@ -19,9 +19,7 @@ build-sketches:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH"
-    - "echo Listing files..."
-    - ls
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
@@ -64,7 +62,7 @@ build-www:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - git submodule update --init
     - cat full-version.txt
