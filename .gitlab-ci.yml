@@ -188,4 +188,3 @@ version:
   script:
     - bash increment-version.sh
     - bash push-version.sh
-
