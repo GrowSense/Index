@@ -1,4 +1,4 @@
-image: 10.0.0.101:5000/ubuntu-loaded
+image: local:5000/ubuntu-loaded
 
 stages:
   - build
@@ -17,9 +17,9 @@ build-sketches:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
@@ -34,9 +34,9 @@ build:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
@@ -60,9 +60,9 @@ build-www:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - git submodule update --init
     - cat full-version.txt
@@ -78,9 +78,9 @@ test-cli-slow:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - cat full-version.txt
   script:
@@ -93,9 +93,9 @@ test-cli-fast:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - cat full-version.txt
   script:
@@ -110,9 +110,9 @@ test-unit:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - cat full-version.txt
   script:
@@ -125,19 +125,17 @@ test-deploy:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - cp .gitmodules.lan .gitmodules
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - git submodule sync --recursive
     - git submodule update --init --recursive
     - cat full-version.txt
   script:
     - bash test.sh DeployUpgrade
-    - bash check-deployment.sh
     - bash test.sh DeployInstall
-    - bash check-deployment.sh
   dependencies:
     - build
     
@@ -148,7 +146,7 @@ release:
   script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
     - bash increment-version.sh
     - bash delete-github-release.sh
@@ -165,9 +163,9 @@ graduate:
   before_script:
     - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Index.git
     - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
   script:
     - bash clean.sh
@@ -182,9 +180,9 @@ version:
   before_script:
     - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Index.git
     - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
     - bash pull.sh
   script:
     - bash increment-version.sh
