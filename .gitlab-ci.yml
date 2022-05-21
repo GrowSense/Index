@@ -136,7 +136,7 @@ test-deploy:
   script:
     - bash test.sh DeployUpgrade
     - bash test.sh DeployInstall
-    - bash check-deployment.sh
+    - #bash check-deployment.sh
   dependencies:
     - build
     
