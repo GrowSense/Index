@@ -6,7 +6,7 @@ if [ "$BRANCH" = "dev" ]
 then
     echo "Pulling latest version"
     
-    git pull origin dev
+    bash pull.sh
 
     echo "Incrementing version"
 
