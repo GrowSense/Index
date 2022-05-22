@@ -21,6 +21,8 @@ namespace GrowSense.Core.Tests
             mode = "Debug";
 #endif
             var context = new CLIContext(TemporaryDirectory, new CLISettings());
+            context.Settings.IsMockDocker = true;
+            context.Settings.IsMockSystemCtl = true;
 
             var installPath = Path.GetFullPath("../");
 
