@@ -22,7 +22,7 @@ namespace GrowSense.Core.Tests.CLI
             mode = "Debug";
 #endif
 
-            var upgradeCommand = "bash gs.sh upgrade --mode=" + mode;
+            var upgradeCommand = "bash gs.sh upgrade --mode=" + mode + " --mock-systemctl=true --mock-docker=true";
 
             starter.Start(upgradeCommand);
 
