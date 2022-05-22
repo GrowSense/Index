@@ -21,12 +21,11 @@ namespace GrowSense.Core
             Console.WriteLine("Launching upgrade...");
             var sudo = "sudo";
 
-            var upgradeCommand = "wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Context.Settings.Branch + "/scripts-download/download-installer.sh | bash -s -- upgrade --branch=" + Context.Settings.Branch + " --to=" + Context.ParentDirectory + " --test=true";
+            var upgradeCommand = "\twget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Context.Settings.Branch + "/scripts-download/download-installer.sh | bash -s -- upgrade --branch=" + Context.Settings.Branch + " --to=" + Context.ParentDirectory + " --test=true";
 
             Console.WriteLine("  Command: " + upgradeCommand);
 
             Starter.StartBash(upgradeCommand);
         }
-
     }
 }
