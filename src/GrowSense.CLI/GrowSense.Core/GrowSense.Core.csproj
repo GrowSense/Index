@@ -94,6 +94,7 @@
     <Compile Include="Installers\MqttBridgeStarter.cs" />
     <Compile Include="Installers\UIControllerServiceManager.cs" />
     <Compile Include="Verifiers\UIControllerServiceVerifier.cs" />
+    <Compile Include="UpgradeLauncher.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installers\" />

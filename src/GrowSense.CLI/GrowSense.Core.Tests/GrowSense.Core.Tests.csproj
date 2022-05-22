@@ -59,12 +59,15 @@
     <Compile Include="CLI\Docker\PostInstallerDockerTestFixture.cs" />
     <Compile Include="CLI\Docker\PostInstallerDockerTestHelper.cs" />
     <Compile Include="Deploy\DeployUpgradeTestFixture.cs" />
+    <Compile Include="CLI\UpgradeCLITestFixture.cs" />
+    <Compile Include="UpgradeLauncherTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />
     <Folder Include="Installers\" />
     <Folder Include="Deploy\" />
     <Folder Include="CLI\Docker\" />
+    <Folder Include="CLIManager\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GrowSense.Core\GrowSense.Core.csproj">
