@@ -4,4 +4,4 @@ git pull local $BRANCH || echo "Failed to pull from local repository"
 
 git pull lan $BRANCH || echo "Failed to pull from lan repository"
 
-git pull origin $BRANCH
+git pull origin $BRANCH || echo "Failed to pull from origin repository"
