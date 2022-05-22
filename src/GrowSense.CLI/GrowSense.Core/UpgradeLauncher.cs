@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+
 namespace GrowSense.Core
 {
     public class UpgradeLauncher
@@ -21,11 +23,24 @@ namespace GrowSense.Core
             Console.WriteLine("Launching upgrade...");
             var sudo = "sudo";
 
-            var upgradeCommand = "\twget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Context.Settings.Branch + "/scripts-download/download-installer.sh | bash -s -- upgrade --branch=" + Context.Settings.Branch + " --to=" + Context.ParentDirectory + " --test=true";
+            DeleteObsoleteInstallerZip(); // This is necessary otherwise it will get reused
+
+            var upgradeCommand = "wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Context.Settings.Branch + "/scripts-download/download-installer.sh | bash -s -- upgrade --branch=" + Context.Settings.Branch + " --to=" + Context.ParentDirectory;
+
+            if (Context.Settings.IsMockDocker || Context.Settings.IsMockSystemCtl)
+                upgradeCommand += " --test=true";
 
             Console.WriteLine("  Command: " + upgradeCommand);
 
             Starter.StartBash(upgradeCommand);
+        }
+
+        public void DeleteObsoleteInstallerZip()
+        {
+            var obsoleteInstallerZip = Context.ParentDirectory + "/Installer/GrowSenseInstaller.zip";
+
+            if (File.Exists(obsoleteInstallerZip))
+                File.Delete(obsoleteInstallerZip);
         }
     }
 }
