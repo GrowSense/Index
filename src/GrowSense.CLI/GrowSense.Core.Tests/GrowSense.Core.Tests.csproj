@@ -53,14 +53,16 @@
     <Compile Include="Installers\DockerInstallerTestFixture.cs" />
     <Compile Include="Installers\SupervisorServiceInstallerTestFixture.cs" />
     <Compile Include="Installers\WwwServiceInstaller.cs" />
-    <Compile Include="Deploy\DeployInstallTestFixture.cs" />
     <Compile Include="DeploymentInfo.cs" />
-    <Compile Include="Deploy\DeploymentManager.cs" />
     <Compile Include="CLI\Docker\PostInstallerDockerTestFixture.cs" />
     <Compile Include="CLI\Docker\PostInstallerDockerTestHelper.cs" />
-    <Compile Include="Deploy\DeployUpgradeTestFixture.cs" />
     <Compile Include="CLI\UpgradeCLITestFixture.cs" />
     <Compile Include="UpgradeLauncherTestFixture.cs" />
+    <Compile Include="Deploy\Direct\DeployDirectInstallTestFixture.cs" />
+    <Compile Include="Deploy\Direct\DeploymentManager.cs" />
+    <Compile Include="Deploy\Direct\DeployDirectUpgradeTestFixture.cs" />
+    <Compile Include="Deploy\FromWeb\DeployFromWebInstallTestFixture.cs" />
+    <Compile Include="Deploy\FromWeb\DeployFromWebUpgradeTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />
@@ -68,6 +70,8 @@
     <Folder Include="Deploy\" />
     <Folder Include="CLI\Docker\" />
     <Folder Include="CLIManager\" />
+    <Folder Include="Deploy\Direct\" />
+    <Folder Include="Deploy\FromWeb\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GrowSense.Core\GrowSense.Core.csproj">
