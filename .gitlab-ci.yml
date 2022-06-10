@@ -134,8 +134,8 @@ test-deploy:
     - git submodule update --init --recursive
     - cat full-version.txt
   script:
-    - bash test.sh DeployUpgrade
-    - bash test.sh DeployInstall
+    - bash test.sh DeployDirectUpgrade
+    - bash test.sh DeployDirectInstall
     - echo "Skipping check deployment" #bash check-deployment.sh
   dependencies:
     - build
