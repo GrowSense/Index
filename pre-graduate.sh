@@ -54,6 +54,10 @@ else
   echo "  MQTT bridge release found."
 fi
 
+version=$(cat full-version.txt)
+
+bash ci/wait-for-live-deployment-to-update.sh $version || exit 1
+
 sh clean.sh
 
 echo "Finished checking code is ready to graduate to master branch"
