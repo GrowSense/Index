@@ -15,6 +15,7 @@ namespace GrowSense.Core
         public DeviceManager Devices;
         public MqttBridgeStarter MqttBridge;
         public UpgradeLauncher Upgrader;
+        public VersionReader Version;
 
         public CLIManager(CLIContext context)
         {
@@ -33,6 +34,8 @@ namespace GrowSense.Core
             Verifier = new Verifier(context);
 
             Upgrader = new UpgradeLauncher(context);
+
+            Version = new VersionReader(context);
         }
 
         public void ExecuteScript(string script)
@@ -189,6 +192,11 @@ namespace GrowSense.Core
         public void Upgrade()
         {
             Upgrader.Upgrade();
+        }
+
+        public void CheckVersion()
+        {
+            Version.WriteVersionsToConsole();
         }
     }
 }
