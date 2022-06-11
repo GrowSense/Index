@@ -4,6 +4,7 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 echo "Waiting for live deployment to update..."
 echo "  Expected version: $1"
+echo "  Branch: $BRANCH"
 
 isUpToDate=0
 attemptCount=1
@@ -12,10 +13,11 @@ maxAttempts=100
 delayBetweenAttempts=5
 
 if [ $BRANCH == "dev" ]; then
-    deploymentHost=$DEPLOY_DEV_LIVE_SSH_HOST
-    deploymentUsername=$DEPLOY_DEV_LIVE_SSH_USERNAME
-    deploymentPassword=$DEPLOY_DEV_LIVE_SSH_PASSWORD
-    deploymentPort=$DEPLOY_DEV_LIVE_SSH_PORT
+  echo "  Dev branch. Using dev live deployment settings..."
+  deploymentHost=$DEPLOY_DEV_LIVE_SSH_HOST
+  deploymentUsername=$DEPLOY_DEV_LIVE_SSH_USERNAME
+  deploymentPassword=$DEPLOY_DEV_LIVE_SSH_PASSWORD
+  deploymentPort=$DEPLOY_DEV_LIVE_SSH_PORT
 fi
 
 deploymentFile="deployments/$BRANCH-live.security"
