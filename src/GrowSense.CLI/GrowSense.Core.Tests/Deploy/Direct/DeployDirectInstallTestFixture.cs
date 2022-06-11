@@ -3,10 +3,11 @@ using NUnit.Framework;
 using Newtonsoft.Json;
 using System.IO;
 using GrowSense.Core.Tools;
-namespace GrowSense.Core.Tests.Deploy
+
+namespace GrowSense.Core.Tests.Deploy.Direct
 {
-    [TestFixture(Category = "DeployInstall")]
-    public class DeployInstallTestFixture : BaseTestFixture
+    [TestFixture(Category = "DeployDirectInstall")]
+    public class DeployDirectInstallTestFixture : BaseTestFixture
     {
         [Test]
         public void Test_DeployInstall()
@@ -53,6 +54,8 @@ namespace GrowSense.Core.Tests.Deploy
             //manager.Ssh.Execute("echo helloworld");
             //manager.Ssh.Execute("sudo echo hello > /usr/local/GrowSense/Installer/hello.txt");
 
+            manager.EnableDownload = false;
+            manager.AllowSkipDownload = true;
             manager.DownloadAndLaunchInstall();
 
             manager.SetConfigValues();
