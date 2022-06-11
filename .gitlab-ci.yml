@@ -19,7 +19,7 @@ build-sketches:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull --force
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
