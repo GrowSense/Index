@@ -30,6 +30,9 @@ namespace GrowSense.Core
             if (Context.Settings.IsMockDocker || Context.Settings.IsMockSystemCtl)
                 upgradeCommand += " --test=true";
 
+            if (!String.IsNullOrEmpty(Context.Settings.GitHubUsername) && !String.IsNullOrEmpty(Context.Settings.GitHubToken))
+                upgradeCommand += String.Format(" --github-username={0} --github-token={1}", Context.Settings.GitHubUsername, Context.Settings.GitHubToken);
+
             Console.WriteLine("  Command: " + upgradeCommand);
 
             Starter.StartBash(upgradeCommand);
