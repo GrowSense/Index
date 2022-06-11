@@ -113,6 +113,10 @@ namespace GrowSense.Core.Verifiers
 
                 throw new Exception("Systemctl service file " + serviceName + " doesn't exist at " + filePath);
             }
+            else
+            {
+                Console.WriteLine("  Service found!");
+            }
         }
 
         public void AssertSystemctlServiceIsRunning(string serviceName)
