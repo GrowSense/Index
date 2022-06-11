@@ -74,7 +74,7 @@ namespace GrowSense.Core.Tools
 
         public bool DirectoryExists(string directory)
         {
-            var cmd = "[ -d \"" + directory + "\" ] && printf '\ntrue' || printf \nfalse"; // Newline before value so it's placed on a new line, and it can be parsed even if the SSH command outputs messages before it
+            var cmd = "[ -d \"" + directory + "\" ] && echo $'\n'true || echo $'\n'false"; // Newline before value so it's placed on a new line, and it can be parsed even if the SSH command outputs messages before it
             var output = Execute(cmd);
             try
             {
