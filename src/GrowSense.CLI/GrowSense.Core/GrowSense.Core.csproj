@@ -95,6 +95,9 @@
     <Compile Include="Installers\UIControllerServiceManager.cs" />
     <Compile Include="Verifiers\UIControllerServiceVerifier.cs" />
     <Compile Include="UpgradeLauncher.cs" />
+    <Compile Include="Installers\UpgradeServiceInstaller.cs" />
+    <Compile Include="Verifiers\UpgradeServiceVerifier.cs" />
+    <Compile Include="VersionReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installers\" />
