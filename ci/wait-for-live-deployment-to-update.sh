@@ -8,7 +8,7 @@ echo "  Expected version: $1"
 isUpToDate=0
 attemptCount=1
 
-maxAttempts=10
+maxAttempts=100
 delayBetweenAttempts=5
 
 if [ $BRANCH == "dev" ]; then

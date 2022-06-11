@@ -8,7 +8,6 @@ stages:
   - update
   - install
   - graduate
-  - version
   
 variables:
      GIT_SUBMODULE_STRATEGY: recursive
@@ -190,6 +189,8 @@ graduate:
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
+    - git checkout buildnumber.txt
+    - git checkout full-version.txt
   script:
     - bash clean.sh
     - bash graduate.sh
@@ -208,8 +209,8 @@ version:
     - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
   script:
-    - bash increment-version.sh
-    - bash push-version.sh
+    - "echo 'Skipping increment version'" #bash increment-version.sh
+    - "echo 'Skipping push version'" #bash push-version.sh
  
  
  
