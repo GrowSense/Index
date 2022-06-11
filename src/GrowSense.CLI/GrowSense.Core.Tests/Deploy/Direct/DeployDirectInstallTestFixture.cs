@@ -6,7 +6,7 @@ using GrowSense.Core.Tools;
 
 namespace GrowSense.Core.Tests.Deploy.Direct
 {
-    [TestFixture(Category = "DeployInstall")]
+    [TestFixture(Category = "DeployDirectInstall")]
     public class DeployDirectInstallTestFixture : BaseTestFixture
     {
         [Test]

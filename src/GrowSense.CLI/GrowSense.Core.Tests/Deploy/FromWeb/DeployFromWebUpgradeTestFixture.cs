@@ -6,7 +6,7 @@ using GrowSense.Core.Tools;
 
 namespace GrowSense.Core.Tests.Deploy.FromWeb
 {
-    [TestFixture(Category = "DeployUpgrade")]
+    [TestFixture(Category = "DeployFromWebUpgrade")]
     public class DeployFromWebUpgradeTestFixture : BaseTestFixture
     {
         [Test]
