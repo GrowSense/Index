@@ -12,10 +12,10 @@ maxAttempts=10
 delayBetweenAttempts=5
 
 if [ $BRANCH == "dev" ]; then
-    deploymentHost=$DEV_LIVE_SSH_HOST
-    deploymentUsername=$DEV_LIVE_SSH_USERNAME
-    deploymentPassword=$DEV_LIVE_SSH_PASSWORD
-    deploymentPort=$DEV_LIVE_SSH_PORT
+    deploymentHost=$DEPLOY_DEV_LIVE_SSH_HOST
+    deploymentUsername=$DEPLOY_DEV_LIVE_SSH_USERNAME
+    deploymentPassword=$DEPLOY_DEV_LIVE_SSH_PASSWORD
+    deploymentPort=$DEPLOY_DEV_LIVE_SSH_PORT
 fi
 
 deploymentFile="deployments/$BRANCH-live.security"
