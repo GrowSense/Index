@@ -4,6 +4,7 @@ stages:
   - build
   - verify
   - release
+  - verify-release
   - update
   - install
   - graduate
@@ -149,13 +150,34 @@ release:
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
-    - bash increment-version.sh
+    - "echo 'Skipping increment version'" #bash increment-version.sh
     - bash delete-github-release.sh
     - bash create-release-zip.sh
     - bash publish-github-release.sh
   dependencies:
     - build
     - build-www
+
+test-deploy-fromweb:
+  stage: verify-release
+  tags:
+    - docker
+  before_script:
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - cp .gitmodules.lan .gitmodules
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
+    - bash pull.sh
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
+    - cat full-version.txt
+  script:
+    - bash test.sh DeployFromWebUpgrade
+    - bash test.sh DeployFromWebInstall
+    - echo "Skipping check deployment" #bash check-deployment.sh
+  dependencies:
+    - build
+    
 
 graduate:
   stage: graduate
@@ -188,6 +210,12 @@ version:
   script:
     - bash increment-version.sh
     - bash push-version.sh
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
