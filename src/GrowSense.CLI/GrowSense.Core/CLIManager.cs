@@ -16,6 +16,7 @@ namespace GrowSense.Core
         public MqttBridgeStarter MqttBridge;
         public UpgradeLauncher Upgrader;
         public VersionReader Version;
+        public StatusChecker StatusChecker;
 
         public CLIManager(CLIContext context)
         {
@@ -36,6 +37,8 @@ namespace GrowSense.Core
             Upgrader = new UpgradeLauncher(context);
 
             Version = new VersionReader(context);
+
+            StatusChecker = new StatusChecker(context);
         }
 
         public void ExecuteScript(string script)
@@ -197,6 +200,11 @@ namespace GrowSense.Core
         public void CheckVersion()
         {
             Version.WriteVersionsToConsole();
+        }
+
+        public void CheckStatus()
+        {
+            StatusChecker.WriteStatusToConsole();
         }
     }
 }

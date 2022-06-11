@@ -36,7 +36,7 @@ if [ "$BRANCH" = "dev" ];  then
 
   echo ""
   echo "  Checking out the dev branch..."
-  git checkout dev || exit 1
+  git checkout dev --force || exit 1
 
   echo "The 'dev' branch has been graduated to the 'master' branch"
 else
