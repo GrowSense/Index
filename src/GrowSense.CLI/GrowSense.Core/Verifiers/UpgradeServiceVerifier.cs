@@ -19,7 +19,7 @@ namespace GrowSense.Core.Verifiers
             {
                 Console.WriteLine("Verifying upgrade service is installed...");
 
-                EnsureSystemctlServiceIsRunning("growsense-upgrade");
+                AssertSystemctlServiceExists("growsense-upgrade");
             }
         }
     }
