@@ -20,7 +20,7 @@ if [ "$BRANCH" = "dev" ];  then
 
   echo ""
   echo "  Checking out the master branch..."
-  git checkout master || exit 1
+  git checkout master --force || exit 1
 
 #  # Ensure it's up to date
 #  git pull origin master --quiet && \

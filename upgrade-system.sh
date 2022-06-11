@@ -8,6 +8,12 @@ fi
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+bash gs.sh upgrade
+
+exit 0
+
+# TODO: Remove following code. Should be obsolete now the upgrade is done via the CLI
+
 HOST=$(cat /etc/hostname)
 
 INSTALLED_VERSION="$(cat version.txt)-$(cat buildnumber.txt)"

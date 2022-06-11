@@ -19,7 +19,7 @@ build-sketches:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
@@ -36,7 +36,7 @@ build:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - cp .gitmodules.lan .gitmodules
     - git submodule sync --recursive
@@ -62,7 +62,7 @@ build-www:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - git submodule update --init
     - cat full-version.txt
@@ -80,7 +80,7 @@ test-cli-slow:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - cat full-version.txt
   script:
@@ -95,7 +95,7 @@ test-cli-fast:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - cat full-version.txt
   script:
@@ -112,7 +112,7 @@ test-unit:
   before_script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - cat full-version.txt
   script:
@@ -128,7 +128,7 @@ test-deploy:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
     - cp .gitmodules.lan .gitmodules
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - git submodule sync --recursive
     - git submodule update --init --recursive
@@ -147,7 +147,7 @@ release:
   script:
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
     - bash increment-version.sh
     - bash delete-github-release.sh
@@ -166,7 +166,7 @@ graduate:
     - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
   script:
     - bash clean.sh
@@ -183,11 +183,14 @@ version:
     - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/index.git
     - git config --global user.email "compulsivecoder@gmail.com"
     - git config --global user.name "CompulsiveCoder"
-    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
   script:
     - bash increment-version.sh
     - bash push-version.sh
+ 
+ 
+ 
  
  
  
