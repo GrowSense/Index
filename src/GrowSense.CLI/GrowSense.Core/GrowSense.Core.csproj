@@ -98,6 +98,8 @@
     <Compile Include="Installers\UpgradeServiceInstaller.cs" />
     <Compile Include="Verifiers\UpgradeServiceVerifier.cs" />
     <Compile Include="VersionReader.cs" />
+    <Compile Include="Model\WwwSystemStatusInfo.cs" />
+    <Compile Include="Model\WwwSystemStatusEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installers\" />
