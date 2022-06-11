@@ -8,10 +8,10 @@ then
 
   sh clean.sh
 
-  echo " " >> Jenkinsfile
+  echo " " >> .gitlab-ci.yml
   
-  git pull origin dev && \
-  git commit Jenkinsfile -m "Forcing retest" && \
+  bash pull.sh && \
+  git commit .gitlab-ci.yml -m "Forcing retest" && \
   bash push.sh || exit 1
   
   echo "Repository has been updated. Test should now start on test server."

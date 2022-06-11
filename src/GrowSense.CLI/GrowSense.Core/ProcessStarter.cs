@@ -139,8 +139,11 @@ namespace GrowSense.Core
       process.ErrorDataReceived += new DataReceivedEventHandler(
           delegate (object sender, DataReceivedEventArgs e)
           {
-            Console.SetOut(c);
-            c.WriteLine(e.Data);
+              if (WriteOutputToConsole)
+              {
+                  Console.SetOut(c);
+                  c.WriteLine(e.Data);
+              }
             OutputBuilder.Append(e.Data);
           }
       );
@@ -149,8 +152,11 @@ namespace GrowSense.Core
       process.OutputDataReceived += new DataReceivedEventHandler(
           delegate (object sender, DataReceivedEventArgs e)
           {
-            Console.SetOut(c);
-            c.WriteLine(e.Data);
+              if (WriteOutputToConsole)
+              {
+                  Console.SetOut(c);
+                  c.WriteLine(e.Data);
+              }
             OutputBuilder.Append(e.Data);
           }
       );

@@ -9,6 +9,8 @@ namespace GrowSense.Core.Tests.Deploy
     public SshHelper Ssh;
     public string Version;
     public string Branch;
+        public bool EnableDownload = true;
+        public bool AllowSkipDownload = false;
 
     
     public DeploymentManager(DeploymentInfo deployment, string branch, string version)
@@ -43,9 +45,9 @@ namespace GrowSense.Core.Tests.Deploy
     public void DownloadAndLaunchInstall()
     {
       Console.WriteLine("");
-      Console.WriteLine("Downloading and launching install...");
+      Console.WriteLine("Downloading installer and launching install (via script)...");
 
-      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- install --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
+      var installCommand = "sudo wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- install --branch=" + Branch + " --to=/usr/local/ --enable-download=" + EnableDownload + " --allow-skip-download=" + AllowSkipDownload + " --version=" + Version;
 
       Ssh.Starter.EnableErrorCheckingByTextMatching = false;
       Ssh.Execute(installCommand);
@@ -55,9 +57,9 @@ namespace GrowSense.Core.Tests.Deploy
     public void DownloadAndLaunchUpgrade()
     {
       Console.WriteLine("");
-      Console.WriteLine("Downloading and launching upgrade...");
+      Console.WriteLine("Downloading installer and launching upgrade (via script)...");
 
-      var installCommand = "sudo wget --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- upgrade --branch=" + Branch + " --to=/usr/local/ --enable-download=false --allow-skip-download=true --version=" + Version;
+            var installCommand = "sudo wget -q --no-cache -O - https://raw.githubusercontent.com/GrowSense/Installer/" + Branch + "/scripts-download/download-installer.sh | sudo bash -s -- upgrade --branch=" + Branch + " --to=/usr/local/ --enable-download=" + EnableDownload + " --allow-skip-download=" + AllowSkipDownload + " --version=" + Version;
       Ssh.Starter.EnableErrorCheckingByTextMatching = false;
       Ssh.Execute(installCommand);
       Ssh.Starter.EnableErrorCheckingByTextMatching = true;
