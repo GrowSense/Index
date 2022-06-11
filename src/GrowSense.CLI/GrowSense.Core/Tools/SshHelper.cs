@@ -74,11 +74,14 @@ namespace GrowSense.Core.Tools
 
         public bool DirectoryExists(string directory)
         {
-            var cmd = "[ -d \"" + directory + "\" ] && echo true || echo false";
+            var cmd = "[ -d \"" + directory + "\" ] && printf '\ntrue' || printf \nfalse"; // Newline before value so it's placed on a new line, and it can be parsed even if the SSH command outputs messages before it
             var output = Execute(cmd);
             try
             {
-                var result = Convert.ToBoolean(output.Trim());
+                var lines = output.Trim().Split('\n');
+                var lastLine = lines[lines.Length - 1].Trim();
+                Console.WriteLine("Last line: " + lastLine);
+                var result = Convert.ToBoolean(lastLine);
                 return result;
             }
             catch (FormatException ex)
