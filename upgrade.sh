@@ -11,9 +11,10 @@ if [ -f "is-upgrading.txt" ]; then
   exit 0
 fi
 
-echo ""
-echo "  Updating repository...."
-bash update.sh
+# TODO: Remove if not needed. Updates no longer happen using git so shouldn't be needed
+#echo ""
+#echo "  Updating repository...."
+#bash update.sh
 
 if [ "$?" -eq "0" ]; then
   echo ""

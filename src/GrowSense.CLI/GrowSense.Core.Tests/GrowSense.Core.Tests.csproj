@@ -63,6 +63,7 @@
     <Compile Include="Deploy\Direct\DeployDirectUpgradeTestFixture.cs" />
     <Compile Include="Deploy\FromWeb\DeployFromWebInstallTestFixture.cs" />
     <Compile Include="Deploy\FromWeb\DeployFromWebUpgradeTestFixture.cs" />
+    <Compile Include="Installers\UpgradeServiceInstallerTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />

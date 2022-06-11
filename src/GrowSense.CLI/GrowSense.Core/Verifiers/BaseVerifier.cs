@@ -113,6 +113,10 @@ namespace GrowSense.Core.Verifiers
 
                 throw new Exception("Systemctl service file " + serviceName + " doesn't exist at " + filePath);
             }
+            else
+            {
+                Console.WriteLine("  Service found!");
+            }
         }
 
         public void AssertSystemctlServiceIsRunning(string serviceName)
@@ -123,6 +127,22 @@ namespace GrowSense.Core.Verifiers
 
             if (!Context.Settings.IsMockSystemCtl)
             {
+                var output = SystemCtl.StatusReport(serviceName);
+
+                AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
+            }
+        }
+
+        public void EnsureSystemctlServiceIsRunning(string serviceName)
+        {
+            Console.WriteLine("  Ensuring systemctl service is running...");
+
+            Console.WriteLine("    Is mock systemctl: " + (this.SystemCtl.GetType().Name.IndexOf("Mock") > -1));
+
+            if (!Context.Settings.IsMockSystemCtl)
+            {
+                SystemCtl.Start(serviceName);
+
                 var output = SystemCtl.StatusReport(serviceName);
 
                 AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
