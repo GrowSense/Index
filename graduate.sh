@@ -27,7 +27,7 @@ if [ "$BRANCH" = "dev" ];  then
 
   echo ""
   echo "  Merging the dev branch into the master branch..."
-  git merge -X theirs origin/dev || exit 1
+  git merge --no-edit -X theirs origin/dev || exit 1
 
   echo ""
   echo "  Pushing the updated master branch to origin..."
