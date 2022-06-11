@@ -128,5 +128,21 @@ namespace GrowSense.Core.Verifiers
                 AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
             }
         }
+
+        public void EnsureSystemctlServiceIsRunning(string serviceName)
+        {
+            Console.WriteLine("  Ensuring systemctl service is running...");
+
+            Console.WriteLine("    Is mock systemctl: " + (this.SystemCtl.GetType().Name.IndexOf("Mock") > -1));
+
+            if (!Context.Settings.IsMockSystemCtl)
+            {
+                SystemCtl.Start(serviceName);
+
+                var output = SystemCtl.StatusReport(serviceName);
+
+                AssertTextContains(output, "active (running)", "Systemctl service is not running: " + serviceName);
+            }
+        }
     }
 }
