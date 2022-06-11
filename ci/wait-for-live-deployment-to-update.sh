@@ -60,7 +60,7 @@ echo "    Port: $deploymentPort"
 
 while [ $isUpToDate == 0 ] && [ $attemptCount -lt $maxAttempts ];
 do
-    result=$(sshpass -p $deploymentPassword ssh -o "StrictHostKeyChecking no" $deploymentUsername@$deploymentHost "cd /usr/local/GrowSense/Index; bash gs.sh status")
+    result=$(sshpass -p $deploymentPassword ssh -o "StrictHostKeyChecking no" $deploymentUsername@$deploymentHost "cd /usr/local/GrowSense/Index; sudo bash gs.sh status")
 
     echo "$result"
 
