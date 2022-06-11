@@ -88,7 +88,6 @@ namespace GrowSense.Core.Installers
             ArduinoPlugAndPlay.Install();
 
             Supervisor.Install();
-            UpgradeService.Install();
             WWW.Install();
 
             foreach (var command in OtherCommands)
@@ -99,6 +98,9 @@ namespace GrowSense.Core.Installers
             SettingsManager.SaveSettings(Context.Settings);
 
             Verifier.VerifyInstallation();
+
+            // Install the upgrade service last because the install process causes the upgrade service to stop which kills the upgrade process and anything executed after it
+            UpgradeService.Install();
 
         }
 
