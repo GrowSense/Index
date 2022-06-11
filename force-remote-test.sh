@@ -6,12 +6,14 @@ if [ "$BRANCH" = "dev" ]
 then
   echo "Forcing remote test"
 
-  sh clean.sh
-
+  bash clean.sh
+  
   echo " " >> .gitlab-ci.yml
   
   bash pull.sh && \
-  git commit .gitlab-ci.yml -m "Forcing retest" && \
+  bash increment-version.sh && \
+
+  git commit .gitlab-ci.yml full-version.txt buildnumber.txt -m "Forcing retest" && \
   bash push.sh || exit 1
   
   echo "Repository has been updated. Test should now start on test server."
