@@ -63,6 +63,9 @@ namespace GrowSense.Core.Tests.Deploy.Direct
             Console.WriteLine("Setting supervisor settings...");
             manager.Ssh.Execute("echo 10 > supervisor-status-check-frequency.txt && echo 10 > supervisor-docker-check-frequency.txt && echo 10 > supervisor-mqtt-check-frequency.txt");
 
+            Console.WriteLine("Checking system status...");
+            manager.AssertStatus(version);
+
             Console.WriteLine("Deploy installation successful.");
         }
 

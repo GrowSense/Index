@@ -61,6 +61,9 @@ namespace GrowSense.Core.Tests.Deploy.Direct
             Console.WriteLine("Verifying installation...");
             manager.Ssh.Execute("bash gs.sh verify");
 
+            Console.WriteLine("Checking system status...");
+            manager.AssertStatus(version);
+
             Console.WriteLine("Deploy upgrade successful.");
         }
 
