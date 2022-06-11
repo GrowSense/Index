@@ -100,6 +100,7 @@
     <Compile Include="VersionReader.cs" />
     <Compile Include="Model\WwwSystemStatusInfo.cs" />
     <Compile Include="Model\WwwSystemStatusEnum.cs" />
+    <Compile Include="StatusChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installers\" />

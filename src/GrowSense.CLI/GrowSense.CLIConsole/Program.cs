@@ -74,6 +74,9 @@ namespace GrowSense.Core
                         case "version":
                             manager.CheckVersion();
                             break;
+                        case "status":
+                            manager.CheckStatus();
+                            break;
                         default:
                             Console.WriteLine("Unknown command: " + command);
                             Environment.Exit(1);
