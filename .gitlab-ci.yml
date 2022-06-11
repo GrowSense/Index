@@ -149,7 +149,7 @@ release:
     - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH" && git pull --force && git merge -Xtheirs $CI_COMMIT_BRANCH
     - bash pull.sh
-    - bash increment-version.sh
+    - "echo 'Skipping increment version' #bash increment-version.sh
     - bash delete-github-release.sh
     - bash create-release-zip.sh
     - bash publish-github-release.sh
