@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace GrowSense.Core.Tests
+namespace GrowSense.Core.Tests.CLI
 {
     [TestFixture]
     public class VersionCommandCLITestFixture : BaseTestFixture

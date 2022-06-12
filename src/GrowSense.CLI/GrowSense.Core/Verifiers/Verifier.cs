@@ -47,6 +47,8 @@ namespace GrowSense.Core.Verifiers
 
         public void VerifyInstallation()
         {
+            Console.WriteLine("Verifying installation...");
+
             WaitForPlugAndPlay();
 
             Docker.Verify();
