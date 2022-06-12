@@ -64,8 +64,8 @@
     <Compile Include="Deploy\FromWeb\DeployFromWebInstallTestFixture.cs" />
     <Compile Include="Deploy\FromWeb\DeployFromWebUpgradeTestFixture.cs" />
     <Compile Include="Installers\UpgradeServiceInstallerTestFixture.cs" />
-    <Compile Include="VersionCommandCLITestFixture.cs" />
     <Compile Include="CLI\StatusCommandCLITestFixture.cs" />
+    <Compile Include="CLI\VersionCommandCLITestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CLI\" />
