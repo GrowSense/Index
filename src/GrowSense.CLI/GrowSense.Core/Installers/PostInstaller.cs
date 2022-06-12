@@ -82,6 +82,9 @@ namespace GrowSense.Core.Installers
             Python.Install();
             PlatformIO.Install();
             Mqtt.Install();
+
+            UpgradeService.Install();
+
             MqttBridge.Install();
             UIController.Install();
 
@@ -98,10 +101,6 @@ namespace GrowSense.Core.Installers
             SettingsManager.SaveSettings(Context.Settings);
 
             Verifier.VerifyInstallation();
-
-            // Install the upgrade service last because the install process causes the upgrade service to stop which kills the upgrade process and anything executed after it
-            UpgradeService.Install();
-
         }
 
         public void CreateMockFiles()

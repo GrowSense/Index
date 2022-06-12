@@ -100,6 +100,8 @@ namespace GrowSense.Core
                 var mockSystemCtl = new MockSystemCtlHelper(context);
                 manager.PostInstall.ArduinoPlugAndPlay.Verifier.SystemCtl = mockSystemCtl;
                 manager.PostInstall.Docker.Verifier.SystemCtl = mockSystemCtl;
+                manager.PostInstall.UpgradeService.SystemCtl = mockSystemCtl;
+                manager.PostInstall.UpgradeService.Verifier.SystemCtl = mockSystemCtl;
 
                 manager.PostInstall.Supervisor.Verifier.SystemCtl = mockSystemCtl;
                 manager.PostInstall.WWW.Verifier.SystemCtl = mockSystemCtl;
@@ -109,6 +111,7 @@ namespace GrowSense.Core
                 manager.PostInstall.Verifier.Docker.SystemCtl = mockSystemCtl;
                 manager.PostInstall.Verifier.Supervisor.SystemCtl = mockSystemCtl;
                 manager.PostInstall.Verifier.WWW.SystemCtl = mockSystemCtl;
+                manager.PostInstall.Verifier.UpgradeService.SystemCtl = mockSystemCtl;
             }
 
             if (context.Settings.IsMockDocker)

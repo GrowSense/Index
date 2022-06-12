@@ -22,8 +22,10 @@ namespace GrowSense.Core.Tests.Installers
             var settings = new CLISettings();
 
             var context = new CLIContext(Environment.CurrentDirectory, settings);
+            var mockSystemCtlHelper = new MockSystemCtlHelper(context);
             var installer = new UpgradeServiceInstaller(context);
-            installer.Verifier.SystemCtl = new MockSystemCtlHelper(context);
+            installer.SystemCtl = mockSystemCtlHelper;
+            installer.Verifier.SystemCtl = mockSystemCtlHelper;
 
             installer.Install();
         }
