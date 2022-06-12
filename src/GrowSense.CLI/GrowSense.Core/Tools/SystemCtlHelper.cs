@@ -141,6 +141,9 @@ namespace GrowSense.Core.Tools
 
             Console.WriteLine("  Path: " + serviceFilePath);
 
+            if (!Directory.Exists(Path.GetDirectoryName(serviceFilePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(serviceFilePath));
+
             File.WriteAllText(serviceFilePath, serviceContent);
 
             if (startService)
