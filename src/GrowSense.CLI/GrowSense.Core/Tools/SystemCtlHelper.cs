@@ -139,6 +139,8 @@ namespace GrowSense.Core.Tools
 
             var serviceFilePath = GetServiceFilePath(name);
 
+            Console.WriteLine("  Path: " + serviceFilePath);
+
             File.WriteAllText(serviceFilePath, serviceContent);
 
             if (startService)

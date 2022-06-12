@@ -25,7 +25,7 @@ namespace GrowSense.Core.Tools.Mock
 
     public override string GetServiceFilePath(string serviceName)
     {
-      return "mock/services/" + serviceName.Replace(".service", "") + ".service";
+      return Context.IndexDirectory + "/mock/services/" + serviceName.Replace(".service", "") + ".service";
     }
   }
 }
